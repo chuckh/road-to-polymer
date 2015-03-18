@@ -107,7 +107,7 @@
     
 		<core-ajax id="get_repos_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
-			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
 			handleAs="json"
 			loading="{{loading1}}"
 			progress="{{progress}}"
@@ -118,7 +118,7 @@
   
 		<core-ajax id="get_repos_page2_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
-			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
 			handleAs="json"
 			loading="{{loading2}}"
 			progress="{{progress2}}"
@@ -221,6 +221,7 @@
 	  currentRelease: 0,
 	  currentReleasehName: "",
 	  currentError: "",
+	  tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51",
   
 	  ready: function() {
 	    console.log("repos-list ready");
