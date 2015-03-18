@@ -1,0 +1,27 @@
+{
+  "name": "road-to-polymer",
+  "version": "0.0.1",
+  "homepage": "https://github.com/chuckh/road-to-polymer",
+  "authors": [
+    "Chuck Horton <chuckh@hware.com>"
+  ],
+  "description": "Reports and Notes for Migrating to Polymer 0.8",
+  "keywords": [
+    "Polymer"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.5",
+    "core-ajax": "Polymer/core-ajax#~0.5.5",
+    "core-header-panel": "Polymer/core-header-panel#~0.5.5",
+    "paper-radio-group": "Polymer/paper-radio-group#~0.5.5",
+    "core-media-query": "Polymer/core-media-query#~0.5.5"
+  }
+}
