@@ -1,6 +1,6 @@
 {
   "name": "road-to-polymer",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "homepage": "https://github.com/chuckh/road-to-polymer",
   "authors": [
     "Chuck Horton <chuckh@hware.com>"
@@ -22,6 +22,7 @@
     "core-ajax": "Polymer/core-ajax#~0.5.5",
     "core-header-panel": "Polymer/core-header-panel#~0.5.5",
     "paper-radio-group": "Polymer/paper-radio-group#~0.5.5",
-    "core-media-query": "Polymer/core-media-query#~0.5.5"
+    "core-media-query": "Polymer/core-media-query#~0.5.5",
+    "paper-icon-button": "Polymer/paper-icon-button#~0.5.5"
   }
 }
