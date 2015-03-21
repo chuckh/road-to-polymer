@@ -12,6 +12,8 @@
   <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
   <link rel="import" href="bower_components/core-media-query/core-media-query.html">
   <link rel="import" href="bower_components/font-roboto/font-roboto.html"> 
+  <link rel="import" href="bower_components/core-icons/core-icons.html"> 
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"> 
   
   <style>
 	  html, body {
@@ -94,6 +96,20 @@
 		      border-color: #FFFF00;
 		    }
 			
+			.search {
+			  margin-top: 10px;
+  		      font-size: 14px;
+		      text-align: left;
+			  padding-right: 20px;
+			}
+			
+			#search_input {
+  			  margin-top: 10px;
+    		  font-size: 20px;
+			  padding: 10px;
+			  min-width: 300px;
+			}
+			
 			.titles {
 				margin-left: -12px;
 				font-size: 16px;
@@ -105,7 +121,7 @@
 		      text-align: center;	
 			}
 	    </style>
-	    <core-media-query query="min-width: 1200px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+	    <core-media-query query="min-width: 1250px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
     
 		<core-ajax id="get_repos_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
@@ -153,8 +169,8 @@
 		  <div class="core-header">
 			  <div horizontal layout>
 			  Polymer Repositories Status
-			  <div id="filter_container" class="filter" flex>Filter: 
-				  <paper-radio-group selected="all" class="yellow">
+			  <div id="filter_container" class="filter" flex><span id="filter_title">Filter:</span>
+				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
 				    <paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button>
 				    <paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button>
 				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
@@ -164,11 +180,15 @@
 				    <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
 				  </paper-radio-group>
 			  </div>
+			  <div id="search" class="search" horizontal layout>
+				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
+				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
 			  </div>
+    		</div>
 			  
   		    <div horizontal layout class="titles">
   		      <div class="cntr">Cntr</div>
-  		      <div flex>Repositories</div>
+  		      <div flex>Name</div>
   		      <div flex three>Description</div>
   		      <div flex class="center">Cur Release</div>
   		      <div flex class="center">0.8-{{branchLookingFor}}</div>
@@ -224,6 +244,7 @@
 	  currentReleasehName: "",
 	  currentError: "",
 	  tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51",
+      searchValue: "",
   
 	  ready: function() {
 	    console.log("repos-list ready");
@@ -333,10 +354,15 @@
 	  },
 	  
 	  filterRepos: function(e, detail, sender) {
-		  //console.log("filterRepos", sender.label);
-		  if (sender.label === "All") {
+		  console.log("filterRepos", sender.label, sender.id);
+		  if (sender.id === "search_input") {
+			  this.$.radio_group_filter.selected = 0;
+		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+		        return d[0].indexOf(this.searchValue) > -1;
+		      }.bind(this));
+		  } else if (sender.label === "All") {
 			this.$.yes_counter.hidden = true;
-		  	this.reposAllFiltered = this.reposAll
+		  	this.reposAllFiltered = this.reposAll;
 		  } else if (sender.label === "Core") {
 			  this.$.yes_counter.hidden = true;
 		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
@@ -379,6 +405,18 @@
 		 this.$.filter_container.hidden = !this.mediumScreen
          // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
        },
+	   
+	   toggleSearch: function(e, detail, sender) {
+		   if (this.$.radio_group_filter.hidden) {
+			   this.$.radio_group_filter.hidden = false;
+			   this.$.search_input.hidden = true;
+			   this.$.filter_title.hidden = false;
+		   } else {
+			   this.$.radio_group_filter.hidden = true;
+			   this.$.search_input.hidden = false;
+			   this.$.filter_title.hidden = true;
+		   }
+	   },
   
 	});
 	</script>
