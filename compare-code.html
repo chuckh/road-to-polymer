@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   <!-- build:css styles/main.css -->
- <link rel="stylesheet" href="styles/main.css">   
+ <link rel="stylesheet" href="styles/main.css">
  <!-- endbuild-->
 
    <style>
@@ -20,6 +20,7 @@
    </style>
 
   <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="bower_components/core-ajax/core-ajax.html">
   <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
   <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
@@ -29,7 +30,6 @@
   <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
   <link rel="import" href="bower_components/core-menu/core-menu.html">
   <link rel="import" href="bower_components/core-item/core-item.html">
-  <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="bower_components/paper-input/paper-input.html">
   <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
@@ -43,17 +43,38 @@
     https://api.github.com/repos/Polymer/core-toolbar/contents/core-toolbar.html?ref=master
     <template fit>
     <style>
+      #menu_panel {
+        min-width: 250px;
+        height: 100%;
+      }
+
+      #menu_toolbar {
+        background-color: #eee;
+      }
+
       .page-toolbar {
         color: #fff;
+        font-size: 1.2em;
         font-weight: 200;
         line-height: 30px;
-        background-color: #7986cb;
+        background-color: #4F7DC9;
+         /*7986cb polymer-project.org header color*/
+      }
+      .page-toolbar-small {
+        color: #fff;
+        font-size: 0.9em;
+        font-weight: 200;
+        line-height: 30px;
+        background-color: #4F7DC9;
       }
       .left {
         padding: 10px;
         background-color: #ddd;
       }
-
+      #code5, #code8 {
+        overflow: auto;
+        overflow-y: hidden;
+      }
       .right {
         padding: 10px;
         background-color: #eee;
@@ -68,7 +89,47 @@
         font-size: 18px;
       }
 
+      .error {
+        width: 100%;
+        padding-left: 10px;
+        color: red;
+        text-align: left;
+      }
+
+      .instructions {
+        font-size:0.7em;
+      }
+
+      footer {
+        font-size: 10px;
+
+      }
+
     </style>
+
+    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+
+    <core-ajax id="get_repos_ajax" auto
+			url="https://api.github.com/users/Polymer/repos",
+			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+			handleAs="json"
+			loading="{{loading1}}"
+			progress="{{progress}}"
+			response="{{repos}}"
+			on-core-response="{{handleReposResponse}}"
+			on-core-error="{{handleReposErrorResponse}}">
+		</core-ajax>
+
+		<core-ajax id="get_repos_page2_ajax" auto
+			url="https://api.github.com/users/Polymer/repos",
+			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+			handleAs="json"
+			loading="{{loading2}}"
+			progress="{{progress2}}"
+			response="{{repos2}}"
+			on-core-response="{{handleRepos2Response}}">
+		</core-ajax>
 
     <core-ajax id="get_code5_ajax"
       url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=master",
@@ -92,34 +153,66 @@
       on-core-error="{{handleCode8ErrorResponse}}">
     </core-ajax>
 
-    <core-header-panel main mode="seamed" fit>
+    <div horizontal layout fit>
 
-      <!-- Main Toolbar -->
-      <core-toolbar class="page-toolbar">
-        Compare Code 0.5 to 0.8 -->
-        <paper-input label="Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
-        <span style="font-size:0.8em"><-- input polymer element name then press enter key</span>
-        <!-- <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button> -->
-      </core-toolbar>
+      <core-header-panel mode="seamed" id="menu_panel">
+        <core-toolbar id="menu_toolbar">
+          <paper-input label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
+        </core-toolbar>
 
-      <!-- Main Content -->
-      <div class="page" fit>
-        <div horizontal layout>
-          <div flex class="left"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
-          <div flex class="right"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
+        <div class="content">
+          <core-menu on-core-select="{{loadCompare}}" id="reposMenu">
+            <template repeat="{{repoAll, j in reposAllFiltered}}">
+              <core-item label="{{repoAll[0]}}"></core-item>
+            </template>
+
+            <h3 id="error_message" class="error"></h3>
+
+            <hr>
+            <footer>
+              By Chuck Horton -- email chuckh @ hware.com<br>
+              (Click Repo Name to load)<br>
+            </footer>
+
+          </core-menu>
         </div>
-        <div horizontal layout class="code">
-          <div flex class="left" id="code5">
-            <marked-element id="code5_marked"></marked-element>
-          </div>
+      </core-header-panel>
 
-          <div flex class="right" id="code8">
-            <marked-element id="code8_marked"></marked-element>
+      <core-header-panel main mode="seamed" flex>
+
+        <!-- Main Toolbar -->
+        <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
+          <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
+          Compare Code 0.5 to 0.8 -->
+          <paper-input label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
+          <span class="instructions"><-- input polymer element name then press enter key, or select from left sidebar</span>
+        </core-toolbar>
+
+        <!-- Main Content -->
+        <div class="page" fit>
+          <div horizontal layout flex>
+
+            <div vertical layout flex>
+              <div horizontal layout>
+                <div flex class="left"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
+                <div flex class="right"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
+              </div>
+              <div horizontal layout class="code">
+                <div flex class="left" id="code5">
+                  <marked-element id="code5_marked"></marked-element>
+                </div>
+                <div flex class="right" id="code8">
+                  <marked-element id="code8_marked"></marked-element>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-      </div>
 
-    </core-header-panel>
+      </core-header-panel>
+
+    </div>
 
   </template>
 
@@ -127,25 +220,29 @@
     Polymer({
 
       repoName: "core-toolbar",
+      repoName1: "",
       errorMessage5: "",
       errorMessage8: "",
       tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51",
+      repos1Loaded: false,
+      repos2Loaded: false,
+      reposLoaded: false,
+      reposAll: [],
+      pageToolbarClass: "page-toolbar",
 
       ready: function() {
         // this.repoName = "core-toolbar";
         console.log("compare-code ready");
+        this.$.error_message.innerHTML = "Loading Repos..."
         var elParam = this.getURLParameter('el');
         console.log("compare-code ready", elParam);
         if (elParam) {
           console.log("  elParam-code: ", elParam);
           this.repoName = elParam;
+          this.$.menu_panel.hidden = true;
         }
   	    this.searchForRepo();
       },
-
-      // function: getURLParameterx(name) {
-      //   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
-      // },
 
       getURLParameter: function(name) {
          if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
@@ -165,6 +262,56 @@
           this.$.get_code8_ajax.abort();
           this.$.get_code8_ajax.go();
         }
+      },
+
+      handleReposResponse: function(event) {
+  	    this.repos1Loaded = true;
+  	    console.log("handleReposResponse", this.$.get_repos_ajax.loading);
+  	    if (this.repos2Loaded) {
+  	      this.reposLoaded = true;
+  	      this.reposCombineAndFilter();
+  	    }
+  	  },
+      handleReposErrorResponse: function(event) {
+        var error = this.$.get_repos_ajax.error;
+        console.log("Error: " + error.statusCode + " - " + error.message);
+        this.currentError = error.statusCode;
+        this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
+      },
+
+      handleRepos2Response: function() {
+        this.repos2Loaded = true;
+        if (this.repos1Loaded && !this.reposLoaded) {
+          this.reposLoaded = true;
+          this.reposCombineAndFilter();
+        }
+        console.log("handleRepos2Response",this.repos2Loaded);
+      },
+
+      reposCombineAndFilter: function (event) {
+        console.log("reposCombineSort",this.reposLoaded);
+        var dataLen = this.repos.length;
+        for (var i = 0; i < dataLen; i++) {
+          if (this.repos[i].description) {
+            if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
+              this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+            }
+          } else {
+            this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+          }
+        }
+        var dataLen2 = this.repos2.length;
+        for (var i = 0; i < dataLen2; i++) {
+          if (this.repos2[i].description) {
+            if (this.repos2[i].description.indexOf("DEPRECATED") < 0) {
+              this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
+            }
+          } else {
+            this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
+          }
+        }
+        this.reposAllFiltered = this.reposAll;
+        this.$.error_message.innerHTML = "";
       },
 
       handleCode5Response: function(event) {
@@ -191,6 +338,51 @@
         this.$.code8_marked.text = " ";
         console.log("Error: " + error.statusCode + " - " + error.message);
       },
+
+      toggleMenu: function() {
+        this.$.menu_panel.hidden = this.$.menu_panel.hidden ? false : true;
+      },
+
+      loadCompare: function() {
+        var selected = this.$.reposMenu.selected;
+        var rName = this.reposAllFiltered[this.$.reposMenu.selected][0];
+        console.log("loadCompare: ",selected, rName);
+        if (selected > -1) {
+          this.repoName = rName;
+          this.$.menu_panel.hidden = true;
+          this.searchForRepo();
+        }
+      },
+
+      filterRepos: function(e, detail, sender) {
+        console.log("filterRepos", sender.label, sender.id);
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d[0].indexOf(this.repoName1) > -1;
+        }.bind(this));
+      },
+
+      reposViewResized: function(e, detail, sender) {
+        var contentWidth = 0;
+        if (this.$.core_header_panel) {
+          contentWidth = this.$.core_header_panel.clientWidth;
+        }
+
+        if (this.mediumScreen) {
+          this.$.menu_panel.hidden = false;
+        } else {
+          this.$.menu_panel.hidden = true;
+        }
+
+        if (this.smallScreen) {
+          this.$.menu_panel.hidden = true;
+          this.pageToolbarClass = "page-toolbar-small";
+        } else {
+          this.pageToolbarClass = "page-toolbar";
+        }
+
+        console.log("reposViewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
+      },
+
     });
   </script>
 
