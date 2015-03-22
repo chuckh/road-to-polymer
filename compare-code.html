@@ -98,15 +98,15 @@
       <core-toolbar class="page-toolbar">
         Compare Code 0.5 to 0.8 -->
         <paper-input label="Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
-        <span style="font-size:0.8em"><-- input polymer element name then press enter key</span> 
+        <span style="font-size:0.8em"><-- input polymer element name then press enter key</span>
         <!-- <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button> -->
       </core-toolbar>
 
       <!-- Main Content -->
       <div class="page" fit>
         <div horizontal layout>
-          <div flex class="left"><h3>Polymer 0.5 <span class="error-message">{{errorMessage5}}</span></h3></div>
-          <div flex class="right"><h3>Polymer 0.8 <span class="error-message">{{errorMessage8}}</span></h3></div>
+          <div flex class="left"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
+          <div flex class="right"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
         </div>
         <div horizontal layout class="code">
           <div flex class="left" id="code5">
