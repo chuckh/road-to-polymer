@@ -28,6 +28,7 @@
     "marked-element": "Polymer/marked-element#~0.5.5",
     "core-menu": "Polymer/core-menu#~0.5.5",
     "core-toolbar": "Polymer/core-toolbar#~0.5.5",
-    "paper-input": "Polymer/paper-input#~0.5.5"
+    "paper-input": "Polymer/paper-input#~0.5.5",
+    "core-list": "Polymer/core-list#~0.5.5"
   }
 }
