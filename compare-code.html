@@ -33,359 +33,383 @@
   <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="bower_components/paper-input/paper-input.html">
   <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
-  <link rel="import" href="bower_components/marked-element/marked-element.html">
+  <!-- <link rel="import" href="bower_components/marked-element/marked-element.html"> -->
+  <link rel="import" href="bower_components/prism-js/prism-js.html">
 
 </head>
 
 <body unresolved fullbleed layout vertical>
 
   <polymer-element name="compare-code" attributes="" >
-    https://api.github.com/repos/Polymer/core-toolbar/contents/core-toolbar.html?ref=master
+
     <template fit>
-    <style>
-      #menu_panel {
-        min-width: 250px;
-        height: 100%;
-      }
+      <style>
+        #menu_panel {
+          min-width: 250px;
+          height: 100%;
+        }
 
-      #menu_toolbar {
-        background-color: #eee;
-      }
+        #menu_toolbar {
+          background-color: #f5f2f0;
+        }
 
-      .page-toolbar {
-        color: #fff;
-        font-size: 1.2em;
-        font-weight: 200;
-        line-height: 30px;
-        background-color: #4F7DC9;
-         /*7986cb polymer-project.org header color*/
-      }
-      .page-toolbar-small {
-        color: #fff;
-        font-size: 0.9em;
-        font-weight: 200;
-        line-height: 30px;
-        background-color: #4F7DC9;
-      }
-      .left {
-        padding: 10px;
-        background-color: #ddd;
-      }
-      #code5, #code8 {
-        overflow: auto;
-        overflow-y: hidden;
-      }
-      .right {
-        padding: 10px;
-        background-color: #eee;
-      }
+        .page-toolbar {
+          color: #fff;
+          font-size: 1.2em;
+          font-weight: 200;
+          line-height: 30px;
+          background-color: #4F7DC9;
+           /*7986cb polymer-project.org header color*/
+        }
+        .page-toolbar-small {
+          color: #fff;
+          font-size: 0.9em;
+          font-weight: 200;
+          line-height: 30px;
+          background-color: #4F7DC9;
+        }
 
-      .code {
-        font-size: 14px;
-      }
-      .error-message {
-        color: red;
-        font-weight: 400;
-        font-size: 18px;
-      }
+        .left-title {
+          padding: 20px;
+          height: 30px;
+          background-color: #f5f2f0;
+          border-bottom: 1px solid slategray;
+        }
+        .right-title {
+          padding: 20px;
+          height: 30px;
+          color: slategray;
+          background-color: #272822;
+          border-bottom: 1px solid slategray;
+        }
 
-      .error {
-        width: 100%;
-        padding-left: 10px;
-        color: red;
-        text-align: left;
-      }
+        .left {
+          padding: 0;
+          background-color: #f5f2f0;
+        }
+        .right {
+          padding: 0;
+          background-color: #272822;
+        }
 
-      .instructions {
-        font-size:0.7em;
-      }
+        #code5, #code8 {
+          overflow: auto;
+          overflow-y: hidden;
+        }
 
-      footer {
-        font-size: 10px;
+        .code {
+          font-size: 14px;
+        }
+        .error-message {
+          color: red;
+          font-weight: 400;
+          font-size: 18px;
+        }
 
-      }
+        .error {
+          width: 100%;
+          padding-left: 10px;
+          color: red;
+          text-align: left;
+        }
 
-    </style>
+        .instructions {
+          font-size:0.7em;
+        }
 
-    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
-    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+        footer {
+          font-size: 10px;
 
-    <core-ajax id="get_repos_ajax" auto
-			url="https://api.github.com/users/Polymer/repos",
-			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loading1}}"
-			progress="{{progress}}"
-			response="{{repos}}"
-			on-core-response="{{handleReposResponse}}"
-			on-core-error="{{handleReposErrorResponse}}">
-		</core-ajax>
+        }
 
-		<core-ajax id="get_repos_page2_ajax" auto
-			url="https://api.github.com/users/Polymer/repos",
-			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loading2}}"
-			progress="{{progress2}}"
-			response="{{repos2}}"
-			on-core-response="{{handleRepos2Response}}">
-		</core-ajax>
+      </style>
 
-    <core-ajax id="get_code5_ajax"
-      url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=master",
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-      handleAs="json"
-      loading="{{loading5}}"
-      progress="{{progress5}}"
-      response="{{code5}}"
-      on-core-response="{{handleCode5Response}}"
-      on-core-error="{{handleCode5ErrorResponse}}">
-    </core-ajax>
+      <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+      <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
 
-    <core-ajax id="get_code8_ajax"
-      url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview",
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-      handleAs="json"
-      loading="{{loading8}}"
-      progress="{{progress8}}"
-      response="{{code8}}"
-      on-core-response="{{handleCode8Response}}"
-      on-core-error="{{handleCode8ErrorResponse}}">
-    </core-ajax>
+      <core-ajax id="get_repos_ajax" auto
+  			url="https://api.github.com/users/Polymer/repos",
+  			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+  			handleAs="json"
+  			loading="{{loading1}}"
+  			progress="{{progress}}"
+  			response="{{repos}}"
+  			on-core-response="{{handleReposResponse}}"
+  			on-core-error="{{handleReposErrorResponse}}">
+  		</core-ajax>
 
-    <div horizontal layout fit>
+  		<core-ajax id="get_repos_page2_ajax" auto
+  			url="https://api.github.com/users/Polymer/repos",
+  			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+  			handleAs="json"
+  			loading="{{loading2}}"
+  			progress="{{progress2}}"
+  			response="{{repos2}}"
+  			on-core-response="{{handleRepos2Response}}">
+  		</core-ajax>
 
-      <core-header-panel mode="seamed" id="menu_panel">
-        <core-toolbar id="menu_toolbar">
-          <paper-input label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
-        </core-toolbar>
+      <core-ajax id="get_code5_ajax"
+        url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=master",
+        params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+        handleAs="json"
+        loading="{{loading5}}"
+        progress="{{progress5}}"
+        response="{{code5}}"
+        on-core-response="{{handleCode5Response}}"
+        on-core-error="{{handleCode5ErrorResponse}}">
+      </core-ajax>
 
-        <div class="content">
-          <core-menu on-core-select="{{loadCompare}}" id="reposMenu">
-            <template repeat="{{repoAll, j in reposAllFiltered}}">
-              <core-item label="{{repoAll[0]}}"></core-item>
-            </template>
+      <core-ajax id="get_code8_ajax"
+        url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview",
+        params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+        handleAs="json"
+        loading="{{loading8}}"
+        progress="{{progress8}}"
+        response="{{code8}}"
+        on-core-response="{{handleCode8Response}}"
+        on-core-error="{{handleCode8ErrorResponse}}">
+      </core-ajax>
 
-            <h3 id="error_message" class="error"></h3>
+      <div horizontal layout fit>
 
-            <hr>
-            <footer>
-              By Chuck Horton -- email chuckh @ hware.com<br>
-              (Click Repo Name to load)<br>
-            </footer>
+        <core-header-panel mode="seamed" id="menu_panel">
+          <core-toolbar id="menu_toolbar">
+            <paper-input label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
+          </core-toolbar>
 
-          </core-menu>
-        </div>
-      </core-header-panel>
+          <div class="content">
+            <core-menu on-core-select="{{loadCompare}}" id="reposMenu">
+              <template repeat="{{repoAll, j in reposAllFiltered}}">
+                <core-item label="{{repoAll[0]}}"></core-item>
+              </template>
 
-      <core-header-panel main mode="seamed" flex>
+              <h3 id="error_message" class="error"></h3>
 
-        <!-- Main Toolbar -->
-        <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
-          <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
-          Compare Code 0.5 to 0.8 -->
-          <paper-input label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
-          <span class="instructions"><-- input polymer element name then press enter key, or select from left sidebar</span>
-        </core-toolbar>
+              <hr>
+              <footer>
+                By Chuck Horton -- email chuckh @ hware.com<br>
+                (Click Repo Name to load)<br>
+              </footer>
 
-        <!-- Main Content -->
-        <div class="page" fit>
-          <div horizontal layout flex>
-
-            <div vertical layout flex>
-              <div horizontal layout>
-                <div flex class="left"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
-                <div flex class="right"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
-              </div>
-              <div horizontal layout class="code">
-                <div flex class="left" id="code5">
-                  <marked-element id="code5_marked"></marked-element>
-                </div>
-                <div flex class="right" id="code8">
-                  <marked-element id="code8_marked"></marked-element>
-                </div>
-              </div>
-            </div>
-
+            </core-menu>
           </div>
-        </div>
+        </core-header-panel>
 
-      </core-header-panel>
+        <core-header-panel main mode="seamed" flex>
 
-    </div>
+          <!-- Main Toolbar -->
+          <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
+            <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
+            Compare Code 0.5 to 0.8 -->
+            <paper-input label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
+            <span class="instructions"><-- input polymer element name then press enter key, or select from left sidebar</span>
+          </core-toolbar>
 
-  </template>
+          <!-- Main Content -->
+          <div class="page" fit>
+            <div horizontal layout flex>
 
-  <script>
-    Polymer({
+              <div vertical layout flex>
+                <div horizontal layout>
+                  <div flex class="left-title"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
+                  <div flex class="right-title"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
+                </div>
+                <div horizontal layout class="code">
+                  <div flex class="left" id="code5">
+                    <!-- <marked-element id="code5_marked" hidden></marked-element> -->
+                    <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true"></prism-js>
+                  </div>
+                  <div flex class="right" id="code8">
+                    <!-- <marked-element id="code8_marked" hidden></marked-element> -->
+                    <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
+                  </div>
+                </div>
+              </div>
 
-      repoName: "core-toolbar",
-      repoName1: "",
-      errorMessage5: "",
-      errorMessage8: "",
-      tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51",
-      repos1Loaded: false,
-      repos2Loaded: false,
-      reposLoaded: false,
-      reposAll: [],
-      pageToolbarClass: "page-toolbar",
+            </div>
+          </div>
 
-      ready: function() {
-        this.$.error_message.innerHTML = "Loading Repos..."
-        var elParam = this.getURLParameter('el');
-        console.log("compare-code ready", elParam);
-        if (elParam) {
-          this.repoName = elParam;
-          this.$.menu_panel.hidden = true;
-        }
-  	    this.searchForRepo();
-      },
+        </core-header-panel>
 
-      getURLParameter: function(name) {
-         if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-            return decodeURIComponent(name[1]);
-      },
+      </div>
 
-      searchForRepo: function(e, detail, sender) {
-          this.$.get_code5_ajax.abort();
-          this.$.get_code5_ajax.go();
-          this.$.get_code8_ajax.abort();
-          this.$.get_code8_ajax.go();
-      },
-      searchForRepoKeyUp: function(e, detail, sender) {
-        if (e.keyCode == 13) {
-          this.$.get_code5_ajax.abort();
-          this.$.get_code5_ajax.go();
-          this.$.get_code8_ajax.abort();
-          this.$.get_code8_ajax.go();
-        }
-      },
+    </template>
 
-      handleReposResponse: function(event) {
-  	    this.repos1Loaded = true;
-  	    console.log("handleReposResponse", this.$.get_repos_ajax.loading);
-  	    if (this.repos2Loaded) {
-  	      this.reposLoaded = true;
-  	      this.reposCombineAndFilter();
-  	    }
-  	  },
-      handleReposErrorResponse: function(event) {
-        var error = this.$.get_repos_ajax.error;
-        console.log("Error: " + error.statusCode + " - " + error.message);
-        this.currentError = error.statusCode;
-        this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
-      },
+    <script>
+      Polymer({
 
-      handleRepos2Response: function() {
-        this.repos2Loaded = true;
-        if (this.repos1Loaded && !this.reposLoaded) {
-          this.reposLoaded = true;
-          this.reposCombineAndFilter();
-        }
-        console.log("handleRepos2Response",this.repos2Loaded);
-      },
+        repoName: "core-toolbar",
+        repoName1: "",
+        errorMessage5: "",
+        errorMessage8: "",
+        tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51",
+        repos1Loaded: false,
+        repos2Loaded: false,
+        reposLoaded: false,
+        reposAll: [],
+        pageToolbarClass: "page-toolbar",
 
-      reposCombineAndFilter: function (event) {
-        console.log("reposCombineSort",this.reposLoaded);
-        var dataLen = this.repos.length;
-        for (var i = 0; i < dataLen; i++) {
-          if (this.repos[i].description) {
-            if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
+        ready: function() {
+          this.$.error_message.innerHTML = "Loading Repos..."
+          var elParam = this.getURLParameter('el');
+          console.log("compare-code ready", elParam);
+          if (elParam) {
+            this.repoName = elParam;
+            this.$.menu_panel.hidden = true;
+          }
+    	    this.searchForRepo();
+        },
+
+        getURLParameter: function(name) {
+           if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+              return decodeURIComponent(name[1]);
+        },
+
+        searchForRepo: function(e, detail, sender) {
+            this.$.get_code5_ajax.abort();
+            this.$.get_code5_ajax.go();
+            this.$.get_code8_ajax.abort();
+            this.$.get_code8_ajax.go();
+        },
+        searchForRepoKeyUp: function(e, detail, sender) {
+          if (e.keyCode == 13) {
+            this.$.get_code5_ajax.abort();
+            this.$.get_code5_ajax.go();
+            this.$.get_code8_ajax.abort();
+            this.$.get_code8_ajax.go();
+          }
+        },
+
+        handleReposResponse: function(event) {
+    	    this.repos1Loaded = true;
+    	    console.log("handleReposResponse", this.$.get_repos_ajax.loading);
+    	    if (this.repos2Loaded) {
+    	      this.reposLoaded = true;
+    	      this.reposCombineAndFilter();
+    	    }
+    	  },
+        handleReposErrorResponse: function(event) {
+          var error = this.$.get_repos_ajax.error;
+          console.log("Error: " + error.statusCode + " - " + error.message);
+          this.currentError = error.statusCode;
+          this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
+        },
+
+        handleRepos2Response: function() {
+          this.repos2Loaded = true;
+          if (this.repos1Loaded && !this.reposLoaded) {
+            this.reposLoaded = true;
+            this.reposCombineAndFilter();
+          }
+          console.log("handleRepos2Response",this.repos2Loaded);
+        },
+
+        reposCombineAndFilter: function (event) {
+          console.log("reposCombineSort",this.reposLoaded);
+          var dataLen = this.repos.length;
+          for (var i = 0; i < dataLen; i++) {
+            if (this.repos[i].description) {
+              if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
+                this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+              }
+            } else {
               this.reposAll.push([this.repos[i].name,this.repos[i].description]);
             }
-          } else {
-            this.reposAll.push([this.repos[i].name,this.repos[i].description]);
           }
-        }
-        var dataLen2 = this.repos2.length;
-        for (var i = 0; i < dataLen2; i++) {
-          if (this.repos2[i].description) {
-            if (this.repos2[i].description.indexOf("DEPRECATED") < 0) {
+          var dataLen2 = this.repos2.length;
+          for (var i = 0; i < dataLen2; i++) {
+            if (this.repos2[i].description) {
+              if (this.repos2[i].description.indexOf("DEPRECATED") < 0) {
+                this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
+              }
+            } else {
               this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
             }
-          } else {
-            this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
           }
-        }
-        this.reposAllFiltered = this.reposAll;
-        this.$.error_message.innerHTML = "";
-      },
+          this.reposAllFiltered = this.reposAll;
+          this.$.error_message.innerHTML = "";
+        },
 
-      handleCode5Response: function(event) {
-        console.log("handleCode5Response", this.code5.name);
-        var code5 = "``` " + atob(this.code5.content) + " ```" ;
-        this.$.code5_marked.text = code5;
-        this.errorMessage5 = "";
-      },
-      handleCode8Response: function(event) {
-        console.log("handleCode8Response", this.code8.name);
-        var code8 = "``` " + atob(this.code8.content) + " ```" ;
-        this.$.code8_marked.text = code8;
-        this.errorMessage8 = "";
-      },
-      handleCode5ErrorResponse: function(event) {
-        var error = this.$.get_code5_ajax.error;
-        this.errorMessage5 = "Can't find master code";
-        this.$.code5_marked.text = " ";
-        console.log("Error: " + error.statusCode + " - " + error.message);
-      },
-      handleCode8ErrorResponse: function(event) {
-        var error = this.$.get_code8_ajax.error;
-        this.errorMessage8 = "Can't find 0.8-preview code";
-        this.$.code8_marked.text = " ";
-        console.log("Error: " + error.statusCode + " - " + error.message);
-      },
+        handleCode5Response: function(event) {
+          console.log("handleCode5Response", this.code5.name);
+          var code5 = "``` " + atob(this.code5.content) + " ```" ;
+          // this.$.code5_marked.text = code5;
+          this.$.code5_prism.inputValue = atob(this.code5.content);
+          this.errorMessage5 = "";
+        },
+        handleCode8Response: function(event) {
+          console.log("handleCode8Response", this.code8.name);
+          var code8 = "``` " + atob(this.code8.content) + " ```" ;
+          // this.$.code8_marked.text = code8;
+          this.$.code8_prism.inputValue = atob(this.code8.content);
+          this.errorMessage8 = "";
+        },
+        handleCode5ErrorResponse: function(event) {
+          var error = this.$.get_code5_ajax.error;
+          this.errorMessage5 = "Can't find master code";
+          // this.$.code5_marked.text = " ";
+          this.$.code5_prism.inputValue = " ";
+          console.log("Error: " + error.statusCode + " - " + error.message);
+        },
+        handleCode8ErrorResponse: function(event) {
+          var error = this.$.get_code8_ajax.error;
+          this.errorMessage8 = "Can't find 0.8-preview code";
+          // this.$.code8_marked.text = " ";
+          this.$.code8_prism.inputValue = " ";
+          console.log("Error: " + error.statusCode + " - " + error.message);
+        },
 
-      toggleMenu: function() {
-        this.$.menu_panel.hidden = this.$.menu_panel.hidden ? false : true;
-      },
+        toggleMenu: function() {
+          this.$.menu_panel.hidden = this.$.menu_panel.hidden ? false : true;
+        },
 
-      loadCompare: function() {
-        var selected = this.$.reposMenu.selected;
-        var rName = this.reposAllFiltered[this.$.reposMenu.selected][0];
-        console.log("loadCompare: ",selected, rName);
-        if (selected > -1) {
-          this.repoName = rName;
-          this.$.menu_panel.hidden = true;
-          this.searchForRepo();
-        }
-      },
+        loadCompare: function(e, detail, sender) {
+          var selected = this.$.reposMenu.selected;
+          var rName = this.reposAllFiltered[this.$.reposMenu.selected][0];
+          console.log("loadCompare: ",selected, rName, sender,detail);
+          if (selected > -1) {
+            this.repoName = rName;
+            this.$.menu_panel.hidden = true;
+            this.searchForRepo();
+          }
+        },
 
-      filterRepos: function(e, detail, sender) {
-        console.log("filterRepos", sender.label, sender.id);
-        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return d[0].indexOf(this.repoName1) > -1;
-        }.bind(this));
-      },
+        filterRepos: function(e, detail, sender) {
+          this.$.reposMenu.selected = -1;
+          console.log("filterRepos", sender.label, sender.id);
+          this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+            return d[0].indexOf(this.repoName1) > -1;
+          }.bind(this));
+        },
 
-      reposViewResized: function(e, detail, sender) {
-        var contentWidth = 0;
-        if (this.$.core_header_panel) {
-          contentWidth = this.$.core_header_panel.clientWidth;
-        }
+        reposViewResized: function(e, detail, sender) {
+          var contentWidth = 0;
+          if (this.$.core_header_panel) {
+            contentWidth = this.$.core_header_panel.clientWidth;
+          }
 
-        if (this.mediumScreen) {
-          this.$.menu_panel.hidden = false;
-        } else {
-          this.$.menu_panel.hidden = true;
-        }
+          if (this.mediumScreen) {
+            this.$.menu_panel.hidden = false;
+          } else {
+            this.$.menu_panel.hidden = true;
+          }
 
-        if (this.smallScreen) {
-          this.$.menu_panel.hidden = true;
-          this.pageToolbarClass = "page-toolbar-small";
-        } else {
-          this.pageToolbarClass = "page-toolbar";
-        }
+          if (this.smallScreen) {
+            this.$.menu_panel.hidden = true;
+            this.pageToolbarClass = "page-toolbar-small";
+          } else {
+            this.pageToolbarClass = "page-toolbar";
+          }
 
-        console.log("reposViewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
-      },
+          console.log("reposViewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
+        },
 
-    });
-  </script>
+      });
+    </script>
 
-</polymer-element>
+  </polymer-element>
 
-<compare-code></compare-code>
+  <compare-code></compare-code>
 
 </body>
 </html>
