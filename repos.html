@@ -122,8 +122,29 @@
 		      padding-bottom: 10px;
 		      text-align: center;
 			}
-	    </style>
-	    <core-media-query query="min-width: 1250px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+
+      a:hover {
+        color: #FF00FF;
+      }
+
+      a:link {
+          text-decoration: none;
+      }
+
+      a:visited {
+          text-decoration: none;
+      }
+
+      a:hover {
+          text-decoration: underline;
+      }
+
+      a:active {
+          text-decoration: underline;
+      }
+	   </style>
+
+	   <core-media-query query="min-width: 1250px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
 
 		<core-ajax id="get_repos_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
@@ -188,19 +209,19 @@
 			  </div>
     		</div>
 
-  		    <div horizontal layout class="titles">
-  		      <div class="cntr">Cntr</div>
-  		      <div flex>Name</div>
-  		      <div flex three>Description</div>
-  		      <div flex class="center">Cur Release</div>
-  		      <div flex class="center">0.8-{{branchLookingFor}}</div>
-  		    </div>
+		    <div horizontal layout class="titles">
+		      <div class="cntr">Cntr</div>
+		      <div flex>Name</div>
+		      <div flex three>Description</div>
+		      <div flex class="center">Cur Release</div>
+		      <div flex class="center">0.8-{{branchLookingFor}}</div>
+		    </div>
 		  </div>
 		  <div class="content">
 
 		    <div vertical layout>
 		      <template repeat="{{repoAll, j in reposAllFiltered}}">
-            <a href="/compare-code.html?el={{repoAll[0]}}" target="_blank">
+            <a href="/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
 		        <div horizontal layout class="row">
 		          <div  class="cntr">{{j+1}}. </div>
 		          <div flex> <strong>{{repoAll[0]}}</strong></div>
