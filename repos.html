@@ -6,16 +6,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <link rel="shortcut icon" href="/favicon.ico">
-  
+
   <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
   <link rel="import" href="bower_components/core-ajax/core-ajax.html">
   <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
   <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
   <link rel="import" href="bower_components/core-media-query/core-media-query.html">
-  <link rel="import" href="bower_components/font-roboto/font-roboto.html"> 
-  <link rel="import" href="bower_components/core-icons/core-icons.html"> 
-  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"> 
-  
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="bower_components/core-icons/core-icons.html">
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+
   <style>
 	  html, body {
 	    margin: 0;
@@ -23,41 +23,41 @@
 	    font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 	  }
   </style>
-  
+
 </head>
 
 <body unresolved>
   <polymer-element name="repos-list" attributes="" >
-    
+
     <template>
 	    <style>
 		    .center {
 		      text-align: center;
 		    }
-    
+
 		    .row {
 		      padding-top: 5px;
 		      padding-bottom: 5px;
 		      border-bottom: 1px solid #E6E6E6;
 		    }
-    
+
 		    .cntr {
 		      padding-left: 10px;
 		      width: 40px;
 		    }
-    
+
 		    .error {
 		      width: 100%;
 		      padding-left: 10px;
 		      color: red;
 		      text-align: center;
 		    }
-    
+
 		    .counters {
 		      padding-top: 10px;
 		      padding-bottom: 10px;
 		    }
-    
+
 		    core-header-panel {
 		      height: 100%;
 		    }
@@ -67,6 +67,7 @@
 		      font-size: 28px;
 		      padding: 0 10px;
 		      background-color: #4F7DC9;
+           /*7986cb polymer-project.org header color*/
 		      color: #FFF;
 		      transition: height 0.2s;
 		    }
@@ -77,14 +78,14 @@
 		      padding-right: 10px;*/
 		      background: linear-gradient(rgb(fff, fff, fff), white);
 		    }
-			
+
 			.filter {
 			  margin-top: -10px;
   		      font-size: 14px;
 		      text-align: right;
 			  padding-right: 20px;
 			}
-			
+
 			paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
 		      color: #FFFF00;
 		    }
@@ -96,34 +97,34 @@
 		    paper-radio-group.yellow paper-radio-button[checked]::shadow #offRadio {
 		      border-color: #FFFF00;
 		    }
-			
+
 			.search {
 			  margin-top: 10px;
   		      font-size: 14px;
 		      text-align: left;
 			  padding-right: 20px;
 			}
-			
+
 			#search_input {
   			  margin-top: 10px;
     		  font-size: 20px;
 			  padding: 10px;
 			  min-width: 300px;
 			}
-			
+
 			.titles {
 				margin-left: -12px;
 				font-size: 16px;
 			}
-			
+
 			footer{
 		      width: 100%;
 		      padding-bottom: 10px;
-		      text-align: center;	
+		      text-align: center;
 			}
 	    </style>
 	    <core-media-query query="min-width: 1250px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
-    
+
 		<core-ajax id="get_repos_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
 			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
@@ -134,7 +135,7 @@
 			on-core-response="{{handleReposResponse}}"
 			on-core-error="{{handleReposErrorResponse}}">
 		</core-ajax>
-  
+
 		<core-ajax id="get_repos_page2_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
 			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
@@ -186,7 +187,7 @@
 				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
 			  </div>
     		</div>
-			  
+
   		    <div horizontal layout class="titles">
   		      <div class="cntr">Cntr</div>
   		      <div flex>Name</div>
@@ -195,8 +196,8 @@
   		      <div flex class="center">0.8-{{branchLookingFor}}</div>
   		    </div>
 		  </div>
-		  <div class="content">	    
-    
+		  <div class="content">
+
 		    <div vertical layout>
 		      <template repeat="{{repoAll, j in reposAllFiltered}}">
 		        <div horizontal layout class="row">
@@ -208,7 +209,7 @@
 		        </div>
 		      </template>
 		    </div>
-    
+
 		    <div horizontal layout class="counters">
 		      <div class="cntr">Counter</div>
 		      <div flex></div>
@@ -216,9 +217,9 @@
 		      <div flex class="center"></div>
 		      <div flex class="center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>
 		    </div>
-    
+
 		    <h3 id="error_message" class="error"></h3>
-			
+
 			<hr>
 			<footer>Report by Chuck Horton -- email chuckh @ hware.com
 			<br>(Note if you don't see results after filtering then scroll up.)
@@ -245,12 +246,12 @@
 	  currentReleasehName: "",
 	  currentError: "",
 	  tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51",
-      searchValue: "",
-  
+    searchValue: "",
+
 	  ready: function() {
 	    console.log("repos-list ready");
 	  },
-  
+
 	  handleReposResponse: function(event) {
 	    this.repos1Loaded = true;
 	    console.log("handleReposResponse", this.$.get_repos_ajax.loading);
@@ -266,7 +267,7 @@
 	    this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
 	    // "Over Github API Limit Try Againg in a hour."
 	  },
-  
+
 	  handleRepos2Response: function() {
 	    this.repos2Loaded = true;
 	    if (this.repos1Loaded && !this.reposLoaded) {
@@ -275,7 +276,7 @@
 	    }
 	    console.log("handleRepos2Response",this.repos2Loaded);
 	  },
-   
+
 	  reposCombineAndFilter: function (event) {
 	    console.log("reposCombineSort",this.reposLoaded);
 	    var dataLen = this.repos.length;
@@ -302,15 +303,15 @@
 	    this.getBranches();
 	    this.getReleases();
 	  },
-  
+
 	  getBranches: function() {
 	    var repo = this.reposAll[this.currentBranch][0];
-	    this.currentBranchName = repo;   
+	    this.currentBranchName = repo;
 	    this.$.get_branches_ajax.url = "https://api.github.com/repos/Polymer/" + repo + "/branches";
 	    this.$.get_branches_ajax.abort();
 	    this.$.get_branches_ajax.go();
 	  },
-  
+
 	  handleBranchesResponse: function(event) {
 	    var dataLen = this.branches.length;
 	    var branchFound = "no";
@@ -328,18 +329,18 @@
 	      this.getBranches();
 	    }
 	  },
-  
+
 	  getReleases: function() {
 	    var repo = this.reposAll[this.currentRelease][0];
 	    this.currentReleasehName = repo;
-        this.$.get_releases_ajax.url = "https://api.github.com/repos/Polymer/" + repo + "/releases/tags/" + this.releaseLookingFor;
+      this.$.get_releases_ajax.url = "https://api.github.com/repos/Polymer/" + repo + "/releases/tags/" + this.releaseLookingFor;
 	    this.$.get_releases_ajax.abort();
 	    this.$.get_releases_ajax.go();
 	  },
-  
+
 	  handleReleaseResponse: function(event) {
 	    this.reposAll[this.currentRelease][2] = this.releaseLookingFor.toString();
-    
+
 	    this.currentRelease += 1;
 	    if (this.currentRelease < this.reposAll.length) {
 	      this.getReleases();
@@ -353,7 +354,7 @@
   	      this.getReleases();
   	    }
 	  },
-	  
+
 	  filterRepos: function(e, detail, sender) {
 		  console.log("filterRepos", sender.label, sender.id);
 		  if (sender.id === "search_input") {
@@ -378,17 +379,17 @@
 			  this.$.yes_counter.hidden = true;
 		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
 		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "YES";
-		      });			  
+		      });
 		  } else if (sender.label === "No Core + Paper") {
 			  this.$.yes_counter.hidden = true;
 		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
 		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "no";
-		      });				  
+		      });
 		  } else {
 			  if (sender.label === "YES") {
 				  this.$.yes_counter.hidden = true;
 			  } else {
-				  this.$.yes_counter.hidden = true;			  	
+				  this.$.yes_counter.hidden = true;
 			  }
 		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
 		        return d[3] == sender.label;
@@ -397,7 +398,7 @@
 	      // document.querySelector('#mainContainer').scroller.scrollTop = 0;
 		  // document.querySelector('#mainContainer').scroller.scrollIntoView();
 	   },
-	   
+
        reposViewResized: function(e, detail, sender) {
          var contentWidth = 0;
          if (this.$.core_header_panel) {
@@ -406,19 +407,21 @@
 		 this.$.filter_container.hidden = !this.mediumScreen
          // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
        },
-	   
+
 	   toggleSearch: function(e, detail, sender) {
-		   if (this.$.radio_group_filter.hidden) {
+		   if (this.$.radio_group_filter.hidden) { // Hide search
 			   this.$.radio_group_filter.hidden = false;
 			   this.$.search_input.hidden = true;
 			   this.$.filter_title.hidden = false;
-		   } else {
+			   this.searchValue = "";
+	   		   this.reposAllFiltered = this.reposAll;
+		   } else { // Show search
 			   this.$.radio_group_filter.hidden = true;
 			   this.$.search_input.hidden = false;
 			   this.$.filter_title.hidden = true;
 		   }
 	   },
-  
+
 	});
 	</script>
 </polymer-element>
