@@ -1,13 +1,13 @@
 {
   "name": "road-to-polymer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/chuckh/road-to-polymer",
   "authors": [
     "Chuck Horton <chuckh@hware.com>"
   ],
   "description": "Reports and Notes for Migrating to Polymer 0.8",
   "keywords": [
-    "Polymer"
+    "Polymer Compare Code Status Github"
   ],
   "license": "MIT",
   "ignore": [
@@ -29,6 +29,7 @@
     "core-menu": "Polymer/core-menu#~0.5.5",
     "core-toolbar": "Polymer/core-toolbar#~0.5.5",
     "paper-input": "Polymer/paper-input#~0.5.5",
-    "core-list": "Polymer/core-list#~0.5.5"
+    "core-list": "Polymer/core-list#~0.5.5",
+    "prism-js": "https://github.com/mskrajnowski/prism-js.git#~0.1.1"
   }
 }
