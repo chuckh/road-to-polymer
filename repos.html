@@ -8,13 +8,13 @@
   <link rel="shortcut icon" href="/favicon.ico">
 
   <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="bower_components/core-ajax/core-ajax.html">
   <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
-  <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
   <link rel="import" href="bower_components/core-media-query/core-media-query.html">
-  <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="bower_components/core-icons/core-icons.html">
   <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
 
   <style>
 	  html, body {
@@ -79,69 +79,69 @@
 		      background: linear-gradient(rgb(fff, fff, fff), white);
 		    }
 
-			.filter {
-			  margin-top: -10px;
-  		      font-size: 14px;
-		      text-align: right;
-			  padding-right: 20px;
-			}
+  			.filter {
+  			  margin-top: -10px;
+    		      font-size: 14px;
+  		      text-align: right;
+  			  padding-right: 20px;
+  			}
 
-			paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
-		      color: #FFFF00;
-		    }
+  			paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
+  		      color: #FFFF00;
+  	    }
 
-		    paper-radio-group.yellow paper-radio-button::shadow #onRadio {
-		      background-color: #FFFF00;
-		    }
+  	    paper-radio-group.yellow paper-radio-button::shadow #onRadio {
+  	      background-color: #FFFF00;
+  	    }
 
-		    paper-radio-group.yellow paper-radio-button[checked]::shadow #offRadio {
-		      border-color: #FFFF00;
-		    }
+  	    paper-radio-group.yellow paper-radio-button[checked]::shadow #offRadio {
+  	      border-color: #FFFF00;
+  	    }
 
-			.search {
-			  margin-top: 10px;
-  		      font-size: 14px;
-		      text-align: left;
-			  padding-right: 20px;
-			}
-
-			#search_input {
+  			.search {
   			  margin-top: 10px;
-    		  font-size: 20px;
-			  padding: 10px;
-			  min-width: 300px;
-			}
+    		      font-size: 14px;
+  		      text-align: left;
+  			  padding-right: 20px;
+  			}
 
-			.titles {
-				margin-left: -12px;
-				font-size: 16px;
-			}
+  			#search_input {
+    			  margin-top: 10px;
+      		  font-size: 20px;
+  			  padding: 10px;
+  			  min-width: 300px;
+  			}
 
-			footer{
-		      width: 100%;
-		      padding-bottom: 10px;
-		      text-align: center;
-			}
+  			.titles {
+  				margin-left: -12px;
+  				font-size: 16px;
+  			}
 
-      a:hover {
-        color: #FF00FF;
-      }
+  			footer{
+  		      width: 100%;
+  		      padding-bottom: 10px;
+  		      text-align: center;
+  			}
 
-      a:link {
-          text-decoration: none;
-      }
+        a:hover {
+          color: #FF00FF;
+        }
 
-      a:visited {
-          text-decoration: none;
-      }
+        a:link {
+            text-decoration: none;
+        }
 
-      a:hover {
-          text-decoration: underline;
-      }
+        a:visited {
+            text-decoration: none;
+        }
 
-      a:active {
-          text-decoration: underline;
-      }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:active {
+            text-decoration: underline;
+        }
 	   </style>
 
 	   <core-media-query query="min-width: 1250px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
@@ -191,22 +191,22 @@
 		<core-header-panel id="core_header_panel">
 		  <div class="core-header">
 			  <div horizontal layout>
-			  Polymer Repositories Status
-			  <div id="filter_container" class="filter" flex><span id="filter_title">Filter:</span>
-				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
-				    <paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button>
-				    <paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button>
-				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
-				    <paper-radio-button name="Core" label="Core" on-click="{{filterRepos}}"></paper-radio-button>
-				    <paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}"></paper-radio-button>
-				    <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
-				    <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
-				  </paper-radio-group>
-			  </div>
-			  <div id="search" class="search" horizontal layout>
-				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
-				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
-			  </div>
+  			  Polymer Repositories Status
+  			  <div id="filter_container" class="filter" flex><span id="filter_title">Filter:</span>
+  				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
+  				    <paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="Core" label="Core" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
+  				  </paper-radio-group>
+  			  </div>
+  			  <div id="search" class="search" horizontal layout>
+  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
+  				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
+  			  </div>
     		</div>
 
 		    <div horizontal layout class="titles">
@@ -218,7 +218,6 @@
 		    </div>
 		  </div>
 		  <div class="content">
-
 		    <div vertical layout>
 		      <template repeat="{{repoAll, j in reposAllFiltered}}">
             <a href="http://chuckh.github.io/road-to-polymer/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
@@ -243,11 +242,12 @@
 
 		    <h3 id="error_message" class="error"></h3>
 
-			<hr>
-			<footer>Report by Chuck Horton -- email chuckh @ hware.com
-			<br>(Note if you don't see results after filtering then scroll up.)
-      <br>(Note click on element to see compare code of Polymer 0.5 vs 0.8)
-			</footer>
+  			<hr>
+  			<footer>
+          Report by Chuck Horton -- email chuckh @ hware.com<br>
+    			(Note if you don't see results after filtering then scroll up.)<br>
+          (Note click on element to see compare code of Polymer 0.5 vs 0.8)
+  			</footer>
 		  </div>
 		</core-header-panel>
 
@@ -261,7 +261,6 @@
 	  repos2Loaded: false,
 	  reposLoaded: false,
 	  reposAll: [],
-	  unsorted: "Unsorted",
 	  cntr: 0,
 	  cntrYes: 0,
 	  currentBranch: 0,
@@ -323,7 +322,7 @@
 	        this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
 	      }
 	    }
-		this.reposAllFiltered = this.reposAll;
+  		this.reposAllFiltered = this.reposAll;
 	    this.getBranches();
 	    this.getReleases();
 	  },
@@ -339,7 +338,7 @@
 	  handleBranchesResponse: function(event) {
 	    var dataLen = this.branches.length;
 	    var branchFound = "no";
-		var curBranch = "";
+  		var curBranch = "";
 	    for (var i = 0; i < dataLen; i++) {
 		  curBranch = this.branches[i].name.toLowerCase();
 	      if (curBranch.indexOf(this.branchLookingFor) > -1) {
@@ -428,7 +427,7 @@
          if (this.$.core_header_panel) {
            contentWidth = this.$.core_header_panel.clientWidth;
          }
-		 this.$.filter_container.hidden = !this.mediumScreen
+    		 this.$.filter_container.hidden = !this.mediumScreen;
          // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
        },
 
