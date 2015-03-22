@@ -127,7 +127,7 @@
 
 		<core-ajax id="get_repos_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
-			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+			params='{"page": "1", "per_page": "10", "sort": "full_name","access_token": "{{tk}}" }'
 			handleAs="json"
 			loading="{{loading1}}"
 			progress="{{progress}}"
@@ -138,7 +138,7 @@
 
 		<core-ajax id="get_repos_page2_ajax" auto
 			url="https://api.github.com/users/Polymer/repos",
-			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+			params='{"page": "2", "per_page": "10", "sort": "full_name","access_token": "{{tk}}" }'
 			handleAs="json"
 			loading="{{loading2}}"
 			progress="{{progress2}}"
@@ -200,6 +200,7 @@
 
 		    <div vertical layout>
 		      <template repeat="{{repoAll, j in reposAllFiltered}}">
+            <a href="/compare-code.html?el={{repoAll[0]}}" target="_blank">
 		        <div horizontal layout class="row">
 		          <div  class="cntr">{{j+1}}. </div>
 		          <div flex> <strong>{{repoAll[0]}}</strong></div>
@@ -207,6 +208,7 @@
 		          <div flex class="center">{{repoAll[2]}}</div>
 		          <div flex class="center">{{repoAll[3]}}</div>
 		        </div>
+          </a>
 		      </template>
 		    </div>
 
