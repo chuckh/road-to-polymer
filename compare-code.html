@@ -134,7 +134,22 @@
       ready: function() {
         // this.repoName = "core-toolbar";
         console.log("compare-code ready");
+        var elParam = this.getURLParameter('el');
+        console.log("compare-code ready", elParam);
+        if (elParam) {
+          console.log("  elParam-code: ", elParam);
+          this.repoName = elParam;
+        }
   	    this.searchForRepo();
+      },
+
+      // function: getURLParameterx(name) {
+      //   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+      // },
+
+      getURLParameter: function(name) {
+         if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
       },
 
       searchForRepo: function(e, detail, sender) {
