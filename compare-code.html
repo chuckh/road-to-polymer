@@ -122,6 +122,22 @@
 
         }
 
+        .linkLeft {
+          font-size: 16px;
+          padding: 10px;
+          margin-bottom: 20px;
+          width: 100%;
+          line-height: 30px;
+        }
+
+        .linkRight {
+          font-size: 16px;
+          margin-bottom: 0;
+          padding: 16px;
+          background-color: white;
+          width: 100%;
+          line-height: 30px;
+      }
       </style>
 
       <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
@@ -218,10 +234,26 @@
                   <div flex class="left" id="code5">
                     <!-- <marked-element id="code5_marked" hidden></marked-element> -->
                     <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true"></prism-js>
+                    <hr>
+                    <div class="linkLeft">
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/master/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/master/demo.html" target="_blank">Github Repository Demo Code</a><br>
+                      <a href="https://www.polymer-project.org/0.5/components/{{repoName}}/demo.html" target="_blank">Polymer {{repoName}} Demo</a><br>
+                      <a href="https://www.polymer-project.org/0.5/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
+                    </div>
                   </div>
                   <div flex class="right" id="code8">
                     <!-- <marked-element id="code8_marked" hidden></marked-element> -->
                     <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
+                    <div class="linkRight">
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/demo/index.html" target="_blank">Github Repository Demo Code</a><br>
+                      <a href="https://www.polymer-project.org/0.8/components/{{repoName}}/demo/index.html" target="_blank">Polymer {{repoName}} Demo</a><br>
+                      <a href="https://www.polymer-project.org/0.8/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
+                      (Some of these links may not work yet.)
+                    </div>
                   </div>
                 </div>
               </div>
