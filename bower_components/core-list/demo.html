@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       -webkit-tap-highlight-color: transparent;
       overflow: hidden;
     }
-    
+
     list-test {
       display: block;
       height: 100%;
@@ -62,18 +62,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background-position: 10px 10px;
       background-size: 60px;
     }
-    
+
     .from {
       display: inline;
       font-weight: bold;
     }
-    
+
     .timestamp {
       margin-left: 10px;
       font-size: 12px;
       opacity: 0.8;
     }
-    
+
     .body {
       font-size: 12px;
     }
@@ -113,7 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <button on-tap="{{deleteSelection}}">Delete selection</button>
   </div>
   <div layout horizontal wrap class="spaced">
-    Selected values: 
+    Selected values:
     <template repeat="{{multi ? selection: [selection]}}">
       <div class="selection-display">Id {{id}}: {{checked}} {{value}} {{['a','b','c'][type]}}</div>
     </template>
@@ -181,6 +181,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           checked: false
         });
       }
+      console.log("data: ",data);
       return data;
     },
     addRecord: function() {
@@ -228,7 +229,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.data = this.generateData();
     }
   });
-})();  
+})();
 </script>
 </polymer-element>
 
