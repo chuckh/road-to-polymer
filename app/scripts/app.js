@@ -11,6 +11,8 @@
   + '&showsearch=true&showpopout=true&showtabs=false'
   + '&parenturl=' + 'https://github.com/chuckh/road-to-polymer'; //encodeURIComponent(window.location.href)
 
+  app.appPrefix = "" // '' for local grunt serve,  '../' for local python server, '../app/' github pages
+
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   app.addEventListener('template-bound', function() {
