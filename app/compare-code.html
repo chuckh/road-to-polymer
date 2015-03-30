@@ -25,7 +25,7 @@
       overflow: auto;
     }
 
-   </style>
+  </style>
 
   <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
   <link rel="import" href="bower_components/font-roboto/roboto.html">
@@ -73,15 +73,15 @@
           font-weight: 200;
           line-height: 30px;
           /*background-color: #4F7DC9;*/
-          background-color: rgb(63,81,181);  // 7986cb
-           /*7986cb polymer-project.org header color*/
+          background-color: #303F9F;
+          /*7986cb polymer-project.org header color*/
         }
         .page-toolbar-small {
           color: #fff;
           font-size: 0.9em;
           font-weight: 200;
           line-height: 30px;
-          background-color: rgb(63,81,181);  // 7986cb
+          background-color: #303F9F;
           /*background-color: #4F7DC9;*/
         }
 
@@ -242,13 +242,13 @@
 
       <div horizontal layout fit>
 
-        <core-header-panel main mode="seamed" flex>
+        <core-header-panel main mode="standard" flex>
 
           <!-- Main Toolbar -->
           <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
             Compare Code 0.5 to 0.8 -->
             <paper-input label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
-            <span class="instructions"><-- input polymer element name then press enter key, or select from left sidebar</span>
+            <span class="instructions"><-- input polymer element name then press enter key, or select from right sidebar</span>
             <div flex></div>
             <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
           </core-toolbar>
