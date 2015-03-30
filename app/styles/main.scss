@@ -44,10 +44,12 @@ body {
 core-toolbar {
   color: #FAFAFA;
   font-weight: normal;
-  background-color: rgb(63,81,181);  // 7986cb
+  background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
 }
 
 core-item {
-  font-size: 14px;
-  border-bottom: 1px solid slategray;
+  font-size: 13px;
+  color: rgba(0,0,0,0.6);
+
+  // border-bottom: 1px solid slategray;
 }
