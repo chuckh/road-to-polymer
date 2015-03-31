@@ -1,4 +1,17 @@
-<!DOCTYPE html><html><head><title>Compare Code</title><meta name="description" content="Road To Polymer code from 0.5 to 0.8 to 1.0"><meta charset="utf-8"><meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="styles/main.css"><style>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Compare Code</title>
+  <meta name="description" content="Road To Polymer code from 0.5 to 0.8 to 1.0" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- build:css styles/main.css -->
+ <link rel="stylesheet" href="styles/main.css">
+ <!-- endbuild-->
+
+   <style>
      html, body {
        margin: 0;
        height: 100%;
@@ -12,7 +25,36 @@
       overflow: auto;
     }
 
-  </style><script src="bower_components/webcomponentsjs/webcomponents.min.js"></script><link rel="import" href="bower_components/core-ajax/core-ajax.html"><link rel="import" href="bower_components/core-collapse/core-collapse.html"><link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html"><link rel="import" href="bower_components/core-header-panel/core-header-panel.html"><link rel="import" href="bower_components/core-icon/core-icon.html"><link rel="import" href="bower_components/core-icons/core-icons.html"><link rel="import" href="bower_components/core-item/core-item.html"><link rel="import" href="bower_components/core-list/core-list.html"><link rel="import" href="bower_components/core-media-query/core-media-query.html"><link rel="import" href="bower_components/core-menu/core-menu.html"><link rel="import" href="bower_components/core-toolbar/core-toolbar.html"><link rel="import" href="bower_components/font-roboto/roboto.html"><link rel="import" href="bower_components/paper-button/paper-button.html"><link rel="import" href="bower_components/paper-dialog/paper-action-dialog.html"><link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"><link rel="import" href="bower_components/paper-input/paper-input.html"><link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html"><link rel="import" href="bower_components/prism-js/prism-js.html"></head><body unresolved="" fullbleed="" layout="" vertical=""><polymer-element name="compare-code" attributes=""><template fit=""><style>
+  </style>
+
+  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="bower_components/core-ajax/core-ajax.html">
+  <link rel="import" href="bower_components/core-collapse/core-collapse.html">
+  <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
+  <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="bower_components/core-icon/core-icon.html">
+  <link rel="import" href="bower_components/core-icons/core-icons.html">
+  <link rel="import" href="bower_components/core-item/core-item.html">
+  <link rel="import" href="bower_components/core-list/core-list.html">
+  <link rel="import" href="bower_components/core-media-query/core-media-query.html">
+  <link rel="import" href="bower_components/core-menu/core-menu.html">
+  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-dialog/paper-action-dialog.html">
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/paper-input/paper-input.html">
+  <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
+  <link rel="import" href="bower_components/prism-js/prism-js.html">
+
+</head>
+
+<body unresolved fullbleed layout vertical>
+
+  <polymer-element name="compare-code" attributes="" >
+
+    <template fit>
+      <style>
         #menu_panel {
           min-width: 250px;
           height: 100%;
@@ -186,7 +228,188 @@
           font-weight: bold;
         }
 
-      </style><core-media-query query="min-width: 1260px" querymatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query><core-media-query query="max-width: 1060px" querymatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query><core-ajax id="get_repos_ajax" auto="" url="https://api.github.com/users/Polymer/repos" ,="" params="{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }" handleas="json" loading="{{loading1}}" progress="{{progress}}" response="{{repos1}}" on-core-response="{{handleReposResponse}}" on-core-error="{{handleReposErrorResponse}}"></core-ajax><core-ajax id="get_repos_page2_ajax" auto="" url="https://api.github.com/users/Polymer/repos" ,="" params="{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }" handleas="json" loading="{{loading2}}" progress="{{progress2}}" response="{{repos2}}" on-core-response="{{handleRepos2Response}}"></core-ajax><core-ajax id="get_code5_ajax" url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=master" ,="" params="{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}" handleas="json" loading="{{loading5}}" progress="{{progress5}}" response="{{code5}}" on-core-response="{{handleCode5Response}}" on-core-error="{{handleCode5ErrorResponse}}"></core-ajax><core-ajax id="get_code8_ajax" url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview" ,="" params="{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}" handleas="json" loading="{{loading8}}" progress="{{progress8}}" response="{{code8}}" on-core-response="{{handleCode8Response}}" on-core-error="{{handleCode8ErrorResponse}}"></core-ajax><paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center"><p>To Compare Code input polymer element name at top then press enter key,<br>or select from items below.<br><br>You can filter list by inputting into filter repos.</p><paper-button affirmative="" autofocus="">OK</paper-button></paper-action-dialog><div horizontal="" layout="" fit=""><core-header-panel main="" mode="standard" flex=""><core-toolbar class="{{pageToolbarClass}}" id="page_toolbar"><paper-icon-button id="back_button" icon="arrow-back" on-tap="{{toggleMenu}}" hidden=""></paper-icon-button>Compare Code 0.5 to 0.8:<paper-input id="repo_input" label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input><paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button><div flex=""></div><paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button></core-toolbar><div class="page" fit=""><div horizontal="" layout="" flex=""><div id="compare_code_container" hidden="" vertical="" layout="" flex=""><div horizontal="" layout=""><div flex="" class="left-title"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div><div flex="" class="right-title"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div></div><div horizontal="" layout="" class="code"><div flex="" class="left" id="code5"><prism-js id="code5_prism" language="markup" escape="true" linenumbers="true"></prism-js><hr><div class="linkLeft"><a href="https://github.com/Polymer/{{repoName}}/blob/master/{{repoName}}.html" target="_blank">Github Repository Code</a><br><a href="https://github.com/Polymer/{{repoName}}/blob/master/demo.html" target="_blank">Github Repository Demo Code</a><br><a href="https://www.polymer-project.org/0.5/components/{{repoName}}/demo.html" target="_blank">Polymer {{repoName}} Demo</a><br><a href="https://www.polymer-project.org/0.5/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br><a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br></div></div><div flex="" class="right" id="code8"><prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js><div class="linkRight"><a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/{{repoName}}.html" target="_blank">Github Repository Code</a><br><a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/demo/index.html" target="_blank">Github Repository Demo Code</a><br><a href="https://www.polymer-project.org/0.8/components/{{repoName}}/demo/index.html" target="_blank">Polymer {{repoName}} Demo</a><br><a href="https://www.polymer-project.org/0.8/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br><a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>(Some of these links may not work yet.)</div></div></div></div><core-header-panel mode="seamed" id="menu_panel" fit=""><core-toolbar id="menu_toolbar"><paper-input id="filter_input" label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input></core-toolbar><div class="list-container" flex=""><div class="elements-group-title" on-click="{{collapse1Toggle}}" horizontal="" layout="">Core Elements<div></div><core-icon icon="arrow-drop-down" id="collapse1_icon"></core-icon></div><core-collapse id="collapse1"><core-menu on-core-select="{{loadCompare1}}" id="reposGroup1Menu" class="list-menu" wrap="" horizontal="" layout=""><template repeat="{{repo in reposAllFiltered  | groupFilter('core') }}"><core-item label="{{repo.name}}"></core-item></template></core-menu></core-collapse><div class="elements-group-title" on-click="{{collapse2Toggle}}" wrap="" horizontal="" layout="">Paper Elements<div></div><core-icon icon="arrow-drop-down" id="collapse2_icon"></core-icon></div><core-collapse id="collapse2"><core-menu on-core-select="{{loadCompare2}}" id="reposGroup2Menu" class="list-menu" wrap="" horizontal="" layout=""><template repeat="{{repo in reposAllFiltered  | groupFilter('paper') }}"><core-item label="{{repo.name}}"></core-item></template></core-menu></core-collapse><div class="elements-group-title" on-click="{{collapse3Toggle}}" horizontal="" layout="">Other Elements<div></div><core-icon icon="arrow-drop-down" id="collapse3_icon"></core-icon></div><core-collapse id="collapse3"><core-menu on-core-select="{{loadCompare3}}" id="reposGroup3Menu" class="list-menu" wrap="" horizontal="" layout=""><template repeat="{{repo in reposAllFiltered  | groupFilter('other') }}"><core-item label="{{repo.name}}"></core-item></template></core-menu></core-collapse><h3 id="error_message" class="error"></h3><hr><footer>By Chuck Horton -- email chuckh @ hware.com<p>To Compare Code input polymer element name at top then press enter key,<br>or select from items below.<br><br>You can filter list by inputting into filter repos.</p></footer></div></core-header-panel></div></div></core-header-panel></div></template><script>
+      </style>
+
+      <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+      <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+
+      <core-ajax id="get_repos_ajax" auto
+  			url="https://api.github.com/users/Polymer/repos",
+  			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+  			handleAs="json"
+  			loading="{{loading1}}"
+  			progress="{{progress}}"
+  			response="{{repos1}}"
+  			on-core-response="{{handleReposResponse}}"
+  			on-core-error="{{handleReposErrorResponse}}">
+  		</core-ajax>
+
+  		<core-ajax id="get_repos_page2_ajax" auto
+  			url="https://api.github.com/users/Polymer/repos",
+  			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+  			handleAs="json"
+  			loading="{{loading2}}"
+  			progress="{{progress2}}"
+  			response="{{repos2}}"
+  			on-core-response="{{handleRepos2Response}}">
+  		</core-ajax>
+
+      <core-ajax id="get_code5_ajax"
+        url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=master",
+        params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+        handleAs="json"
+        loading="{{loading5}}"
+        progress="{{progress5}}"
+        response="{{code5}}"
+        on-core-response="{{handleCode5Response}}"
+        on-core-error="{{handleCode5ErrorResponse}}">
+      </core-ajax>
+
+      <core-ajax id="get_code8_ajax"
+        url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview",
+        params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+        handleAs="json"
+        loading="{{loading8}}"
+        progress="{{progress8}}"
+        response="{{code8}}"
+        on-core-response="{{handleCode8Response}}"
+        on-core-error="{{handleCode8ErrorResponse}}">
+      </core-ajax>
+
+      <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
+        <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br><br>You can filter list by inputting into filter repos. </p>
+        <paper-button affirmative autofocus>OK</paper-button>
+      </paper-action-dialog>
+
+      <div horizontal layout fit>
+
+        <core-header-panel main mode="standard" flex>
+
+          <!-- Main Toolbar -->
+          <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
+            <paper-icon-button id="back_button" icon="arrow-back" on-tap="{{toggleMenu}}" hidden></paper-icon-button>
+            Compare Code 0.5 to 0.8:
+            <paper-input id="repo_input"  label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
+            <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
+
+            <!-- <span class="instructions"><-- input polymer element name then press enter key, or select from right sidebar</span> -->
+            <div flex></div>
+            <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
+          </core-toolbar>
+
+          <!-- Main Content -->
+          <div class="page" fit>
+            <div horizontal layout flex>
+
+              <div id="compare_code_container" hidden vertical layout flex>
+                <div horizontal layout>
+                  <div flex class="left-title"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
+                  <div flex class="right-title"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
+                </div>
+                <div horizontal layout class="code">
+                  <div flex class="left" id="code5">
+                    <!-- <marked-element id="code5_marked" hidden></marked-element> -->
+                    <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true"></prism-js>
+                    <hr>
+                    <div class="linkLeft">
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/master/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/master/demo.html" target="_blank">Github Repository Demo Code</a><br>
+                      <a href="https://www.polymer-project.org/0.5/components/{{repoName}}/demo.html" target="_blank">Polymer {{repoName}} Demo</a><br>
+                      <a href="https://www.polymer-project.org/0.5/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
+                    </div>
+                  </div>
+                  <div flex class="right" id="code8">
+                    <!-- <marked-element id="code8_marked" hidden></marked-element> -->
+                    <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
+                    <div class="linkRight">
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/demo/index.html" target="_blank">Github Repository Demo Code</a><br>
+                      <a href="https://www.polymer-project.org/0.8/components/{{repoName}}/demo/index.html" target="_blank">Polymer {{repoName}} Demo</a><br>
+                      <a href="https://www.polymer-project.org/0.8/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
+                      <a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
+                      (Some of these links may not work yet.)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <core-header-panel mode="seamed" id="menu_panel" fit>
+                <core-toolbar id="menu_toolbar">
+                  <paper-input id="filter_input" label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
+                </core-toolbar>
+
+                <div class="list-container" flex>
+                  <div class="elements-group-title" on-click="{{collapse1Toggle}}" horizontal layout>
+                    Core Elements
+                    <div></div>
+                    <core-icon icon="arrow-drop-down" id="collapse1_icon"></core-icon>
+                  </div>
+                  <core-collapse id="collapse1">
+                    <core-menu on-core-select="{{loadCompare1}}" id="reposGroup1Menu" class="list-menu" wrap horizontal layout>
+                      <template repeat="{{repo in reposAllFiltered  | groupFilter('core') }}">
+                        <core-item label="{{repo.name}}"></core-item>
+                      </template>
+                    </core-menu>
+                  </core-collapse>
+
+                  <div class="elements-group-title" on-click="{{collapse2Toggle}}" wrap horizontal layout>
+                    Paper Elements
+                    <div></div>
+                    <core-icon icon="arrow-drop-down" id="collapse2_icon"></core-icon>
+                  </div>
+                  <core-collapse id="collapse2">
+                    <core-menu on-core-select="{{loadCompare2}}" id="reposGroup2Menu" class="list-menu" wrap horizontal layout>
+                      <template repeat="{{repo in reposAllFiltered  | groupFilter('paper') }}" >
+                        <core-item label="{{repo.name}}"></core-item>
+                      </template>
+                    </core-menu>
+                  </core-collapse>
+
+                  <div class="elements-group-title" on-click="{{collapse3Toggle}}" horizontal layout>
+                    Other Elements
+                    <div></div>
+                    <core-icon icon="arrow-drop-down" id="collapse3_icon"></core-icon>
+                  </div>
+                  <core-collapse id="collapse3">
+                    <core-menu on-core-select="{{loadCompare3}}" id="reposGroup3Menu" class="list-menu"  wrap horizontal layout>
+                      <template repeat="{{repo in reposAllFiltered  | groupFilter('other') }}">
+                        <core-item label="{{repo.name}}"></core-item>
+                      </template>
+                    </core-menu>
+                  </core-collapse>
+
+                  <!-- <h4>Core List</h4>
+                  <core-list id="repos_list" data="{{reposAllFiltered}}"  height="30" flex>
+                    <template>
+                      <core-item lines>{{model.name}}</core-item> -->
+                      <!-- <div class="item {{ {selected: selected} | tokenList }}">
+                        <span>{{model.name}}</span>
+                      </div> -->
+                    <!-- </template>
+                  </core-list> -->
+
+                  <h3 id="error_message" class="error"></h3>
+
+                  <hr>
+                  <footer>
+                    By Chuck Horton -- email chuckh @ hware.com
+                    <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br><br>You can filter list by inputting into filter repos. </p>
+                  </footer>
+
+                </div>
+              </core-header-panel>
+
+            </div>
+          </div>
+
+        </core-header-panel>
+
+      </div>
+
+    </template>
+
+    <script>
       Polymer({
 
         repoName: "",
@@ -505,4 +728,11 @@
         },
 
       });
-    </script></polymer-element><compare-code></compare-code></body></html>
+    </script>
+
+  </polymer-element>
+
+  <compare-code></compare-code>
+
+</body>
+</html>
