@@ -137,9 +137,9 @@
     	  ready: function() {
           var hostName = window.location.hostname;
           if (hostName == "chuckh.github.io") {
-            compareCodePrefix = "/road-to-polymer/";
+            this.compareCodePrefix = "/road-to-polymer/";
           }
-          console.log("repos-list ready", hostName);
+          console.log("repos-list ready", hostName, this.compareCodePrefix);
     	  },
 
     	  handleReposResponse: function(event) {
