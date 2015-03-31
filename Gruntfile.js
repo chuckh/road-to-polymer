@@ -280,7 +280,7 @@ module.exports = function (grunt) {
       },
       pages: {
         options: {
-          remote: 'git@github.com:chuckh/oad-to-polymer.git',
+          remote: 'git@github.com:chuckh/road-to-polymer.git',
           branch: 'gh-pages-dist'
         }
       },
