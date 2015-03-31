@@ -18,7 +18,8 @@
     <core-header-panel id="core_header_panel" mode="waterfall-tall" fit>
 
       <core-toolbar class="waterfall-tall">
-        <div id="error_message" class="error"></div>
+        <div id="error_message" class="error" flex></div>
+        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="{{refreshFile}}"></paper-icon-button>
         <div class="bottom ident">
           {{pageTitle}}
           <div id="sub_title" class="sub-title">
@@ -64,6 +65,12 @@
           this.$.error_message.innerHTML = "Can't find " + this.file;
           this.$.file_div.innerHTML = " ";
           console.log("Error: " + error.statusCode + " - " + error.message);
+        },
+
+        refreshFile: function() {
+          console.log("html-file-viewer refreshFile", this.$.get_file.url);
+          this.$.get_file.abort();
+          this.$.get_file.go();
         },
 
       });
