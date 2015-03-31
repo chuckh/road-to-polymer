@@ -26,7 +26,7 @@
 ### CSS Conversion Process
 1. ???
 
-
+---
 
 # Migration Notes from Polymer 0.8 PRIMER.md
 https://raw.githubusercontent.com/Polymer/polymer/0.8-preview/PRIMER.md
