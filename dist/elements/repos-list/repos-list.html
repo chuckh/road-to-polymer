@@ -80,7 +80,7 @@
 		  <div class="content">
 		    <div vertical layout>
 		      <template repeat="{{repoAll, j in reposAllFiltered}}">
-            <a href="/../compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
+            <a href="{{compareCodePrefix}}compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
             <!-- <a href="http://chuckh.github.io/road-to-polymer/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link"> -->
 		        <div horizontal layout class="row">
 		          <div  class="cntr">{{j+1}}. </div>
@@ -132,6 +132,7 @@
     	  currentError: "",
     	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
         searchValue: "",
+        compareCodePrefix = "../"
 
     	  ready: function() {
     	    console.log("repos-list ready");

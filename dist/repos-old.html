@@ -1,10 +1,36 @@
-<!DOCTYPE html><html><head><title>Polymer Repositories Status Report</title><meta name="description" content="Polymer Repositories Status"><meta charset="utf-8"><meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes"><link rel="shortcut icon" href="/favicon.ico"><script src="bower_components/webcomponentsjs/webcomponents.min.js"></script><link rel="import" href="bower_components/font-roboto/roboto.html"><link rel="import" href="bower_components/core-ajax/core-ajax.html"><link rel="import" href="bower_components/core-header-panel/core-header-panel.html"><link rel="import" href="bower_components/core-media-query/core-media-query.html"><link rel="import" href="bower_components/core-icons/core-icons.html"><link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"><link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html"><style>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Polymer Repositories Status Report</title>
+  <meta name="description" content="Polymer Repositories Status" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="bower_components/core-ajax/core-ajax.html">
+  <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="bower_components/core-media-query/core-media-query.html">
+  <link rel="import" href="bower_components/core-icons/core-icons.html">
+  <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
+
+  <style>
 	  html, body {
 	    margin: 0;
 	    height: 100%;
 	    font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 	  }
-  </style></head><body unresolved=""><polymer-element name="repos-list" attributes=""><template><style>
+  </style>
+
+</head>
+
+<body unresolved>
+  <polymer-element name="repos-list" attributes="" >
+
+    <template>
+	    <style>
 		    .center {
 		      text-align: center;
 		    }
@@ -113,7 +139,118 @@
         a:active {
           background-color: #C5CAE9
         }
-	   </style><core-media-query query="min-width: 1250px" querymatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query><core-ajax id="get_repos_ajax" auto="" url="https://api.github.com/users/Polymer/repos" ,="" params="{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }" handleas="json" loading="{{loading1}}" progress="{{progress}}" response="{{repos}}" on-core-response="{{handleReposResponse}}" on-core-error="{{handleReposErrorResponse}}"></core-ajax><core-ajax id="get_repos_page2_ajax" auto="" url="https://api.github.com/users/Polymer/repos" ,="" params="{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }" handleas="json" loading="{{loading2}}" progress="{{progress2}}" response="{{repos2}}" on-core-response="{{handleRepos2Response}}"></core-ajax><core-ajax id="get_branches_ajax" url="" ,="" params="{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}" handleas="json" loading="{{branchesLoading}}" progress="{{branchesProgress}}" response="{{branches}}" on-core-response="{{handleBranchesResponse}}"></core-ajax><core-ajax id="get_releases_ajax" url="" ,="" params="{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}" handleas="json" loading="{{releasesLoading}}" progress="{{releasesProgress}}" response="{{releases}}" on-core-response="{{handleReleaseResponse}}" on-core-error="{{handleReleasesErrorResponse}}"></core-ajax><core-header-panel id="core_header_panel"><div class="core-header"><div horizontal="" layout="">Polymer Repositories Status<div id="filter_container" class="filter" flex=""><span id="filter_title">Filter:</span><paper-radio-group selected="all" class="yellow" id="radio_group_filter"><paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button><paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button><paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button><paper-radio-button name="Core" label="Core" on-click="{{filterRepos}}"></paper-radio-button><paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}"></paper-radio-button><paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button><paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button></paper-radio-group></div><div id="search" class="search" horizontal="" layout=""><paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button><input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search="="{{filterRepos}}"" autocomplete="on" placeholder="search names" autofocus="" hidden=""></div></div><div horizontal="" layout="" class="titles"><div class="cntr">Cntr</div><div flex="">Name</div><div flex="" three="">Description</div><div flex="" class="center">Cur Release</div><div flex="" class="center">0.8-{{branchLookingFor}}</div></div></div><div class="content"><div vertical="" layout=""><template repeat="{{repoAll, j in reposAllFiltered}}"><a href="http://chuckh.github.io/road-to-polymer/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link"><div horizontal="" layout="" class="row"><div class="cntr">{{j+1}}.</div><div flex=""><strong>{{repoAll[0]}}</strong></div><div flex="" three="">{{repoAll[1]}}</div><div flex="" class="center">{{repoAll[2]}}</div><div flex="" class="center">{{repoAll[3]}}</div></div></a></template></div><div horizontal="" layout="" class="counters"><div class="cntr">Counter</div><div flex=""></div><div flex="" three="">{{reposAllFiltered.length}}</div><div flex="" class="center"></div><div flex="" class="center" id="yes_counter" hidden="">Yes: {{cntrYes}}</div></div><h3 id="error_message" class="error"></h3><hr><footer>Report by Chuck Horton -- email chuckh @ hware.com<br>(Note if you don't see results after filtering then scroll up.)<br>(Note click on element to see compare code of Polymer 0.5 vs 0.8)</footer></div></core-header-panel></template><script>
+	   </style>
+
+	  <core-media-query query="min-width: 1250px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+
+		<core-ajax id="get_repos_ajax" auto
+			url="https://api.github.com/users/Polymer/repos",
+			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+			handleAs="json"
+			loading="{{loading1}}"
+			progress="{{progress}}"
+			response="{{repos}}"
+			on-core-response="{{handleReposResponse}}"
+			on-core-error="{{handleReposErrorResponse}}">
+		</core-ajax>
+
+		<core-ajax id="get_repos_page2_ajax" auto
+			url="https://api.github.com/users/Polymer/repos",
+			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
+			handleAs="json"
+			loading="{{loading2}}"
+			progress="{{progress2}}"
+			response="{{repos2}}"
+			on-core-response="{{handleRepos2Response}}">
+		</core-ajax>
+
+		<core-ajax id="get_branches_ajax"
+			url="",
+			params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+			handleAs="json"
+			loading="{{branchesLoading}}"
+			progress="{{branchesProgress}}"
+			response="{{branches}}"
+			on-core-response="{{handleBranchesResponse}}">
+		</core-ajax>
+
+		<core-ajax id="get_releases_ajax"
+			url="",
+			params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+			handleAs="json"
+			loading="{{releasesLoading}}"
+			progress="{{releasesProgress}}"
+			response="{{releases}}"
+			on-core-response="{{handleReleaseResponse}}"
+			on-core-error="{{handleReleasesErrorResponse}}">
+		</core-ajax>
+
+		<core-header-panel id="core_header_panel">
+		  <div class="core-header">
+			  <div horizontal layout>
+  			  Polymer Repositories Status
+  			  <div id="filter_container" class="filter" flex><span id="filter_title">Filter:</span>
+  				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
+  				    <paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="Core" label="Core" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
+  				    <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button>
+  				  </paper-radio-group>
+  			  </div>
+  			  <div id="search" class="search" horizontal layout>
+  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
+  				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
+  			  </div>
+    		</div>
+
+		    <div horizontal layout class="titles">
+		      <div class="cntr">Cntr</div>
+		      <div flex>Name</div>
+		      <div flex three>Description</div>
+		      <div flex class="center">Cur Release</div>
+		      <div flex class="center">0.8-{{branchLookingFor}}</div>
+		    </div>
+		  </div>
+		  <div class="content">
+		    <div vertical layout>
+		      <template repeat="{{repoAll, j in reposAllFiltered}}">
+            <a href="http://chuckh.github.io/road-to-polymer/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
+		        <div horizontal layout class="row">
+		          <div  class="cntr">{{j+1}}. </div>
+		          <div flex> <strong>{{repoAll[0]}}</strong></div>
+		          <div flex three>{{repoAll[1]}}</div>
+		          <div flex class="center">{{repoAll[2]}}</div>
+		          <div flex class="center">{{repoAll[3]}}</div>
+		        </div>
+          </a>
+		      </template>
+		    </div>
+
+		    <div horizontal layout class="counters">
+		      <div class="cntr">Counter</div>
+		      <div flex></div>
+		      <div flex three>{{reposAllFiltered.length}}</div>
+		      <div flex class="center"></div>
+		      <div flex class="center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>
+		    </div>
+
+		    <h3 id="error_message" class="error"></h3>
+
+  			<hr>
+  			<footer>
+          Report by Chuck Horton -- email chuckh @ hware.com<br>
+    			(Note if you don't see results after filtering then scroll up.)<br>
+          (Note click on element to see compare code of Polymer 0.5 vs 0.8)
+  			</footer>
+		  </div>
+		</core-header-panel>
+
+	</template>
+
+	<script>
 	Polymer({
 	  branchLookingFor: "preview", // will not find if you put 0.8 preview
 	  releaseLookingFor: "0.5.5",
@@ -306,4 +443,10 @@
 	   },
 
 	});
-	</script></polymer-element><repos-list></repos-list></body></html>
+	</script>
+</polymer-element>
+
+<repos-list></repos-list>
+
+</body>
+</html>
