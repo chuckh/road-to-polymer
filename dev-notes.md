@@ -42,3 +42,4 @@ npm update generator-polymer -g
 
 <p>Github Repo: <a href="https://github.com/yeoman/generator-polymer">https://github.com/yeoman/generator-polymer</a></p>
 
+<br><br>
