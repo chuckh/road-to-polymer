@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="html-file-viewer" attributes="owner repo fileName branch title">
+<polymer-element name="html-file-viewer" attributes="owner repo fileName branch pageTitle">
   <template>
     <link rel="stylesheet" href="html-file-viewer.css">
 
@@ -20,7 +20,7 @@
       <core-toolbar class="waterfall-tall">
         <div id="error_message" class="error"></div>
         <div class="bottom ident">
-          {{title}}
+          {{pageTitle}}
           <div id="sub_title" class="sub-title">
             (source: <a href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
           </div>
