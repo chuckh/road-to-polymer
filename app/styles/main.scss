@@ -38,7 +38,6 @@ body {
 
 [drawer] {
   background-color: #fff;
-  // background-color: #EEEEEE;
 }
 
 core-toolbar {
@@ -50,12 +49,9 @@ core-toolbar {
 core-item {
   font-size: 13px;
   color: rgba(0,0,0,0.6);
-
-  // border-bottom: 1px solid slategray;
 }
 core-item.core-selected {
   color: #4F7DC9;
-  // background-color: #E8EAF6;
 }
 
 
