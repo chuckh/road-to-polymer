@@ -17,13 +17,14 @@
 8. textContent binding from ```<div>First: {{first}}</div> <span>{{first}}</span><br>```
 
 
-### Javascript
+### Javascript Conversion Process
 1. polymer-element name to Polymer({ is: 
 2. polymer-element attributes to javascript properties: {
+3. 
  
 
-### CSS
-???
+### CSS Conversion Process
+1. ???
 
 
 
