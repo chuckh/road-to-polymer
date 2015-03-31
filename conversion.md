@@ -10,7 +10,7 @@
 2. polymer-element name to <dom-module id=
 3. polymer-element attributes camel case to dash-case
 4. polymer-element attributes to javascript properties
-4. add <link rel="import" href="../layout/layout.html">???
+4. add ```<link rel="import" href="../layout/layout.html">``` if needed???
 5. template repeat to is="x-repeat"
 6. template is="auto-binding"  to is="x-binding" 
 7. template if to ???
