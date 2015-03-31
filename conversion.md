@@ -9,7 +9,7 @@
 1. polymer-element to dom-module
 2. polymer-element name to <dom-module id=
 3. polymer-element attributes camel case to dash-case
-3. polymer-element attributes to javascript properties
+4. polymer-element attributes to javascript properties
 4. add <link rel="import" href="../layout/layout.html">???
 5. template repeat to is="x-repeat"
 6. template is="auto-binding"  to is="x-binding" 
@@ -26,9 +26,16 @@
 ### CSS Conversion Process
 1. ???
 
+
+### Finish
+1. Review converted code
+2. Save or copy converted code
+ 
+
 ---
 
-# Migration Notes from Polymer 0.8 PRIMER.md
+
+## Migration Notes from Polymer 0.8 PRIMER.md
 https://raw.githubusercontent.com/Polymer/polymer/0.8-preview/PRIMER.md
 
 This section covers how to deal with yet-unimplemented and/or de-scoped features in Polymer 0.8 as compared to 0.5.  Many of these are simply un-implemented; that is, we will likely have a final "solution" that addresses the need, we just haven't tackled that feature yet as we address items in priority order.  Other solutions in 0.8 may be lower-level as compared to 0.5, and will be explained here.
