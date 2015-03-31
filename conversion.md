@@ -1,4 +1,4 @@
-## Polymer 0.5 to 0.8 custom element conversion process
+# Polymer 0.5 to 0.8 custom element conversion process
 
 ### Select source code
 * Allow to pasted into textarea or
