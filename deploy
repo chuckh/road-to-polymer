@@ -10,7 +10,8 @@ echo Press any key to continue, or control-c to abort
 read -n 1 -s
 echo
 echo Starting Deploy Process to PRODUCTION Server -- chuck.github.io/road-to-polymer
-cp app/compare-code.html dist/compare-code-html
+echo cp app/compare-code.html dist/compare-code-html
+
 git add .
 git commit -m "New Build $1"
 grunt buildcontrol
