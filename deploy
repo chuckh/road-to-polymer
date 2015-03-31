@@ -1,0 +1,14 @@
+clear
+echo Build and Deploy Road to Polymer to chuck.github.io/road-to-polymer PRODUCTION Server
+echo  Comment: $1
+echo
+echo Starting Build Process
+grunt build
+echo Finished Build Process, will start Github Deploy to PRODUCTION Server next
+echo
+echo Press any key to continue, or control-c to abort
+read -n 1 -s
+echo
+echo Starting Deploy Process to PRODUCTION Server -- chuck.github.io/road-to-polymer
+cp app/compare-code.html dist/compare-code-html
+grunt buildcontrol
