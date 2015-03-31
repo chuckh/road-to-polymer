@@ -25,15 +25,18 @@
 
 ### CSS Conversion Process
 1. ???
+2. 
 
 
 ### Finish
 1. Review converted code
 2. Save or copy converted code
- 
+
+<br>
 
 ---
 
+<br>
 
 ## Migration Notes from Polymer 0.8 PRIMER.md
 https://raw.githubusercontent.com/Polymer/polymer/0.8-preview/PRIMER.md
