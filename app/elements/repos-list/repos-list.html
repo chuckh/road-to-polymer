@@ -80,7 +80,8 @@
 		  <div class="content">
 		    <div vertical layout>
 		      <template repeat="{{repoAll, j in reposAllFiltered}}">
-            <a href="http://chuckh.github.io/road-to-polymer/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
+            <a href="../compare-code.html?el={{repoAll[0]}}" target="_blank" class="link">
+            <!-- <a href="http://chuckh.github.io/road-to-polymer/compare-code.html?el={{repoAll[0]}}" target="_blank" class="link"> -->
 		        <div horizontal layout class="row">
 		          <div  class="cntr">{{j+1}}. </div>
 		          <div flex> <strong>{{repoAll[0]}}</strong></div>
@@ -283,14 +284,14 @@
     		  // document.querySelector('#mainContainer').scroller.scrollIntoView();
     	   },
 
-           reposViewResized: function(e, detail, sender) {
-             var contentWidth = 0;
-             if (this.$.core_header_panel) {
-               contentWidth = this.$.core_header_panel.clientWidth;
-             }
-        		 this.$.filter_container.hidden = !this.mediumScreen;
-             // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
-           },
+         reposViewResized: function(e, detail, sender) {
+           var contentWidth = 0;
+           if (this.$.core_header_panel) {
+             contentWidth = this.$.core_header_panel.clientWidth;
+           }
+      		 this.$.filter_container.hidden = !this.mediumScreen;
+           // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
+         },
 
     	   toggleSearch: function(e, detail, sender) {
     		   if (this.$.radio_group_filter.hidden) { // Hide search

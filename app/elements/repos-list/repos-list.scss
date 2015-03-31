@@ -40,19 +40,14 @@ core-header-panel {
   line-height: 60px;
   font-size: 28px;
   padding: 0 10px;
-  background-color: #303F9F;  /* 7986cb   rgb(63,81,181)
-   7986cb polymer-project.org header color*/
+  background-color: #303F9F;
   color: #FFF;
   transition: height 0.2s;
 }
 .content {
   height: 2000px;
   padding-top: 15px;
-  /*padding-left: 10px;
-  padding-right: 10px;*/
-  // background: linear-gradient(rgb(fff, fff, fff), white);
-  // background-color: white;
-  background-color: #fafafa;
+  background-color: #fafafa;  //  fafafa fefefe
 }
 
 footer {
@@ -80,14 +75,14 @@ paper-radio-group.yellow paper-radio-button[checked]::shadow #offRadio {
 
 .search {
   margin-top: 10px;
-      font-size: 14px;
-    text-align: left;
+  font-size: 14px;
+  text-align: left;
   padding-right: 20px;
 }
 
 #search_input {
-    margin-top: 10px;
-    font-size: 20px;
+  margin-top: 10px;
+  font-size: 20px;
   padding: 10px;
   min-width: 300px;
 }
