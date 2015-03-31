@@ -132,10 +132,14 @@
     	  currentError: "",
     	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
         searchValue: "",
-        compareCodePrefix = "../"
+        compareCodePrefix: "../",
 
     	  ready: function() {
-    	    console.log("repos-list ready");
+          var hostName = window.location.hostname;
+          if (hostName == "chuckh.github.io") {
+            compareCodePrefix: "/road-to-polymer/"
+          }
+          console.log("repos-list ready", hostName);
     	  },
 
     	  handleReposResponse: function(event) {
