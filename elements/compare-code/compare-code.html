@@ -206,11 +206,10 @@
             this.$.menu_panel.hidden = true;
             this.$.compare_code_container.hidden = false;
             this.$.back_button.hidden = false;
+            this.searchForRepo();
           } else {
             this.$.menu_panel.hidden = false;
-
           }
-    	    this.searchForRepo();
           this.$.collapse1.opened = true;
           this.$.collapse2.opened = true;
           this.$.collapse3.opened = true;
