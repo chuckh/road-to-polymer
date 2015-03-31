@@ -1,5 +1,5 @@
 body {
-  background: #fafafa;
+  background-color: #fafafa;
   font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
   color: #333;
 }
@@ -44,5 +44,22 @@ body {
 core-toolbar {
   color: #FAFAFA;
   font-weight: normal;
-  background-color: rgb(63,81,181);  // 7986cb
+  background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
+}
+
+core-item {
+  font-size: 13px;
+  color: rgba(0,0,0,0.6);
+
+  // border-bottom: 1px solid slategray;
+}
+core-item.core-selected {
+  color: #4F7DC9;
+  // background-color: #E8EAF6;
+}
+
+
+.sidebar-menu {
+  font-size: 12px;
+  color: rgba(0,0,0,0.6);
 }

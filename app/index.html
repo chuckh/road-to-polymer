@@ -8,8 +8,8 @@
   <title>Road to Polymer</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-  <!-- build:css styles/main.css -->
-  <link rel="stylesheet" href="../app/styles/main.css">
+  <!-- build:css styles/main.css  ../app or /app or / {{appPrefix}}-->
+  <link rel="stylesheet" href="/styles/main.css">
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
@@ -27,21 +27,25 @@
     <core-drawer-panel>
 
       <!-- Drawer -->
-      <core-header-panel drawer mode="seamed" class="left-sidebar">
+      <core-header-panel drawer mode="standard" class="left-sidebar">
 
         <!-- Drawer Toolbar -->
-          <core-toolbar >
-            <core-icon icon="polymer"></core-icon>
-            {{appName}}
-          </core-toolbar>
+        <core-toolbar >
+          <core-icon icon="polymer"></core-icon>
+          {{appName}}
+        </core-toolbar>
 
         <!-- Drawer Content -->
-        <core-menu selected="{{page}}" >
-          <core-item label="Overview"></core-item>
-          <core-item label="Repositories Status Report"></core-item>
-          <core-item label="Polymer Compare Code"></core-item>
-          <core-item label="Polymer Project Website"></core-item>
-          <core-item label="Polymer 0.9 Sneak Peak"></core-item>
+        <core-menu selected="{{page}}" class="sidebar-menu" center>
+          <core-item label="Welcome" icon="polymer"></core-item>
+          <core-item label="Repositories Status Report" icon="label-outline"></core-item>
+          <core-item label="Polymer Compare Code" icon="subject"></core-item>
+          <core-item label="Polymer Project Website" icon="av:web"></core-item>
+          <core-item label="Polymer Primer 0.8" icon="info-outline"></core-item>
+          <core-item label="Yeoman generator for Polymer" icon="info-outline"></core-item>
+          <core-item label="Polymer Discussion" icon="question-answer"></core-item>
+          <core-item label="Polymer 0.9 Sneak Peak" icon="info-outline"></core-item>
+          <core-item label="Development Notes" icon="info-outline"></core-item>
         </core-menu>
 
       </core-header-panel>
@@ -57,24 +61,44 @@
 
         <!-- Main Content -->
         <core-pages selected="{{page}}" fit>
-          <div flex>
-            <iframe src="../app/overview.html" frameborder="0" width="100%" height="100%"></iframe>
-          </div>
-          <div flex>
-            <iframe src="../app/repos.html" frameborder="0" width="100%" height="100%"></iframe>
-          </div>
 
-          <div flex>
-            <iframe src="../app/compare-code.html" frameborder="0" width="100%" height="100%"></iframe>
-          </div>
+          <welcome-view></welcome-view>
+
+          <repos-list></repos-list>
+
+          <compare-code></compare-code>
+
 
           <div flex>
             <iframe src="//polymer-project.org" frameborder="0" width="100%" height="100%"></iframe>
           </div>
 
+          <html-file-viewer owner="Polymer" repo="polymer"
+            fileName="PRIMER.md" branch="0.8-preview"
+            title="Polymer Primer 0.8" flex>
+          </html-file-viewer>
+
+          <marked-file-viewer owner="yeoman" repo="generator-polymer"
+            fileName="readme.md" branch="master"
+            title="Yeoman generator for Polymer Readme" flex>
+          </marked-file-viewer>
+
+          <div flex>
+            <iframe id="forum_embed" src="{{forumEmbedSrc}}" seamless="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+          </div>
+
           <div flex>
             <iframe src="http://divshot.com/blog/web-components/polymer-0-8-sneak-peek/" frameborder="0" width="100%" height="100%"></iframe>
           </div>
+
+
+          <marked-file-viewer owner="chuckh" repo="road-to-polymer"
+            fileName="dev-notes.md" branch="gh-pages"
+            title="Development Notes" flex>
+          </marked-file-viewer>
+
+<!-- https://www.polymer-project.org/0.5/components/core-icon/demo.html -->
+<!-- https://www.polymer-project.org/0.5/components/core-icons/demo.html -->
 
           <core-header-panel class="header-panel-page" mode="seamed">
             <core-toolbar>

@@ -6,6 +6,8 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('web-component-tester');
+  grunt.loadNpmTasks('grunt-build-control');
+
 
   // configurable paths
   var yeomanConfig = {
@@ -267,6 +269,27 @@ module.exports = function (grunt) {
           threshold: 80
         }
       }
+    },
+    //
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      pages: {
+        options: {
+          remote: 'git@github.com:chuckh/oad-to-polymer.git',
+          branch: 'gh-pages-dist'
+        }
+      },
+      local: {
+        options: {
+          remote: '../',
+          branch: 'build'
+        }
+      }
     }
   });
 
@@ -290,7 +313,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  
+
   grunt.registerTask('test:local', ['wct-test:local']);
   grunt.registerTask('test:remote', ['wct-test:remote']);
 
