@@ -28,18 +28,20 @@
   </style>
 
   <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
-  <link rel="import" href="bower_components/font-roboto/roboto.html">
   <link rel="import" href="bower_components/core-ajax/core-ajax.html">
+  <link rel="import" href="bower_components/core-collapse/core-collapse.html">
   <link rel="import" href="bower_components/core-drawer-panel/core-drawer-panel.html">
   <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
   <link rel="import" href="bower_components/core-icon/core-icon.html">
   <link rel="import" href="bower_components/core-icons/core-icons.html">
-  <link rel="import" href="bower_components/core-media-query/core-media-query.html">
-  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
-  <link rel="import" href="bower_components/core-menu/core-menu.html">
   <link rel="import" href="bower_components/core-item/core-item.html">
   <link rel="import" href="bower_components/core-list/core-list.html">
-  <link rel="import" href="bower_components/core-collapse/core-collapse.html">
+  <link rel="import" href="bower_components/core-media-query/core-media-query.html">
+  <link rel="import" href="bower_components/core-menu/core-menu.html">
+  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  <link rel="import" href="bower_components/paper-dialog/paper-action-dialog.html">
   <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
   <link rel="import" href="bower_components/paper-input/paper-input.html">
   <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
@@ -61,6 +63,7 @@
 
         #menu_toolbar {
           background-color: #f5f2f0;
+          /*padding-left: 20px;*/
         }
 
         .page {
@@ -69,8 +72,9 @@
 
         .page-toolbar {
           color: #fff;
-          font-size: 1.2em;
-          font-weight: 200;
+          padding-left: 30px;
+          font-size: 1.4em;
+          font-weight: 100;
           line-height: 30px;
           /*background-color: #4F7DC9;*/
           background-color: #303F9F;
@@ -83,6 +87,22 @@
           line-height: 30px;
           background-color: #303F9F;
           /*background-color: #4F7DC9;*/
+        }
+
+        #back_button {
+          margin-left: -10px;
+        }
+
+        #repo_input {
+          padding-left: 20px;
+          font-size: 1.1em;
+          font-weight: 200;
+          width: 325px;
+          margin-bottom: 10px;
+        }
+
+        #filter_input {
+          padding-left: 20px;
         }
 
         .left-title {
@@ -111,7 +131,9 @@
         #code5, #code8 {
           overflow: auto;
           overflow-y: hidden;
+          z-index: 1;
         }
+
 
         .code {
           font-size: 14px;
@@ -165,15 +187,30 @@
           overflow: hidden;
         }
 
+        core-item {
+          width: 140px;
+          margin: 2px;
+          padding-top: 0;
+          padding-bottom: 0;
+          padding-left: 8px;
+          padding-right: 8px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          overflow: hidden;
+          font-size: 12px;
+        }
+
         core-item.core-selected {
-          font-size: 1.1em;
+          font-size: 13px;
           color: #4F7DC9;
-          /*background-color: yellow;*/
+          background-color: #E8EAF6;
 
         }
 
         .list-container {
+          max-width: 1380px;
           margin-top: -5px;
+          padding-left: 20px;
         }
 
         .list-menu {
@@ -181,8 +218,8 @@
           margin-right: 0;
           padding-left: 10px;
           padding-right: 10px;
-          border-top: 1px solid #ddd;
-          border-bottom: 1px solid #ddd;
+          /*border-top: 1px solid #ddd;
+          border-bottom: 1px solid #ddd;*/
         }
         .elements-group-title {
           padding-left: 10px;
@@ -240,15 +277,23 @@
         on-core-error="{{handleCode8ErrorResponse}}">
       </core-ajax>
 
+      <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
+        <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br><br>You can filter list by inputting into filter repos. </p>
+        <paper-button affirmative autofocus>OK</paper-button>
+      </paper-action-dialog>
+
       <div horizontal layout fit>
 
         <core-header-panel main mode="standard" flex>
 
           <!-- Main Toolbar -->
           <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
-            Compare Code 0.5 to 0.8 -->
-            <paper-input label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
-            <span class="instructions"><-- input polymer element name then press enter key, or select from right sidebar</span>
+            <paper-icon-button id="back_button" icon="arrow-back" on-tap="{{toggleMenu}}" hidden></paper-icon-button>
+            Compare Code 0.5 to 0.8:
+            <paper-input id="repo_input"  label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
+            <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
+
+            <!-- <span class="instructions"><-- input polymer element name then press enter key, or select from right sidebar</span> -->
             <div flex></div>
             <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
           </core-toolbar>
@@ -257,7 +302,7 @@
           <div class="page" fit>
             <div horizontal layout flex>
 
-              <div vertical layout flex>
+              <div id="compare_code_container" hidden vertical layout flex>
                 <div horizontal layout>
                   <div flex class="left-title"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
                   <div flex class="right-title"><h3>Polymer 0.8 - {{repoName}} - <span class="error-message">{{errorMessage8}}</span></h3></div>
@@ -290,76 +335,78 @@
                 </div>
               </div>
 
+              <core-header-panel mode="seamed" id="menu_panel" fit>
+                <core-toolbar id="menu_toolbar">
+                  <paper-input id="filter_input" label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
+                </core-toolbar>
+
+                <div class="list-container" flex>
+                  <div class="elements-group-title" on-click="{{collapse1Toggle}}" horizontal layout>
+                    Core Elements
+                    <div></div>
+                    <core-icon icon="arrow-drop-down" id="collapse1_icon"></core-icon>
+                  </div>
+                  <core-collapse id="collapse1">
+                    <core-menu on-core-select="{{loadCompare1}}" id="reposGroup1Menu" class="list-menu" wrap horizontal layout>
+                      <template repeat="{{repo in reposAllFiltered  | groupFilter('core') }}">
+                        <core-item label="{{repo.name}}"></core-item>
+                      </template>
+                    </core-menu>
+                  </core-collapse>
+
+                  <div class="elements-group-title" on-click="{{collapse2Toggle}}" wrap horizontal layout>
+                    Paper Elements
+                    <div></div>
+                    <core-icon icon="arrow-drop-down" id="collapse2_icon"></core-icon>
+                  </div>
+                  <core-collapse id="collapse2">
+                    <core-menu on-core-select="{{loadCompare2}}" id="reposGroup2Menu" class="list-menu" wrap horizontal layout>
+                      <template repeat="{{repo in reposAllFiltered  | groupFilter('paper') }}" >
+                        <core-item label="{{repo.name}}"></core-item>
+                      </template>
+                    </core-menu>
+                  </core-collapse>
+
+                  <div class="elements-group-title" on-click="{{collapse3Toggle}}" horizontal layout>
+                    Other Elements
+                    <div></div>
+                    <core-icon icon="arrow-drop-down" id="collapse3_icon"></core-icon>
+                  </div>
+                  <core-collapse id="collapse3">
+                    <core-menu on-core-select="{{loadCompare3}}" id="reposGroup3Menu" class="list-menu"  wrap horizontal layout>
+                      <template repeat="{{repo in reposAllFiltered  | groupFilter('other') }}">
+                        <core-item label="{{repo.name}}"></core-item>
+                      </template>
+                    </core-menu>
+                  </core-collapse>
+
+                  <!-- <h4>Core List</h4>
+                  <core-list id="repos_list" data="{{reposAllFiltered}}"  height="30" flex>
+                    <template>
+                      <core-item lines>{{model.name}}</core-item> -->
+                      <!-- <div class="item {{ {selected: selected} | tokenList }}">
+                        <span>{{model.name}}</span>
+                      </div> -->
+                    <!-- </template>
+                  </core-list> -->
+
+                  <h3 id="error_message" class="error"></h3>
+
+                  <hr>
+                  <footer>
+                    By Chuck Horton -- email chuckh @ hware.com
+                    <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br><br>You can filter list by inputting into filter repos. </p>
+                  </footer>
+
+                </div>
+              </core-header-panel>
+
             </div>
           </div>
 
         </core-header-panel>
 
-        <core-header-panel mode="seamed" id="menu_panel">
-          <core-toolbar id="menu_toolbar">
-            <paper-input label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
-          </core-toolbar>
 
-          <div class="list-container">
-            <div class="elements-group-title" on-click="{{collapse1Toggle}}" horizontal layout>
-              Core Elements
-              <div flex></div>
-              <core-icon icon="arrow-drop-down" id="collapse1_icon"></core-icon>
-            </div>
-            <core-collapse id="collapse1">
-              <core-menu on-core-select="{{loadCompare1}}" id="reposGroup1Menu" class="list-menu">
-                <template repeat="{{repo in reposAllFiltered  | groupFilter('core') }}">
-                  <core-item label="{{repo.name}}"></core-item>
-                </template>
-              </core-menu>
-            </core-collapse>
-
-            <div class="elements-group-title" on-click="{{collapse2Toggle}}" horizontal layout>
-              Paper Elements
-              <div flex></div>
-              <core-icon icon="arrow-drop-down" id="collapse2_icon"></core-icon>
-            </div>
-            <core-collapse id="collapse2">
-              <core-menu on-core-select="{{loadCompare2}}" id="reposGroup2Menu" class="list-menu">
-                <template repeat="{{repo in reposAllFiltered  | groupFilter('paper') }}">
-                  <core-item label="{{repo.name}}"></core-item>
-                </template>
-              </core-menu>
-            </core-collapse>
-
-            <div class="elements-group-title" on-click="{{collapse3Toggle}}" horizontal layout>
-              Other Elements
-              <div flex></div>
-              <core-icon icon="arrow-drop-down" id="collapse3_icon"></core-icon>
-            </div>
-            <core-collapse id="collapse3">
-              <core-menu on-core-select="{{loadCompare3}}" id="reposGroup3Menu" class="list-menu">
-                <template repeat="{{repo in reposAllFiltered  | groupFilter('other') }}">
-                  <core-item label="{{repo.name}}"></core-item>
-                </template>
-              </core-menu>
-            </core-collapse>
-
-            <!-- <h4>Core List</h4>
-            <core-list id="repos_list" data="{{reposAllFiltered}}"  height="30" flex>
-              <template>
-                <core-item lines>{{model.name}}</core-item> -->
-                <!-- <div class="item {{ {selected: selected} | tokenList }}">
-                  <span>{{model.name}}</span>
-                </div> -->
-              <!-- </template>
-            </core-list> -->
-
-            <h3 id="error_message" class="error"></h3>
-
-            <!-- <hr> -->
-            <footer>
-              By Chuck Horton -- email chuckh @ hware.com<br>
-              (Click Elements Group to list repos, or input repo name to filter for, then click on repo name to load)<br>
-            </footer>
-
-          </div>
-        </core-header-panel>
 
       </div>
 
@@ -368,7 +415,7 @@
     <script>
       Polymer({
 
-        repoName: "core-toolbar",
+        repoName: "",
         repoName1: "",
         errorMessage5: "",
         errorMessage8: "",
@@ -386,8 +433,16 @@
           if (elParam) {
             this.repoName = elParam;
             this.$.menu_panel.hidden = true;
+            this.$.compare_code_container.hidden = false;
+            this.$.back_button.hidden = false;
+          } else {
+            this.$.menu_panel.hidden = false;
+
           }
     	    this.searchForRepo();
+          this.$.collapse1.opened = true;
+          this.$.collapse2.opened = true;
+          this.$.collapse3.opened = true;
         },
 
         getURLParameter: function(name) {
@@ -407,6 +462,9 @@
             this.$.get_code5_ajax.go();
             this.$.get_code8_ajax.abort();
             this.$.get_code8_ajax.go();
+            this.$.menu_panel.hidden = true;
+            this.$.compare_code_container.hidden = false;
+            this.$.back_button.hidden = false;
           }
         },
 
@@ -516,7 +574,20 @@
         },
 
         toggleMenu: function() {
-          this.$.menu_panel.hidden = this.$.menu_panel.hidden ? false : true;
+          if (this.$.menu_panel.hidden) { // Show Menu
+            this.$.menu_panel.hidden = false;
+            this.$.compare_code_container.hidden = true;
+            this.$.back_button.hidden = true;
+          } else { // Show Compare Code
+            this.$.menu_panel.hidden = true;
+            this.$.compare_code_container.hidden = false;
+            this.$.back_button.hidden = false;
+          }
+          // this.$.menu_panel.hidden = this.$.menu_panel.hidden ? false : true;
+        },
+
+        toggleHelp: function() {
+          this.$.help_dialog.toggle();
         },
 
         loadCompare1: function(e, detail, sender) {
@@ -526,8 +597,9 @@
             this.$.reposGroup2Menu.selected = -1;
             this.$.reposGroup3Menu.selected = -1;
             this.repoName = rName;
-            this.$.menu_panel.hidden = true;
+            //// this.$.menu_panel.hidden = true;
             this.searchForRepo();
+            this.toggleMenu();
           }
         },
 
@@ -538,8 +610,9 @@
             this.$.reposGroup1Menu.selected = -1;
             this.$.reposGroup3Menu.selected = -1;
             this.repoName = rName;
-            this.$.menu_panel.hidden = true;
+            //// this.$.menu_panel.hidden = true;
             this.searchForRepo();
+            this.toggleMenu();
           }
         },
 
@@ -550,8 +623,9 @@
             this.$.reposGroup1Menu.selected = -1;
             this.$.reposGroup2Menu.selected = -1;
             this.repoName = rName;
-            this.$.menu_panel.hidden = true;
+            //// this.$.menu_panel.hidden = true;
             this.searchForRepo();
+            this.toggleMenu();
           }
         },
 
@@ -573,7 +647,7 @@
           }
           // console.log("loadCompare: ", rName, detail.item.label_,calledBy, detail);
           this.repoName = rName;
-          this.$.menu_panel.hidden = true;
+          //// this.$.menu_panel.hidden = true;
           this.searchForRepo();
         },
 
@@ -588,11 +662,11 @@
           this.$.collapse2_icon.icon = "arrow-drop-up";
           this.$.collapse3_icon.icon = "arrow-drop-up";
 
-          console.log("filterRepos", sender.label, sender.id);
           this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
             // console.log("d: ",d.name);
             return d.name.indexOf(this.repoName1) > -1;
           }.bind(this));
+          console.log("filterRepos", sender.label, sender.id, this.reposAllFiltered.length );
         },
 
         reposViewResized: function(e, detail, sender) {
@@ -602,13 +676,13 @@
           }
 
           if (this.mediumScreen) {
-            this.$.menu_panel.hidden = false;
+            //// this.$.menu_panel.hidden = false;
           } else {
-            this.$.menu_panel.hidden = true;
+            //// this.$.menu_panel.hidden = true;
           }
 
           if (this.smallScreen) {
-            this.$.menu_panel.hidden = true;
+            //// this.$.menu_panel.hidden = true;
             this.pageToolbarClass = "page-toolbar-small";
           } else {
             this.pageToolbarClass = "page-toolbar";
