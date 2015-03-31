@@ -10,8 +10,13 @@ echo Press any key to continue, or control-c to abort
 read -n 1 -s
 echo
 echo Starting Deploy Process to PRODUCTION Server -- chuck.github.io/road-to-polymer
-echo cp app/compare-code.html dist/compare-code-html
+echo  fixing prism import
+sed 's/..\/prism\/themes/\/bower_components\/prism\/themes/' <dist/elements/elements.vulcanized.html > dist/elements/elements.vulcanized-new.html
+cp dist/elements/elements.vulcanized-new.html dist/elements/elements.vulcanized.html
+rm dist/elements/elements.vulcanized-new.html
 
+echo  git adding and committing
 git add .
 git commit -m "New Build $1"
+echo  deploying to github pages
 grunt buildcontrol
