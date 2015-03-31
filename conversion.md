@@ -1,9 +1,9 @@
 ## Polymer 0.5 to 0.8 custom element conversion process
 
 ### Select source code
-⋅⋅* Allow to pasted into textarea or
-⋅⋅* Select file on Github or
-⋅⋅* Select file local
+* Allow to pasted into textarea or
+* Select file on Github or
+* Select file local
 
 ### HTML Conversion Process
 1. polymer-element to dom-module
