@@ -41,13 +41,15 @@
           <core-item label="Welcome" icon="polymer"></core-item>
           <core-item label="Repositories Status Report" icon="label-outline"></core-item>
           <core-item label="Polymer Compare Code" icon="view-quilt"></core-item>
+          <hr>
           <core-item label="Polymer Project Website" icon="av:web"></core-item>
           <core-item label="Polymer Primer 0.8" icon="info-outline"></core-item>
           <core-item label="Polymer Discussion" icon="question-answer"></core-item>
           <core-item label="Yeoman generator for Polymer" icon="info-outline"></core-item>
           <core-item label="Core-icons demo" icon="dashboard"></core-item>
           <core-item label="Material Design Spec" icon="info-outline"></core-item>
-          <core-item label="Polymer 0.9 Sneak Peak" icon="info-outline"></core-item>
+          <hr>
+          <core-item label="Polymer 0.8 Sneak Peek" icon="info-outline"></core-item>
           <core-item label="Development Notes" icon="info-outline"></core-item>
           <core-item label="Conversion Process Notes" icon="info-outline"></core-item>
         </core-menu>
@@ -57,23 +59,18 @@
       <!-- Main -->
       <core-header-panel main mode="seamed">
 
-        <!-- Main Toolbar -->
-        <!-- <core-toolbar>
-          <paper-icon-button icon="menu" core-drawer-toggle></paper-icon-button>
-          <span>{{appName}}</span>
-        </core-toolbar> -->
-
         <!-- Main Content -->
         <core-pages selected="{{page}}" fit>
 
           <welcome-view></welcome-view>
 
-          <repos-list></repos-list>
-          <!-- <div flex>
-          </div> -->
+          <!-- <repos-list></repos-list> -->
+          <div flex>
+          </div>
 
           <compare-code></compare-code>
 
+          <div id="for_divider_1" flex></div>
 
           <div flex>
             <iframe src="//polymer-project.org" frameborder="0" width="100%" height="100%"></iframe>
@@ -83,7 +80,6 @@
             fileName="PRIMER.md" branch="0.8-preview"
             pageTitle="Polymer Primer 0.8" flex>
           </github-html-viewer>
-
 
           <div flex>
             <iframe id="forum_embed" src="{{forumEmbedSrc}}" seamless="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
@@ -103,10 +99,11 @@
             <iframe src="bower_components/core-icons/demo.html" frameborder="0" width="100%" height="100%"></iframe>
           </div>
 
-
           <div flex>
             <iframe src="http://www.google.com/design/spec/material-design/introduction.html" frameborder="0" width="100%" height="100%"></iframe>
           </div>
+
+          <div id="for_divider_1" flex></div>
 
           <div flex>
             <iframe src="http://divshot.com/blog/web-components/polymer-0-8-sneak-peek/" frameborder="0" width="100%" height="100%"></iframe>
