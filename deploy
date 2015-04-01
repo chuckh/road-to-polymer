@@ -14,10 +14,10 @@ echo Starting Deploy Process to PRODUCTION Server -- chuck.github.io/road-to-pol
 
 echo  fixing prism links
 sed 's/..\/prism\/themes/..\/bower_components\/prism\/themes/' <dist/elements/elements.vulcanized.html > dist/elements/elements.vulcanized-new.html
-sed 's/assets\/line-numbers.css/..\/bower_components\/prism-js\/assets/line-numbers.css' <dist/elements/elements.vulcanized-new.html > dist/elements/elements.vulcanized-new.html
-
-cp dist/elements/elements.vulcanized-new.html dist/elements/elements.vulcanized.html
+sed 's/assets\/line-numbers.css/..\/bower_components\/prism-js\/assets\/line-numbers.css/' <dist/elements/elements.vulcanized-new.html > dist/elements/elements.vulcanized-new1.html
+cp dist/elements/elements.vulcanized-new1.html dist/elements/elements.vulcanized.html
 rm dist/elements/elements.vulcanized-new.html
+rm dist/elements/elements.vulcanized-new1.html
 
 echo  git adding and committing
 echo git add .
