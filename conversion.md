@@ -14,7 +14,7 @@
 5. template repeat to is="x-repeat"
 6. template is="auto-binding"  to is="x-binding" 
 7. template if to ???
-8. textContent binding from ```<div>First: {{first}}</div> <span>{{first}}</span><br>```
+8. textContent binding from ```<div>First: {{first}}</div> TO <span>{{first}}</span><br>```
 
 
 ### Javascript Conversion Process
