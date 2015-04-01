@@ -32,6 +32,8 @@
 1. Review converted code
 2. Save or copy converted code
 
+### Difference example of core-item basic converastion by compare-code
+http://www.mergely.com/Be505kqQ/
 <br>
 
 ---
