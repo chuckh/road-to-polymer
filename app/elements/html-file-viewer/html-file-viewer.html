@@ -1,19 +1,18 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<polymer-element name="html-file-viewer" attributes="owner repo fileName branch pageTitle">
+<polymer-element name="html-file-viewer" attributes="url pageTitle">
   <template>
     <link rel="stylesheet" href="html-file-viewer.css">
 
     <core-ajax id="get_file"
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
       handleAs="text"
       loading="{{loading}}"
       progress="{{progress}}"
       response="{{file}}"
-      headers='{"accept": "application/vnd.github.VERSION.html"}'
       on-core-response="{{handleFile}}"
       on-core-error="{{handleFileErrorResponse}}">
     </core-ajax>
+    <!-- headers='{"accept": "application/vnd.github.VERSION.html"}' -->
 
     <core-header-panel id="core_header_panel" mode="waterfall-tall" fit>
 
@@ -23,9 +22,10 @@
         <div class="bottom ident">
           {{pageTitle}}
           <div id="sub_title" class="sub-title">
-            (source: <a href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
+            (source: <a href="{{url}}">{{url}}</a>)
           </div>
         </div>
+
 
         <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> -->
       </core-toolbar>
@@ -42,12 +42,10 @@
     (function () {
       Polymer({
 
-        tk: "ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"
-
         ready: function() {
           this.$.error_message.innerHTML = "Loading file..."
           // var elParam = this.getURLParameter('el');
-          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch;
+          this.$.get_file.url = this.url;
           console.log("html-file-viewer ready", this.$.get_file.url);
           this.$.get_file.abort();
           this.$.get_file.go();
@@ -55,14 +53,14 @@
 
         handleFile: function(event, detail, sender) {
           var header = detail.xhr.getResponseHeader('content-type');
-          console.log("html-file-viewer handlefile", header);
+          console.log("html-file-viewer handlefile", detail.response);
           this.$.file_div.innerHTML = detail.response;
           this.$.error_message.innerHTML = " ";
         },
         handleFileErrorResponse: function(event) {
           var error = this.$.get_file.error;
           this.errorMessage = "html-file-viewer Can't find file";
-          this.$.error_message.innerHTML = "Can't find " + this.file;
+          this.$.error_message.innerHTML = "Can't find " + this.url;
           this.$.file_div.innerHTML = " ";
           console.log("Error: " + error.statusCode + " - " + error.message);
         },
