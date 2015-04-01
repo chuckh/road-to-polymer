@@ -20,7 +20,8 @@ rm dist/elements/elements.vulcanized-new.html
 rm dist/elements/elements.vulcanized-new1.html
 
 echo  git adding and committing
-echo git add .
-echo git commit -m "New Build $1"
+git add .
+git commit -m "New Build $1"
+
 echo  deploying to github pages
-echo grunt buildcontrol
+grunt buildcontrol
