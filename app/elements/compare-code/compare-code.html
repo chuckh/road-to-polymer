@@ -52,9 +52,16 @@
 
     <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
       <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br>
-        <br>You can filter list by inputting into filter repos.<br>
+        <br>You can filter list by inputting into filter repositories.<br>
         <br>If no 0.8 code, you can cick Convert button to see basic conversion of the code.
       </p>
+      <paper-button affirmative autofocus>OK</paper-button>
+    </paper-action-dialog>
+
+    <paper-action-dialog id="copy_dialog" heading="Copy Converted Code" transition="core-transition-center">
+      <p>Copy covnerted code by tapping control-c (Windows) or command-c (Mac)
+      </p>
+      <textarea id="copy_textarea" rows="20" cols="90" onclick="this.focus();this.select()"></textarea>
       <paper-button affirmative autofocus>OK</paper-button>
     </paper-action-dialog>
 
@@ -85,7 +92,7 @@
                   <h3>Polymer 0.8 - {{repoName}} -
                     <span class="error-message">{{errorMessage8}}</span>
                   </h3>
-                  <paper-button id="convert_button"  on-tap="{{convertCode}}" raised affirmative autofocus >
+                  <paper-button id="convert_button" on-tap="{{convertCode}}" raised affirmative autofocus >
                     <core-icon id="convert_icon" icon="translate"></core-icon>
                      Convert
                   </paper-button>
@@ -204,7 +211,7 @@
         owner: "polymer",
         leftBranch: "master",
         rightBranch: "0.8-preview",
-        convertedCode: "",
+        // convertedCode: "",
 
 
         ready: function() {
@@ -351,6 +358,7 @@
           this.$.code8_prism.inputValue = " ";
           this.$.convert_button.hidden = false;
           if (this.convertParam) {
+            console.log("handleCode8ErrorResponse: ","this.convertParam", this.convertParam);
             this.convertCode();
           } else {
             console.log("Error: " + error.statusCode + " - " + error.message);
@@ -518,7 +526,7 @@
           console.log("convertCode: ",this.code5Data);
           var orgCode = atob(this.code5Data.content).split('\n');
           var convertedCode = "";
-          this.convertedCode = "";
+          // this.convertedCode = "";
           console.log("convertCode: ", orgCode.length);
           var id = this.repoName;
           var convertedHTMLmes = " <!-- CONVERTED -->\n";
@@ -556,7 +564,7 @@
               convertedCode += cl + '\n';
             }
             this.$.code8_prism.inputValue = convertedCode;
-            this.convertedCode = convertedCode;
+            // this.convertedCode = convertedCode;
             this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
             this.$.convert_button.hidden = true;
             this.$.copy_converted_button.hidden = false;
@@ -616,8 +624,16 @@
         },
 
         copyConverted: function() {
-          console.log("copyConverted: ", this.convertedCode);
-
+          // console.log("copyConverted");
+          // console.log("-----------------------------");
+          // console.log(this.$.code8_prism.inputValue);
+          this.$.copy_textarea.innerHTML = this.$.code8_prism.inputValue;
+          this.$.copy_dialog.toggle();
+          this.job('focus-input',function()
+            {
+              // this.$.copy_textarea.focus();
+              this.$.copy_textarea.select();
+            },300);
         },
 
       });
