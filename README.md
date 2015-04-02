@@ -7,11 +7,11 @@ Go to http://chuckh.github.io/road-to-polymer/ to see the app.
 
 ## Polymer Compare Code
 
-![alt text](https://github.com/chuckh/road-to-polymer/raw/gh-pages/app/images/screenshots/Road-to-Polymer-Compare-Code-800.png "Polymer Compare Code Screenshot")
-
+![alt text](https://github.com/chuckh/road-to-polymer/raw/app/app/images/screenshots/Road-to-Polymer-Compare-Code-800.png "Polymer Compare Code Screenshot")
+https://github.com/chuckh/road-to-polymer/blob/app/app/images/screenshots/Road-to-Polymer-Compare-Code.png
 
 ## Polymer Repositories Status Report
 
-inline-style: 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/chuckh/road-to-polymer/blob/app/app/images/screenshots/Road-to-Polymer-Repositories-Status.png "Polymer Repositories Report")
+https://github.com/chuckh/road-to-polymer/blob/app/app/images/screenshots/Road-to-Polymer-Repositories-Status.png
 
