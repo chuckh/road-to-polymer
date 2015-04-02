@@ -43,3 +43,22 @@ npm update generator-polymer -g
 <p>Github Repo: <a href="https://github.com/yeoman/generator-polymer">https://github.com/yeoman/generator-polymer</a></p>
 
 <br><br>
+
+---
+
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+
+
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
+
+![alt text](https://github.com/chuckh/road-to-polymer/raw/app/app/images/screenshots/Road-to-Polymer-Compare-Code-800.png "Polymer Compare Code Screenshot")
+
+<br><br>
