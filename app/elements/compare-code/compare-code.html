@@ -86,12 +86,21 @@
             <div id="compare_code_container" hidden vertical layout flex>
               <div horizontal layout>
                 <div flex class="left-title" horizontal layout center>
-                  <h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3>
+                  <div vertical layout>
+                    <h3>Polymer 0.5 - {{repoName}} -
+                      <span class="error-message">{{errorMessage5}}</span>
+                    </h3>
+                    <div class="branch-label"><span>{{leftBranch}}</span> branch</div>
+                  </div>
                 </div>
+
                 <div flex class="right-title" horizontal layout center>
-                  <h3>Polymer 0.8 - {{repoName}} -
-                    <span class="error-message">{{errorMessage8}}</span>
-                  </h3>
+                  <div vertical layout>
+                    <h3>Polymer 0.8 - {{repoName}} -
+                      <span class="error-message">{{errorMessage8}}</span>
+                    </h3>
+                    <div id="right_branch_div" class="branch-label"><span>{{rightBranch}}</span> branch</div>
+                  </div>
                   <paper-button id="convert_button" on-tap="{{convertCode}}" raised affirmative autofocus >
                     <core-icon id="convert_icon" icon="translate"></core-icon>
                      Convert
@@ -345,6 +354,7 @@
           this.$.copy_converted_button.hidden = true;
           this.$.code8_prism.inputValue = atob(this.code8.content);
           this.errorMessage8 = "";
+          this.$.right_branch_div.innerHTML = this.rightBranch + " branch";
         },
         handleCode5ErrorResponse: function(event) {
           var error = this.$.get_code5_ajax.error;
@@ -566,6 +576,7 @@
             this.$.code8_prism.inputValue = convertedCode;
             // this.convertedCode = convertedCode;
             this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
+            this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
             this.$.convert_button.hidden = true;
             this.$.copy_converted_button.hidden = false;
           }
