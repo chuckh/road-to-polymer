@@ -85,24 +85,26 @@
 
             <div id="compare_code_container" hidden vertical layout flex>
               <div horizontal layout>
-                <div flex class="left-title" horizontal layout center>
-                  <div vertical layout>
+                <div class="left-title" horizontal layout center flex>
+                  <div vertical layout flex>
                     <h3>Polymer 0.5 - {{repoName}} -
                       <span class="error-message">{{errorMessage5}}</span>
                     </h3>
-                    <div class="branch-label"><span>{{leftBranch}}</span> branch</div>
+                    <div class="branch-label"><span>{{leftBranch}}</span> branch
+                    </div>
                   </div>
                 </div>
 
-                <div flex class="right-title" horizontal layout center>
-                  <div vertical layout>
+                <div class="right-title" horizontal layout center flex>
+                  <div vertical layout flex>
                     <h3>Polymer 0.8 - {{repoName}} -
                       <span class="error-message">{{errorMessage8}}</span>
                     </h3>
-                    <div id="right_branch_div" class="branch-label"><span>{{rightBranch}}</span> branch</div>
+                    <div id="right_branch_div" class="branch-label"><span>{{rightBranch}}</span> branch
+                    </div>
                   </div>
                   <paper-button id="convert_button" on-tap="{{convertCode}}" raised affirmative autofocus >
-                    <core-icon id="convert_icon" icon="translate"></core-icon>
+                    <!-- <core-icon id="convert_icon" icon="translate"></core-icon> -->
                      Convert
                   </paper-button>
                   <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden></paper-icon-button>
