@@ -1,0 +1,21 @@
+clear
+echo Build and Test Road to Polymer to dist folder
+echo  Comment: $1
+echo
+echo Starting Build Process
+grunt build
+echo Finished Build Process, will start Github Deploy to PRODUCTION Server next
+echo
+
+echo Starting fixing prism links
+sed 's/..\/prism\/themes/..\/bower_components\/prism\/themes/' <dist/elements/elements.vulcanized.html > dist/elements/elements.vulcanized-new.html
+sed 's/assets\/line-numbers.css/..\/bower_components\/prism-js\/assets\/line-numbers.css/' <dist/elements/elements.vulcanized-new.html > dist/elements/elements.vulcanized-new1.html
+cp dist/elements/elements.vulcanized-new1.html dist/elements/elements.vulcanized.html
+rm dist/elements/elements.vulcanized-new.html
+rm dist/elements/elements.vulcanized-new1.html
+echo Finished fixing prism links
+
+echo Loading Test Env.
+cd dist
+python -m SimpleHTTPServer 8000
+cd ..
