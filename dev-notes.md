@@ -34,7 +34,7 @@ npm list -g --depth=0
 ```
 
 ### Yeoman Polymer Generator
-<p>Update by:</p>
+Update by:
 
 ```
 npm update generator-polymer -g
