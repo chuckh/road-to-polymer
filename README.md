@@ -1,4 +1,4 @@
-# road-to-polymer
+# Road to Polymer
 Road to Polymer 1.0
 
 This is where we keep notes, links, reports related to migrating from Polymer 0.5 to 0.8 to 1.0.
