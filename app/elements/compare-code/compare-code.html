@@ -8,7 +8,7 @@
     <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
 
     <core-ajax id="get_repos_ajax" auto
-      url="https://api.github.com/users/Polymer/repos",
+      url="https://api.github.com/users/{{owner}}/repos",
       params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
       handleAs="json"
       loading="{{loading1}}"
@@ -19,7 +19,7 @@
     </core-ajax>
 
     <core-ajax id="get_repos_page2_ajax" auto
-      url="https://api.github.com/users/Polymer/repos",
+      url="https://api.github.com/users/{{owner}}/repos",
       params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
       handleAs="json"
       loading="{{loading2}}"
@@ -29,7 +29,7 @@
     </core-ajax>
 
     <core-ajax id="get_code5_ajax"
-      url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=master",
+      url="https://api.github.com/repos/{{owner}}/{{repoName}}/contents/{{repoName}}.html?ref=master",
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
       handleAs="json"
       loading="{{loading5}}"
@@ -40,7 +40,7 @@
     </core-ajax>
 
     <core-ajax id="get_code8_ajax"
-      url="https://api.github.com/repos/Polymer/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview",
+      url="https://api.github.com/repos/{{owner}}/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview",
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
       handleAs="json"
       loading="{{loading8}}"
@@ -66,7 +66,7 @@
         <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
           <paper-icon-button id="back_button" icon="arrow-back" on-tap="{{toggleMenu}}" hidden></paper-icon-button>
           Compare Code 0.5 to 0.8:
-          <paper-input id="repo_input"  label="Repo Name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
+          <paper-input id="repo_input" label="repository name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
           <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
           <div flex></div>
           <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button>
@@ -78,7 +78,9 @@
 
             <div id="compare_code_container" hidden vertical layout flex>
               <div horizontal layout>
-                <div flex class="left-title"><h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3></div>
+                <div flex class="left-title" horizontal layout center>
+                  <h3>Polymer 0.5 - {{repoName}} - <span class="error-message">{{errorMessage5}}</span></h3>
+                </div>
                 <div flex class="right-title" horizontal layout center>
                   <h3>Polymer 0.8 - {{repoName}} -
                     <span class="error-message">{{errorMessage8}}</span>
@@ -87,9 +89,7 @@
                     <core-icon id="convert_icon" icon="translate"></core-icon>
                      Convert
                   </paper-button>
-
-                    <!-- <paper-icon-button  icon="translate"></paper-icon-button> -->
-
+                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden></paper-icon-button>
                 </div>
               </div>
               <div horizontal layout class="code">
@@ -97,21 +97,21 @@
                   <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true"></prism-js>
                   <hr>
                   <div class="linkLeft">
-                    <a href="https://github.com/Polymer/{{repoName}}/blob/master/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
-                    <a href="https://github.com/Polymer/{{repoName}}/blob/master/demo.html" target="_blank">Github Repository Demo Code</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/blob/master/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/blob/master/demo.html" target="_blank">Github Repository Demo Code</a><br>
                     <a href="https://www.polymer-project.org/0.5/components/{{repoName}}/demo.html" target="_blank">Polymer {{repoName}} Demo</a><br>
                     <a href="https://www.polymer-project.org/0.5/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
-                    <a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
                   </div>
                 </div>
                 <div flex class="right" id="code8">
                   <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
                   <div class="linkRight">
-                    <a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
-                    <a href="https://github.com/Polymer/{{repoName}}/blob/0.8-preview/demo/index.html" target="_blank">Github Repository Demo Code</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/blob/0.8-preview/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/blob/0.8-preview/demo/index.html" target="_blank">Github Repository Demo Code</a><br>
                     <a href="https://www.polymer-project.org/0.8/components/{{repoName}}/demo/index.html" target="_blank">Polymer {{repoName}} Demo</a><br>
                     <a href="https://www.polymer-project.org/0.8/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
-                    <a href="https://github.com/Polymer/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
                     (Some of these links may not work yet.)
                   </div>
                 </div>
@@ -120,7 +120,11 @@
 
             <core-header-panel mode="seamed" id="menu_panel" fit>
               <core-toolbar id="menu_toolbar">
-                <paper-input id="filter_input" label="filter repos" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
+                <paper-input id="filter_input" label="filter repositories" value="{{repoName1}}" on-keyup="{{filterRepos}}"></paper-input>
+                <paper-input id="owner_input" label="repository owner" value="{{owner}}" class="compare-input" disabled floatingLabel></paper-input>
+                <paper-input id="left_input" label="left branch" value="{{leftBranch}}" class="compare-input" disabled floatingLabel></paper-input>
+                <!-- <div id="to_label">to</div> -->
+                <paper-input id="right_input" label="right branch" value="{{rightBranch}}" class="compare-input" disabled floatingLabel></paper-input>
               </core-toolbar>
 
               <div class="list-container" flex>
@@ -168,7 +172,7 @@
                 <hr>
                 <footer>
                   By Chuck Horton -- email chuckh @ hware.com
-                  <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br><br>You can filter list by inputting into filter repos. </p>
+                  <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items above.<br><br>You can filter list by inputting into filter repositories. </p>
                 </footer>
 
               </div>
@@ -197,6 +201,11 @@
         reposAll: [],
         pageToolbarClass: "page-toolbar",
         convertParam: false,
+        owner: "polymer",
+        leftBranch: "master",
+        rightBranch: "0.8-preview",
+        convertedCode: "",
+
 
         ready: function() {
           this.$.error_message.innerHTML = "Loading Repos..."
@@ -326,6 +335,7 @@
           console.log("handleCode8Response", this.code8.name);
           // var code8 = "``` " + atob(this.code8.content) + " ```" ;
           this.$.convert_button.hidden = true;
+          this.$.copy_converted_button.hidden = true;
           this.$.code8_prism.inputValue = atob(this.code8.content);
           this.errorMessage8 = "";
         },
@@ -507,7 +517,8 @@
         convertCode: function() {
           console.log("convertCode: ",this.code5Data);
           var orgCode = atob(this.code5Data.content).split('\n');
-          var convertedCode = ""
+          var convertedCode = "";
+          this.convertedCode = "";
           console.log("convertCode: ", orgCode.length);
           var id = this.repoName;
           var convertedHTMLmes = " <!-- CONVERTED -->\n";
@@ -545,8 +556,10 @@
               convertedCode += cl + '\n';
             }
             this.$.code8_prism.inputValue = convertedCode;
+            this.convertedCode = convertedCode;
             this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
             this.$.convert_button.hidden = true;
+            this.$.copy_converted_button.hidden = false;
           }
         },
 
@@ -600,6 +613,11 @@
             }
           }
           return ats;
+        },
+
+        copyConverted: function() {
+          console.log("copyConverted: ", this.convertedCode);
+
         },
 
       });
