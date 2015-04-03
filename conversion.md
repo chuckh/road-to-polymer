@@ -26,7 +26,7 @@
  
 ### CSS Conversion Process
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>``` (as noted above)
-1. 
+  - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md#styling
 
 
 ### Difference example of paper-button converastion by Polymer team
