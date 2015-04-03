@@ -13,12 +13,13 @@
 1. polymer-element attribute/property camelCase to dash-case
 1. polymer-element attributes="xxx xxxx" add to javascript properties
 1. polymer-element layout 
-..- add ```<link rel="import" href="../layout/layout.html">```
-..- a
+  - add ```<link rel="import" href="../layout/layout.html">```
+  - a
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from <template> to <dom-module> 
-1. polymer-element move up ```<style></style>``` from <template> to <dom-module> see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/local-dom.md
+1. polymer-element move up ```<style></style>``` from <template> to <dom-module>
+  - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/local-dom.md
 1. template repeat to is="x-repeat" and repeat= to items= (temporary)
-..- https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/experimental.md
+  - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/experimental.md
 1. template is="auto-binding"  to is="x-binding"  (temporary)
 1. template if= to is="x-if" (temporary) or use diplay block or none
 1. textContent binding from ```<div>First: {{first}}</div> TO <span>{{first}}</span><br>```
@@ -27,7 +28,7 @@
 
 ### Javascript Conversion Process
 1. polymer-element name to Polymer({ is: 
-1. polymer-element attributes="" to javascript properties: {
+1. polymer-element attributes="" to javascript ```properties: { }```
 1. 
  
 
