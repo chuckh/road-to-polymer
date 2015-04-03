@@ -22,7 +22,7 @@
   - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/experimental.md
 1. template is="auto-binding"  to is="x-binding"  (temporary)
 1. template if= to is="x-if" (temporary) or use diplay block or none
-1. textContent binding from ```<div>First: {{first}}</div> TO <span>{{first}}</span><br>```
+1. textContent binding from ```<div>First: {{first}}</div>``` TO ```<span>{{first}}</span><br>```
 1. elements ```on-click="{{handleClick}}"``` to ```on-click="handleClick"```
 
 
