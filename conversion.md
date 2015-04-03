@@ -12,9 +12,9 @@
 1. polymer-element name to <dom-module id=
 1. polymer-element attribute/property camelCase to dash-case
 1. polymer-element attributes="xxx xxxx" add to javascript properties
-1. polymer-element layout 
-  - add ```<link rel="import" href="../layout/layout.html">```
-  - a
+1. polymer-element layout ```<polymer-element name="x-foo" layout horizontal wrap>``` 
+  - add ```<link rel="import" href="../layout/layout.html">``` to top with other imports
+  - add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from <template> to <dom-module> 
 1. polymer-element move up ```<style></style>``` from <template> to <dom-module>
   - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/local-dom.md
