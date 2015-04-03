@@ -41,7 +41,11 @@
 1. Review converted code
 1. Save or copy converted code
 
-### Difference example of core-item basic converastion by compare-code
+
+### Difference example of paper-button converastion by Polymer team
+http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
+
+### Difference example of core-item auto converastion by compare-code
 http://www.mergely.com/Be505kqQ/
 <br>
 
