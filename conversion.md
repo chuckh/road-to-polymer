@@ -1,6 +1,6 @@
 # Polymer 0.5 to 0.8 custom element conversion process
 ### see Polymer 0.8 Migration Guide
-#### https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md
+#### https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
 ### HTML Conversion Process
 1. polymer-element to dom-module
@@ -12,9 +12,9 @@
   - add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from ````<template> to <dom-module>``` 
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
-  - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/local-dom.md
+  - see https://github.com/Polymer/docs/blob/master/0.8/docs/devguide/local-dom.md
 1. template repeat to is="x-repeat" and repeat= to items= (temporary)
-  - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/experimental.md
+  - see https://github.com/Polymer/docs/blob/master/0.8/docs/devguide/experimental.md
 1. template is="auto-binding"  to is="x-binding"  (temporary)
 1. template if= to is="x-if" (temporary) or use diplay block or none
 1. textContent binding from ```<div>First: {{first}}</div>``` TO ```<span>{{first}}</span><br>```
@@ -26,7 +26,7 @@
  
 ### CSS Conversion Process
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>``` (as noted above)
-  - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md#styling
+  - see https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md#styling
 
 
 ### Difference example of paper-button converastion by Polymer team
@@ -35,7 +35,7 @@ http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
 ### Difference example of core-item auto converastion by compare-code
 http://www.mergely.com/Be505kqQ/
 
-## Auto Conversion
+## Auto Conversion program
 ### Select source code
 * Allow to pasted into textarea or
 * Select file on Github or 
@@ -58,7 +58,7 @@ http://www.mergely.com/Be505kqQ/
 https://raw.githubusercontent.com/Polymer/polymer/0.8-preview/PRIMER.md
 
 ### see Polymer 0.8 Migration Guide
-#### https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md
+#### https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
 
 This section covers how to deal with yet-unimplemented and/or de-scoped features in Polymer 0.8 as compared to 0.5.  Many of these are simply un-implemented; that is, we will likely have a final "solution" that addresses the need, we just haven't tackled that feature yet as we address items in priority order.  Other solutions in 0.8 may be lower-level as compared to 0.5, and will be explained here.
