@@ -9,30 +9,36 @@
 
 ### HTML Conversion Process
 1. polymer-element to dom-module
-2. polymer-element name to <dom-module id=
-3. polymer-element attributes camel case to dash-case
-4. polymer-element attributes to javascript properties
-4. add ```<link rel="import" href="../layout/layout.html">``` if needed???
-5. template repeat to is="x-repeat"
-6. template is="auto-binding"  to is="x-binding" 
-7. template if= to is="x-if"
-8. textContent binding from ```<div>First: {{first}}</div> TO <span>{{first}}</span><br>```
+1. polymer-element name to <dom-module id=
+1. polymer-element attribute/property camelCase to dash-case
+1. polymer-element attributes="xxx xxxx" add to javascript properties
+1. polymer-element layout 
+..- add ```<link rel="import" href="../layout/layout.html">```
+..- a
+1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from <template> to <dom-module> 
+1. polymer-element move up ```<style></style>``` from <template> to <dom-module> see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/local-dom.md
+1. template repeat to is="x-repeat" and repeat= to items= (temporary)
+..- https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/experimental.md
+1. template is="auto-binding"  to is="x-binding"  (temporary)
+1. template if= to is="x-if" (temporary) or use diplay block or none
+1. textContent binding from ```<div>First: {{first}}</div> TO <span>{{first}}</span><br>```
+1. elements on-click="{{handleClick}}" to on-click="handleClick"
 
 
 ### Javascript Conversion Process
 1. polymer-element name to Polymer({ is: 
-2. polymer-element attributes to javascript properties: {
-3. 
+1. polymer-element attributes="" to javascript properties: {
+1. 
  
 
 ### CSS Conversion Process
 1. ???
-2. 
+1. 
 
 
 ### Finish
 1. Review converted code
-2. Save or copy converted code
+1. Save or copy converted code
 
 ### Difference example of core-item basic converastion by compare-code
 http://www.mergely.com/Be505kqQ/
