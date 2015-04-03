@@ -38,8 +38,10 @@ http://www.mergely.com/Be505kqQ/
 ## Auto Conversion
 ### Select source code
 * Allow to pasted into textarea or
-* Select file on Github or
+* Select file on Github or 
 * Select file local
+* Load file or pasted code
+* Auto Convert
 
 ### Finish
 1. Review converted code
