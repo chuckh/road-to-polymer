@@ -16,14 +16,14 @@
   - add ```<link rel="import" href="../layout/layout.html">``` to top with other imports
   - add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from ````<template> to <dom-module>``` 
-1. polymer-element move up ```<style></style>``` from ```<template> to <dom-module>```
+1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
   - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/local-dom.md
 1. template repeat to is="x-repeat" and repeat= to items= (temporary)
   - see https://github.com/Polymer/docs/blob/08-launch/0.8/docs/devguide/experimental.md
 1. template is="auto-binding"  to is="x-binding"  (temporary)
 1. template if= to is="x-if" (temporary) or use diplay block or none
 1. textContent binding from ```<div>First: {{first}}</div> TO <span>{{first}}</span><br>```
-1. elements on-click="{{handleClick}}" to on-click="handleClick"
+1. elements ```on-click="{{handleClick}}"``` to ```on-click="handleClick"```
 
 
 ### Javascript Conversion Process
