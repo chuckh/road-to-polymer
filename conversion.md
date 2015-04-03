@@ -2,11 +2,6 @@
 ### see Polymer 0.8 Migration Guide
 #### https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md
 
-### Select source code
-* Allow to pasted into textarea or
-* Select file on Github or
-* Select file local
-
 ### HTML Conversion Process
 1. polymer-element to dom-module
 1. polymer-element name to <dom-module id=
@@ -25,21 +20,13 @@
 1. textContent binding from ```<div>First: {{first}}</div>``` TO ```<span>{{first}}</span><br>```
 1. elements ```on-click="{{handleClick}}"``` to ```on-click="handleClick"```
 
-
 ### Javascript Conversion Process
 1. polymer-element name to Polymer({ is: 
 1. polymer-element attributes="" to javascript ```properties: { }```
-1. 
  
-
 ### CSS Conversion Process
-1. ???
+1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>``` (as noted above)
 1. 
-
-
-### Finish
-1. Review converted code
-1. Save or copy converted code
 
 
 ### Difference example of paper-button converastion by Polymer team
@@ -47,6 +34,18 @@ http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
 
 ### Difference example of core-item auto converastion by compare-code
 http://www.mergely.com/Be505kqQ/
+
+## Auto Conversion
+### Select source code
+* Allow to pasted into textarea or
+* Select file on Github or
+* Select file local
+
+### Finish
+1. Review converted code
+1. Save or copy converted code
+
+
 <br>
 
 ---
