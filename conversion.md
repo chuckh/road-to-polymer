@@ -1,4 +1,6 @@
 # Polymer 0.5 to 0.8 custom element conversion process
+### see Polymer 0.8 Migration Guide
+#### https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md
 
 ### Select source code
 * Allow to pasted into textarea or
@@ -42,6 +44,10 @@ http://www.mergely.com/Be505kqQ/
 
 ## Migration Notes from Polymer 0.8 PRIMER.md
 https://raw.githubusercontent.com/Polymer/polymer/0.8-preview/PRIMER.md
+
+### see Polymer 0.8 Migration Guide
+#### https://github.com/Polymer/docs/blob/08-launch/0.8/docs/migration.md
+
 
 This section covers how to deal with yet-unimplemented and/or de-scoped features in Polymer 0.8 as compared to 0.5.  Many of these are simply un-implemented; that is, we will likely have a final "solution" that addresses the need, we just haven't tackled that feature yet as we address items in priority order.  Other solutions in 0.8 may be lower-level as compared to 0.5, and will be explained here.
 
