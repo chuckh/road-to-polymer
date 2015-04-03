@@ -1,6 +1,8 @@
 # Polymer 0.5 to 0.8 custom element conversion process
 ### see Polymer 0.8 Migration Guide
-#### https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
+#### https://www.polymer-project.org/0.8/docs/migration.html
+or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
+
 
 ### HTML Conversion Process
 1. polymer-element to dom-module
@@ -14,7 +16,7 @@
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
   - see https://github.com/Polymer/docs/blob/master/0.8/docs/devguide/local-dom.md
 1. template repeat to is="x-repeat" and repeat= to items= (temporary)
-  - see https://github.com/Polymer/docs/blob/master/0.8/docs/devguide/experimental.md
+  - see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
 1. template is="auto-binding"  to is="x-binding"  (temporary)
 1. template if= to is="x-if" (temporary) or use diplay block or none
 1. textContent binding from ```<div>First: {{first}}</div>``` TO ```<span>{{first}}</span><br>```
@@ -26,7 +28,7 @@
  
 ### CSS Conversion Process
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>``` (as noted above)
-  - see https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md#styling
+  - see https://www.polymer-project.org/0.8/docs/migration.html#styling
 
 
 ### Difference example of paper-button converastion by Polymer team
