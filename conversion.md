@@ -31,10 +31,10 @@ or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
   - see https://www.polymer-project.org/0.8/docs/migration.html#styling
 
 
-### Difference example of paper-button converastion by Polymer team
+### Difference example of paper-button conversion by Polymer team
 http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
 
-### Difference example of core-item auto converastion by compare-code
+### Difference example of core-item auto conversion by compare-code
 http://www.mergely.com/Be505kqQ/
 
 ## Auto Conversion program
