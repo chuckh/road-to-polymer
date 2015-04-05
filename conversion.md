@@ -3,6 +3,7 @@
 #### https://www.polymer-project.org/0.8/docs/migration.html
 or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
+These conversion steps are a work in progress and don't cover every step yet.
 
 ### HTML Conversion Process
 
