@@ -1,10 +1,11 @@
-# Polymer 0.5 to 0.8 custom element conversion process
+# Polymer 0.5 to 0.8 conversion process
 ### see Polymer 0.8 Migration Guide
 #### https://www.polymer-project.org/0.8/docs/migration.html
 or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
 
 ### HTML Conversion Process
+*polymer-element*
 1. polymer-element to dom-module
 1. polymer-element name to <dom-module id=
 1. polymer-element attribute/property camelCase to dash-case
@@ -15,10 +16,12 @@ or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from ````<template> to <dom-module>``` 
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
   - see https://www.polymer-project.org/0.8/docs/devguide/local-dom.html
+*template*
 1. template repeat to is="x-repeat" and repeat= to items= (temporary)
   - see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
 1. template is="auto-binding"  to is="x-binding"  (temporary)
 1. template if= to is="x-if" (temporary) or use diplay block or none
+*other*
 1. textContent binding from ```<div>First: {{first}}</div>``` TO ```<span>{{first}}</span><br>```
 1. elements ```on-click="{{handleClick}}"``` to ```on-click="handleClick"```
 
