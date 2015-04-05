@@ -37,6 +37,8 @@ or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 1. polymer-element attributes="" to javascript ```properties: { }```
  
 ### CSS Conversion Process
+see https://www.polymer-project.org/0.8/docs/migration.html#styling  
+
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>``` (as noted above)
   - see https://www.polymer-project.org/0.8/docs/migration.html#styling
 1. if using layout add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
