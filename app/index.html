@@ -14,7 +14,7 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -24,25 +24,32 @@
 
 <body unresolved fullbleed layout vertical>
   <template is="auto-binding" id="app">
+    <core-media-query query="max-width: 850px" queryMatches="{{smallScreen}}"></core-media-query>
 
-    <core-drawer-panel>
+    <paper-fab id="show_hide_button" icon="chevron-right" mini on-click="{{toggleDrawer}}"
+      style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; "
+      hidden?={{!smallScreen}}>
+    </paper-fab>
+
+    <core-drawer-panel id="drawer_panel" drawerWidth="256px;" responsiveWidth="850px">
 
       <!-- Drawer -->
       <core-header-panel drawer mode="standard" class="left-sidebar">
 
         <!-- Drawer Toolbar -->
         <core-toolbar >
-          <core-icon icon="polymer"></core-icon>
+          <core-icon icon="polymer" on-click={{drawerToggle}}></core-icon>
           {{appName}}
         </core-toolbar>
 
         <!-- Drawer Content -->
-        <core-menu selected="{{page}}" class="sidebar-menu" center>
+        <core-menu selected="{{page}}" class="sidebar-menu" on-core-select="{{selectMenu}}" center>
           <core-item label="Welcome" icon="polymer"></core-item>
           <core-item label="Repositories Status Report" icon="label-outline"></core-item>
           <core-item label="Polymer Compare Code" icon="view-quilt"></core-item>
           <hr>
-          <core-item label="Polymer Project Website" icon="av:web"></core-item>
+          <core-item label="Polymer 0.5 Doc" icon="av:web"></core-item>
+          <core-item label="Polymer 0.8 Doc" icon="av:web"></core-item>
           <core-item label="Polymer Primer 0.8" icon="info-outline"></core-item>
           <core-item label="Polymer Discussion" icon="question-answer"></core-item>
           <core-item label="Polycasts Training Videos" icon="av:video-collection"></core-item>
@@ -70,11 +77,17 @@
           </div> -->
 
           <compare-code></compare-code>
+          <!-- <div flex>
+          </div> -->
 
           <div id="for_divider_1" flex></div>
 
           <div flex>
-            <iframe src="//polymer-project.org" frameborder="0" width="100%" height="100%"></iframe>
+            <iframe src="//polymer-project.org/0.5/" frameborder="0" width="100%" height="100%"></iframe>
+          </div>
+
+          <div flex>
+            <iframe src="//polymer-project.org/0.8/" frameborder="0" width="100%" height="100%"></iframe>
           </div>
 
           <github-html-viewer owner="Polymer" repo="polymer"
