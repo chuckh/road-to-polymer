@@ -23,10 +23,10 @@ These conversion steps are a work in progress and don't cover every step yet.
 
 **template**
 
-1. template repeat to is="x-repeat" and repeat= to items= - (temporary)
+1. template repeat to is="x-repeat" and repeat= to items= - _(temporary)_
+1. template is="auto-binding"  to is="x-binding" - _(temporary)_
+1. template if= to is="x-if" - _(temporary)_ or use display block or none
   - see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
-1. template is="auto-binding"  to is="x-binding" - (temporary)
-1. template if= to is="x-if" - (temporary) or use display block or none
 
 **other**
 
