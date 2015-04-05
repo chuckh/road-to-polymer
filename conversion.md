@@ -15,6 +15,7 @@ or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 1. polymer-element layout ```<polymer-element name="x-foo" layout horizontal wrap>``` 
   - add ```<link rel="import" href="../layout/layout.html">``` to top with other imports
   - add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
+  - see https://www.polymer-project.org/0.8/docs/migration.html#layout-attributes
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from ````<template> to <dom-module>``` 
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
   - see https://www.polymer-project.org/0.8/docs/devguide/local-dom.html
@@ -38,6 +39,8 @@ or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 ### CSS Conversion Process
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>``` (as noted above)
   - see https://www.polymer-project.org/0.8/docs/migration.html#styling
+1. if using layout add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
+  - see https://www.polymer-project.org/0.8/docs/migration.html#layout-attributes
 
 
 ### Difference example of paper-button conversion by Polymer team
