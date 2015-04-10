@@ -19,6 +19,9 @@ cp dist/elements/elements.vulcanized-new1.html dist/elements/elements.vulcanized
 rm dist/elements/elements.vulcanized-new.html
 rm dist/elements/elements.vulcanized-new1.html
 
+echo  fixing webcomponents.min.js
+cp bower_components/webcomponentsjs/webcomponents.min.js dist/bower_components/webcomponentsjs/webcomponents.min.js
+
 echo  git adding and committing
 git add .
 git commit -m "New Build $1"

@@ -15,6 +15,9 @@ rm dist/elements/elements.vulcanized-new.html
 rm dist/elements/elements.vulcanized-new1.html
 echo Finished fixing prism links
 
+echo  fixing webcomponents.min.js
+cp bower_components/webcomponentsjs/webcomponents.min.js dist/bower_components/webcomponentsjs/webcomponents.min.js
+
 echo Loading Test Env.
 cd dist
 python -m SimpleHTTPServer 8000

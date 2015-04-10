@@ -263,7 +263,7 @@ module.exports = function (grunt) {
       // Update `url` below to the public URL for your site
       mobile: {
         options: {
-          url: "https://developers.google.com/web/fundamentals/",
+          url: "http://chuckh.github.io/road-to-polymer/",
           locale: "en_GB",
           strategy: "mobile",
           threshold: 80

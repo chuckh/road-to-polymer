@@ -4,8 +4,8 @@
   <template>
     <link rel="stylesheet" href="compare-code.css">
 
-    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
-    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{compareCodeViewResized}}"></core-media-query>
+    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{compareCodeViewResized}}"></core-media-query>
 
     <core-ajax id="get_repos_ajax" auto
       url="https://api.github.com/users/{{owner}}/repos",
@@ -473,7 +473,7 @@
           console.log("filterRepos", sender.label, sender.id, this.reposAllFiltered.length );
         },
 
-        reposViewResized: function(e, detail, sender) {
+        compareCodeViewResized: function(e, detail, sender) {
           var contentWidth = 0;
           if (this.$.core_header_panel) {
             contentWidth = this.$.core_header_panel.clientWidth;
@@ -492,7 +492,7 @@
             this.pageToolbarClass = "page-toolbar";
           }
 
-          console.log("reposViewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
+          console.log("compareCodeViewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
         },
 
         groupFilter: function(data, filter) {

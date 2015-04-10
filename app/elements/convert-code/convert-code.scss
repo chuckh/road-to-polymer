@@ -20,7 +20,6 @@
 }
 
 .page-toolbar {
-  height: 67px;
   color: #fff;
   padding-left: 30px;
   font-size: 1.4em;
@@ -29,7 +28,6 @@
   background-color: #303F9F;
 }
 .page-toolbar-small {
-  height: 67px;
   color: #fff;
   font-size: 0.9em;
   font-weight: 200;
@@ -205,4 +203,8 @@ core-item.core-selected {
 .branch-label {
   font-size: 12px;
   margin-top: -10px;
+}
+
+.file-input {
+  font-size: 14pxt;
 }
