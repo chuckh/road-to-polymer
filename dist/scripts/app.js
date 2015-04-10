@@ -1,1 +1,53 @@
-!function(a){"use strict";var b=a.querySelector("#app");b.appName="Road to Polymer",b.showHideButtonLeft="8px;",b.page=0,b.forumEmbedSrc="https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false",b.addEventListener("template-bound",function(){console.log("Road to Polymer 1.0 is ready to rock!",b.smallScreen)}),b.toggleDrawer=function(){"chevron-left"==b.$.show_hide_button.icon?(b.$.show_hide_button.icon="chevron-right",b.showHideButtonLeft="5px;"):(b.$.show_hide_button.icon="chevron-left",b.showHideButtonLeft="205px;"),b.$.drawer_panel.togglePanel()},b.selectMenu=function(){console.log("selectMenu: ",b.smallScreen),b.smallScreen&&(b.$.drawer_panel.closeDrawer(),b.$.show_hide_button.icon="chevron-right",b.showHideButtonLeft="8px;")},b.loadUrl=function(a,b,c){var d=c.attributes.url.value,e=window.open(d,"_blank");e.focus(),console.log("loadUrl: ",d)}}(wrap(document));
+(function (document) {
+  'use strict';
+
+  // Grab a reference to our auto-binding template
+  // and give it some initial binding values
+  // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
+  var app = document.querySelector('#app');
+  app.appName = 'Road to Polymer';
+  app.showHideButtonLeft = "8px;"
+  app.page = 0;
+  app.forumEmbedSrc = 'https://groups.google.com/forum/embed/?place=forum/polymer-dev'
+  + '&showsearch=true&showpopout=true&showtabs=false';
+  // + '&parenturl=' + 'https://github.com/chuckh/road-to-polymer'; //encodeURIComponent(window.location.href)
+
+  // Listen for template bound event to know when bindings
+  // have resolved and content has been stamped to the page
+  app.addEventListener('template-bound', function() {
+    console.log('Road to Polymer 1.0 is ready to rock!', app.smallScreen); //app.forumEmbedSrc,
+  });
+
+  app.toggleDrawer = function(e) {
+    // console.log("toggleDrawer: ", app.$.drawer_panel.forceNarrow);
+    //app.$.drawer_panel.forceNarrow = true;
+    if (app.$.show_hide_button.icon == "chevron-left") {
+      app.$.show_hide_button.icon = "chevron-right";
+      app.showHideButtonLeft = "5px;"
+    } else {
+      app.$.show_hide_button.icon = "chevron-left";
+      app.showHideButtonLeft = "205px;"
+    }
+    app.$.drawer_panel.togglePanel();
+  };
+
+  app.selectMenu = function(e) {
+    console.log("selectMenu: ", app.smallScreen);
+    if (app.smallScreen) {
+      app.$.drawer_panel.closeDrawer();
+      app.$.show_hide_button.icon = "chevron-right"
+      app.showHideButtonLeft = "8px;"
+    }
+  };
+
+  app.loadUrl = function(e, detail, sender) {
+    // var url = "https://plus.google.com/communities/115626364525706131031";
+    var url = sender.attributes['url'].value;
+    var win = window.open(url, '_blank');
+    win.focus();
+    console.log("loadUrl: ", url);
+  }
+
+// wrap document so it plays nice with other libraries
+// http://www.polymer-project.org/platform/shadow-dom.html#wrappers
+})(wrap(document));

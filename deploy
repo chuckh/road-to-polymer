@@ -19,8 +19,14 @@ cp dist/elements/elements.vulcanized-new1.html dist/elements/elements.vulcanized
 rm dist/elements/elements.vulcanized-new.html
 rm dist/elements/elements.vulcanized-new1.html
 
-echo  fixing webcomponents.min.js
+echo fixing webcomponents.min.js
 cp bower_components/webcomponentsjs/webcomponents.min.js dist/bower_components/webcomponentsjs/webcomponents.min.js
+
+echo fixing app.js unminify
+cp app/scripts/app.js dist/scripts/app.js
+
+echo Adding README.md unminify
+cp README.md dist/README.md
 
 echo  git adding and committing
 git add .
