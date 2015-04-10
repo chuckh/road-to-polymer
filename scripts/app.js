@@ -40,6 +40,14 @@
     }
   };
 
+  app.loadUrl = function(e, detail, sender) {
+    // var url = "https://plus.google.com/communities/115626364525706131031";
+    var url = sender.attributes['url'].value;
+    var win = window.open(url, '_blank');
+    win.focus();
+    console.log("loadUrl: ", url);
+  }
+
 // wrap document so it plays nice with other libraries
 // http://www.polymer-project.org/platform/shadow-dom.html#wrappers
 })(wrap(document));
