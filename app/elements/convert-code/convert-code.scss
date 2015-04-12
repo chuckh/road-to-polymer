@@ -92,6 +92,11 @@
   z-index: 1;
 }
 
+#code5_prism, #code8_prism {
+  max-width: 960px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
 
 .code {
   font-size: 14px;
