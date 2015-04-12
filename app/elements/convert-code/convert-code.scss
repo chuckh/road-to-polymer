@@ -206,5 +206,20 @@ core-item.core-selected {
 }
 
 .file-input {
-  font-size: 14pxt;
+  font-size: 1.05em;
+  height: 50px;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+file_name {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+#your_code {
+  width: 99%;
+  height: 99%;
+  min-height: 600px;
+  font-size: 1.1em;
 }

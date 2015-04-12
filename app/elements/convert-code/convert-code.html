@@ -1,58 +1,16 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../convert-mixin.html">
 
 <polymer-element name="convert-code" attributes="">
   <template>
     <link rel="stylesheet" href="convert-code.css">
 
-    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{convertCodeViewResized}}"></core-media-query>
-    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{convertCodeViewResized}}"></core-media-query>
+    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
+    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
 
-    <!-- <core-ajax id="get_repos_ajax" auto
-      url="https://api.github.com/users/{{owner}}/repos",
-      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-      handleAs="json"
-      loading="{{loading1}}"
-      progress="{{progress}}"
-      response="{{repos1}}"
-      on-core-response="{{handleReposResponse}}"
-      on-core-error="{{handleReposErrorResponse}}">
-    </core-ajax>
-
-    <core-ajax id="get_repos_page2_ajax" auto
-      url="https://api.github.com/users/{{owner}}/repos",
-      params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-      handleAs="json"
-      loading="{{loading2}}"
-      progress="{{progress2}}"
-      response="{{repos2}}"
-      on-core-response="{{handleRepos2Response}}">
-    </core-ajax>
-
-    <core-ajax id="get_code5_ajax"
-      url="https://api.github.com/repos/{{owner}}/{{repoName}}/contents/{{repoName}}.html?ref=master",
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-      handleAs="json"
-      loading="{{loading5}}"
-      progress="{{progress5}}"
-      response="{{code5Data}}"
-      on-core-response="{{handleCode5Response}}"
-      on-core-error="{{handleCode5ErrorResponse}}">
-    </core-ajax>
-
-    <core-ajax id="get_code8_ajax"
-      url="https://api.github.com/repos/{{owner}}/{{repoName}}/contents/{{repoName}}.html?ref=0.8-preview",
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-      handleAs="json"
-      loading="{{loading8}}"
-      progress="{{progress8}}"
-      response="{{code8}}"
-      on-core-response="{{handleCode8Response}}"
-      on-core-error="{{handleCode8ErrorResponse}}">
-    </core-ajax> -->
-
-    <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
-      <p>To Compare Code input polymer element name at top then press enter key,<br> or select from items below.<br>
+        <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
+        <p>To Convert Code input polymer element name at top then press enter key,<br> or select from items below.<br>
         <br>You can filter list by inputting into filter repositories.<br>
         <br>If no 0.8 code, you can cick Convert button to see basic conversion of the code.
       </p>
@@ -76,6 +34,7 @@
           Convert Code 0.5 to 0.8:
           <!-- <paper-input id="repo_input" label="repository name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input> -->
           <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
+          <div id="file_name"></div>
           <div flex></div>
           <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> -->
         </core-toolbar>
@@ -84,7 +43,7 @@
         <div class="page" fit>
           <div horizontal layout flex>
 
-            <div id="compare_code_container" vertical layout flex>
+            <div id="convert_code_container" vertical layout flex>
               <div horizontal layout>
                 <div class="left-title" horizontal layout center flex>
                   <div vertical layout flex>
@@ -95,9 +54,11 @@
                     </div>
                   </div>
                   <input type="file" id="file_input" on-change={{onFileChange}} class="file-input"/>
-
                   <paper-button id="convert_button" on-tap="{{onConvertCode}}" raised affirmative autofocus >
                      Convert
+                  </paper-button>
+                  <paper-button id="clear_button" on-tap="{{onClearCode}}" raised affirmative hidden>
+                     Clear Code
                   </paper-button>
                 </div>
 
@@ -109,26 +70,20 @@
                     <div id="right_branch_div" class="branch-label"><span>-- CONVERTED CODE --</span>
                     </div>
                   </div>
-                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden></paper-icon-button>
+                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden>Copy</paper-icon-button>
                 </div>
               </div>
               <div horizontal layout class="code">
                 <div flex class="left" id="code5">
                   <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true" hidden></prism-js>
-                  <!-- <pre id="html" spellcheck="false" class="  language-html" contenteditable="" data-ss="19" data-se="19"><span class="token comment" spellcheck="true">&lt;!- content to be placed inside &lt;body&gt;…&lt;/body&gt; -&gt;</span></pre> -->
-                  <!-- <pre id="your_code" style="width: 99%; height: 99%; min-height: 500px;" contenteditable spellcheck="false" class="  language-html" data-ss="19" data-se="19" hidden></pre> -->
-                  <!-- <paper-input id="your_code" value="{{yourCode}}" placeholder="Paste Your 0.5 code" style="width: 99%; height: 99%; min-height: 500px;"></paper-input> -->
-
-                  <textArea id="your_code" placeholder="Paste Your 0.5 code" style="width: 99%; height: 99%; min-height: 500px;"> </textarea>
-                  <!-- <div id="your_code" placeholder="Paste Your 0.5 code" style="width: 99%; height: 99%; min-height: 500px;" contenteditable>{{yourCode}}</div> -->
+                  <textArea id="your_code" placeholder="Paste your 0.5 code here"> </textarea>
                   <hr>
-                  <div class="linkLeft">
-
+                  <div class="linkLeft" hidden>
                   </div>
                 </div>
                 <div flex class="right" id="code8">
                   <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
-                  <div class="linkRight">
+                  <div class="linkRight" hidden>
                     TO DO:
                   </div>
                 </div>
@@ -145,42 +100,26 @@
   </template>
   <script>
     (function () {
-      Polymer({
+      Polymer(Polymer.mixin({
 
-        repoName: "",
-        repoName1: "",
-        errorMessage5: "",
-        errorMessage8: "",
-        repos1Loaded: false,
-        repos2Loaded: false,
-        reposLoaded: false,
-        reposAll: [],
         pageToolbarClass: "page-toolbar",
         convertParam: false,
         owner: "polymer",
         leftBranch: "master",
         rightBranch: "0.8-preview",
         yourCode: "",
-        // convertedCode: "",
-
 
         ready: function() {
-          // this.$.error_message.innerHTML = "Loading...";
           var elParam = this.getURLParameter('el');
           this.convertParam = this.getURLParameter('convert');
+          this.$.file_name.innerHTML = "Choose file or paste code";
+          this.$.your_code.value = "";
           console.log("convert-code ready", elParam, this.convertParam);
           if (elParam) {
             this.repoName = elParam;
-            // this.$.menu_panel.hidden = true;
-            // this.$.compare_code_container.hidden = false;
-            // this.$.back_button.hidden = false;
-            // this.searchForRepo();
           } else {
             // this.$.menu_panel.hidden = false;
           }
-          // this.$.collapse1.opened = true;
-          // this.$.collapse2.opened = true;
-          // this.$.collapse3.opened = true;
         },
 
         getURLParameter: function(name) {
@@ -188,272 +127,51 @@
               return decodeURIComponent(name[1]);
         },
 
-
-        toggleMenu: function() {
-          if (this.$.menu_panel.hidden) { // Show Menu
-            this.$.menu_panel.hidden = false;
-            this.$.compare_code_container.hidden = true;
-            this.$.back_button.hidden = true;
-          } else { // Show Compare Code
-            this.$.menu_panel.hidden = true;
-            this.$.compare_code_container.hidden = false;
-            this.$.back_button.hidden = false;
-          }
-          // this.$.menu_panel.hidden = this.$.menu_panel.hidden ? false : true;
-        },
-
         toggleHelp: function() {
           this.$.help_dialog.toggle();
         },
 
-        loadCompare1: function(e, detail, sender) {
-          if (detail.isSelected) {
-            var rName = detail.item.label_
-            console.log("loadCompare1: ", rName);
-            this.$.reposGroup2Menu.selected = -1;
-            this.$.reposGroup3Menu.selected = -1;
-            this.repoName = rName;
-            //// this.$.menu_panel.hidden = true;
-            this.searchForRepo();
-            this.toggleMenu();
-          }
-        },
-
-        loadCompare2: function(e, detail, sender) {
-          if (detail.isSelected) {
-            var rName = detail.item.label_
-            console.log("loadCompare2: ", rName);
-            this.$.reposGroup1Menu.selected = -1;
-            this.$.reposGroup3Menu.selected = -1;
-            this.repoName = rName;
-            //// this.$.menu_panel.hidden = true;
-            this.searchForRepo();
-            this.toggleMenu();
-          }
-        },
-
-        loadCompare3: function(e, detail, sender) {
-          if (detail.isSelected) {
-            var rName = detail.item.label_
-            console.log("loadCompare3: ", rName);
-            this.$.reposGroup1Menu.selected = -1;
-            this.$.reposGroup2Menu.selected = -1;
-            this.repoName = rName;
-            //// this.$.menu_panel.hidden = true;
-            this.searchForRepo();
-            this.toggleMenu();
-          }
-        },
-
-        loadCompare: function(e, detail, sender) {
-          var rName = detail.item.label_
-          var calledBy = detail.item.parentElement.id;
-          if (calledBy == "reposGroup1Menu") {
-            console.log("loadCompare: ", calledBy);
-            this.$.reposGroup2Menu.selected = -1;
-            this.$.reposGroup3Menu.selected = -1;
-          } else if (calledBy == "reposGroup2Menu") {
-            console.log("loadCompare: ", calledBy);
-            this.$.reposGroup1Menu.selected = -1;
-            this.$.reposGroup3Menu.selected = -1;
-          } else if (calledBy == "reposGroup3Menu") {
-            console.log("loadCompare: ", calledBy);
-            this.$.reposGroup1Menu.selected = -1;
-            this.$.reposGroup2Menu.selected = -1;
-          }
-          // console.log("loadCompare: ", rName, detail.item.label_,calledBy, detail);
-          this.repoName = rName;
-          //// this.$.menu_panel.hidden = true;
-          this.searchForRepo();
-        },
-
-        convertCodeViewResized: function(e, detail, sender) {
-          var contentWidth = 0;
-          if (this.$.core_header_panel) {
-            contentWidth = this.$.core_header_panel.clientWidth;
-          }
-
-          if (this.mediumScreen) {
-            //// this.$.menu_panel.hidden = false;
-          } else {
-            //// this.$.menu_panel.hidden = true;
-          }
-
-          if (this.smallScreen) {
-            //// this.$.menu_panel.hidden = true;
-            this.pageToolbarClass = "page-toolbar-small";
-          } else {
-            this.pageToolbarClass = "page-toolbar";
-          }
-
-          console.log("convertCodeViewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
+        onClearCode: function() {
+          this.$.code5_prism.inputValue = " ";
+          this.$.code8_prism.inputValue = " ";
+          this.$.your_code.value = "";
+          this.$.file_name.innerHTML = "Choose file or paste code";
+          this.$.convert_button.hidden = false;
+          this.$.clear_button.hidden = true;
+          this.$.your_code.hidden = false;
+          this.$.code5_prism.hidden = true;
+          this.$.file_input.value = "";
         },
 
         onConvertCode: function() {
-          this.convertCode("");
+          this.convertCode1(this.$.your_code.value.split('\n'));
+          this.$.code5_prism.inputValue = this.$.your_code.value;
+          this.$.file_name.innerHTML = "paste code";
         },
 
-        convertCode: function(code) {
-          // var orgCode = document.querySelector("#your_code");
-          // console.log("convertCode: ",orgCode);
-          // var orgCode = this.yourCode;
-          // this.$.code5_prism.inputValue = this.$.your_code.textContent.trim();
-          var orgCode = "";
-          if (code != "") {
-            orgCode = code
-            // orgCode = orgCode.replace(/&gt;/g, '>');
-            // orgCode = orgCode.replace(/&lt;/g, '<');
-            // orgCode = orgCode.replace(/&quot;/g, '"');
-            // orgCode = orgCode.replace(/&apos;/g, "'");
-            // orgCode = orgCode.replace(/&amp;/g, '&');
-            // orgCode = orgCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            console.log("convertCode: code",orgCode.length);  // orgCode
-          } else  {
-            // var orgCode = this.$.code5_prism.inputValue;
-            // var orgCode = this.$.your_code.value.replace(/&lt;/g, /</).replace(/&gt;/g, />/);
-            var orgCode = this.$.your_code.value.replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            var orgCode = this.$.your_code.value;
-          }
+        convertCode1: function(code) {
           this.$.your_code.hidden = true;
           this.$.code5_prism.hidden = false;
-          //var orgCode = unescape(this.$.your_code.innerHTML);
-          // console.log("convertCode: ",this.$.code5_prism.inputValue, this.$.code5_prism.inputValue.length);
-          // var orgCode = atob(this.code5Data.content).split('\n');
-          // var orgCode = this.$.your_code.value;
-          var convertedCode = "";
-          // this.convertedCode = "";
-          // console.log("convertCode: ", orgCode.length);
-          var id = '';
-          var convertedHTMLmes = " <!-- CONVERTED -->\n";
-          var convertedJavaScriptMes = " // CONVERTED\n";
-          var cl = ""; // current line
-          var at = ""; // attributes
-          var oa = ""; // other attributes
-          var va = ""; // value attributes
-          var sp = []; // split attribuets
-          for (var i = 0; i < orgCode.length; i++) {
-            cl = orgCode[i];
-            if (cl.indexOf("<polymer-element") > -1 ) {
-              sp = cl.match(/(".*?"|[^",\s]+)(?=\s*|\s*$)/g);
-              id = this.findNameAttribute(sp);
-              at = this.findAttributes(sp);
-              oa = this.findSingleAttributes(sp);
-              oa = (oa.length > 0 ? " " + oa : "");
-              va = this.findValueAttributes(sp);
-              va = (va.length > 0 ? ", TODO: determine what to do with: " + va : "");
-              // console.log(" sp: ",  sp);
-              convertedCode += '<dom-module id=' + "'" + id + "'" + oa + ">" + " <!-- CONVERTED WIP " + va + "-->\n";
-            } else if (cl.indexOf("polymer-element>") > -1) {
-              convertedCode += '</dom-module>'  + convertedHTMLmes;
-            } else if (cl.indexOf("Polymer(") > -1) {
-              convertedCode += '  Polymer({\n' + '    is: ' + "'" + id + "'" + " // CONVERTED WIP \n";
-              if (at.length > 0) {
-                convertedCode += '\n    properties: {\n' + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + "    }\n";
-                at = "";
-              } else {
-                //convertedCode += "  }\n";
-              }
-            } else if (cl.indexOf("(c) 2014") > -1) {
-              convertedCode += cl.replace("(c) 2014", "(c) 2015") + '\n';
-            } else {
-              convertedCode += cl + '\n';
-            }
-          }
-          console.log("convertedCode: ",convertedCode.substr(0,10));
-          // convertedCode = convertedCode.replace(/&gt;/g, '>');
-          // convertedCode = convertedCode.replace(/&lt;/g, '<');
-          // convertedCode = convertedCode.replace(/&quot;/g, '"');
-          // convertedCode = convertedCode.replace(/&apos;/g, "'");
-          // convertedCode = convertedCode.replace(/&amp;/g, '&');
-          // console.log("convertedCode: ",convertedCode.substr(0,10));
-          this.$.code8_prism.inputValue = convertedCode;
-          // this.convertedCode = convertedCode;
-          this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
-          this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
-          // this.$.convert_button.hidden = true;
-          this.$.copy_converted_button.hidden = false;
-        },
-
-        findAttributes: function(array) {
-          var ats = "";
-          // console.log("findAttributes: ",array.length);
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("attributes") > -1) {
-              // console.log(" ats: ", i, array[i] + array[i+1]);
-              ats = array[i] + array[i+1];
-            }
-          }
-          return ats;
-        },
-
-        findSingleAttributes: function(array) {  // finds single word attributes with no =
-          var ats = "";
-          // console.log("findSingleAttributes: ");
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("=") == -1 && array[i].indexOf(" ") == -1 && array[i].indexOf("<") == -1 && array[i].indexOf('"') == -1) {
-              // console.log(" single: ", i, array[i].replace(">", ""));
-              ats += array[i].replace(">", "") + " ";
-            }
-          }
-          return ats;
-        },
-
-        findValueAttributes: function(array) { // finds attributes with = except for name, attributes
-          var ats = "";
-          // console.log("findValueAttributes: ");
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("=") > 0 && array[i].indexOf(" ") == -1 && array[i].indexOf("<") == -1 && array[i].indexOf('name') == -1 && array[i].indexOf('attributes') == -1) {
-              // console.log("  va: ", i, array[i] + array[i+1].replace(">", ""));
-              ats += array[i] + array[i+1].replace(">", "") + " ";
-            }
-          }
-          return ats;
-        },
-
-        findNameAttribute: function(array) {
-          var ats = "";
-          // console.log("findNameAttribute: ",array.length);
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("name=") > -1) {
-              ats = (array[i+1].replace(">", "")).replace(/"/g, '');
-              // console.log(" name: ", i, ats);
-            }
-          }
-          return ats;
-        },
-
-        copyConverted: function() {
-          // console.log("copyConverted");
-          // console.log("-----------------------------");
-          // console.log(this.$.code8_prism.inputValue);
-          this.$.copy_textarea.innerHTML = this.$.code8_prism.inputValue;
-          this.$.copy_dialog.toggle();
-          this.job('focus-input',function()
-            {
-              // this.$.copy_textarea.focus();
-              this.$.copy_textarea.select();
-            },300);
+          this.$.clear_button.hidden = false;
+          this.$.convert_button.hidden = true;
+          this.convertCode2(code);
         },
 
         onFileChange: function(e) {
+          console.log("onFileChange: ",e.target.files[0].name);
           var file = e.target.files[0];
+          var fileName = e.target.files[0].name;
+          this.$.file_name.innerHTML = fileName;
           if (!file) {
             return;
           }
           var reader = new FileReader();
           reader.onload = function(e) {
-            var contents = e.target.result;
-            this.$.your_code.value = contents;
-            this.convertCode(contents);
-            // this.convertCode(this.$.your_code.value);
-            // this.yourCode = contents;
+            this.$.your_code.value = e.target.result;
             this.$.code5_prism.inputValue = this.$.your_code.value;
-            // console.log("onFileChange: ", this.$.your_code.value.length ,this.$.your_code.value);
-            // console.log("onFileChange: ", contents.length ,contents);
+            // var contents = e.target.result.split(/[\r\n]+/g); // tolerate both Windows and Unix linebreaks;
+            var contents = e.target.result.split('\n');
+            this.convertCode1(contents);
           }.bind(this);
           reader.readAsText(file, "UTF-8");
         },
@@ -464,7 +182,7 @@
           this.$.code5_prism.inputValue = contents;
         },
 
-      });
+      }, window.convertMixin));
     })();
   </script>
 </polymer-element>
