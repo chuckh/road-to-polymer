@@ -1,11 +1,12 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../convert-mixin.html">
 
 <polymer-element name="compare-code" attributes="">
   <template>
     <link rel="stylesheet" href="compare-code.css">
 
-    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{compareCodeViewResized}}"></core-media-query>
-    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{compareCodeViewResized}}"></core-media-query>
+    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
+    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
 
     <core-ajax id="get_repos_ajax" auto
       url="https://api.github.com/users/{{owner}}/repos",
@@ -103,7 +104,7 @@
                     <div id="right_branch_div" class="branch-label"><span>{{rightBranch}}</span> branch
                     </div>
                   </div>
-                  <paper-button id="convert_button" on-tap="{{convertCode}}" raised affirmative autofocus >
+                  <paper-button id="convert_button" on-tap="{{onConvertCode}}" raised affirmative autofocus >
                     <!-- <core-icon id="convert_icon" icon="translate"></core-icon> -->
                      Convert
                   </paper-button>
@@ -206,7 +207,7 @@
   </template>
   <script>
     (function () {
-      Polymer({
+      Polymer(Polymer.mixin({
 
         repoName: "",
         repoName1: "",
@@ -534,122 +535,14 @@
           }
         },
 
-        convertCode: function() {
-          console.log("convertCode: ",this.code5Data);
-          var orgCode = atob(this.code5Data.content).split('\n');
-          var convertedCode = "";
-          // this.convertedCode = "";
-          console.log("convertCode: ", orgCode.length);
-          var id = this.repoName;
-          var convertedHTMLmes = " <!-- CONVERTED -->\n";
-          var convertedJavaScriptMes = " // CONVERTED\n";
-          var cl = ""; // current line
-          var at = ""; // attributes
-          var oa = ""; // other attributes
-          var va = ""; // value attributes
-          var sp = []; // split attribuets
-          for (var i = 0; i < orgCode.length; i++) {
-            cl = orgCode[i];
-            if (cl.indexOf("<polymer-element") > -1 ) {
-              sp = cl.match(/(".*?"|[^",\s]+)(?=\s*|\s*$)/g);
-              id = this.findNameAttribute(sp);
-              at = this.findAttributes(sp);
-              oa = this.findSingleAttributes(sp);
-              oa = (oa.length > 0 ? " " + oa : "");
-              va = this.findValueAttributes(sp);
-              va = (va.length > 0 ? ", TODO: determine what to do with: " + va : "");
-              // console.log(" sp: ",  sp);
-              convertedCode += '<dom-module id=' + "'" + id + "'" + oa + ">" + " <!-- CONVERTED WIP " + va + "-->\n";
-            } else if (cl.indexOf("polymer-element>") > -1) {
-              convertedCode += '</dom-module>'  + convertedHTMLmes;
-            } else if (cl.indexOf("Polymer(") > -1) {
-              convertedCode += '  Polymer({\n' + '    is: ' + "'" + id + "'" + " // CONVERTED WIP \n";
-              if (at.length > 0) {
-                convertedCode += '\n    properties: {\n' + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + "    }\n";
-                at = "";
-              } else {
-                //convertedCode += "  }\n";
-              }
-            } else if (cl.indexOf("(c) 2014") > -1) {
-              convertedCode += cl.replace("(c) 2014", "(c) 2015") + '\n';
-            } else {
-              convertedCode += cl + '\n';
-            }
-            this.$.code8_prism.inputValue = convertedCode;
-            // this.convertedCode = convertedCode;
-            this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
-            this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
-            this.$.convert_button.hidden = true;
-            this.$.copy_converted_button.hidden = false;
-          }
+        onConvertCode: function() {
+          this.convertCode1(this.$.code5_prism.inputValue );
+        },
+        convertCode1: function(code) {
+          this.convertCode2(code.split('\n'));
         },
 
-        findAttributes: function(array) {
-          var ats = "";
-          // console.log("findAttributes: ",array.length);
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("attributes") > -1) {
-              // console.log(" ats: ", i, array[i] + array[i+1]);
-              ats = array[i] + array[i+1];
-            }
-          }
-          return ats;
-        },
-
-        findSingleAttributes: function(array) {  // finds single word attributes with no =
-          var ats = "";
-          // console.log("findSingleAttributes: ");
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("=") == -1 && array[i].indexOf(" ") == -1 && array[i].indexOf("<") == -1 && array[i].indexOf('"') == -1) {
-              // console.log(" single: ", i, array[i].replace(">", ""));
-              ats += array[i].replace(">", "") + " ";
-            }
-          }
-          return ats;
-        },
-
-        findValueAttributes: function(array) { // finds attributes with = except for name, attributes
-          var ats = "";
-          // console.log("findValueAttributes: ");
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("=") > 0 && array[i].indexOf(" ") == -1 && array[i].indexOf("<") == -1 && array[i].indexOf('name') == -1 && array[i].indexOf('attributes') == -1) {
-              // console.log("  va: ", i, array[i] + array[i+1].replace(">", ""));
-              ats += array[i] + array[i+1].replace(">", "") + " ";
-            }
-          }
-          return ats;
-        },
-
-        findNameAttribute: function(array) {
-          var ats = "";
-          // console.log("findNameAttribute: ",array.length);
-          for (var i = 0; i < array.length; i++) {
-            // console.log(" ats: ", i, array[i]);
-            if (array[i].indexOf("name=") > -1) {
-              ats = (array[i+1].replace(">", "")).replace(/"/g, '');
-              // console.log(" name: ", i, ats);
-            }
-          }
-          return ats;
-        },
-
-        copyConverted: function() {
-          // console.log("copyConverted");
-          // console.log("-----------------------------");
-          // console.log(this.$.code8_prism.inputValue);
-          this.$.copy_textarea.innerHTML = this.$.code8_prism.inputValue;
-          this.$.copy_dialog.toggle();
-          this.job('focus-input',function()
-            {
-              // this.$.copy_textarea.focus();
-              this.$.copy_textarea.select();
-            },300);
-        },
-
-      });
+      }, window.convertMixin));
     })();
   </script>
 </polymer-element>
