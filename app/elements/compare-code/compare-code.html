@@ -575,13 +575,12 @@
             } else {
               convertedCode += cl + '\n';
             }
-            this.$.code8_prism.inputValue = convertedCode;
-            // this.convertedCode = convertedCode;
-            this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
-            this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
-            this.$.convert_button.hidden = true;
-            this.$.copy_converted_button.hidden = false;
           }
+          this.$.code8_prism.inputValue = convertedCode;
+          this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
+          this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
+          this.$.convert_button.hidden = true;
+          this.$.copy_converted_button.hidden = false;
         },
 
         findAttributes: function(array) {

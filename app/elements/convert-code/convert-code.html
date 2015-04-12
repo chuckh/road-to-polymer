@@ -301,15 +301,18 @@
           var orgCode = "";
           if (code != "") {
             orgCode = code
-            orgCode = orgCode.replace(/&gt;/g, '>');
-            orgCode = orgCode.replace(/&lt;/g, '<');
-            orgCode = orgCode.replace(/&quot;/g, '"');
-            orgCode = orgCode.replace(/&apos;/g, "'");
-            orgCode = orgCode.replace(/&amp;/g, '&');
-            console.log("convertCode: code",orgCode.length, orgCode);
+            // orgCode = orgCode.replace(/&gt;/g, '>');
+            // orgCode = orgCode.replace(/&lt;/g, '<');
+            // orgCode = orgCode.replace(/&quot;/g, '"');
+            // orgCode = orgCode.replace(/&apos;/g, "'");
+            // orgCode = orgCode.replace(/&amp;/g, '&');
+            // orgCode = orgCode.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            console.log("convertCode: code",orgCode.length);  // orgCode
           } else  {
             // var orgCode = this.$.code5_prism.inputValue;
-            var orgCode = this.$.your_code.value.replace(/&lt;/g, /</).replace(/&gt;/g, />/);
+            // var orgCode = this.$.your_code.value.replace(/&lt;/g, /</).replace(/&gt;/g, />/);
+            var orgCode = this.$.your_code.value.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            var orgCode = this.$.your_code.value;
           }
           this.$.your_code.hidden = true;
           this.$.code5_prism.hidden = false;
@@ -355,13 +358,20 @@
             } else {
               convertedCode += cl + '\n';
             }
-            this.$.code8_prism.inputValue = convertedCode;
-            // this.convertedCode = convertedCode;
-            this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
-            this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
-            // this.$.convert_button.hidden = true;
-            this.$.copy_converted_button.hidden = false;
           }
+          console.log("convertedCode: ",convertedCode.substr(0,10));
+          // convertedCode = convertedCode.replace(/&gt;/g, '>');
+          // convertedCode = convertedCode.replace(/&lt;/g, '<');
+          // convertedCode = convertedCode.replace(/&quot;/g, '"');
+          // convertedCode = convertedCode.replace(/&apos;/g, "'");
+          // convertedCode = convertedCode.replace(/&amp;/g, '&');
+          // console.log("convertedCode: ",convertedCode.substr(0,10));
+          this.$.code8_prism.inputValue = convertedCode;
+          // this.convertedCode = convertedCode;
+          this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
+          this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
+          // this.$.convert_button.hidden = true;
+          this.$.copy_converted_button.hidden = false;
         },
 
         findAttributes: function(array) {
@@ -438,10 +448,12 @@
           reader.onload = function(e) {
             var contents = e.target.result;
             this.$.your_code.value = contents;
-            this.convertCode(this.$.your_code.value);
-            this.yourCode = contents;
+            this.convertCode(contents);
+            // this.convertCode(this.$.your_code.value);
+            // this.yourCode = contents;
             this.$.code5_prism.inputValue = this.$.your_code.value;
             // console.log("onFileChange: ", this.$.your_code.value.length ,this.$.your_code.value);
+            // console.log("onFileChange: ", contents.length ,contents);
           }.bind(this);
           reader.readAsText(file, "UTF-8");
         },
