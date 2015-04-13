@@ -20,9 +20,17 @@
       var va = ""; // value attributes
       var sp = []; // split attribuets
       var polymerPos = 4;
+      var scriptSection = false; // script section
+      var scriptClose = '</' + 'script>';
       this.layoutMessage = "";
       for (var i = 0; i < orgCode.length; i++) {
         cl = orgCode[i];
+        if (cl.indexOf("<script>") > -1) {
+          scriptSection = true;
+        }
+        if (cl.indexOf(scriptClose) > -1) {
+          scriptSection = false;
+        }
         if (cl.indexOf("<polymer-element") > -1 ) {
           sp = cl.match(/(".*?"|[^",\s]+)(?=\s*|\s*$)/g);
           id = this.findNameAttribute(sp);
@@ -57,7 +65,11 @@
         } else if (cl.indexOf("(c) 2014") > -1) {
           convertedCode += cl.replace("(c) 2014", "(c) 2015") + '\n';
         } else {
-          convertedCode += cl + '\n';
+          if (scriptSection == false && cl.indexOf("?=") > -1) { // convert ?= to $=, TODO convert {{}} to [[]]?
+            convertedCode += cl.replace("?=","$=") + '\n';
+          } else {
+            convertedCode += cl + '\n';
+          }
         }
       }
       convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n - template repeat change to is='x-repeat'\n" +
@@ -65,6 +77,8 @@
       ' - textContent binding from <div>First: {{first}}</div> TO <span>{{first}}</span><br>\n' +
       ' - fix indentation as need \n' +
       ' - elements on-click="{{handleClick}}" to on-click="handleClick", look for on-tap, on-xxx too.\n' +
+      ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>' +
+      ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar'
       ' - ' + this.layoutMessage  + "  -->";
       // console.log("convertedCode: ",convertedCode.substr(0,10));
       this.$.code8_prism.inputValue = convertedCode;
@@ -187,6 +201,17 @@
 
     repeat: function(length) {
       return Array(length + 1).join(this);
+    },
+
+    camelToDash: function(str) {
+      return str.replace(/\W+/g, '-')
+        .replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+    },
+
+    dashToCamel: function(str) {
+      return str.replace(/\W+(.)/g, function (x, chr) {
+        return chr.toUpperCase();
+      })
     },
 
     download: function(filename, text) {

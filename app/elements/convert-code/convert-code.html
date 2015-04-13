@@ -80,12 +80,12 @@
                   <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true" hidden></prism-js>
                   <textArea id="your_code" placeholder="Paste your 0.5 code here"> </textarea>
                   <hr>
-                  <div class="linkLeft" hidden>
+                  <div class="linkLeft" hidden?="{{hideLinks}}">
                   </div>
                 </div>
                 <div flex class="right" id="code8">
                   <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
-                  <div class="linkRight" hidden>
+                  <div class="linkRight" hidden?="{{hideLinks}}">
                     TO DO:
                   </div>
                 </div>
@@ -111,6 +111,7 @@
         rightBranch: "0.8-preview",
         yourCode: "",
         fileName: "converted08.html",
+        hideLinks: true,
 
         ready: function() {
           var elParam = this.getURLParameter('el');
