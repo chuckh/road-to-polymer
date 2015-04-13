@@ -8,12 +8,14 @@ These conversion steps are a work in progress and don't cover every step yet.
 ### HTML Conversion Process
 
 **polymer-element** 
+see https://www.polymer-project.org/0.8/docs/migration.html#registration
 
 1. polymer-element to dom-module
 1. polymer-element name to ```<dom-module id=```
 1. polymer-element attribute/property camelCase to dash-case
 1. polymer-element attributes="xxx xxxx" add to javascript properties
-2. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}"
+2. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}" or attribute$="[[value]]"???
+  - see https://www.polymer-project.org/0.8/docs/migration.html#attribute-bindings
 1. polymer-element layout ```<polymer-element name="x-foo" layout horizontal wrap>``` 
   - add ```<link rel="import" href="../layout/layout.html">``` to top with other imports
   - add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
