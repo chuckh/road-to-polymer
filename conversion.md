@@ -12,7 +12,7 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 
 1. polymer-element to dom-module
 1. polymer-element name to ```<dom-module id=```
-1. polymer-element attribute/property camelCase to dash-case, change from  `<my-element fooBar= to <my-element foo-bar`
+1. polymer-element attribute/property camelCase to dash-case, change from  `<my-element fooBar=` to `<my-element foo-bar`
 1. polymer-element attributes="xxx xxxx" add to javascript properties
 2. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}" or attribute$="[[value]]"???
   - see https://www.polymer-project.org/0.8/docs/migration.html#attribute-bindings
