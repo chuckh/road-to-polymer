@@ -22,9 +22,20 @@
       var polymerPos = 4;
       var scriptSection = false; // script section
       var scriptClose = '</' + 'script>';
+      var commentSection = false; // comment section
       this.layoutMessage = "";
       for (var i = 0; i < orgCode.length; i++) {
         cl = orgCode[i];
+        if (cl.indexOf("<!--") > -1) {
+          commentSection = true;
+        }
+        if (cl.indexOf("-->") > -1) {
+          commentSection = false;
+        }
+        if (commentSection) {
+          convertedCode += cl + '\n';
+          continue;
+        }
         if (cl.indexOf("<script>") > -1) {
           scriptSection = true;
         }
@@ -61,7 +72,7 @@
             convertedCode += '\n' + ind + '  hostAttributes: {\n' + '      class: ' + '"' + la.trim() + '"' +  "  // CONVERTED WIP\n" + ind +"  }\n";
           }
           if (at.length > 0) {
-            convertedCode += '\n' + ind + '  properties: {\n' + ind + '  //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  }\n";
+            convertedCode += '\n' + ind + '  properties: {\n' + ind + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  }\n";
             at = "";
           } else {
             //convertedCode += "  }\n";
@@ -90,23 +101,38 @@
           }
         }
       }
-      convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n - template repeat change to is='x-repeat'\n" +
-      ' - template is="auto-binding" to is="x-binding", template if= to is="x-if"\n' +
+
+      // Future second pass to adding thins such as <link rel="import" href="../../bower_components/layout/layout.html">
+      // var firstImport = true;
+      // var convertedCode1 = convertedCode.split(/[\r\n]+/g);
+      // var convertedCode2 = "";
+      // for (var j = 0; j < convertedCode1.length; j++) {
+      //   cl = convertedCode1[j];
+      //   console.log("convertedCode2: ",cl,this.layoutMessage.length, cl.indexOf('rel="import"'),firstImport);
+      //   if (this.layoutMessage.length > 1 && cl.indexOf('rel="import"') > -1 && firstImport) {
+      //     convertedCode2 += cl;
+      //     convertedCode2 += '<link rel="import" href="../../bower_components/layout/layout.html">   <!-- TODO fix path,   CONVERTED WIP --> \n';
+      //     firstImport = false;
+      //   } else {
+      //     convertedCode2 += cl;
+      //   }
+      // }
+
+
+      convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n" +
       ' - textContent binding from <div>First: {{first}}</div> TO <span>{{first}}</span><br>\n' +
       ' - fix indentation as need \n' +
-      ' - elements on-click="{{handleClick}}" to on-click="handleClick", look for on-tap, on-xxx too.\n' +
       ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}\n' +
       ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>\n' +
       ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar\n' +
       ' - Polymer( fix mixins use mixins: [mixinName] after is: ,\n' +
+      ' - Cleanup Comments to reflect changes ,\n' +
       ' - see https://www.polymer-project.org/0.8/docs/migration.html\n' +
       ' - ' + this.layoutMessage  + "  -->";
       // console.log("convertedCode: ",convertedCode.substr(0,10));
       this.$.code8_prism.inputValue = convertedCode;
-      // this.convertedCode = convertedCode;
       this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
       this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
-      // this.$.convert_button.hidden = true;
       this.$.copy_converted_button.hidden = false;
     },
 
