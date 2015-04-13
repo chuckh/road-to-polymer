@@ -43,6 +43,8 @@ see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
 ### Javascript Conversion Process
 1. polymer-element name to Polymer({ is: 
 1. polymer-element attributes="" to javascript ```properties: { }```
+2. Polymer(  Polymer( fix mixins use mixins: [mixinName] after is:
+  - https://www.polymer-project.org/0.8/docs/devguide/registering-elements.html#prototype-mixins
  
 ### CSS Conversion Process
 see https://www.polymer-project.org/0.8/docs/migration.html#styling  
