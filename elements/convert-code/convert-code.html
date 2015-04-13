@@ -10,15 +10,17 @@
     <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
 
         <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
-        <p>To Convert Code choose a file,<br><br> or paste 0.5 code on the left then click Convert button.<br><br>
-        <br>To start over click Clear button
-      </p>
+          <p>To Convert Code choose a file,<br> or paste 0.5 code on the left then click Convert button.<br><br>
+            <br>To save converted code click Save button<br>
+            or click <core-icon icon="content-copy"></core-icon> icon to copy to clipboard.<br>
+
+            <br>To start over click Clear button
+          </p>
       <paper-button affirmative autofocus>OK</paper-button>
     </paper-action-dialog>
 
     <paper-action-dialog id="copy_dialog" heading="Copy Converted Code" transition="core-transition-center">
-      <p>Copy covnerted code by tapping control-c (Windows) or command-c (Mac)
-      </p>
+      <p>Copy covnerted code by tapping control-c (Windows) or command-c (Mac)</p>
       <textarea id="copy_textarea" rows="20" cols="90" onclick="this.focus();this.select()"></textarea>
       <paper-button affirmative autofocus>OK</paper-button>
     </paper-action-dialog>
@@ -29,13 +31,10 @@
 
         <!-- Main Toolbar -->
         <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
-          <!-- <paper-icon-button id="back_button" icon="arrow-back" on-tap="{{toggleMenu}}" hidden></paper-icon-button> -->
           Convert Code 0.5 to 0.8:
-          <!-- <paper-input id="repo_input" label="repository name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input> -->
           <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
           <div id="file_name"></div>
           <div flex></div>
-          <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> -->
         </core-toolbar>
 
         <!-- Main Content -->
@@ -69,7 +68,10 @@
                     <div id="right_branch_div" class="branch-label"><span>-- CONVERTED CODE --</span>
                     </div>
                   </div>
-                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden>Copy</paper-icon-button>
+                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden></paper-icon-button>
+                  <paper-button id="save_button" on-tap="{{onSaveCode}}" raised affirmative autofocus hidden>
+                     Save
+                  </paper-button>
                 </div>
               </div>
               <div horizontal layout class="code">
@@ -77,12 +79,12 @@
                   <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true" hidden></prism-js>
                   <textArea id="your_code" placeholder="Paste your 0.5 code here"> </textarea>
                   <hr>
-                  <div class="linkLeft" hidden>
+                  <div class="linkLeft" hidden?="{{hideLinks}}">
                   </div>
                 </div>
                 <div flex class="right" id="code8">
                   <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
-                  <div class="linkRight" hidden>
+                  <div class="linkRight" hidden?="{{hideLinks}}">
                     TO DO:
                   </div>
                 </div>
@@ -97,6 +99,7 @@
     </div>
 
   </template>
+
   <script>
     (function () {
       Polymer(Polymer.mixin({
@@ -107,6 +110,8 @@
         leftBranch: "master",
         rightBranch: "0.8-preview",
         yourCode: "",
+        fileName: "converted08.html",
+        hideLinks: true,
 
         ready: function() {
           var elParam = this.getURLParameter('el');
@@ -122,8 +127,8 @@
         },
 
         getURLParameter: function(name) {
-           if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-              return decodeURIComponent(name[1]);
+          if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
         },
 
         toggleHelp: function() {
@@ -140,6 +145,7 @@
           this.$.your_code.hidden = false;
           this.$.code5_prism.hidden = true;
           this.$.file_input.value = "";
+          this.$.save_button.hidden = true;
         },
 
         onConvertCode: function() {
@@ -153,14 +159,15 @@
           this.$.code5_prism.hidden = false;
           this.$.clear_button.hidden = false;
           this.$.convert_button.hidden = true;
+          this.$.save_button.hidden = false;
           this.convertCode2(code);
         },
 
         onFileChange: function(e) {
           console.log("onFileChange: ",e.target.files[0].name);
           var file = e.target.files[0];
-          var fileName = e.target.files[0].name;
-          this.$.file_name.innerHTML = fileName;
+          this.fileName = e.target.files[0].name;
+          this.$.file_name.innerHTML = this.fileName;
           if (!file) {
             return;
           }
@@ -176,9 +183,12 @@
         },
 
         displayContents: function(contents) {
-          // var element = document.getElementById('file-content');
-          // element.innerHTML = contents;
           this.$.code5_prism.inputValue = contents;
+        },
+
+        onSaveCode: function() {
+          console.log("onSaveCode: ");
+          this.download(this.fileName, this.$.code8_prism.inputValue);
         },
 
       }, window.convertMixin));

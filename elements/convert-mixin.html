@@ -20,9 +20,28 @@
       var va = ""; // value attributes
       var sp = []; // split attribuets
       var polymerPos = 4;
+      var scriptSection = false; // script section
+      var scriptClose = '</' + 'script>';
+      var commentSection = false; // comment section
       this.layoutMessage = "";
       for (var i = 0; i < orgCode.length; i++) {
         cl = orgCode[i];
+        if (cl.indexOf("<!--") > -1) {
+          commentSection = true;
+        }
+        if (cl.indexOf("-->") > -1) {
+          commentSection = false;
+        }
+        if (commentSection) {
+          convertedCode += cl + '\n';
+          continue;
+        }
+        if (cl.indexOf("<script>") > -1) {
+          scriptSection = true;
+        }
+        if (cl.indexOf(scriptClose) > -1) {
+          scriptSection = false;
+        }
         if (cl.indexOf("<polymer-element") > -1 ) {
           sp = cl.match(/(".*?"|[^",\s]+)(?=\s*|\s*$)/g);
           id = this.findNameAttribute(sp);
@@ -43,13 +62,17 @@
         } else if (cl.indexOf("Polymer(") > -1) {
           polymerPos = cl.indexOf("Polymer(");
           var ind = " ".repeat(polymerPos);
-          convertedCode += ind + 'Polymer({\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+          // convertedCode += ind + 'Polymer({\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+          convertedCode += cl + '\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+          if (cl.indexOf(".mixin") > -1) {
+            convertedCode += '\n' + ind + '  mixins: [mixinName],'  + " // TODO replace mixinName with real mixin name,  CONVERTED WIP \n";
+          }
           if (la.length > 0) { // layout attributes
             this.layoutMessage = 'add <link rel="import" href="../layout/layout.html"> to top with other imports';
             convertedCode += '\n' + ind + '  hostAttributes: {\n' + '      class: ' + '"' + la.trim() + '"' +  "  // CONVERTED WIP\n" + ind +"  }\n";
           }
           if (at.length > 0) {
-            convertedCode += '\n' + ind + '  properties: {\n' + ind + '  //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  }\n";
+            convertedCode += '\n' + ind + '  properties: {\n' + ind + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  }\n";
             at = "";
           } else {
             //convertedCode += "  }\n";
@@ -57,21 +80,59 @@
         } else if (cl.indexOf("(c) 2014") > -1) {
           convertedCode += cl.replace("(c) 2014", "(c) 2015") + '\n';
         } else {
-          convertedCode += cl + '\n';
+          if (scriptSection == false && cl.indexOf("?=") > -1) { // convert ?= to $=, TODO convert {{}} to [[]]?
+            convertedCode += cl.replace("?=","$=") + '\n';
+          } else if (scriptSection == false && cl.indexOf("on-click") > -1)  {
+            convertedCode += cl + '<!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->  \n';
+          } else if (scriptSection == false && cl.indexOf("on-tap") > -1)  {
+            convertedCode += cl + '<!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->  \n';
+          } else if (scriptSection == false && cl.indexOf(" on-") > -1)  {
+            convertedCode += cl + '<!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->  \n';
+          } else {
+            convertedCode += cl + '\n';
+          }
+          if (cl.indexOf("repeat") > -1) { // template changes
+            convertedCode = convertedCode.replace("repeat", 'is="x-repeat" items="{{data}}"  ') + '      <!-- TODO fix repeat, replace data, remove extra ="{{stuff}}"   CONVERTED WIP --> \n';
+          } else if (cl.indexOf("auto-binding") > -1) {
+            convertedCode = convertedCode.replace("auto-binding", "x-autobind") + '     <!-- x-autobind CONVERTED WIP --> \n';
+          } else if (cl.indexOf("if=") > -1) {
+            convertedCode = convertedCode.replace("if=", 'is="x-if" if=') + '      <!-- TODO fix if=,   CONVERTED WIP --> \n';
+            // convertedCode = convertedCode + '     <!-- TODO add is="x-if", review for other need fixes.   CONVERTED WIP --> \n';
+          }
         }
       }
-      convertedCode += "\n<!-- CONVERSION NOTES:\n Review code and look for: \n - template repeat change to is='x-repeat'\n" +
-      ' - template is="auto-binding" to is="x-binding", template if= to is="x-if"\n' +
+
+      // Future second pass to adding thins such as <link rel="import" href="../../bower_components/layout/layout.html">
+      // var firstImport = true;
+      // var convertedCode1 = convertedCode.split(/[\r\n]+/g);
+      // var convertedCode2 = "";
+      // for (var j = 0; j < convertedCode1.length; j++) {
+      //   cl = convertedCode1[j];
+      //   console.log("convertedCode2: ",cl,this.layoutMessage.length, cl.indexOf('rel="import"'),firstImport);
+      //   if (this.layoutMessage.length > 1 && cl.indexOf('rel="import"') > -1 && firstImport) {
+      //     convertedCode2 += cl;
+      //     convertedCode2 += '<link rel="import" href="../../bower_components/layout/layout.html">   <!-- TODO fix path,   CONVERTED WIP --> \n';
+      //     firstImport = false;
+      //   } else {
+      //     convertedCode2 += cl;
+      //   }
+      // }
+
+
+      convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n" +
       ' - textContent binding from <div>First: {{first}}</div> TO <span>{{first}}</span><br>\n' +
       ' - fix indentation as need \n' +
-      ' - elements on-click="{{handleClick}}" to on-click="handleClick"\n' +
+      ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}\n' +
+      ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>\n' +
+      ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar\n' +
+      ' - Polymer( fix mixins use mixins: [mixinName] after is: ,\n' +
+      ' - Cleanup Comments to reflect changes ,\n' +
+      ' - see https://www.polymer-project.org/0.8/docs/migration.html\n' +
       ' - ' + this.layoutMessage  + "  -->";
       // console.log("convertedCode: ",convertedCode.substr(0,10));
       this.$.code8_prism.inputValue = convertedCode;
-      // this.convertedCode = convertedCode;
       this.errorMessage8 = "AUTO CONVERTED TO 0.8!";
       this.$.right_branch_div.innerHTML = "-- AUTO CONVERTED --";
-      // this.$.convert_button.hidden = true;
       this.$.copy_converted_button.hidden = false;
     },
 
@@ -106,7 +167,7 @@
       return ats;
     },
 
-    findSingleAttributes: function(array) {  // finds single word attributes with no =
+    findSingleAttributes: function(array) {  // finds single word attributes with no = or layout attributes
       var ats = "";
       // console.log("findSingleAttributes: ");
       for (var i = 0; i < array.length; i++) {
@@ -186,8 +247,26 @@
     },
 
     repeat: function(length) {
-     return Array(length + 1).join(this);
-   },
-   
+      return Array(length + 1).join(this);
+    },
+
+    camelToDash: function(str) {
+      return str.replace(/\W+/g, '-')
+        .replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+    },
+
+    dashToCamel: function(str) {
+      return str.replace(/\W+(.)/g, function (x, chr) {
+        return chr.toUpperCase();
+      })
+    },
+
+    download: function(filename, text) {
+      var pom = document.createElement('a');
+      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      pom.setAttribute('download', filename);
+      pom.click();
+    },
+
   };
 </script>
