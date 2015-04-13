@@ -80,6 +80,14 @@
           } else {
             convertedCode += cl + '\n';
           }
+          if (cl.indexOf("repeat") > -1) { // template changes
+            convertedCode = convertedCode.replace("repeat", 'is="x-repeat" items="{{data}}"  ') + '      <!-- TODO fix repeat, replace data, remove extra ="{{stuff}}"   CONVERTED WIP --> \n';
+          } else if (cl.indexOf("auto-binding") > -1) {
+            convertedCode = convertedCode.replace("auto-binding", "x-autobind") + '     <!-- x-autobind CONVERTED WIP --> \n';
+          } else if (cl.indexOf("if=") > -1) {
+            convertedCode = convertedCode.replace("if=", 'is="x-if" if=') + '      <!-- TODO fix if=,   CONVERTED WIP --> \n';
+            // convertedCode = convertedCode + '     <!-- TODO add is="x-if", review for other need fixes.   CONVERTED WIP --> \n';
+          }
         }
       }
       convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n - template repeat change to is='x-repeat'\n" +
