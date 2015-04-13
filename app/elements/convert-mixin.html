@@ -67,6 +67,10 @@
         } else {
           if (scriptSection == false && cl.indexOf("?=") > -1) { // convert ?= to $=, TODO convert {{}} to [[]]?
             convertedCode += cl.replace("?=","$=") + '\n';
+          } else if (scriptSection == false && cl.indexOf("on-click") > -1)  {
+            convertedCode += cl + '<!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->  \n';
+          } else if (scriptSection == false && cl.indexOf("on-tap") > -1)  {
+            convertedCode += cl + '<!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->  \n';
           } else {
             convertedCode += cl + '\n';
           }
@@ -77,8 +81,10 @@
       ' - textContent binding from <div>First: {{first}}</div> TO <span>{{first}}</span><br>\n' +
       ' - fix indentation as need \n' +
       ' - elements on-click="{{handleClick}}" to on-click="handleClick", look for on-tap, on-xxx too.\n' +
+      ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}' +
       ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>' +
-      ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar'
+      ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar' +
+      ' - see https://www.polymer-project.org/0.8/docs/migration.html'
       ' - ' + this.layoutMessage  + "  -->";
       // console.log("convertedCode: ",convertedCode.substr(0,10));
       this.$.code8_prism.inputValue = convertedCode;
@@ -120,7 +126,7 @@
       return ats;
     },
 
-    findSingleAttributes: function(array) {  // finds single word attributes with no =
+    findSingleAttributes: function(array) {  // finds single word attributes with no = or layout attributes
       var ats = "";
       // console.log("findSingleAttributes: ");
       for (var i = 0; i < array.length; i++) {
