@@ -51,7 +51,11 @@
         } else if (cl.indexOf("Polymer(") > -1) {
           polymerPos = cl.indexOf("Polymer(");
           var ind = " ".repeat(polymerPos);
-          convertedCode += ind + 'Polymer({\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+          // convertedCode += ind + 'Polymer({\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+          convertedCode += cl + '\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+          if (cl.indexOf(".mixin") > -1) {
+            convertedCode += '\n' + ind + '  mixins: [mixinName],'  + " // TODO replace mixinName with real mixin name,  CONVERTED WIP \n";
+          }
           if (la.length > 0) { // layout attributes
             this.layoutMessage = 'add <link rel="import" href="../layout/layout.html"> to top with other imports';
             convertedCode += '\n' + ind + '  hostAttributes: {\n' + '      class: ' + '"' + la.trim() + '"' +  "  // CONVERTED WIP\n" + ind +"  }\n";
@@ -71,6 +75,8 @@
             convertedCode += cl + '<!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->  \n';
           } else if (scriptSection == false && cl.indexOf("on-tap") > -1)  {
             convertedCode += cl + '<!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->  \n';
+          } else if (scriptSection == false && cl.indexOf(" on-") > -1)  {
+            convertedCode += cl + '<!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->  \n';
           } else {
             convertedCode += cl + '\n';
           }
@@ -81,10 +87,11 @@
       ' - textContent binding from <div>First: {{first}}</div> TO <span>{{first}}</span><br>\n' +
       ' - fix indentation as need \n' +
       ' - elements on-click="{{handleClick}}" to on-click="handleClick", look for on-tap, on-xxx too.\n' +
-      ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}' +
-      ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>' +
-      ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar' +
-      ' - see https://www.polymer-project.org/0.8/docs/migration.html'
+      ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}\n' +
+      ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>\n' +
+      ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar\n' +
+      ' - Polymer( fix mixins use mixins: [mixinName] after is: ,\n' +
+      ' - see https://www.polymer-project.org/0.8/docs/migration.html\n' +
       ' - ' + this.layoutMessage  + "  -->";
       // console.log("convertedCode: ",convertedCode.substr(0,10));
       this.$.code8_prism.inputValue = convertedCode;
