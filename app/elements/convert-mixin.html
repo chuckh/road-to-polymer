@@ -60,11 +60,11 @@
           convertedCode += cl + '\n';
         }
       }
-      convertedCode += "\n<!-- CONVERSION NOTES:\n Review code and look for: \n - template repeat change to is='x-repeat'\n" +
+      convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n - template repeat change to is='x-repeat'\n" +
       ' - template is="auto-binding" to is="x-binding", template if= to is="x-if"\n' +
       ' - textContent binding from <div>First: {{first}}</div> TO <span>{{first}}</span><br>\n' +
       ' - fix indentation as need \n' +
-      ' - elements on-click="{{handleClick}}" to on-click="handleClick"\n' +
+      ' - elements on-click="{{handleClick}}" to on-click="handleClick", look for on-tap, on-xxx too.\n' +
       ' - ' + this.layoutMessage  + "  -->";
       // console.log("convertedCode: ",convertedCode.substr(0,10));
       this.$.code8_prism.inputValue = convertedCode;
@@ -186,8 +186,15 @@
     },
 
     repeat: function(length) {
-     return Array(length + 1).join(this);
-   },
-   
+      return Array(length + 1).join(this);
+    },
+
+    download: function(filename, text) {
+      var pom = document.createElement('a');
+      pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+      pom.setAttribute('download', filename);
+      pom.click();
+    },
+
   };
 </script>

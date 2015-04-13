@@ -70,6 +70,9 @@
                     </div>
                   </div>
                   <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden>Copy</paper-icon-button>
+                  <paper-button id="save_button" on-tap="{{onSaveCode}}" raised affirmative autofocus hidden>
+                     Save
+                  </paper-button>
                 </div>
               </div>
               <div horizontal layout class="code">
@@ -107,6 +110,7 @@
         leftBranch: "master",
         rightBranch: "0.8-preview",
         yourCode: "",
+        fileName: "converted08.html",
 
         ready: function() {
           var elParam = this.getURLParameter('el');
@@ -122,8 +126,8 @@
         },
 
         getURLParameter: function(name) {
-           if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-              return decodeURIComponent(name[1]);
+          if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
         },
 
         toggleHelp: function() {
@@ -140,6 +144,7 @@
           this.$.your_code.hidden = false;
           this.$.code5_prism.hidden = true;
           this.$.file_input.value = "";
+          this.$.save_button.hidden = true;
         },
 
         onConvertCode: function() {
@@ -153,14 +158,15 @@
           this.$.code5_prism.hidden = false;
           this.$.clear_button.hidden = false;
           this.$.convert_button.hidden = true;
+          this.$.save_button.hidden = false;
           this.convertCode2(code);
         },
 
         onFileChange: function(e) {
           console.log("onFileChange: ",e.target.files[0].name);
           var file = e.target.files[0];
-          var fileName = e.target.files[0].name;
-          this.$.file_name.innerHTML = fileName;
+          this.fileName = e.target.files[0].name;
+          this.$.file_name.innerHTML = this.fileName;
           if (!file) {
             return;
           }
@@ -176,9 +182,12 @@
         },
 
         displayContents: function(contents) {
-          // var element = document.getElementById('file-content');
-          // element.innerHTML = contents;
           this.$.code5_prism.inputValue = contents;
+        },
+
+        onSaveCode: function() {
+          console.log("onSaveCode: ");
+          this.download(this.fileName, this.$.code8_prism.inputValue);
         },
 
       }, window.convertMixin));
