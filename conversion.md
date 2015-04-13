@@ -12,7 +12,7 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 
 1. polymer-element to dom-module
 1. polymer-element name to ```<dom-module id=```
-1. polymer-element attribute/property camelCase to dash-case
+1. polymer-element attribute/property camelCase to dash-case, change from  `<my-element fooBar= to <my-element foo-bar`
 1. polymer-element attributes="xxx xxxx" add to javascript properties
 2. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}" or attribute$="[[value]]"???
   - see https://www.polymer-project.org/0.8/docs/migration.html#attribute-bindings
@@ -23,6 +23,8 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from ````<template> to <dom-module>``` 
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
   - see https://www.polymer-project.org/0.8/docs/devguide/local-dom.html
+1. Correct JSON quotes required, change `<my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }">` to `</my-element> to <my-element foo='{ "title": "Persuasion", "author": "Austen" }'></my-element>`
+  - see https://www.polymer-project.org/0.8/docs/migration.html#attr
 
 **template**
 see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
