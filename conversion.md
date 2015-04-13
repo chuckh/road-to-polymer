@@ -23,6 +23,8 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 1. polymer-element move up ```<link rel="import" type="css" href="my-awesome-button.css">``` from ````<template> to <dom-module>``` 
 1. polymer-element move up ```<style></style>``` from ```<template>``` to ```<dom-module>```
   - see https://www.polymer-project.org/0.8/docs/devguide/local-dom.html
+1. polymer-element default attributes such as `tabindex="0"` move to `hostAttributes: {  tabindex: 0}`
+  - https://www.polymer-project.org/0.8/docs/migration.html#default-attributes
 1. Correct JSON quotes required, change `<my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }">` to `</my-element> to <my-element foo='{ "title": "Persuasion", "author": "Austen" }'></my-element>`
   - see https://www.polymer-project.org/0.8/docs/migration.html#attr
 
