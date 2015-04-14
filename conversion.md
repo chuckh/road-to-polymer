@@ -16,6 +16,7 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 1. polymer-element attributes="xxx xxxx" add to javascript properties
 2. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}" or attribute$="[[value]]"???
   - see https://www.polymer-project.org/0.8/docs/migration.html#attribute-bindings
+  - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.
 1. polymer-element layout ```<polymer-element name="x-foo" layout horizontal wrap>``` 
   - add ```<link rel="import" href="../layout/layout.html">``` to top with other imports
   - add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
