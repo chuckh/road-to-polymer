@@ -12,6 +12,7 @@
 .row {
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 10px;
   border-bottom: 1px solid #E6E6E6;
 }
 
@@ -30,16 +31,17 @@
 .counters {
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left: 10px;
 }
 
 core-header-panel {
   height: 100%;
 }
 .core-header {
-  height: 130px;
+  height: 150px;
   line-height: 60px;
   font-size: 20px;
-  padding: 0 10px;
+  padding-top: 0;
   background-color: #303F9F;
   color: #FFF;
   transition: height 0.2s;
@@ -50,8 +52,9 @@ core-header-panel {
   background-color: #fafafa;  //  fafafa fefefe
 }
 
-footer {
-  font-size: 12px;
+.report-title {
+  font-size: 22px;
+  padding-left: 20px;
 }
 
 .filter {
@@ -67,9 +70,22 @@ paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
 
 paper-radio-group.yellow paper-radio-button::shadow #onRadio {
   background-color: #FFFF00;
+  border-color: #FFFF00;
 }
 
 paper-radio-group.yellow paper-radio-button[checked]::shadow #offRadio {
+  border-color: #FFFF00;
+}
+
+paper-radio-group.yellow-white paper-radio-button::shadow #ink[checked] {
+  color: #FFFF00;
+}
+
+paper-radio-group.yellow-white paper-radio-button::shadow #onRadio {
+  background-color: #FFFF00;
+}
+
+paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   border-color: #FFFF00;
 }
 
@@ -87,15 +103,51 @@ paper-radio-group.yellow paper-radio-button[checked]::shadow #offRadio {
   min-width: 300px;
 }
 
-.titles {
-  margin-left: -12px;
-  font-size: 16px;
+.orgs {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 60px;
+  font-size: 18px;
+  text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
 }
+
+.select-label {
+  padding-right: 20px;
+  font-size: 20px;
+}
+
+#refresh_button {
+  padding-left: 20px;
+}
+
+#load_report {
+  background: #4285f4;
+  color: #fff;
+  font-size: 16px;
+  height: 40px;
+}
+
+
+.titles {
+  font-size: 16px;
+  position: relative;
+  top: 5px;
+  left: 0px;
+  padding-left: 10px;
+  width: 100%;
+  color: black;
+  background: #fafafa;  // #536DFE   303F9F E8EAF6
+}
+
 
 footer{
   width: 100%;
   padding-bottom: 10px;
   text-align: center;
+  font-size: 12px;
 }
 
 a:link {
