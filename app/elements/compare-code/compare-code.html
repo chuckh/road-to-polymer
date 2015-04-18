@@ -73,7 +73,7 @@
         <!-- Main Toolbar -->
         <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
           <paper-icon-button id="back_button" icon="arrow-back" on-tap="{{toggleMenu}}" hidden></paper-icon-button>
-          Compare Code 0.5 to 0.8:
+          <div id="report_title">Compare Code 0.5 to 0.8:</div>
           <paper-input id="repo_input" label="repository name" value="{{repoName}}" on-blur="{{searchForRepo}}" on-keyup="{{searchForRepoKeyUp}}"></paper-input>
           <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
           <div flex></div>
@@ -96,7 +96,7 @@
                   </div>
                 </div>
 
-                <div class="right-title" horizontal layout center flex>
+                <div id="right_title" class="right-title" horizontal layout center flex>
                   <div vertical layout flex>
                     <h3>Polymer 0.8 - {{repoName}} -
                       <span class="error-message">{{errorMessage8}}</span>
@@ -147,20 +147,20 @@
               </core-toolbar>
 
               <div class="list-container" flex>
-                <div class="elements-group-title" on-click="{{collapse1Toggle}}" horizontal layout>
-                  Core Elements
+                <div id="iron_core_heading1" class="elements-group-title" on-click="{{collapse1Toggle}}" horizontal layout>
+                  {{ironCore}} Elements
                   <div></div>
                   <core-icon icon="arrow-drop-down" id="collapse1_icon"></core-icon>
                 </div>
                 <core-collapse id="collapse1">
                   <core-menu on-core-select="{{loadCompare1}}" id="reposGroup1Menu" class="list-menu" wrap horizontal layout>
-                    <template repeat="{{repo in reposAllFiltered  | groupFilter('core') }}">
+                    <template repeat="{{repo in reposAllFiltered  | groupFilter(ironCore) }}">
                       <core-item label="{{repo.name}}"></core-item>
                     </template>
                   </core-menu>
                 </core-collapse>
 
-                <div class="elements-group-title" on-click="{{collapse2Toggle}}" wrap horizontal layout>
+                <div id="paper_heading2" class="elements-group-title" on-click="{{collapse2Toggle}}" wrap horizontal layout>
                   Paper Elements
                   <div></div>
                   <core-icon icon="arrow-drop-down" id="collapse2_icon"></core-icon>
@@ -174,7 +174,7 @@
                 </core-collapse>
 
                 <div class="elements-group-title" on-click="{{collapse3Toggle}}" horizontal layout>
-                  Other Elements
+                  {{otherLabel}} Elements
                   <div></div>
                   <core-icon icon="arrow-drop-down" id="collapse3_icon"></core-icon>
                 </div>
@@ -221,6 +221,8 @@
         pageToolbarClass: "page-toolbar",
         convertParam: false,
         owner: "polymer",
+        ironCore: "Core",
+        otherLabel: "Other",
         leftBranch: "master",
         rightBranch: "0.8-preview",
         // convertedCode: "",
@@ -229,6 +231,23 @@
         ready: function() {
           this.$.error_message.innerHTML = "Loading Repos..."
           var elParam = this.getURLParameter('el');
+          var orgParam = this.getURLParameter('org');
+          if (orgParam) {
+            this.owner = orgParam;
+            if (orgParam == "PolymerElements") {
+              this.ironCore = "Iron";
+              this.$.code8.hidden = true;
+              this.$.right_title.hidden = true;
+              this.$.report_title.innerHTML = "Polymer 0.8 Code:";
+            }
+            if (orgParam == "GoogleWebComponents") {
+              this.$.iron_core_heading1.hidden = true;
+              this.$.iron_core_heading1.hidden = true;
+              this.$.paper_heading2.hidden = true;
+              this.otherLabel = "Google";
+              //this.$.collapes1.hidden = true;
+            }
+          }
           this.convertParam = this.getURLParameter('convert');
           console.log("compare-code ready", elParam, this.convertParam);
           if (elParam) {
@@ -300,6 +319,8 @@
           for (var i = 0; i < dataLen; i++) {
             if (this.repos1[i].name.substr(0,4) === 'core') {
               group = "core";
+            } else if (this.repos1[i].name.substr(0,4) === 'iron') {
+              group = "iron";
             } else if (this.repos1[i].name.substr(0,5) === 'paper') {
               group = "paper";
             } else {
@@ -352,7 +373,6 @@
         },
         handleCode8Response: function(event) {
           console.log("handleCode8Response", this.code8.name);
-          // var code8 = "``` " + atob(this.code8.content) + " ```" ;
           this.$.convert_button.hidden = true;
           this.$.copy_converted_button.hidden = true;
           this.$.code8_prism.inputValue = atob(this.code8.content);
@@ -497,7 +517,9 @@
         },
 
         groupFilter: function(data, filter) {
+          console.log("groupFilter: ",filter);
           var result = [];
+          filter = filter.toLowerCase();
           if(data != null){
             for(var i = 0; i < data.length; i++){
               if(data[i].group === filter){
