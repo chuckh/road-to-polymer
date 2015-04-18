@@ -72,7 +72,17 @@ http://www.mergely.com/Be505kqQ/
 4. I prefer to suggest you just use {{ }} all the time. Most bindings are automatic, and are two-way only if they make sense. You never *need* to use [[ ]] unless you want to *restrict* an otherwise two-way binding to be only one-way, which is very rare. It's true that some people like to use [[ ]] as a hint to themselves about the nature of the data-flow, I think Rob is in this camp, which is entirely valid. Personally, I like to simplify and stick with {{ }}. 
 
 5. Types in Polymer are only used when decoding property values from attributes. Attribute values are always Strings, so Polymer type-converts when converting from attribute to property. Polymer does not type-check direct property assignments.
+ 
+## Scott Miles explains
+Polymer wants you to use elements with templates, and elements with templates use Mediator pattern, which is to say the _host_ mediates all communication between elements in the subtree.
 
+We generally try to avoid parent/child communication outside of the shadow/shady root, so this becomes hard to talk about without a lot of deep background on application architecture.
+
+The five second answer is: parent/child, ***use events yes***
+
+Siblings, use a controller/mediator/parent to manage communication
+
+Document-wide: bad application design, use scoping otherwise, yes, iron-meta
 
 ## Auto Conversion program
 ### Select source code
