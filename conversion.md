@@ -62,6 +62,18 @@ http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
 ### Difference example of core-item auto conversion by compare-code
 http://www.mergely.com/Be505kqQ/
 
+## Attributes explained by Scott Miles of Google
+1. Boolean attributes in HTML/DOM are expressed as either 'existing or not existing'. So, to HTML foo="false" is Boolean true. This is how HTML works, this isn't a Polymer thing.
+
+2. An attribute value appearing on an element *as a property* is always a special case in native DOM. IOW, that 'checked' property on input reflects 'checked' attribute on input, is special sauce of input. IOW, there is no rule for how that should work exactly. (edited)
+
+3. If you mark a property as Boolean, in Polymer 0.8, the attribute will be handled properly without any need for the special syntax that was needed in 0.5. The only reason you folks saw weirdness above was that the element itself did not initialize it's property in the first place. Because this is up to the element to decide, the Boolean property can start out as undefined. If you define the property with 'value: false' it will show true/false just like input.checked.
+
+4. I prefer to suggest you just use {{ }} all the time. Most bindings are automatic, and are two-way only if they make sense. You never *need* to use [[ ]] unless you want to *restrict* an otherwise two-way binding to be only one-way, which is very rare. It's true that some people like to use [[ ]] as a hint to themselves about the nature of the data-flow, I think Rob is in this camp, which is entirely valid. Personally, I like to simplify and stick with {{ }}. (edited)
+
+5. Types in Polymer are only used when decoding property values from attributes. Attribute values are always Strings, so Polymer type-converts when converting from attribute to property. Polymer does not type-check direct property assignments.
+
+
 ## Auto Conversion program
 ### Select source code
 * Allow to pasted into textarea or
