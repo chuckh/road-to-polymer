@@ -83,11 +83,11 @@
           if (scriptSection == false && cl.indexOf("?=") > -1) { // convert ?= to $=, TODO convert {{}} to [[]]?
             convertedCode += cl.replace("?=","$=") + '\n';
           } else if (scriptSection == false && cl.indexOf("on-click") > -1)  {
-            convertedCode += cl + '<!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->  \n';
+            convertedCode += cl + ' <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->  \n';
           } else if (scriptSection == false && cl.indexOf("on-tap") > -1)  {
-            convertedCode += cl + '<!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->  \n';
+            convertedCode += cl + ' <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->  \n';
           } else if (scriptSection == false && cl.indexOf(" on-") > -1)  {
-            convertedCode += cl + '<!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->  \n';
+            convertedCode += cl + ' <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->  \n';
           } else {
             convertedCode += cl + '\n';
           }
