@@ -65,6 +65,12 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 *core-x* | `paper-x` | **comment**  
 core-drawer-panel | paper-drawer-panel | wip  
 core-header-panel | paper-header-panel | wip  
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
   
 
 ### Difference example of paper-button conversion by Polymer team
