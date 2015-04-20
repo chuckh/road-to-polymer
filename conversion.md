@@ -61,10 +61,10 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 - paper-x are staying paper-x.
 
 ### New paper-x that where core-x
---- | --- | ---
-*core-x* | `paper-x` | **comment**
-core-drawer-panel | paper-drawer-panel | wip
-core-header-panel | paper-header-panel | wip
+--- | --- | ---  
+*core-x* | `paper-x` | **comment**  
+core-drawer-panel | paper-drawer-panel | wip  
+core-header-panel | paper-header-panel | wip  
   
 
 ### Difference example of paper-button conversion by Polymer team
