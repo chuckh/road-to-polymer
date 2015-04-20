@@ -117,9 +117,9 @@
                   <hr>
                   <div class="linkLeft">
                     <a href="https://github.com/{{owner}}/{{repoName}}/blob/master/{{repoName}}.html" target="_blank">Github Repository Code</a><br>
-                    <a href="https://github.com/{{owner}}/{{repoName}}/blob/master/demo.html" target="_blank">Github Repository Demo Code</a><br>
-                    <a href="https://www.polymer-project.org/0.5/components/{{repoName}}/demo.html" target="_blank">Polymer {{repoName}} Demo</a><br>
-                    <a href="https://www.polymer-project.org/0.5/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
+                    <a href="https://github.com/{{owner}}/{{repoName}}/blob/master/{{leftDemo}}" target="_blank">Github Repository Demo Code</a><br>
+                    <a href="https://www.polymer-project.org/{{leftVersion}}/components/{{repoName}}/{{leftDemo}}" target="_blank">Polymer {{repoName}} Demo</a><br>
+                    <a href="https://www.polymer-project.org/{{leftVersion}}/docs/elements/{{repoName}}.html" target="_blank">Polymer {{repoName}} Doc</a><br>
                     <a href="https://github.com/{{owner}}/{{repoName}}/compare/0.8-preview" target="_blank">Polymer {{repoName}} Diff</a><br>
                   </div>
                 </div>
@@ -223,6 +223,8 @@
         owner: "polymer",
         ironCore: "Core",
         otherLabel: "Other",
+        leftVersion: "0.5",
+        leftDemo: "demo.html",
         leftBranch: "master",
         rightBranch: "0.8-preview",
         // convertedCode: "",
@@ -239,6 +241,8 @@
               this.$.code8.hidden = true;
               this.$.right_title.hidden = true;
               this.$.report_title.innerHTML = "Polymer 0.8 Code:";
+              this.leftVersion = "0.8";
+              this.leftDemo = "demo/index.html"
             }
             if (orgParam == "GoogleWebComponents") {
               this.$.iron_core_heading1.hidden = true;
