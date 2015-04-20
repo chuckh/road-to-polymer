@@ -55,6 +55,15 @@ see https://www.polymer-project.org/0.8/docs/migration.html#styling
 1. if using layout add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}``` to Polymer({
   - see https://www.polymer-project.org/0.8/docs/migration.html#layout-attributes
 
+### Core and Paper Elements Conversion
+The core-x and paper-x are moving to PolymerElements at https://github.com/PolymerElements.
+- core-x non visible elements are changing to iron-x, such as core-ajax to iron-ajax. Visible core-x are being changed to paper-x such as core-drawer-panel to paper-drawer-panel.
+- paper-x are staying paper-x.
+
+## New paper-x that where core-x
+
+
+  
 
 ### Difference example of paper-button conversion by Polymer team
 http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
