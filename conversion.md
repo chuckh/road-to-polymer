@@ -60,18 +60,25 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 - core-x non visible elements are changing to iron-x, such as core-ajax to iron-ajax. Visible core-x are being changed to paper-x such as core-drawer-panel to paper-drawer-panel.
 - paper-x are staying paper-x.
 
-### New paper-x that where core-x
---- | --- | ---  
-*core-x* | `paper-x` | **comment**  
-core-drawer-panel | paper-drawer-panel | wip  
-core-header-panel | paper-header-panel | wip  
+### New paper-x that where core-x (partial list)
 
 | core-x            | paper-x            | comment           |
 | ----------------- |:------------------:| -----------------:|
-| core-drawer-panel | paper-drawer-panel | wip |
-| core-header-panel | paper-header-panel | wip |
-| core-toolbar      | paper-toolbar      | wip |
-  
+| core-drawer-panel | paper-drawer-panel | wip               |
+| core-header-panel | paper-header-panel | wip               |
+| core-toolbar      | paper-toolbar      | wip               |
+| core-toolbar      | paper-toolbar      | wip               |
+| core-toolbar      | paper-toolbar      | wip               |
+
+### Changed core-x to iron-x (partial list)
+
+| core-x            | iron-x             | comment           |
+| ----------------- |:------------------:| -----------------:|
+| core-media-query  | iron-media-query   | wip               |
+| core-icon         | iron-icon          | wip               |
+| core-icons        | iron-icons         | wip               |
+| core-iconset      | iron-iconset       | wip               |
+| core-iconset-svg  | iron-iconset-svg   | wip               |
 
 ### Difference example of paper-button conversion by Polymer team
 http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
