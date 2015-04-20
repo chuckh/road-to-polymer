@@ -63,7 +63,7 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 ### New paper-x that where core-x (partial list)
 
 | core-x            | paper-x            | comment           |
-|:----------------- |:------------------:|:----------------- |
+|:----------------- |:------------------ |:----------------- |
 | core-drawer-panel | paper-drawer-panel | wip               |
 | core-header-panel | paper-header-panel | wip               |
 | core-toolbar      | paper-toolbar      | wip               |
@@ -73,7 +73,7 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 ### Changed core-x to iron-x (partial list)
 
 | core-x            | iron-x             | comment           |
-| ----------------- |:------------------:| -----------------:|
+| ----------------- |:------------------ | -----------------:|
 | core-media-query  | iron-media-query   | wip               |
 | core-icon         | iron-icon          | wip               |
 | core-icons        | iron-icons         | wip               |
