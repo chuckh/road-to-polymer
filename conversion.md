@@ -80,6 +80,7 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 | core-iconset      | iron-iconset       | wip               |
 | core-iconset-svg  | iron-iconset-svg   | wip               |
 
+
 ### Difference example of paper-button conversion by Polymer team
 http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
 
@@ -107,19 +108,6 @@ The five second answer is: parent/child, ***use events yes***
 Siblings, use a controller/mediator/parent to manage communication
 
 Document-wide: bad application design, use scoping otherwise, yes, iron-meta
-
-## Auto Conversion program
-### Select source code
-* Allow to pasted into textarea or
-* Select file on Github or 
-* Select file local
-* Load file or pasted code
-* Auto Convert
-
-### Finish
-1. Review converted code
-1. Save or copy converted code
-
 
 <br>
 
