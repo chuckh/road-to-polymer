@@ -71,10 +71,21 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 | core-item         | paper-item         | wip               |
 | core-item w/ icon | paper-icon-item    | wip               |
 
+### New paper-x that where not in Polymer 0.5 (partial list)
+
+| paper-x           | Description                            |
+|:----------------- |:-------------------------------------- |
+| paper-card        | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper.|
+| core-header-panel | paper-header-panel | wip               |
+| core-toolbar      | paper-toolbar      | wip               |
+| core-menu         | paper-menu         | wip               |
+| core-item         | paper-item         | wip               |
+| core-item w/ icon | paper-icon-item    | wip               |
+
 ### Changed core-x to iron-x (partial list)
 
 | core-x            | iron-x             | comment           |
-| ----------------- |:------------------ | -----------------:|
+|:----------------- |:------------------ |:----------------- |
 | core-media-query  | iron-media-query   | wip               |
 | core-icon         | iron-icon          | wip               |
 | core-icons        | iron-icons         | wip               |
