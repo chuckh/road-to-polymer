@@ -69,6 +69,7 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 | core-toolbar      | paper-toolbar      | wip               |
 | core-menu         | paper-menu         | wip               |
 | core-item         | paper-item         | wip               |
+| core-item w/ icon | paper-icon-item    | wip               |
 
 ### Changed core-x to iron-x (partial list)
 
