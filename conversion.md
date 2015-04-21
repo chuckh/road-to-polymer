@@ -73,14 +73,11 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 
 ### New paper-x that where not in Polymer 0.5 (partial list)
 
-| paper-x           | Description                            |
-|:----------------- |:-------------------------------------- |
-| paper-card        | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper.|
-| core-header-panel | paper-header-panel | wip               |
-| core-toolbar      | paper-toolbar      | wip               |
-| core-menu         | paper-menu         | wip               |
-| core-item         | paper-item         | wip               |
-| core-item w/ icon | paper-icon-item    | wip               |
+| paper-x             | Description                            |
+|:------------------- |:-------------------------------------- |
+| paper-card          | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper.|
+| paper-styles        | imports color.html, default-theme.html, layout.html, typography.html, shadow.html |
+| paper-toggle-button | a Material Design toggle button |
 
 ### Changed core-x to iron-x (partial list)
 
@@ -91,6 +88,13 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 | core-icons        | iron-icons         | wip               |
 | core-iconset      | iron-iconset       | wip               |
 | core-iconset-svg  | iron-iconset-svg   | wip               |
+
+### New iron-x that where not core-x in Polymer 0.5 (partial list)
+
+| iron-x               | Description                            |
+|:-------------------- |:-------------------------------------- |
+| iron-meta            | is a element for creating and accessing self-organizing meta-database |
+| iron-state-behaviors | bahaviors that manage control states like 'focused', 'disabled', and 'active' |
 
 
 ### Difference example of paper-button conversion by Polymer team
