@@ -73,11 +73,11 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 
 ### New paper-x that where not in Polymer 0.5 (partial list)
 
-| paper-x             | Description                            |
-|:------------------- |:-------------------------------------- |
-| paper-card          | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper.|
-| paper-styles        | imports color.html, default-theme.html, layout.html, typography.html, shadow.html |
-| paper-toggle-button | a Material Design toggle button |
+| paper-x              | Description                            |
+|:-------------------- |:-------------------------------------- |
+| paper-card           | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper.|
+| paper-styles         | imports color.html, default-theme.html, layout.html, typography.html, shadow.html |
+| paper-toggle-button  | a Material Design toggle button |
 
 ### Changed core-x to iron-x (partial list)
 
