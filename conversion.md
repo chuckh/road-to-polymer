@@ -126,10 +126,11 @@ Siblings, use a controller/mediator/parent to manage communication
 Document-wide: bad application design, use scoping otherwise, yes, iron-meta
 
 ## Scott Miles explains hidden?=, hidden$= and hidden=
-```For 0.5 hidden?=“{{hideElement}}” for 0.8 can be hidden$=“{{hideElement}}” for two-way binding or hidden=“[[hideElement]” for one-way binding, is this correct?```
+
+```For 0.5 hidden?="{{hideElement}}" for 0.8 can be hidden$="{{hideElement}}" for two-way binding or hidden="[[hideElement]" for one-way binding, is this correct?```
 
 Here is a long answer, there is a lot of detail, but I'm hopeful you can help me communicate these things everybody else!
-```For 0.5 hidden?=“{{hideElement}}”``` 
+```For 0.5 hidden?="{{hideElement}}"``` 
 In 0.5, `name?` created a "boolean attribute binding". This was special because Boolean attributes are either 'existing' (true) or 'not-existing' (false), which is specifically not what you get if you do setAttribute('hidden", false) (which _creates_ the attribute, and therefore makes it true, this is inherent wackiness in DOM).
 
 In 0.8, bindings are by default to _properties_. Therefore, on browsers where `hidden` is implemented as a property, you can do:
@@ -146,7 +147,7 @@ Typically, Polymer apps will create a style like: [hidden] { display: none; }. T
 
 In this situation, one can use the specific syntax for attribute binding, which is <name$>:
 
-```hidden$=“{{hideElement}}”```
+```hidden$="{{hideElement}}"```
 
 In this case, the binding only ever affects the _attribute_ `hidden` and doesn't go through any property.
 
