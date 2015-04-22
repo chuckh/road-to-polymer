@@ -128,6 +128,7 @@ Siblings, use a controller/mediator/parent to manage communication
 Document-wide: bad application design, use scoping otherwise, yes, iron-meta
 
 ## Scott Miles explains hidden?=, hidden$= and hidden=
+see example at: http://plnkr.co/edit/2yaJJPJ008j1LEfJaJY8?p=preview
 
 The Question: 
 
