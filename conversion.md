@@ -127,9 +127,10 @@ Document-wide: bad application design, use scoping otherwise, yes, iron-meta
 
 ## Scott Miles explains hidden?=, hidden$= and hidden=
 
-Question: `For 0.5 hidden?="{{hideElement}}" for 0.8 can be hidden$="{{hideElement}}" for two-way binding or hidden="[[hideElement]" for one-way binding, is this correct?`
+Question: 
+```For 0.5 hidden?="{{hideElement}}" for 0.8 can be hidden$="{{hideElement}}" for two-way binding or hidden="[[hideElement]" for one-way binding, is this correct?```
 
-Here is a long answer, there is a lot of detail, but I'm hopeful you can help me communicate these things everybody else!
+Here is a long answer, there is a lot of detail, but I'm hopeful this will help everyone.
 
 ```
 For 0.5 hidden?="{{hideElement}}"
