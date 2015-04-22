@@ -201,7 +201,7 @@ Scott
 
 <br>
 
-### Polymer 0.8 Migration Guide
+## Polymer 0.8 Migration Guide
 #### see https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
 ## Migration Notes from Polymer 0.8 PRIMER.md as 4/22/2015
