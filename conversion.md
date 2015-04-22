@@ -140,7 +140,7 @@ Here is a long answer, there is a lot of detail, but I'm hopeful this will help 
 For 0.5 hidden?="{{hideElement}}"
 ```
 
-In 0.5, `name?` created a "boolean attribute binding". This was special because Boolean attributes are either 'existing' (true) or 'not-existing' (false), which is specifically not what you get if you do setAttribute('hidden", false) (which _creates_ the attribute, and therefore makes it true, this is inherent wackiness in DOM).
+In 0.5, `name?` created a "boolean attribute binding". This was special because Boolean attributes are either **'existing' (true) or 'not-existing' (false)**, which is specifically not what you get if you do setAttribute('hidden", false) (which _creates_ the attribute, and therefore makes it true, this is inherent wackiness in DOM).
 
 In 0.8, bindings are by default to _properties_. Therefore, on browsers where `hidden` is implemented as a property, you can do:
 
