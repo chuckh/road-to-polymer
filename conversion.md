@@ -113,6 +113,8 @@ http://www.mergely.com/Be505kqQ/
 4. I prefer to suggest you just use '{{ }}' all the time. Most bindings are automatic, and are two-way only if they make sense. You never *need* to use [[ ]] unless you want to *restrict* an otherwise two-way binding to be only one-way, which is very rare. It's true that some people like to use [[ ]] as a hint to themselves about the nature of the data-flow, I think Rob is in this camp, which is entirely valid. Personally, I like to simplify and stick with {{ }}. 
 
 5. Types in Polymer are only used when decoding property values from attributes. Attribute values are always Strings, so Polymer type-converts when converting from attribute to property. Polymer does not type-check direct property assignments.
+
+see https://html.spec.whatwg.org/#boolean-attributes
  
 ## Scott Miles explains
 Polymer wants you to use elements with templates, and elements with templates use Mediator pattern, which is to say the _host_ mediates all communication between elements in the subtree.
@@ -199,11 +201,11 @@ Scott
 
 <br>
 
-### see Polymer 0.8 Migration Guide
-#### https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
+### Polymer 0.8 Migration Guide
+#### see https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
 ## Migration Notes from Polymer 0.8 PRIMER.md as 4/22/2015
-https://github.com/Polymer/polymer/blob/0.8-preview/PRIMER.md#migration-notes
+see for latest: https://github.com/Polymer/polymer/blob/0.8-preview/PRIMER.md#migration-notes
 
 This section covers how to deal with yet-unimplemented and/or de-scoped features in Polymer 0.8 as compared to 0.5.  Many of these are simply un-implemented; that is, we will likely have a final "solution" that addresses the need, we just haven't tackled that feature yet as we address items in priority order.  Other solutions in 0.8 may be lower-level as compared to 0.5, and will be explained here.
 
