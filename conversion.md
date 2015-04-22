@@ -195,7 +195,7 @@ Most people seem to understand that `url` flows down and `response` flows up. I 
 
 HTH, Scott
 
-Michael Bleigh of Divshot.com commets:
+Michael Bleigh of Divshot.com comments:
 
 I actually like using `[[]]` for all downward bindings and `{{}}` only for potentially upward ones. helps me reason about dataflow as i'm working. Use a visual mnemonic: square brackets are walls that don't let anything out. curly brackets are pointed from the data coming back up 
 
