@@ -134,7 +134,7 @@ In 0.5, `name?` created a "boolean attribute binding". This was special because 
 
 In 0.8, bindings are by default to _properties_. Therefore, on browsers where `hidden` is implemented as a property, you can do:
 
-   ```hidden="{{hideElement}}"```
+```hidden="{{hideElement}}"```
 
 And this will bind directly to the property, which has no weirdness about Boolean values. The browser itself will translate this to the correct attribute. 
 
@@ -146,13 +146,13 @@ Typically, Polymer apps will create a style like: [hidden] { display: none; }. T
 
 In this situation, one can use the specific syntax for attribute binding, which is <name$>:
 
-  ```hidden$=“{{hideElement}}”```
+```hidden$=“{{hideElement}}”```
 
 In this case, the binding only ever affects the _attribute_ `hidden` and doesn't go through any property.
 
 The "{{ }}" syntax means "allow two-way binding, if the target element supports it", otherwise known by me as "automatic mode". The only time "{{ }}" will actually result in upward data-flow is if the target element is a Polymer element that has `notify: true` set for the bound property. In other words,
 
-  ```<x-foo foo="{{bar}}"></x-foo>```
+```<x-foo foo="{{bar}}"></x-foo>```
 
 Data will ever only flow into `bar`if x-foo has marked `foo` as `notify: true`. You can use "[[ ]]" if you want to _force_ this binding to be one-way, but this is actually a pretty rare need. 
 
