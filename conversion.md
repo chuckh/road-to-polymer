@@ -131,12 +131,11 @@ Document-wide: bad application design, use scoping otherwise, yes, iron-meta
 
 <br>
 
-## Migration Notes from Polymer 0.8 PRIMER.md
-https://raw.githubusercontent.com/Polymer/polymer/0.8-preview/PRIMER.md
-
 ### see Polymer 0.8 Migration Guide
 #### https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
 
+## Migration Notes from Polymer 0.8 PRIMER.md as 4/22/2015
+https://github.com/Polymer/polymer/blob/0.8-preview/PRIMER.md#migration-notes
 
 This section covers how to deal with yet-unimplemented and/or de-scoped features in Polymer 0.8 as compared to 0.5.  Many of these are simply un-implemented; that is, we will likely have a final "solution" that addresses the need, we just haven't tackled that feature yet as we address items in priority order.  Other solutions in 0.8 may be lower-level as compared to 0.5, and will be explained here.
 
@@ -195,8 +194,8 @@ Current limitations that are on the backlog for evaluation/improvement are liste
       `<div class$="{{classes}}">`
     * Otherwise, `this.classList.add/remove` from change handlers
 * CSS inline-style binding:
-    * May bind entire inline style from one property to `style` _property_:
-      `<div style="{{styles}}">`
+    * May bind entire inline style from one property to `style` _attribute_:
+      `<div style$="{{styles}}">`
     * Otherwise, assign `this.style.props` from change handlers
 
 ## Structured data and path notification
