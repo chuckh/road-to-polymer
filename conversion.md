@@ -32,7 +32,7 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 **template**
 see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
 
-1. template repeat to is="x-repeat" and repeat= to items= - _(temporary)_
+1. template repeat to is="x-repeat" and repeat= to items= - _(temporary)_ (example: http://jsbin.com/totibudowo/2/watch?html,output)
 1. template is="auto-binding"  to is="x-binding" - _(temporary)_
 1. template if= to is="x-if" - _(temporary)_ or use display block or none
 
