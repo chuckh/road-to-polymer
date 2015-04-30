@@ -86,7 +86,7 @@
 		      <div flex>Name</div>
 		      <div flex three> Description</div>
 		      <div flex class="center">Cur Release</div>
-		      <div flex class="center">0.8-{{branchLookingFor}}</div>
+		      <div flex class="center" hidden?={{hideColumn5}}>0.8-{{branchLookingFor}}</div>
 		    </div>
 		  </div>
 
@@ -99,7 +99,7 @@
 		          <div flex> <strong>{{repoAll[0]}}</strong></div>
 		          <div flex three>{{repoAll[1]}}</div>
 		          <div flex class="center">{{repoAll[2]}}</div>
-		          <div flex class="center">{{repoAll[3]}}</div>
+		          <div flex class="center" hidden?={{hideColumn5}}>{{repoAll[3]}}</div>
 		        </div>
           </a>
 		      </template>
@@ -147,6 +147,7 @@
     	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
         searchValue: "",
         compareCodePrefix: "../",
+        hideColumn5: false,
 
     	  ready: function() {
           var hostName = window.location.hostname;
@@ -255,16 +256,22 @@
     	    this.currentReleasehName = repo;
           if (this.organization == "Polymer") {
             this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
+          } else if (this.organization ==  "PolymerElements") {
+              this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
           } else {
             this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
           }
+          // console.log("getReleases: ",this.$.get_releases_ajax.url);
     	    this.$.get_releases_ajax.abort();
     	    this.$.get_releases_ajax.go();
     	  },
 
     	  handleReleaseResponse: function(event) {
-    	    this.reposAll[this.currentRelease][2] = this.releaseLookingFor.toString();
-
+          if (this.organization ==  "PolymerElements" || this.organization ==  "GoogleWebComponents") {
+            this.reposAll[this.currentRelease][2] = this.releases.tag_name;
+          } else {
+            this.reposAll[this.currentRelease][2] = this.releaseLookingFor.toString();
+          }
     	    this.currentRelease += 1;
     	    if (this.currentRelease < this.reposAll.length) {
     	      this.getReleases();
@@ -354,6 +361,7 @@
         loadReport: function() {
           this.$.iron_radio_button.hidden = false;
           this.$.paper_radio_button.hidden = false;
+          this.hideColumn5 = false;
           this.$.radio_group_filter.selected = 0;
           if (this.$.radio_group_org.selected == "polymer") { // Polymer
             this.organization = "Polymer";
@@ -367,6 +375,7 @@
           } else if (this.$.radio_group_org.selected == "polymereelements") { // PolymerElements
             this.organization = "PolymerElements";
             this.$.iron_radio_button.label = "Iron";
+            this.hideColumn5 = true;
             if (this.reposPolymerElements) {
               this.reposAllFiltered = this.reposPolymerElements;
               this.reposAll = this.reposPolymerElements;
