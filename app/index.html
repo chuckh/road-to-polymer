@@ -47,6 +47,7 @@
         <core-menu selected="{{page}}" class="sidebar-menu" on-core-select="{{selectMenu}}" center>
           <core-item label="Welcome" icon="polymer"></core-item>
           <core-item label="Repositories Status Report" icon="label-outline"></core-item>
+          <core-item label="Polymer Elements Coverted" icon="label-outline"></core-item>
           <core-item label="Polymer Compare Code" icon="view-quilt"></core-item>
           <core-item label="Polymer Convert Code" icon="view-quilt"></core-item>
           <hr>
@@ -80,7 +81,10 @@
 
           <section flex>
             <repos-list></repos-list>
-            <!-- <h2 styles="padding: 20px;">repos-lis disabled to dev</h2> -->
+          </section>
+
+          <section flex>
+            <repos-compare-list></repos-compare-list>
           </section>
 
           <section flex>
