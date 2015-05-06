@@ -352,10 +352,10 @@
           var rsuffix = "";
           var core = "no";
           if (rname.substr(0,4) === "core") {
-            rsuffix = rname.substr(5,50);
+            rsuffix = rname.substr(5,rname.length-5);
             core = "yes";
           } else {
-            rsuffix = rname.substr(6,50);
+            rsuffix = rname.substr(6,rname.length-6);
             core = "no";
           }
           var dataLen = this.reposOrg2.length;
@@ -363,13 +363,21 @@
           var foundName = "";
           for (var i = 0; i < dataLen; i++) {
             rnameOrg2 = this.reposOrg2[i].name;
-            if ((rnameOrg2.indexOf(rsuffix) >= 0 && core === "yes") || (rnameOrg2.indexOf(rname) >= 0 && core === "no")) {
-              foundName = this.reposOrg2[i].name;
-              if (rnameOrg2 !== rname) {
-                foundName += " (renamed)";
+            if (core === "yes") { // search for iron version
+              if (rnameOrg2 === "iron-" + rsuffix) {
+                foundName = "iron-" + rsuffix + " (renamed)";
+              } else { // otherwise search for paper version
+                if (rnameOrg2 === "paper-" + rsuffix && rname !== 'core-input' && rname !== 'core-item') {
+                  foundName = rnameOrg2 + " (renamed)";
+                }
+              }
+            } else { // search for paper- elements
+              if (rnameOrg2 === rname) {
+                foundName = rname;
               }
             }
           }
+          console.log(rname, rsuffix, core, foundName);
           return foundName;
         },
 
