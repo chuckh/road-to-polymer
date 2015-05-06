@@ -367,7 +367,7 @@
               if (rnameOrg2 === "iron-" + rsuffix) {
                 foundName = "iron-" + rsuffix + " (renamed)";
               } else { // otherwise search for paper version
-                if (rnameOrg2 === "paper-" + rsuffix && rname !== 'core-input' && rname !== 'core-item') {
+                if (rnameOrg2 === "paper-" + rsuffix && rname !== 'core-input' && rname !== 'core-item' && rname !== 'core-elements') {
                   foundName = rnameOrg2 + " (renamed)";
                 }
               }
@@ -377,7 +377,7 @@
               }
             }
           }
-          console.log(rname, rsuffix, core, foundName);
+          // console.log(rname, rsuffix, core, foundName);
           return foundName;
         },
 
