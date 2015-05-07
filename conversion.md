@@ -1,4 +1,4 @@
-# Polymer 0.5 to 0.8 conversion process
+# Polymer 0.5 to 0.9 conversion process (update for 0.9)
 ### see Polymer 0.8 Migration Guide
 #### https://www.polymer-project.org/0.8/docs/migration.html
 or for latest https://github.com/Polymer/docs/blob/master/0.8/docs/migration.md
@@ -32,9 +32,17 @@ see https://www.polymer-project.org/0.8/docs/migration.html#registration
 **template**
 see https://www.polymer-project.org/0.8/docs/devguide/experimental.html
 
-1. template repeat to is="x-repeat" and repeat= to items= - _(temporary)_ (example: http://jsbin.com/totibudowo/2/watch?html,output)
-1. template is="auto-binding"  to is="x-binding" - _(temporary)_
-1. template if= to is="x-if" - _(temporary)_ or use display block or none
+1. template repeat to is="dom-repeat" and repeat= to items= - (example: http://jsbin.com/totibudowo/2/watch?html,output)
+1. template is="auto-binding"  to is="dom-bind" - 
+1. template if= to is="dom-if" or use display block or none
+
+Custom elements renamed:
+x-if -> dom-if
+x-repeat -> dom-repeat 
+x-template -> dom-template
+x-autobind -> dom-bind
+x-array-selector -> array-selector
+x-style -> custom-style
 
 **other**
 
@@ -59,6 +67,7 @@ see https://www.polymer-project.org/0.8/docs/migration.html#styling
 The core-x and paper-x are moving to PolymerElements at https://github.com/PolymerElements.
 - core-x non visible elements are changing to iron-x, such as core-ajax to iron-ajax. Visible core-x are being changed to paper-x such as core-drawer-panel to paper-drawer-panel.
 - paper-x are staying paper-x.
+- see http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true for what has been converted and renamed.
 
 ### New paper-x that where core-x (partial list)
 
@@ -75,9 +84,10 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 
 | paper-x              | Description                            |
 |:-------------------- |:-------------------------------------- |
-| paper-card           | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper.|
+| paper-material           | is a container that renders two shadows on top of each other to
+create the effect of a lifted piece of paper.|
 | paper-styles         | imports color.html, default-theme.html, layout.html, typography.html, shadow.html |
-| paper-toggle-button  | a Material Design toggle button |
+| paper-behaviors  | http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true |
 
 ### Changed core-x to iron-x (partial list)
 
