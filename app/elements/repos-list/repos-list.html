@@ -272,7 +272,6 @@
     	  handleReleaseResponse: function(event) {
           if (this.organization ==  "PolymerElements" || this.organization ==  "GoogleWebComponents") {
             this.reposAll[this.currentRelease][2] = this.releases.tag_name;
-            console.log("published_at:", this.releases.published_at)
             if (this.releases.published_at) {
               var rdate = new Date(this.releases.published_at);
               this.reposAll[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
