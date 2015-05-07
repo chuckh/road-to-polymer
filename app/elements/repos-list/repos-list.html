@@ -67,7 +67,7 @@
   			  </div>
   			  <div id="search" class="search" horizontal layout>
   				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
-  				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
+  				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names, cur release" autofocus hidden>
   			  </div>
     		</div>
 
@@ -87,6 +87,7 @@
 		      <div flex three> Description</div>
 		      <div flex class="center">Cur Release</div>
 		      <div flex class="center" hidden?={{hideColumn5}}>0.8-{{branchLookingFor}}</div>
+          <div flex hidden?={{hideColumn6}}>Released</div>
 		    </div>
 		  </div>
 
@@ -100,6 +101,7 @@
 		          <div flex three>{{repoAll[1]}}</div>
 		          <div flex class="center">{{repoAll[2]}}</div>
 		          <div flex class="center" hidden?={{hideColumn5}}>{{repoAll[3]}}</div>
+              <div flex class="released" hidden?={{hideColumn6}}>{{repoAll[4]}}</div>
 		        </div>
           </a>
 		      </template>
@@ -142,12 +144,13 @@
     	  currentBranch: 0,
     	  currentBranchName: "",
     	  currentRelease: 0,
-    	  currentReleasehName: "",
+    	  currentReleaseName: "",
     	  currentError: "",
     	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
         searchValue: "",
         compareCodePrefix: "../",
         hideColumn5: false,
+        hideColumn6: true,
 
     	  ready: function() {
           var hostName = window.location.hostname;
@@ -253,7 +256,7 @@
 
     	  getReleases: function() {
     	    var repo = this.reposAll[this.currentRelease][0];
-    	    this.currentReleasehName = repo;
+    	    this.currentReleaseName = repo;
           if (this.organization == "Polymer") {
             this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
           } else if (this.organization ==  "PolymerElements") {
@@ -269,8 +272,17 @@
     	  handleReleaseResponse: function(event) {
           if (this.organization ==  "PolymerElements" || this.organization ==  "GoogleWebComponents") {
             this.reposAll[this.currentRelease][2] = this.releases.tag_name;
+            console.log("published_at:", this.releases.published_at)
+            if (this.releases.published_at) {
+              var rdate = new Date(this.releases.published_at);
+              this.reposAll[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
+            } else {
+              this.reposAll[this.currentRelease][4] = "";
+            }
+
           } else {
             this.reposAll[this.currentRelease][2] = this.releaseLookingFor.toString();
+            // this.reposAll[this.currentRelease][3] = "";
           }
     	    this.currentRelease += 1;
     	    if (this.currentRelease < this.reposAll.length) {
@@ -279,11 +291,12 @@
     	  },
     	  handleReleasesErrorResponse: function(event) {
       	    //console.log("handleReleasesErrorResponse: ", this.currentRelease);
-    	    this.reposAll[this.currentRelease][2] = "na";
-      	    this.currentRelease += 1;
-      	    if (this.currentRelease < this.reposAll.length) {
-      	      this.getReleases();
-      	    }
+    	    this.reposAll[this.currentRelease][2] = "n/a";
+          this.reposAll[this.currentRelease][4] = "";
+    	    this.currentRelease += 1;
+    	    if (this.currentRelease < this.reposAll.length) {
+    	      this.getReleases();
+    	    }
     	  },
 
     	  filterRepos: function(e, detail, sender) {
@@ -291,7 +304,7 @@
     		  if (sender.id === "search_input") {
       			  this.$.radio_group_filter.selected = 0;
     		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return d[0].indexOf(this.searchValue) > -1;
+    		        return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1);
     		      }.bind(this));
     		  } else if (sender.label === "All") {
     			this.$.yes_counter.hidden = true;
@@ -322,14 +335,22 @@
     		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "no";
     		      });
     		  } else {
-    			  if (sender.label === "YES") {
-    				  this.$.yes_counter.hidden = true;
-    			  } else {
-    				  this.$.yes_counter.hidden = true;
-    			  }
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+            this.$.yes_counter.hidden = true;
+            if (this.organization ==  "PolymerElements") {
+              this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+                if (sender.label == "YES") {
+                  return d[2] !== "n/a";
+                } else {
+                  return d[2] === "n/a";
+                }
+    		      });
+            } else {
+              this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
     		        return d[3] == sender.label;
     		      });
+            }
+
+
     		  }
     	    // document.querySelector('#mainContainer').scroller.scrollTop = 0;
     		  // document.querySelector('#mainContainer').scroller.scrollIntoView();
@@ -362,6 +383,7 @@
           this.$.iron_radio_button.hidden = false;
           this.$.paper_radio_button.hidden = false;
           this.hideColumn5 = false;
+          this.hideColumn6 = true;
           this.$.radio_group_filter.selected = 0;
           if (this.$.radio_group_org.selected == "polymer") { // Polymer
             this.organization = "Polymer";
@@ -376,7 +398,8 @@
             this.organization = "PolymerElements";
             this.$.iron_radio_button.label = "Iron";
             this.hideColumn5 = true;
-            if (this.reposPolymerElements) {
+            this.hideColumn6 = false;
+          if (this.reposPolymerElements) {
               this.reposAllFiltered = this.reposPolymerElements;
               this.reposAll = this.reposPolymerElements;
             } else {
@@ -409,7 +432,7 @@
           this.currentBranch = 0;
           this.currentBranchName = "";
           this.currentRelease = 0;
-          this.currentReleasehName = "";
+          this.currentReleaseName = "";
           this.currentError = "";
 
           this.$.get_repos_ajax.abort();
