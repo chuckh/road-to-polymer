@@ -28,7 +28,6 @@ These high level conversion steps are a work in progress and don't cover every s
 <!-- Property binding -->
 <my-element selected="{{value}}"></my-element>
 <!-- results in <my-element>.selected = this.value; -->
-
     ```
 5. Layout attributes replaced by layout classes
   - from `<div layout horizontal center>` to `<div class="layout horizontal center">`
