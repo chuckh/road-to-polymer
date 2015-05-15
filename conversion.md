@@ -1,10 +1,10 @@
 # Polymer 0.5 to 0.9 conversion process
-```
-see Polymer 0.9 Migration Guide and Release Notes  
+See Polymer 0.9 Migration Guide and Release Notes  
 **https://www.polymer-project.org/0.9/docs/migration.html**  
 or for latest https://github.com/Polymer/docs/blob/master/0.9/docs/migration.md  
-**and https://www.polymer-project.org/0.9/docs/release-notes.html**
-```
+and **https://www.polymer-project.org/0.9/docs/release-notes.html**  
+
+---
 
 These high level conversion steps are a work in progress and don't cover every step yet.
 
