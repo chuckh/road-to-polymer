@@ -81,9 +81,11 @@ x-style -> custom-style
 1. polymer-element `attributes=""` to javascript `properties: { }`
 1. Use use underscore prefix for private functions `_functionname`
 1. Array mutation methods: 0.9 replaces the array observers with a set of array mutation methods. For array changes to be observed by data bindings, computed properties, or observers, you must use the provided helper methods: `push, pop, splice, shift, and unshift`. Like set, the first argument is a string path to the array.
+
     ```c
       this.push('users', { first: "Stephen", last: "Maturin" });
     ```
+
 5. Use WebComponentsReady instead of polymer-ready
     ```c
       window.addEventListener('WebComponentsReady', function(e) {
