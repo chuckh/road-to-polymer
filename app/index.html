@@ -52,19 +52,18 @@
           <core-item label="Polymer Convert Code" icon="view-quilt"></core-item>
           <hr>
           <core-item label="Polymer 0.5 Doc" icon="av:web"></core-item>
-          <core-item label="Polymer 0.8 Doc" icon="av:web"></core-item>
-          <core-item label="Polymer 0.8 Migration guide" icon="info-outline"></core-item>
-          <core-item label="Polymer Primer 0.8" icon="info-outline"></core-item>
-          <!-- <core-item label="PolymerElements 0.8" icon="open-in-new" on-click="{{loadUrl}}" url="https://github.com/PolymerElements"></core-item> -->
+          <core-item label="Polymer 0.9 Doc" icon="av:web"></core-item>
+          <core-item label="Quick tour of Polymer 0.9" icon="info-outline"></core-item>
+          <core-item label="Polymer 0.9 Migration guide" icon="info-outline"></core-item>
+          <core-item label="Polymer Primer 0.9" icon="info-outline"></core-item>
           <core-item label="Polymer Slack" icon="question-answer" on-click="{{loadUrl}}" url="https://polymer.slack.com/messages/general/"></core-item>
           <core-item label="Polymer Discussion" icon="question-answer"></core-item>
           <core-item label="Polymer G+ Community" icon="open-in-new" on-click="{{loadUrl}}" url="https://plus.google.com/communities/115626364525706131031"></core-item>
           <core-item label="Polycasts Training Videos" icon="av:video-collection"></core-item>
           <core-item label="Yeoman generator for Polymer" icon="info-outline"></core-item>
           <core-item label="Material Design Spec" icon="info-outline"></core-item>
-          <!-- <core-item label="Core-icons demo" icon="dashboard"></core-item> -->
           <hr>
-          <core-item label="Polymer 0.8 Sneak Peek" icon="info-outline"></core-item>
+          <!-- <core-item label="Polymer 0.8 Sneak Peek" icon="info-outline"></core-item> -->
           <core-item label="Development Notes" icon="info-outline"></core-item>
           <core-item label="Conversion Process Notes" icon="info-outline"></core-item>
         </core-menu>
@@ -102,17 +101,21 @@
           </section>
 
           <section flex>
-            <iframe src="//polymer-project.org/0.8/" frameborder="0" width="100%" height="100%"></iframe>
+            <iframe src="//polymer-project.org/0.9/" frameborder="0" width="100%" height="100%"></iframe>
           </section>
 
           <section flex>
-            <iframe src="//www.polymer-project.org/0.8/docs/migration.html" frameborder="0" width="100%" height="100%"></iframe>
+            <iframe src="https://www.polymer-project.org/0.9/docs/start/quick-tour.html" frameborder="0" width="100%" height="100%"></iframe>
+          </section>
+
+          <section flex>
+            <iframe src="//www.polymer-project.org/0.9/docs/migration.html" frameborder="0" width="100%" height="100%"></iframe>
           </section>
 
 
           <github-html-viewer owner="Polymer" repo="polymer"
             fileName="PRIMER.md" branch="0.8-preview"
-            pageTitle="Polymer Primer 0.8" flex>
+            pageTitle="Polymer Primer 0.9" flex>
           </github-html-viewer>
 
           <!-- <section flex>
@@ -146,20 +149,11 @@
             <iframe src="http://www.google.com/design/spec/material-design/introduction.html" frameborder="0" width="100%" height="100%"></iframe>
           </section>
 
-          <!-- <html-file-viewer
-            url="bower_components/core-icons/demo.html"
-            pageTitle="core-icons demo" flex>
-          </html-file-viewer> -->
-
-          <!-- <section flex>
-            <iframe src="bower_components/core-icons/demo.html" frameborder="0" width="100%" height="100%"></iframe>
-          </section> -->
-
           <div id="for_divider_1" flex></div>
 
-          <section flex>
+          <!-- <section flex>
             <iframe src="http://divshot.com/blog/web-components/polymer-0-8-sneak-peek/" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
+          </section> -->
 
           <marked-file-viewer id="dev_notes_marked" owner="chuckh" repo="road-to-polymer"
             fileName="dev-notes.md" branch="master"
@@ -171,17 +165,6 @@
             pageTitle="Conversion Notes" flex>
           </marked-file-viewer>
 
-          <core-header-panel class="header-panel-page" mode="seamed">
-            <core-toolbar>
-              Page Name
-              <div flex></div>
-              <core-icon icon="menu"></core-icon>
-            </core-toolbar>
-            <div>Content</div>
-          </core-header-panel>
-
-          <div>Two</div>
-          <div>Three</div>
         </core-pages>
 
       </core-header-panel>
