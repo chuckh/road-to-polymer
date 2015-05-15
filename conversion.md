@@ -1,8 +1,10 @@
 # Polymer 0.5 to 0.9 conversion process
-### see Polymer 0.9 Migration Guide and Release Notes
-#### https://www.polymer-project.org/0.9/docs/migration.html
-or for latest https://github.com/Polymer/docs/blob/master/0.9/docs/migration.md
-####and https://www.polymer-project.org/0.9/docs/release-notes.html
+```
+see Polymer 0.9 Migration Guide and Release Notes  
+**https://www.polymer-project.org/0.9/docs/migration.html**  
+or for latest https://github.com/Polymer/docs/blob/master/0.9/docs/migration.md  
+**and https://www.polymer-project.org/0.9/docs/release-notes.html**
+```
 
 These high level conversion steps are a work in progress and don't cover every step yet.
 
@@ -123,10 +125,9 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 
 | paper-x              | Description                            |
 |:-------------------- |:-------------------------------------- |
-| paper-material       | is a container that renders two shadows on top of each other to
-create the effect of a lifted piece of paper. |
+| paper-material       | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper. |
 | paper-styles         | imports color.html, default-theme.html, layout.html, typography.html, shadow.html |
-| paper-behaviors  | stuff |  
+| paper-behaviors  | common behaviors used across paper-* elements |  
 http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true
 
 ### Changed core-x to iron-x (partial list)
