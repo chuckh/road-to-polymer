@@ -32,18 +32,18 @@ These high level conversion steps are a work in progress and don't cover every s
 
 5. Layout attributes replaced by layout classes
   - from `<div layout horizontal center>` to `<div class="layout horizontal center">`
-  - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">`
+  - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">`
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
   - **note:** this could change in Polymer 1.0
   - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles."
 6. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
   - If you need to set classes on the host, you can do so imperatively (for example, by calling `classList.add` from the ready callback).
-  - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">` to top with other imports
+  - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">` to top with other imports
   - see https://www.polymer-project.org/0.9/docs/release-notes.html#host-attributes
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes notes box.
   - **note:** this could change in Polymer 1.0
-7. polymer-element move up `<link rel="import" type="css" href="my-awesome-button.css">` from `<template>` to `<dom-module>`
+7. polymer-element move up `<link rel="stylesheet" href="my-element.css">` from `<template>` to `<dom-module>`
 1. polymer-element move up `<style></style>` from `<template>` to `<dom-module>`
   - see https://www.polymer-project.org/0.9/docs/devguide/local-dom.html
 1. polymer-element default attributes such as `tabindex="0"` move to `hostAttributes: {  tabindex: 0}`
