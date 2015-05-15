@@ -1,11 +1,11 @@
 {
   "name": "road-to-polymer",
-  "version": "0.8.0",
+  "version": "0.8.9",
   "homepage": "https://github.com/chuckh/road-to-polymer",
   "authors": [
     "Chuck Horton <chuckh@hware.com>"
   ],
-  "description": "Reports and Notes for Migrating to Polymer 0.8/1.0",
+  "description": "Reports and Notes for Migrating to Polymer 0.8/0.9/1.0",
   "keywords": [
     "Polymer Compare Code Status Github"
   ],
