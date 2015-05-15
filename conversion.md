@@ -10,9 +10,7 @@ These high level conversion steps are a work in progress and don't cover every s
 
 ### HTML Conversion Process
 
-####polymer-element to dom-module
-  - see https://www.polymer-project.org/0.9/docs/migration.html#registration
-
+####polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
 1. polymer-element to dom-module
   - `<polymer-element id=` name to `<dom-module id=`
 1. polymer-element attribute/property camelCase to dash-case
