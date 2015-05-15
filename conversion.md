@@ -86,7 +86,8 @@ window.addEventListener('WebComponentsReady', function(e) {
   Polymer({
     is: 'super-element',
     behaviors: [SuperBehavior]
-});```
+});
+```
   - see https://www.polymer-project.org/0.9/docs/devguide/behaviors.html  
 
 ### CSS Conversion Process
@@ -251,6 +252,8 @@ I actually like using `[[]]` for all downward bindings and `{{}}` only for poten
 Per Scott comments:
 
 Just remember `{{}}` only 'allows' upward data, it doesn't cause it to happen. More specifically, `[[ ]]` 'prevents' upward data flow
+
+<br>
 
 <br>
 <br>
