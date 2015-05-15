@@ -20,8 +20,7 @@ These high level conversion steps are a work in progress and don't cover every s
   -  `<div hidden?="{{isHidden}}">Boo!</div>` to `<div hidden$="{{isHidden}}">Boo!</div>`
   - see https://www.polymer-project.org/0.9/docs/migration.html#attribute-bindings
   - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.
-
-````
+  ```
 <!-- Attribute binding -->
 <my-element selected$="{{value}}"></my-element>
 <!-- results in <my-element>.setAttribute('selected', this.value); -->
@@ -29,7 +28,7 @@ These high level conversion steps are a work in progress and don't cover every s
 <!-- Property binding -->
 <my-element selected="{{value}}"></my-element>
 <!-- results in <my-element>.selected = this.value; -->
-```
+  ```
 5. Layout attributes replaced by layout classes
   - from `<div layout horizontal center>` to `<div class="layout horizontal center">`
   - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">`
@@ -83,14 +82,14 @@ x-style -> custom-style
 1. Array mutation methods: 0.9 replaces the array observers with a set of array mutation methods. For array changes to be observed by data bindings, computed properties, or observers, you must use the provided helper methods: `push, pop, splice, shift, and unshift`. Like set, the first argument is a string path to the array.
   ```
 this.push('users', { first: "Stephen", last: "Maturin" });
-```
+  ```
 5. Use WebComponentsReady instead of polymer-ready
   ```
 window.addEventListener('WebComponentsReady', function(e) {
   // imports are loaded and elements have been registered
   console.log('Components are ready');
 });
-```
+  ```
   - see https://github.com/webcomponents/webcomponentsjs#webcomponentsready  
 6. Breaking Change: Mixins replaced by behaviors -- Convert `Polymer(Polymer.mixin({` to
   ```
@@ -98,7 +97,7 @@ window.addEventListener('WebComponentsReady', function(e) {
     is: 'super-element',
     behaviors: [SuperBehavior]
 });
-```
+  ```
   - see https://www.polymer-project.org/0.9/docs/devguide/behaviors.html  
 
 ### CSS Conversion Process
@@ -267,4 +266,3 @@ Just remember `{{}}` only 'allows' upward data, it doesn't cause it to happen. M
 
 <br>
 <br>
- 
