@@ -13,14 +13,14 @@ These high level conversion steps are a work in progress and don't cover every s
 ####polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
 1. polymer-element to dom-module
   - `<polymer-element id=` name to `<dom-module id=`
-1. polymer-element attribute/property camelCase to dash-case
+2. polymer-element attribute/property camelCase to dash-case
   - change from  `<my-element fooBar=` to `<my-element foo-bar`
-1. polymer-element attributes="xxx xxxx" add to javascript properties
-1. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}"
-  - `<div hidden?="{{isHidden}}">Boo!</div>` to `<div hidden$="{{isHidden}}">Boo!</div>`
+3. polymer-element attributes="xxx xxxx" add to javascript properties
+4. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}"
+  -  `<div hidden?="{{isHidden}}">Boo!</div>` to `<div hidden$="{{isHidden}}">Boo!</div>`
   - see https://www.polymer-project.org/0.9/docs/migration.html#attribute-bindings
   - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.
-  ```
+    ```
 <!-- Attribute binding -->
 <my-element selected$="{{value}}"></my-element>
 <!-- results in <my-element>.setAttribute('selected', this.value); -->
@@ -29,20 +29,20 @@ These high level conversion steps are a work in progress and don't cover every s
 <my-element selected="{{value}}"></my-element>
 <!-- results in <my-element>.selected = this.value; -->
 ```
-1. Layout attributes replaced by layout classes
+5. Layout attributes replaced by layout classes
   - from `<div layout horizontal center>` to `<div class="layout horizontal center">`
   - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">`
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
   - **note:** this could change in Polymer 1.0
   - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles."
-1. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
+6. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
   - If you need to set classes on the host, you can do so imperatively (for example, by calling `classList.add` from the ready callback).
   - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">` to top with other imports
   - see https://www.polymer-project.org/0.9/docs/release-notes.html#host-attributes
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes notes box.
   - **note:** this could change in Polymer 1.0
-1. polymer-element move up `<link rel="import" type="css" href="my-awesome-button.css">` from `<template>` to `<dom-module>`
+7. polymer-element move up `<link rel="import" type="css" href="my-awesome-button.css">` from `<template>` to `<dom-module>`
 1. polymer-element move up `<style></style>` from `<template>` to `<dom-module>`
   - see https://www.polymer-project.org/0.9/docs/devguide/local-dom.html
 1. polymer-element default attributes such as `tabindex="0"` move to `hostAttributes: {  tabindex: 0}`
@@ -80,11 +80,11 @@ x-style -> custom-style
 1. polymer-element `attributes=""` to javascript `properties: { }`
 1. Use use underscore prefix for private functions `_functionname`
 1. Array mutation methods: 0.9 replaces the array observers with a set of array mutation methods. For array changes to be observed by data bindings, computed properties, or observers, you must use the provided helper methods: `push, pop, splice, shift, and unshift`. Like set, the first argument is a string path to the array.
-```
+  ```
 this.push('users', { first: "Stephen", last: "Maturin" });
 ```
 5. Use WebComponentsReady instead of polymer-ready
-```
+  ```
 window.addEventListener('WebComponentsReady', function(e) {
   // imports are loaded and elements have been registered
   console.log('Components are ready');
