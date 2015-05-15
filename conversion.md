@@ -19,14 +19,24 @@ These high level conversion steps are a work in progress and don't cover every s
 1. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}"
   - `<div hidden?="{{isHidden}}">Boo!</div>` to `<div hidden$="{{isHidden}}">Boo!</div>`
   - see https://www.polymer-project.org/0.9/docs/migration.html#attribute-bindings
-  - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.
+  - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.  
+
+```
+<!-- Attribute binding -->
+<my-element selected$="{{value}}"></my-element>
+<!-- results in <my-element>.setAttribute('selected', this.value); -->
+
+<!-- Property binding -->
+<my-element selected="{{value}}"></my-element>
+<!-- results in <my-element>.selected = this.value; -->
+```
 1. Layout attributes replaced by layout classes
   - from `<div layout horizontal center>` to `<div class="layout horizontal center">`
   - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">`
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
   - **note:** this could change in Polymer 1.0
   - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles."
-1. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>` 
+1. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
   - If you need to set classes on the host, you can do so imperatively (for example, by calling `classList.add` from the ready callback).
   - add `<link rel="import" href="../PolymerElements/classes/iron-flex-layout.html">` to top with other imports
@@ -42,7 +52,7 @@ These high level conversion steps are a work in progress and don't cover every s
   - see https://www.polymer-project.org/0.9/docs/migration.html#attr
 
 ####template
-see https://www.polymer-project.org/0.9/docs/devguide/experimental.html
+see https://www.polymer-project.org/0.9/docs/migration.html#template-repeat
 
 1. template `repeat` to `is="dom-repeat"` and `repeat=` to `items=`
   - (example: http://jsbin.com/totibudowo/2/watch?html,output)
@@ -61,12 +71,15 @@ x-style -> custom-style
 
 ####Bindings / other
 
-1. textContent binding from `<div>First: {{first}}</div>` TO `<span>{{first}}</span><br>`
+1. textContent binding from `<div>First: {{first}}</div>` TO `First: <span>{{first}}</span><br>`  
+  - To bind to a child element’s textContent, you can simply include the annotation inside the child element. The binding annotation must currently span the entire content of the tag:
 1. elements `on-click="{{handleClick}}"` to `on-click="handleClick"`
+1. lots of changes to `Data Bindings` see doc at https://www.polymer-project.org/0.9/docs/devguide/data-binding.html
 
 ### Javascript Conversion Process
 1. polymer-element name to `Polymer({ is:`
 1. polymer-element `attributes=""` to javascript `properties: { }`
+1. Use use underscore prefix for private functions `_functionname` 
 1. Array mutation methods: 0.9 replaces the array observers with a set of array mutation methods. For array changes to be observed by data bindings, computed properties, or observers, you must use the provided helper methods: `push, pop, splice, shift, and unshift`. Like set, the first argument is a string path to the array.
 ```
 this.push('users', { first: "Stephen", last: "Maturin" });
