@@ -20,7 +20,8 @@ These high level conversion steps are a work in progress and don't cover every s
   -  `<div hidden?="{{isHidden}}">Boo!</div>` to `<div hidden$="{{isHidden}}">Boo!</div>`
   - see https://www.polymer-project.org/0.9/docs/migration.html#attribute-bindings
   - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.
-    ```
+
+````
 <!-- Attribute binding -->
 <my-element selected$="{{value}}"></my-element>
 <!-- results in <my-element>.setAttribute('selected', this.value); -->
