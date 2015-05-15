@@ -61,6 +61,7 @@
   				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
   				    <paper-radio-button name="Iron" label="Iron" on-click="{{filterRepos}}" id="iron_radio_button"></paper-radio-button>
   				    <paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}" id="paper_radio_button"></paper-radio-button>
+              <paper-radio-button name="Other" label="Other" on-click="{{filterRepos}}" id="other_radio_button"></paper-radio-button>
   				    <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button> -->
   				    <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button> -->
   				  </paper-radio-group>
@@ -323,6 +324,11 @@
     		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
     		        return d[0].indexOf("paper") > -1;
     		      });
+          } else if (sender.label === "Other") {
+    			  this.$.yes_counter.hidden = true;
+    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+    		        return d[0].indexOf("paper") == -1 && d[0].indexOf("core") == -1 && d[0].indexOf("iron") == -1
+    		      });
     		  } else if (sender.label === "Yes Core + Paper") {
     			  this.$.yes_counter.hidden = true;
     		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
@@ -381,6 +387,7 @@
         loadReport: function() {
           this.$.iron_radio_button.hidden = false;
           this.$.paper_radio_button.hidden = false;
+          this.$.other_radio_button.hidden = false;
           this.hideColumn5 = false;
           this.hideColumn6 = true;
           this.$.radio_group_filter.selected = 0;
@@ -408,6 +415,7 @@
             this.organization = "GoogleWebComponents";
             this.$.iron_radio_button.hidden = true;
             this.$.paper_radio_button.hidden = true;
+            this.$.other_radio_button.hidden = true;
             if (this.reposGoogleWebComponents) {
               this.reposAllFiltered = this.reposGoogleWebComponents;
               this.reposAll = this.reposGoogleWebComponents;
@@ -445,6 +453,7 @@
           console.log("selectOrg: ", sender);
           this.$.iron_radio_button.hidden = false;
           this.$.paper_radio_button.hidden = false;
+          this.$.other_radio_button.hidden = false;
           if (sender.label == "Polymer" && this.reposPolymer) { // Polymer
             this.reposAllFiltered = this.reposPolymer;
             this.reposAll = this.reposPolymer;
@@ -458,6 +467,7 @@
             this.reposAll = this.reposGoogleWebComponents;
             this.$.iron_radio_button.hidden = true;
             this.$.paper_radio_button.hidden = true;
+            this.$.other_radio_button.hidden = true;
           } else {
             this.loadReport();
           }
