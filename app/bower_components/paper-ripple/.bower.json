@@ -1,23 +1,38 @@
 {
   "name": "paper-ripple",
+  "version": "0.9.1",
+  "description": "Adds a material design ripple to any container",
   "private": true,
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "keywords": [
+    "web-components",
+    "polymer",
+    "paper",
+    "ripple"
+  ],
+  "main": "paper-ripple.html",
   "dependencies": {
-    "core-icon": "Polymer/core-icon#^0.5",
-    "core-icons": "Polymer/core-icons#^0.5",
-    "font-roboto": "Polymer/font-roboto#^0.5"
+    "polymer": "Polymer/polymer#^0.9.0"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^1.0.0"
+    "iron-component-page": "polymerelements/iron-component-page#^0.9.0",
+    "iron-icon": "polymerelements/iron-icon#^0.9.0",
+    "iron-icons": "polymerelements/iron-icons#^0.9.0",
+    "paper-styles": "polymerelements/paper-styles#^0.9.0",
+    "test-fixture": "polymerelements/test-fixture#^0.9.0",
+    "web-component-tester": "*",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "version": "0.5.5",
-  "homepage": "https://github.com/Polymer/paper-ripple",
-  "_release": "0.5.5",
+  "homepage": "https://github.com/PolymerElements/paper-ripple",
+  "_release": "0.9.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.5",
-    "commit": "f41d28b47c2bdb8d4351c52f6b00430e5c4728e2"
+    "tag": "v0.9.1",
+    "commit": "9f936f94e414326c5ddfc198719c242a9f3ce478"
   },
-  "_source": "git://github.com/Polymer/paper-ripple.git",
-  "_target": "^0.5",
-  "_originalSource": "Polymer/paper-ripple"
+  "_source": "git://github.com/PolymerElements/paper-ripple.git",
+  "_target": "^0.9.0",
+  "_originalSource": "PolymerElements/paper-ripple"
 }

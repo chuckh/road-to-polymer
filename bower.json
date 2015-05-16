@@ -1,6 +1,6 @@
 {
   "name": "road-to-polymer",
-  "version": "0.8.8",
+  "version": "0.9.0",
   "homepage": "https://github.com/chuckh/road-to-polymer",
   "authors": [
     "Chuck Horton <chuckh@hware.com>"
@@ -11,20 +11,34 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.6.0",
-    "core-elements": "Polymer/core-elements#^0.5.5",
-    "paper-elements": "Polymer/paper-elements#^0.5.5",
-    "polymer": "Polymer/polymer#^0.5.5",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "iron-elements": "PolymerElements/iron-elements#~0.9.1",
+    "paper-elements": "PolymerElements/paper-elements#~0.9.1",
+    "polymer": "Polymer/polymer#^0.9.0",
     "marked-element": "Polymer/marked-element#master",
-    "prism-js": "https://github.com/mskrajnowski/prism-js.git#~0.1.1"
+    "prism-js": "https://github.com/mskrajnowski/prism-js.git#~0.1.1",
+    "paper-item": "PolymerElements/paper-item#~0.9.1",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#~0.9.4",
+    "paper-menu": "PolymerElements/paper-menu#~0.9.1",
+    "paper-toolbar": "PolymerElements/paper-toolbar#~0.9.1",
+    "paper-button": "PolymerElements/paper-button#~0.9.1",
+    "paper-dialog": "PolymerElements/paper-dialog#~0.9.1"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^2.2.3"
   },
   "resolutions": {
-    "polymer": "^0.5.5",
+    "polymer": "^0.9.0",
     "marked-element": "master",
-    "core-component-page": "^0.5",
-    "webcomponentsjs": "^0.6.0"
+    "iron-component-page": "^0.9",
+    "webcomponentsjs": "^0.7.0",
+    "paper-icon-button": "^0.9.0",
+    "paper-input": "^0.9.0",
+    "paper-radio-group": "^0.9.0",
+    "paper-button": "^0.9.0",
+    "paper-ripple": "^0.9.0",
+    "paper-radio-button": "^0.9.0",
+    "prism": "6dbe885142",
+    "paper-item": "^0.9.0"
   }
 }

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Road to Polymer</title>
+  <title>Road to Polymer 0.9</title>
   <link rel="image_src" href="//github.com/chuckh/road-to-polymer/blob/app/app/images/screenshots/Road-to-Polymer-Repositories-Status.png" />
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory  -->
   <link rel="shortcut icon" href="favicon.ico">
@@ -15,7 +15,7 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -23,154 +23,150 @@
   <!-- endreplace-->
 </head>
 
-<body unresolved fullbleed layout vertical>
-  <template is="auto-binding" id="app">
-    <core-media-query query="max-width: 850px" queryMatches="{{smallScreen}}"></core-media-query>
+<body class="fullbleed vertical layout">
+  <!-- add <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> to top with other imports  -->
+  <template is="dom-bind" id="app">
+       <!-- dom-bind CONVERTED WIP -->
+      <iron-media-query query="max-width: 850px" queryMatches="{{smallScreen}}"></iron-media-query>
 
-    <paper-fab id="show_hide_button" icon="chevron-right" mini on-click="{{toggleDrawer}}"
-      style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; "
-      hidden?={{!smallScreen}}>
-    </paper-fab>
+      <paper-fab id="show_hide_button" icon="chevron-right" mini on-click="{{toggleDrawer}}" <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+        style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; "
+        hidden$={{!smallScreen}}>   <!-- class="hidden?={{!smallScreen}}"  // TODO Convert to class=  CONVERTED WIP  -->
+      </paper-fab>
 
-    <core-drawer-panel id="drawer_panel" drawerWidth="256px;" responsiveWidth="850px">
+      <paper-drawer-panel id="drawer_panel" drawerWidth="256px;" responsiveWidth="850px" class="fit">
 
-      <!-- Drawer -->
-      <core-header-panel drawer mode="standard" class="left-sidebar">
+        <!-- Drawer -->
+        <paper-header-panel drawer mode="standard" class="left-sidebar fit">
 
-        <!-- Drawer Toolbar -->
-        <core-toolbar >
-          <core-icon icon="polymer" on-click={{drawerToggle}}></core-icon>
-          {{appName}}
-        </core-toolbar>
+          <!-- Drawer Toolbar -->
+          <paper-toolbar >
+            <iron-icon icon="polymer" on-click={{drawerToggle}}></iron-icon> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+            {{appName}}
+          </paper-toolbar>
 
-        <!-- Drawer Content -->
-        <core-menu selected="{{page}}" class="sidebar-menu" on-core-select="{{selectMenu}}" center>
-          <core-item label="Welcome" icon="polymer"></core-item>
-          <core-item label="Repositories Status Report" icon="label-outline"></core-item>
-          <core-item label="Polymer Elements Coverted" icon="label-outline"></core-item>
-          <core-item label="Polymer Compare Code" icon="view-quilt"></core-item>
-          <core-item label="Polymer Convert Code" icon="view-quilt"></core-item>
-          <hr>
-          <core-item label="Polymer 0.5 Doc" icon="av:web"></core-item>
-          <core-item label="Polymer 0.9 Doc" icon="av:web"></core-item>
-          <core-item label="Quick tour of Polymer 0.9" icon="info-outline"></core-item>
-          <core-item label="Polymer 0.9 Migration guide" icon="info-outline"></core-item>
-          <core-item label="Polymer Primer 0.9" icon="info-outline"></core-item>
-          <core-item label="Polymer Slack" icon="question-answer" on-click="{{loadUrl}}" url="https://polymer.slack.com/messages/general/"></core-item>
-          <core-item label="Polymer Discussion" icon="question-answer"></core-item>
-          <core-item label="Polymer G+ Community" icon="open-in-new" on-click="{{loadUrl}}" url="https://plus.google.com/communities/115626364525706131031"></core-item>
-          <core-item label="Polycasts Training Videos" icon="av:video-collection"></core-item>
-          <core-item label="Yeoman generator for Polymer" icon="info-outline"></core-item>
-          <core-item label="Material Design Spec" icon="info-outline"></core-item>
-          <hr>
-          <!-- <core-item label="Polymer 0.8 Sneak Peek" icon="info-outline"></core-item> -->
-          <core-item label="Development Notes" icon="info-outline"></core-item>
-          <core-item label="Conversion Process Notes" icon="info-outline"></core-item>
-        </core-menu>
-        <!-- https://plus.google.com/communities/115626364525706131031 -->
-      </core-header-panel>
+          <!-- Drawer Content -->
+          <paper-menu selected="{{page}}" class="sidebar-menu center" on-core-select="{{selectMenu}}" >
+            <paper-item icon="polymer">Welcome</paper-item>
+            <paper-item icon="label-outline">Repositories Status Report</paper-item>
+            <paper-item icon="label-outline">Polymer Elements Coverted</paper-item>
+            <paper-item icon="view-quilt">Polymer Compare Code</paper-item>
+            <paper-item icon="view-quilt">Polymer Convert Code</paper-item>
+            <hr>
+            <paper-item icon="av:web">Polymer 0.5 Doc</paper-item>
+            <paper-item icon="av:web">Polymer 0.9 Doc</paper-item>
+            <paper-item icon="info-outline">Quick tour of Polymer 0.9</paper-item>
+            <paper-item icon="info-outline">Polymer 0.9 Migration guide</paper-item>
+            <paper-item icon="info-outline">Polymer Primer 0.9</paper-item>
+            <paper-item icon="question-answer" on-click="loadUrl" url="https://polymer.slack.com/messages/general/">Polymer Slack</paper-item>
+            <paper-item icon="open-in-new" on-click="loadUrl" url="https://plus.google.com/communities/115626364525706131031">Polymer G+ Community</paper-item>
+            <paper-item icon="av:video-collection">Polycasts Training Videos</paper-item>
+            <paper-item icon="info-outline">Yeoman generator for Polymer</paper-item>
+            <paper-item icon="info-outline">Material Design Spec</paper-item>
+            <hr>
+            <paper-item icon="info-outline">Development Notes</paper-item>
+            <paper-item icon="info-outline">Conversion Process Notes</paper-item>
+          </paper-menu>
+          <!-- https://plus.google.com/communities/115626364525706131031 -->
+        </paper-header-panel>
 
-      <!-- Main -->
-      <core-header-panel main mode="seamed">
+        <!-- Main -->
+        <paper-header-panel main mode="seamed" class="fit">
 
-        <!-- Main Content -->
-        <core-pages selected="{{page}}" fit>
+          <!-- Main Content -->
+          <iron-pages selected="{{page}}" class="fit">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
 
-          <welcome-view></welcome-view>
+            <welcome-view></welcome-view>
 
-          <section flex>
-            <repos-list></repos-list>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <!-- <repos-list></repos-list> -->
+            </section>
 
-          <section flex>
-            <repos-compare-list></repos-compare-list>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <!-- <repos-compare-list></repos-compare-list> -->
+            </section>
 
-          <section flex>
-            <compare-code></compare-code>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <!-- <compare-code></compare-code> -->
+            </section>
 
-          <section flex>
-            <convert-code></convert-code>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <!-- <convert-code></convert-code> -->
+            </section>
 
-          <div id="for_divider_1" flex></div>
+            <div id="for_divider_1" flex></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
 
-          <section flex>
-            <iframe src="//polymer-project.org/0.5/" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe src="//polymer-project.org/0.5/" frameborder="0" width="100%" height="100%"></iframe>
+            </section>
 
-          <section flex>
-            <iframe src="//polymer-project.org/0.9/" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe src="//polymer-project.org/0.9/" frameborder="0" width="100%" height="100%"></iframe>
+            </section>
 
-          <section flex>
-            <iframe src="https://www.polymer-project.org/0.9/docs/start/quick-tour.html" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe src="https://www.polymer-project.org/0.9/docs/start/quick-tour.html" frameborder="0" width="100%" height="100%"></iframe>   <!-- class=""https://www.polymer-project.org/0.9/docs/start/quick-tour.html""  // TODO Convert to class=  CONVERTED WIP  -->
+            </section>
 
-          <section flex>
-            <iframe src="//www.polymer-project.org/0.9/docs/migration.html" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
-
-
-          <github-html-viewer owner="Polymer" repo="polymer"
-            fileName="PRIMER.md" branch="0.8-preview"
-            pageTitle="Polymer Primer 0.9" flex>
-          </github-html-viewer>
-
-          <!-- <section flex>
-            <h2 styles="padding: 20px;">Loaded PolymerElments Github page in seperate tab</h2>
-          </section> -->
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe src="//www.polymer-project.org/0.9/docs/migration.html" frameborder="0" width="100%" height="100%"></iframe>
+            </section>
 
 
-          <section flex>
-            <h2 styles="padding: 20px;">Loaded Polymer Slack in seperate tab.</h2>
-            <!-- <iframe width="100%" height="100%" src="https://polymer.slack.com/messages/general/" frameborder="0" allowfullscreen></iframe> -->
-          </section>
+            <github-html-viewer owner="Polymer" repo="polymer"
+              fileName="PRIMER.md" branch="0.8-preview"
+              pageTitle="Polymer Primer 0.9"  class="fit">
+            </github-html-viewer>
 
-          <section flex>
-            <iframe id="forum_embed" src="{{forumEmbedSrc}}" seamless="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
+            <!-- <section class="flex">
+              <h2 styles="padding: 20px;">Loaded PolymerElments Github page in seperate tab</h2>
+            </section> -->
 
-          <section flex>
-            <h2 styles="padding: 20px;">Loaded Polymer Google + Comunity in seperate tab.</h2>
-          </section>
 
-          <section flex>
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN" frameborder="0" allowfullscreen></iframe>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <h2 styles="padding: 20px;">Loaded Polymer Slack in seperate tab.</h2>
+              <!-- <iframe width="100%" height="100%" src="https://polymer.slack.com/messages/general/" frameborder="0" allowfullscreen></iframe> -->
+            </section>
 
-          <marked-file-viewer id="readme_marked" owner="yeoman" repo="generator-polymer"
-            fileName="readme.md" branch="master"
-            pageTitle="Yeoman generator for Polymer Readme" flex>
-          </marked-file-viewer>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe id="forum_embed" src="{{forumEmbedSrc}}" seamless="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+            </section>
 
-          <section flex>
-            <iframe src="http://www.google.com/design/spec/material-design/introduction.html" frameborder="0" width="100%" height="100%"></iframe>
-          </section>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <h2 styles="padding: 20px;">Loaded Polymer Google + Comunity in seperate tab.</h2>
+            </section>
 
-          <div id="for_divider_1" flex></div>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe width="100%" height="100%" src="https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN" frameborder="0" allowfullscreen></iframe>
+            </section>
 
-          <!-- <section flex>
-            <iframe src="http://divshot.com/blog/web-components/polymer-0-8-sneak-peek/" frameborder="0" width="100%" height="100%"></iframe>
-          </section> -->
+            <!-- <marked-file-viewer id="readme_marked" owner="yeoman" repo="generator-polymer"
+              fileName="readme.md" branch="master"
+              pageTitle="Yeoman generator for Polymer Readme" class="flex">
+            </marked-file-viewer> -->
 
-          <marked-file-viewer id="dev_notes_marked" owner="chuckh" repo="road-to-polymer"
-            fileName="dev-notes.md" branch="master"
-            pageTitle="Development Notes" flex>
-          </marked-file-viewer>
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe src="http://www.google.com/design/spec/material-design/introduction.html" frameborder="0" width="100%" height="100%"></iframe>
+            </section>
 
-          <marked-file-viewer id="conversion_notes_marked" owner="chuckh" repo="road-to-polymer"
-            fileName="conversion.md" branch="master"
-            pageTitle="Conversion Notes" flex>
-          </marked-file-viewer>
+            <div id="for_divider_1" class="flex"></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
 
-        </core-pages>
+            <!-- <marked-file-viewer id="dev_notes_marked" owner="chuckh" repo="road-to-polymer"
+              fileName="dev-notes.md" branch="master"
+              pageTitle="Development Notes" class="flex">
+            </marked-file-viewer> -->
 
-      </core-header-panel>
-    </core-drawer-panel>
+            <!-- <marked-file-viewer id="conversion_notes_marked" owner="chuckh" repo="road-to-polymer"
+              fileName="conversion.md" branch="master"
+              pageTitle="Conversion Notes" class="flex">
+            </marked-file-viewer> -->
 
-  </template>
+          </iron-pages>
+
+        </paper-header-panel>
+      </paper-drawer-panel>
+
+    </template>
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
