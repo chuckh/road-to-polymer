@@ -1,65 +1,77 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 
-<polymer-element name="marked-file-viewer" attributes="owner repo fileName branch pageTitle">
+<dom-module id='marked-file-viewer'  > <!-- CONVERTED WIP -->
+
+  <style>
+  </style> <!-- TODO Move style tags here from <template> if needed CONVERTED WIP -->
+  <link rel="stylesheet" href="marked-file-viewer.css"> <!-- TODO Move line about <template>  CONVERTED WIP -->
+
   <template>
-    <link rel="stylesheet" href="marked-file-viewer.css">
 
-    <core-ajax id="get_file"
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-      handleAs="json"
-      loading="{{loading}}"
-      progress="{{progress}}"
-      response="{{file}}"
-      on-core-response="{{handleFile}}"
-      on-core-error="{{handleFileErrorResponse}}">
-    </core-ajax>
+    <iron-ajax id="get_file"
+      params='{"ref": {{branch}}, "access_token": "ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc"}'
+      handle-as="json"
+      last-response="{{file}}"
+      on-response="handleFile"
+      on-error="handleFileErrorResponse"> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+    </iron-ajax>
 
-    <core-header-panel id="core_header_panel" mode="waterfall-tall" fit>
+    <paper-header-panel id="paper_header_panel" mode="waterfall-tall"  class="fit"t>   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
 
-      <core-toolbar class="waterfall-tall">
-        <div id="error_message" class="error" flex></div>
-        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="{{refreshFile}}"></paper-icon-button>
-        <div class="bottom ident">
-          {{pageTitle}}
+      <paper-toolbar class="waterfall-tall">
+        <div id="error_message" class="error flex"></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
+        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="refreshFile"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+        <div id="page_title" class="bottom ident">
+          <span>{{pageTitle}}</span>
           <div id="sub_title" class="sub-title">
-            (source: <a href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
+            (source: <a id="doc_link" href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
           </div>
         </div>
 
-        <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> -->
-      </core-toolbar>
+        <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> --> <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
+      </paper-toolbar>
 
-      <div class="content" fit>
+      <div class="content">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
 
-        <marked-element id="file_marked" fit></marked-element>
+        <marked-element id="file_marked" class="fit"></marked-element>   <!-- class="fit</marked-element>"  // TODO Convert to class=  CONVERTED WIP  -->
 
-        <!-- <br>
-        <br>
-        <hr>
-        <footer flex>
-          Source: <a href="https://github.com/yeoman/generator-polymer/blob/master/readme.md">Yeoman generator-polymer readme.md</a>
-        </footer> -->
       </div>
-    </core-header-panel>
+    </paper-header-panel>
 
   </template>
   <script>
     (function () {
       Polymer({
+        is: 'marked-file-viewer', // CONVERTED WIP
+
+        properties: {
+          owner: {
+            type: String,
+            value: "Test",
+            notify: true
+          },
+          repo: String,
+          fileName: String,
+          branch: String,
+          pageTitle: String
+        },
 
         tk: "ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"
 
         ready: function() {
           this.$.error_message.innerHTML = "Loading file..."
           // var elParam = this.getURLParameter('file');
-          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch;
+          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName;
+          this.$.doc_link.href = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
+          this.$.doc_link.textContent = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
           console.log("marked-file-viewer ready", this.$.get_file.url);
-          this.$.get_file.abort();
-          this.$.get_file.go();
+          this.$.get_file.generateRequest();
         },
 
-        handleFile: function(event, detail, sender) {
+        handleFile: function(event, detail, sender) {   <!-- class="sender)"  // TODO Convert to class=  CONVERTED WIP  -->
+          // console.log("marked-file-viewer handlefile", file);
           var file = atob(this.file.content);
           var header = detail.xhr.getResponseHeader('content-type');
           console.log("marked-file-viewer handlefile", header);
@@ -72,16 +84,30 @@
           this.$.error_message.innerHTML = "Can't find " + this.file;
           // this.$.code5_marked.text = " ";
           this.$.file_marked.text = " ";
-          console.log("Error: " + error.statusCode + " - " + error.message);
+          console.log("Error: ",event,error);
         },
 
         refreshFile: function() {
           console.log("marked-file-viewer refreshFile", this.$.get_file.url);
-          this.$.get_file.abort();
-          this.$.get_file.go();
+          this.$.get_file.generateRequest();
         },
 
       });
     })();
   </script>
-</polymer-element>
+</dom-module> <!-- CONVERTED -->
+
+
+<!-- CONVERSION NOTES TODO:
+ Review code and look for:
+ - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
+ - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
+ - custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
+ - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
+ - Polymer( fix mixins use Behaviors after is: see  ,
+ - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
+ - Convert core- to iron- or paper- replacement elements at PolymerElements
+ - fix indentation as need
+ - Cleanup Comments to reflect changes ,
+ - see https://www.polymer-project.org/0.9/docs/migration.html
+   -->
