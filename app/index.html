@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Road to Polymer 0.9</title>
+  <title>Road to Polymer 1.0</title>
   <link rel="image_src" href="//github.com/chuckh/road-to-polymer/blob/app/app/images/screenshots/Road-to-Polymer-Repositories-Status.png" />
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory  -->
   <link rel="shortcut icon" href="favicon.ico">
@@ -15,7 +15,14 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script> -->
+  <script>
+      if( !('registerElement' in document &&
+            'import'          in document.createElement('link') &&
+            'content'         in document.createElement('template'))){
+              document.write('<script src="bower_components/webcomponentsjs/webcomponents-lite.js"><\/script>');
+      }
+    </script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -24,7 +31,6 @@
 </head>
 
 <body class="fullbleed vertical layout">
-  <!-- add <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> to top with other imports  -->
   <template is="dom-bind" id="app">
        <!-- dom-bind CONVERTED WIP -->
       <iron-media-query query="max-width: 850px" queryMatches="{{smallScreen}}"></iron-media-query>
@@ -41,12 +47,12 @@
 
           <!-- Drawer Toolbar -->
           <paper-toolbar >
-            <iron-icon icon="polymer" on-click={{drawerToggle}}></iron-icon> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-            {{appName}}
+            <iron-icon icon="polymer" on-click=drawerToggle></iron-icon> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+            <span>{{appName}}</span>
           </paper-toolbar>
 
           <!-- Drawer Content -->
-          <paper-menu selected="{{page}}" class="sidebar-menu center" on-core-select="{{selectMenu}}" >
+          <paper-menu selected="{{page}}" class="sidebar-menu center" on-core-select="selectMenu" >
             <paper-item icon="polymer">Welcome</paper-item>
             <paper-item icon="label-outline">Repositories Status Report</paper-item>
             <paper-item icon="label-outline">Polymer Elements Coverted</paper-item>
@@ -114,8 +120,8 @@
 
 
             <github-html-viewer owner="Polymer" repo="polymer"
-              fileName="PRIMER.md" branch="0.8-preview"
-              pageTitle="Polymer Primer 0.9"  class="fit">
+              file-name="PRIMER.md" branch="0.8-preview"
+              page-title="Polymer Primer 0.9"  class="fit">
             </github-html-viewer>
 
             <!-- <section class="flex">
