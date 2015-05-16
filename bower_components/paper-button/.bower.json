@@ -44,6 +44,5 @@
   },
   "_source": "git://github.com/PolymerElements/paper-button.git",
   "_target": "~0.9.1",
-  "_originalSource": "PolymerElements/paper-button",
-  "_direct": true
+  "_originalSource": "PolymerElements/paper-button"
 }

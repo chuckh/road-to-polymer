@@ -1,22 +1,44 @@
 {
   "name": "paper-dialog",
+  "description": "A Material Design dialog",
+  "version": "0.9.1",
+  "authors": "The Polymer Authors",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "paper",
+    "dialog"
+  ],
+  "main": "paper-dialog.html",
   "private": true,
-  "dependencies": {
-    "polymer": "Polymer/polymer#^0.5",
-    "core-overlay": "Polymer/core-overlay#^0.5",
-    "core-transition": "Polymer/core-transition#^0.5",
-    "paper-button": "Polymer/paper-button#^0.5",
-    "paper-shadow": "Polymer/paper-shadow#^0.5"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-dialog"
   },
-  "version": "0.5.5",
-  "homepage": "https://github.com/Polymer/paper-dialog",
-  "_release": "0.5.5",
+  "license": "MIT",
+  "homepage": "https://github.com/PolymerElements/paper-dialog",
+  "ignore": [],
+  "dependencies": {
+    "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^0.9.0",
+    "paper-styles": "PolymerElements/paper-styles#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0"
+  },
+  "devDependencies": {
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.9.0",
+    "paper-button": "PolymerElements/paper-button#^0.9.0",
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^0.9.0",
+    "test-fixture": "PolymerElements/test-fixture#^0.9.0",
+    "web-component-tester": "*",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "_release": "0.9.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.5",
-    "commit": "18a591bcb9561a0d2240f584763277ced18277a2"
+    "tag": "v0.9.1",
+    "commit": "dab0f1ff30c5bdb89b2e62f764b07fe0dc2b8e82"
   },
-  "_source": "git://github.com/Polymer/paper-dialog.git",
-  "_target": "^0.5",
-  "_originalSource": "Polymer/paper-dialog"
+  "_source": "git://github.com/PolymerElements/paper-dialog.git",
+  "_target": "~0.9.1",
+  "_originalSource": "PolymerElements/paper-dialog"
 }

@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -9,133 +9,80 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>paper-autogrow-textarea tests</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <title>paper-textarea tests</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
   <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../test-fixture/test-fixture-mocha.js"></script>
 
-  <link href="../paper-autogrow-textarea.html" rel="import">
+  <script src="../../iron-test-helpers/test-helpers.js"></script>
 
-  <style>
-    paper-autogrow-textarea {
-      background-color: black;
-    }
-
-    textarea {
-      background-color: yellow;
-    }
-  </style>
+  <link rel="import" href="../../test-fixture/test-fixture.html">
+  <link rel="import" href="../paper-textarea.html">
 
 </head>
 <body>
 
-  <paper-autogrow-textarea id="autogrow1">
-    <textarea id="textarea1"></textarea>
-  </paper-autogrow-textarea>
+  <test-fixture id="basic">
+    <template>
+      <paper-textarea></paper-textarea>
+    </template>
+  </test-fixture>
 
-  <paper-autogrow-textarea id="autogrow2" rows="2" maxRows="4">
-    <textarea id="textarea2"></textarea>
-  </paper-autogrow-textarea>
+  <test-fixture id="required">
+    <template>
+      <paper-textarea auto-validate required error-message="error"></paper-textarea>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="char-counter">
+    <template>
+      <paper-textarea char-counter value="foobar"></paper-textarea>
+    </template>
+  </test-fixture>
 
   <script>
 
-    var a1 = document.getElementById('autogrow1');
-    var t1 = document.getElementById('textarea1');
-
-    function dispatchInputEvent(target) {
-      var e = new Event('input', {
-        bubbles: true
-      });
-      target.dispatchEvent(e);
-    };
-
-    function between(val, val1, val2) {
-      return assert.ok(val > val1 && val < val2);
-    }
-
     suite('basic', function() {
 
-      teardown(function(done) {
-        t1.value = '';
-        dispatchInputEvent(t1);
-        a1.rows = 1;
-        a1.maxRows = 0;
-
-        flush(function() {
-          done();
-        });
+      test('setting value sets the input value', function() {
+        var input = fixture('basic');
+        input.value = 'foobar';
+        assert.equal(input.inputElement.value, input.value, 'inputElement.value equals input.value');
       });
 
-      test('empty input has height', function() {
-        assert.ok(a1.offsetHeight > 0);
+      test('empty required input shows error', function() {
+        var input = fixture('required');
+        forceXIfStamp(input);
+        var error = Polymer.dom(input.root).querySelector('paper-input-error');
+        assert.ok(error, 'paper-input-error exists');
+        assert.notEqual(getComputedStyle(error).display, 'none', 'error is not display:none');
       });
 
-      test('accepts number input', function() {
-        t1.value = 1;
-        dispatchInputEvent(t1);
-        // make sure we didn't crash
+      test('character counter is displayed', function() {
+        var input = fixture('char-counter');
+        forceXIfStamp(input);
+        var counter = Polymer.dom(input.root).querySelector('paper-input-char-counter')
+        assert.ok(counter, 'paper-input-char-counter exists');
+        assert.equal(counter.charCounter, input.value.length, 'character counter shows the value length');
       });
 
-      test('grows with more rows of input', function(done) {
-        t1.value = 'foo\nbar';
-        dispatchInputEvent(t1);
+      test('character counter counts new lines correctly', function() {
+        var input = fixture('char-counter');
+        input.value = 'foo\nbar';
+        forceXIfStamp(input);
 
-        var h1 = a1.offsetHeight;
+        var counter = Polymer.dom(input.root).querySelector('paper-input-char-counter')
+        assert.ok(counter, 'paper-input-char-counter exists');
 
-        t1.value = 'foo\nbar\nbaz';
-        dispatchInputEvent(t1);
-
-        flush(function() {
-          var h2 = a1.offsetHeight;
-          assert.ok(h2 > h1);
-          assert.deepEqual(a1.getBoundingClientRect(), t1.getBoundingClientRect());
-          done();
-        });
-      });
-
-      test('honors the rows attribute', function(done) {
-        var h1 = a1.offsetHeight;
-        a1.rows = 2;
-
-        flush(function() {
-          var h2 = a1.offsetHeight;
-          between(h2, h1, 3 * h1);
-          done();
-        });
-      });
-
-      test('honors the maxRows attribute', function(done) {
-        var h1 = a1.offsetHeight;
-        a1.maxRows = 2;
-
-        t1.value = 'foo\nbar\nbaz\nzot';
-        dispatchInputEvent(t1);
-
-        flush(function() {
-          var h2 = a1.offsetHeight;
-          assert.ok(h2 < 3 * h1);
-          done();
-        });
-      });
-
-      test('mirror text is visibility:hidden', function() {
-        assert.equal(getComputedStyle(a1.$.mirror).visibility, 'hidden');
-      });
-
-      test('grows with a long word', function(done) {
-        var h1 = a1.offsetHeight;
-
-        t1.value = Array(1000).join("P");
-        dispatchInputEvent(t1);
-
-        flush(function() {
-          var h2 = a1.offsetHeight;
-          assert.ok(h2 > h1);
-          assert.deepEqual(a1.getBoundingClientRect(), t1.getBoundingClientRect());
-          done();
-        });
+        // A new line counts as two characters.
+        assert.equal(counter.charCounter, input.value.length + 1, 'character counter shows the value length');
       });
 
     });

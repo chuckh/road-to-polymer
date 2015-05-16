@@ -44,6 +44,5 @@
   },
   "_source": "git://github.com/PolymerElements/paper-item.git",
   "_target": "~0.9.1",
-  "_originalSource": "PolymerElements/paper-item",
-  "_direct": true
+  "_originalSource": "PolymerElements/paper-item"
 }

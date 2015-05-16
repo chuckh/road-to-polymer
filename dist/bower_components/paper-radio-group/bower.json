@@ -1,11 +1,38 @@
 {
   "name": "paper-radio-group",
+  "version": "0.9.1",
+  "description": "A group of material design radio buttons",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "paper",
+    "radio",
+    "control"
+  ],
+  "main": "index.html",
   "private": true,
-  "dependencies": {
-    "core-a11y-keys": "Polymer/core-a11y-keys#^0.5",
-    "core-selector": "Polymer/core-selector#^0.5",
-    "font-roboto": "Polymer/font-roboto#^0.5",
-    "paper-radio-button": "Polymer/paper-radio-button#^0.5"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-radio-group"
   },
-  "version": "0.5.5"
+  "license": "MIT",
+  "homepage": "https://github.com/PolymerElements/paper-radio-group",
+  "ignore": [],
+  "dependencies": {
+    "iron-selector": "PolymerElements/iron-selector#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^2.2.3",
+    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.9.0",
+    "test-fixture": "PolymerElements/test-fixture#^0.9.0",
+    "paper-radio-button": "PolymerElements/paper-radio-button#^0.9.0",
+    "paper-styles": "PolymerElements/paper-styles#^0.9.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^0.9.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
 }

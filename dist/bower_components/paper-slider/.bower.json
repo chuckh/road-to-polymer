@@ -1,21 +1,45 @@
 {
   "name": "paper-slider",
+  "version": "0.9.1",
   "private": true,
-  "dependencies": {
-    "font-roboto": "Polymer/font-roboto#^0.5",
-    "paper-input": "Polymer/paper-input#^0.5",
-    "paper-progress": "Polymer/paper-progress#^0.5",
-    "core-a11y-keys": "Polymer/core-a11y-keys#^0.5"
+  "authors": "The Polymer Authors",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "paper",
+    "slider",
+    "control"
+  ],
+  "main": [
+    "paper-slider.html"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-slider.git"
   },
-  "version": "0.5.5",
-  "homepage": "https://github.com/Polymer/paper-slider",
-  "_release": "0.5.5",
+  "dependencies": {
+    "paper-input": "PolymerElements/paper-input#^0.9.0",
+    "paper-progress": "PolymerElements/paper-progress#^0.9.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^0.9.0",
+    "paper-styles": "PolymerElements/paper-styles#^0.9.0",
+    "iron-behaviors": "PolymerElements/iron-behaviors#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
+    "test-fixture": "PolymerElements/test-fixture#^0.9.0",
+    "web-component-tester": "Polymer/web-component-tester#^2.2.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/PolymerElements/paper-slider",
+  "_release": "0.9.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.5",
-    "commit": "8f176a2a63be34572864542ce91be703c868e1e5"
+    "tag": "v0.9.1",
+    "commit": "61907297e9144326f621c8ae5ed72acb77077377"
   },
-  "_source": "git://github.com/Polymer/paper-slider.git",
-  "_target": "^0.5",
-  "_originalSource": "Polymer/paper-slider"
+  "_source": "git://github.com/PolymerElements/paper-slider.git",
+  "_target": "^0.9.0",
+  "_originalSource": "PolymerElements/paper-slider"
 }
