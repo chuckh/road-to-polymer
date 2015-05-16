@@ -5,32 +5,46 @@ body {
 }
 
 .left-sidebar {
+  height: 100%;
   box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+  padding: 0;
 }
 
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
+paper-header-panel {
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
 
-.hero-unit h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
+iron-pages {
+  height: 100%;
+  width: 100%;
+  padding: 0;
 }
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
+// .hero-unit {
+//   margin: 50px auto 0 auto;
+//   width: 300px;
+//   font-size: 18px;
+//   font-weight: 200;
+//   line-height: 30px;
+//   background-color: #eee;
+//   border-radius: 6px;
+//   padding: 60px;
+// }
+//
+// .hero-unit h1 {
+//   font-size: 60px;
+//   line-height: 1;
+//   letter-spacing: -1px;
+// }
+//
+// .browsehappy {
+//   margin: 0.2em 0;
+//   background: #ccc;
+//   color: #000;
+//   padding: 0.2em 0;
+// }
 
 [drawer] {
   background-color: #fff;
@@ -43,14 +57,20 @@ paper-toolbar {
 }
 
 paper-item {
-  font-size: 13px;
+  font-size: 13px !important;
   color: rgba(0,0,0,0.6);
+
 }
 paper-item.iron-selected {
   color: #4F7DC9;
+  border: none;
 }
 
 .sidebar-menu {
   font-size: 12px;
   color: rgba(0,0,0,0.6);
+}
+
+iron-icon {
+  padding-right: 10px;
 }
