@@ -1,6 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<!-- <link rel="import" href="http://www.plastikit.org/0.9/components/iron-flex-layout/classes/iron-flex-layout.html"> -->
-<!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html"> -->
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+
 <dom-module id='github-html-viewer'  > <!-- CONVERTED WIP -->
 
   <style>
@@ -23,7 +23,7 @@
       <paper-toolbar class="waterfall-tall">
         <div id="error_message" class="error flex"></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
         <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="refreshFile"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-        <div  id="page_title" class="bottom ident">
+        <div id="page_title" class="bottom ident">
           <span>{{pageTitle}}</span>
           <div id="sub_title" class="sub-title">
             (source: <a id="doc_link" href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
@@ -33,9 +33,9 @@
         <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> --> <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
       </paper-toolbar>
 
-      <div class="content" class="fit">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
+      <div class="content">
 
-        <div id="file_div" class="fit"></>   <!-- class="fit</>"  // TODO Convert to class=  CONVERTED WIP  -->
+        <div id="file_div" class="flex"></>
 
       </div>
     </paper-header-panel>
@@ -66,7 +66,7 @@
           this.$.error_message.innerHTML = "Loading file..."
           // var elParam = this.getURLParameter('el');
           // this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch;
-          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName
+          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName;
           this.$.doc_link.href = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
           this.$.doc_link.textContent = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
           // https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}

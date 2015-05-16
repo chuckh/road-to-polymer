@@ -24,6 +24,7 @@ paper-toolbar {
   padding-left: 50px;
   font-weight: normal;
   background-color: #303F9F;  // 7986cb   rgb(63,81,181)
+  padding-top: 5px;
 }
 
 paper-toolbar .ident {
@@ -35,10 +36,10 @@ paper-toolbar .tall {
 }
 
 #page_title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 500;
   text-align: left;
-  // padding-left: 2px;
+  margin-top: 15px;
 }
 
 .sub-title {
@@ -78,8 +79,8 @@ h3 {
 }
 
 #file_div {
-  padding-left: 50px;
-  padding-right: 50px;
+  // padding-left: 50px;
+  // padding-right: 50px;
 }
 
 pre {
