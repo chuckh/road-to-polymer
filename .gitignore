@@ -5,7 +5,9 @@ dist
 .tmp
 test/bower_components/
 bower_components
+bower_components/
 app/bower_components
+app/bower_components/
 
 bower_components/marked/.bower.json
 
@@ -22,3 +24,17 @@ app/bower_components/paper-item/paper-item.html
 app/bower_components/paper-dialog/bower.json
 
 bower_components.zip
+
+bower_components/marked-element/.bower.json
+
+bower_components/marked-element/bower.json
+
+bower_components/marked-element/demo.html
+
+bower_components/marked-element/index.html
+
+bower_components/marked-element/marked-element.html
+
+bower_components/marked-element/marked-import.html
+
+bower_components/marked-element/README.md
