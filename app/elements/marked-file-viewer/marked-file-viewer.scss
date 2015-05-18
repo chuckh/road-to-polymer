@@ -9,7 +9,7 @@
 
 paper-header-panel {
   font-size: 24px;
-  padding: 0 10px;
+  padding: 0;
   background-color: white;  // 7986cb
 }
 .paper-header {
@@ -24,6 +24,7 @@ paper-toolbar {
   padding-left: 50px;
   font-weight: normal;
   background-color: #303F9F;  // 7986cb   rgb(63,81,181)
+  padding-top: 5px;
 }
 
 paper-toolbar .ident {
@@ -34,7 +35,7 @@ paper-toolbar .tall {
   padding-left: 40px;
 }
 
-age_title {
+#page_title {
   font-size: 28px;
   font-weight: 500;
   text-align: left;
@@ -75,6 +76,11 @@ h3 {
 #file_marked {
   padding-left: 50px;
   padding-right: 50px;
+}
+
+#file_div {
+  // padding-left: 50px;
+  // padding-right: 50px;
 }
 
 pre {
@@ -118,3 +124,26 @@ code {
 // a:active {
 //     text-decoration: underline;
 // }
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+  border-spacing: 0;
+}
+.markdown-body table th {
+  font-weight: bold;
+}
+.markdown-body table th, .markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
