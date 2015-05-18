@@ -10,12 +10,11 @@
   <template>
 
     <iron-ajax id="get_file"
-      params='{"ref": {{branch}}, "access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
       handle-as="text"
-      last-response="{{file}}"
+      last-response="{{fileContent}}"
       headers='{"accept": "application/vnd.github.VERSION.html"}'
       on-response="handleFile"
-      on-error="handleFileErrorResponse"> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+      on-error="handleFileErrorResponse">
     </iron-ajax>
 
     <paper-header-panel id="paper_header_panel" mode="waterfall-tall" class="fit">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
@@ -60,17 +59,15 @@
           //  TODO: add attributes="owner repo fileName branch pageTitle" to properites -- CONVERTED WIP
         },
 
-        tk: "ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"
+        tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"  ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc
 
         ready: function() {
           this.$.error_message.innerHTML = "Loading file..."
           // var elParam = this.getURLParameter('el');
-          // this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch;
-          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName;
+          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch + "&access_token=" + this.tk;
           this.$.doc_link.href = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
           this.$.doc_link.textContent = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
-          // https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}
-          console.log("github-html-viewer ready", this.$.get_file.url);
+          console.log("github-html-viewer ready", this.$.get_file.url, this.$.get_file.params);
           this.$.get_file.generateRequest();
         },
 
