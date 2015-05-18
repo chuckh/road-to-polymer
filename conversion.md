@@ -35,7 +35,7 @@ These high level conversion steps are a work in progress and don't cover every s
   - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">`
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
   - **note:** this could change in Polymer 1.0
-  - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles."
+  - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles. `Polymerelements/iron-flex-layout` is the spiritual successor to `polymer/layout`, so it's probably better to use that going forward anyway."
 6. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
   - If you need to set classes on the host, you can do so imperatively (for example, by calling `classList.add` from the ready callback).
