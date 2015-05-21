@@ -10,7 +10,7 @@ These high level conversion steps are a work in progress and don't cover every s
 
 ### HTML Conversion Process
 
-####polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
+#### polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
 1. polymer-element to dom-module
   - `<polymer-element id=` name to `<dom-module id=`
 2. polymer-element attribute/property camelCase to dash-case
@@ -51,7 +51,7 @@ These high level conversion steps are a work in progress and don't cover every s
 1. Correct JSON quotes required, change `<my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }">` to `</my-element> to <my-element foo='{ "title": "Persuasion", "author": "Austen" }'></my-element>`
   - see https://www.polymer-project.org/0.9/docs/migration.html#attr
 
-####template
+#### template
 see https://www.polymer-project.org/0.9/docs/migration.html#template-repeat
 
 1. template `repeat` to `is="dom-repeat"` and `repeat=` to `items=`
@@ -77,27 +77,30 @@ x-style -> custom-style
 1. lots of changes to `Data Bindings` see doc at https://www.polymer-project.org/0.9/docs/devguide/data-binding.html
 
 #### Core and paper elements
-1. core to iron or paper
-  - core-drawer-panel -> paper-drawer-panel
-  - core-header-panel -> paper-header-panel
-  - core-toolbar -> paper-toolbar
-  - core-dropdown -> paper-dropdown
-  - core-dropdown-menu -> paper-dropdown-menu
-  - core-menu ->	paper-menu
-  - core-item	-> paper-item
-  - core-item with icon	-> paper-icon-item
-  - core-scroll-header-panel ->
-  - core-ajax -> iron-ajax
-    - response -> last-response
-    - on-core-response -> on-response
-    - on-core-error -> on-error
-  - core-media-query -> iron-media-query
-    - on-core-media-change -> on-query-matches-changed
-    - queryMatches -> query-matches
-    - query="min-width: 860px" -> query="(min-width: 860px)"
+- `core-drawer-panel` -> `paper-drawer-panel`
+- `core-header-panel` -> `paper-header-panel`
+- `core-toolbar` -> `paper-toolbar`
+- `core-dropdown` -> `paper-dropdown`
+- `core-dropdown-menu` -> `paper-dropdown-menu`
+- `core-menu` -> `paper-menu`
+- `core-item`	-> `paper-item`
+- `core-item with icon`	-> `paper-icon-item`
+- `core-scroll-header-panel` -> `paper-scroll-header-panel`
+- `core-tooltip`-> `paper-tooltip`, planned in future
+- `core-ajax` -> `iron-ajax`
+  - `response` -> `last-response`
+  - `on-core-response` -> `on-response`, remove {{}}
+  - `on-core-error` -> `on-error`, remove {{}}
+  - `handleAs` -> handle-as
+  - `remove loading=` and `progress=` if needed
+- `core-list`	-> `iron-list`, working on
+- `core-media-query` -> `iron-media-query`
+  - `on-core-media-change` -> `on-query-matches-changed`
+  - `queryMatches` -> `query-matches`
+  - `query="min-width: 860px"` -> `query="(min-width: 860px)"`
+- `core-drag-drop` - Not currently working on.
 
-
-see https://github.com/PolymerElements/iron-elements for iron elements roadmap
+see https://github.com/PolymerElements/iron-elements for iron elements roadmap  
 see https://github.com/PolymerElements/paper-elements for paper elements roadmap
 
 

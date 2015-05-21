@@ -19,7 +19,7 @@ click Choose File and select local file to convert.
 response -> last-response
 on-core-reponse -> on-repsone   remove {{}}
 on-core-error -> on-error   remove {{}}
-handleAs -> handle-as  remove {{}}
+handleAs -> handle-as  
 
 <core-ajax id="get_code5_ajax"
       url="https://api.github.com/repos/{{owner}}/{{repoName}}/contents/{{repoName}}.html?ref=master",

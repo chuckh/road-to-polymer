@@ -30,3 +30,14 @@ suhtech [7:32 AM]
 
 suhtech [7:54 AM]
 @maciek-leszczynski: thanks its working now.
+
+------
+
+sjmiles [12:19 PM]
+remember that _properties_ are a basic feature of JavaScript
+
+sjmiles [12:19 PM]
+_attributes_ are a custom database that exist on an Element, a pure DOM concept
+
+sjmiles [12:20 PM]
+_attributes_ are useful primarily for HTML, and a tiny bit for `querySelector*` and css matching
