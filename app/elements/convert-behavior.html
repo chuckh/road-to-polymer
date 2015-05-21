@@ -75,20 +75,24 @@ ConvertBehavior = {
         }
         if (la.length > 0) { // layout attributes
           // console.log("la.length > 0 (1)", la);
-          this.layoutMessage = 'add <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> to top with other imports';
+          this.layoutMessage = '<link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> add to top with other imports';
           // convertedCode +=  `class="` + la.trim() + '"' +  "  // Convert to class=  CONVERTED WIP \n";
           // convertedCode += '\n' + ind + '  hostAttributes: {\n' + '      class: ' + '"' + la.trim() + '"' +  "  // CONVERTED WIP\n" + ind +"  }\n";
         }
         if (at.length > 0) {
-          convertedCode += '\n' + ind + '  properties: {\n' + ind + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  },\n";
+          if (scriptSection == false) {
+            convertedCode += '\n' + ind + '  properties: {\n' + ind + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  },\n";
+          }
           at = "";
         } else {
           //convertedCode += "  }\n";
         }
       } else if (la.length > 0) { // layout attributes
         // console.log("la.length > 0 (2)", la);
-        this.layoutMessage = 'add <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> to top with other imports';
-        convertedCode +=  cl + `   <!-- class="` + la.trim() + '"' +  "  // TODO Convert to class=  CONVERTED WIP  --> \n";
+        this.layoutMessage = '<link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> add  to top with other imports';
+        if (scriptSection == false) {
+          convertedCode +=  cl + `   <!-- class="` + la.trim() + '"' +  "  // TODO Convert to class=  CONVERTED WIP  --> \n";
+        }
       } else if (cl.indexOf("(c) 2014") > -1) {
         convertedCode += cl.replace("(c) 2014", "(c) 2015") + '\n';
       } else {
@@ -157,6 +161,7 @@ ConvertBehavior = {
     ' - Polymer( fix mixins use Behaviors after is: see  ,\n' +
     ' - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">, \n' +
     ' - Convert core- to iron- or paper- replacement elements at PolymerElements\n' +
+    ' - Remove unresolved from <body> tag\n' +
     ' - fix indentation as need \n' +
     ' - Cleanup Comments to reflect changes ,\n' +
     ' - see https://www.polymer-project.org/0.9/docs/migration.html\n' +
