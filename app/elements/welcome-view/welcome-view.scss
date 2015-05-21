@@ -20,12 +20,16 @@ paper-header-panel {
 }
 
 paper-toolbar {
-  // min-height: 64px;
   color: #FAFAFA;
   padding-left: 50px;
   font-weight: normal;
-  background-color: #303F9F;  // 7986cb   rgb(63,81,181)
+  background-color: #303F9F;  // 7986cb   rgb(63,81,181) #303F9F
 }
+
+#welcome_toolbar {
+  background-color: #303F9F;
+}
+
 
 paper-toolbar .ident {
   padding-left: 33px;
