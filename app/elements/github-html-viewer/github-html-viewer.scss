@@ -12,12 +12,6 @@ paper-header-panel {
   padding: 0;
   background-color: white;  // 7986cb
 }
-.paper-header {
-  height: 180px;
-  background-color: rgb(63,81,181);
-  color: #FFF;
-  transition: height 0.2s;
-}
 
 paper-toolbar {
   color: #FAFAFA;
@@ -25,6 +19,10 @@ paper-toolbar {
   font-weight: normal;
   background-color: #303F9F;  // 7986cb   rgb(63,81,181)
   padding-top: 5px;
+}
+
+#github_htm_viewer_toolbar {
+  background-color: #303F9F;
 }
 
 paper-toolbar .ident {
@@ -70,7 +68,6 @@ footer{
 
 h3 {
   border-bottom: 1px solid lightgray;
-
 }
 
 #file_marked {
@@ -103,27 +100,6 @@ code {
   font-size: 85%;
   border-radius: 3px;
 }
-
-
-// a:hover {
-//   color: #FF00FF;
-// }
-//
-// a:link {
-//     text-decoration: none;
-// }
-//
-// a:visited {
-//     text-decoration: none;
-// }
-//
-// a:hover {
-//     text-decoration: underline;
-// }
-//
-// a:active {
-//     text-decoration: underline;
-// }
 
 .markdown-body table {
   display: block;

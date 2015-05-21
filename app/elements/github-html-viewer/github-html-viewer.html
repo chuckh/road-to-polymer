@@ -1,12 +1,9 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 
-<dom-module id='github-html-viewer'  > <!-- CONVERTED WIP -->
+<dom-module id='github-html-viewer'>
 
-  <style>
-  </style> <!-- TODO Move style tags here from <template> if needed CONVERTED WIP -->
-  <link rel="stylesheet" href="github-html-viewer.css"> <!-- TODO Move line about <template>  CONVERTED WIP -->
-
+  <link rel="stylesheet" href="github-html-viewer.css">
   <template>
 
     <iron-ajax id="get_file"
@@ -17,11 +14,10 @@
       on-error="handleFileErrorResponse">
     </iron-ajax>
 
-    <paper-header-panel id="paper_header_panel" mode="waterfall-tall" class="fit">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
-
-      <paper-toolbar class="waterfall-tall">
-        <div id="error_message" class="error flex"></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
-        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="refreshFile"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+    <paper-header-panel id="paper_header_panel" mode="waterfall-tall" class="fit">
+      <paper-toolbar id="github_htm_viewer_toolbar" class="waterfall-tall">
+        <div id="error_message" class="error flex"></div>
+        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="refreshFile"></paper-icon-button>
         <div id="page_title" class="bottom ident">
           <span>{{pageTitle}}</span>
           <div id="sub_title" class="sub-title">
@@ -29,12 +25,12 @@
           </div>
         </div>
 
-        <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> --> <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
+        <!-- <paper-icon-button icon="menu" on-tap="toggleMenu"></paper-icon-button> --> <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
       </paper-toolbar>
 
       <div class="content">
 
-        <div id="file_div" class="flex"></>
+        <div id="file_div" class="flex"></div>
 
       </div>
     </paper-header-panel>
@@ -43,7 +39,7 @@
   <script>
     (function () {
       Polymer({
-        is: 'github-html-viewer', // CONVERTED WIP
+        is: 'github-html-viewer',
 
         properties: {
           owner: {
@@ -55,8 +51,6 @@
           fileName: String,
           branch: String,
           pageTitle: String
-
-          //  TODO: add attributes="owner repo fileName branch pageTitle" to properites -- CONVERTED WIP
         },
 
         tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"  ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc
@@ -67,11 +61,11 @@
           this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch + "&access_token=" + this.tk;
           this.$.doc_link.href = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
           this.$.doc_link.textContent = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
-          console.log("github-html-viewer ready", this.$.get_file.url, this.$.get_file.params);
+          // console.log("github-html-viewer ready", this.$.get_file.url, this.$.get_file.params);
           this.$.get_file.generateRequest();
         },
 
-        handleFile: function(event, detail, sender) {   <!-- class="sender)"  // TODO Convert to class=  CONVERTED WIP  -->
+        handleFile: function(event, detail, sender) {
           var header = detail.xhr.getResponseHeader('content-type');
           console.log("github-html-viewer handlefile", header);
           this.$.file_div.innerHTML = detail.response;
