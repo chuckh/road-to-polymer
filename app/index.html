@@ -15,7 +15,6 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script> -->
   <script>
       if( !('registerElement' in document &&
             'import'          in document.createElement('link') &&
@@ -35,9 +34,9 @@
        <!-- dom-bind CONVERTED WIP -->
       <iron-media-query query="max-width: 850px" queryMatches="{{smallScreen}}"></iron-media-query>
 
-      <paper-fab id="show_hide_button" icon="chevron-right" mini on-click="toggleDrawer" <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+      <paper-fab id="show_hide_button" icon="chevron-right" mini on-tap="toggleDrawer"
         style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; "
-        hidden$={{!smallScreen}}>   <!-- class="hidden?={{!smallScreen}}"  // TODO Convert to class=  CONVERTED WIP  -->
+        hidden$={{!smallScreen}} hidden>
       </paper-fab>
 
       <paper-drawer-panel id="drawer_panel" drawerWidth="256px;" responsiveWidth="850px" >
@@ -46,26 +45,27 @@
         <paper-header-panel drawer mode="standard" class="left-sidebar">
 
           <!-- Drawer Toolbar -->
-          <paper-toolbar >
-            <iron-icon icon="polymer" on-click=drawerToggle></iron-icon> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-            <span>{{appName}}</span>
+          <paper-toolbar id="left_sidebar_toolbar">
+            <iron-icon icon="polymer" on-tap="drawerToggle"></iron-icon>
+            <span>Road to Polymer</span>
           </paper-toolbar>
 
           <!-- Drawer Content -->
-          <paper-menu selected="{{page}}" class="sidebar-menu" on-core-select="selectMenu" style="font-size:9px;">
+          <paper-menu selected="{{page}}" class="sidebar-menu" on-core-select="selectMenu" style="font-size:9px; padding-top: 3px;">
             <paper-item><iron-icon icon="polymer" item-icon></iron-icon>Welcome</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Repositories Status Report</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Elements Coverted</paper-item>
             <paper-item><iron-icon icon="view-quilt" item-icon></iron-icon>Polymer Compare Code</paper-item>
             <paper-item><iron-icon icon="view-quilt" item-icon></iron-icon>Polymer Convert Code</paper-item>
             <hr>
-            <paper-item><iron-icon icon="av:web" item-icon></iron-icon>Polymer 0.5 Doc</paper-item>
             <paper-item><iron-icon icon="av:web" item-icon></iron-icon>Polymer 0.9 Doc</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Quick tour of Polymer 0.9</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer 0.9 Migration guide</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Primer 0.9</paper-item>
-            <paper-item><iron-icon icon="question-answer" on-click="loadUrl" url="https://polymer.slack.com/messages/general/" item-icon></iron-icon>Polymer Slack</paper-item>
-            <paper-item><iron-icon icon="open-in-new" on-click="loadUrl" url="https://plus.google.com/communities/115626364525706131031" item-icon></iron-icon>Polymer G+ Community</paper-item>
+            <paper-item><iron-icon icon="av:web" item-icon></iron-icon>Polymer 0.5 Doc</paper-item>
+            <a href="https://polymer.slack.com/messages/general/" target="_blank"><paper-item><iron-icon icon="open-in-new" on-click="loadUrl" url="https://polymer.slack.com/messages/general/" item-icon></iron-icon>Polymer Slack</paper-item></a>
+            <paper-item><iron-icon icon="question-answer" item-icon></iron-icon>Polymer Discussion</paper-item>
+            <a href="https://plus.google.com/communities/115626364525706131031" target="_blank"><paper-item><iron-icon icon="open-in-new" on-click="loadUrl" url="https://plus.google.com/communities/115626364525706131031" item-icon></iron-icon>Polymer G+ Community</paper-item></a>
             <paper-item><iron-icon icon="av:video-collection" item-icon></iron-icon>Polycasts Training Videos</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Yeoman generator for Polymer</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Material Design Spec</paper-item>
@@ -103,10 +103,6 @@
             <div id="for_divider_1" flex></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
-              <iframe src="//polymer-project.org/0.5/" frameborder="0" width="100%" height="100%"></iframe>
-            </section>
-
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
               <iframe src="//polymer-project.org/0.9/" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
@@ -118,38 +114,40 @@
               <iframe src="//www.polymer-project.org/0.9/docs/migration.html" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
-
             <github-html-viewer owner="Polymer" repo="polymer"
               file-name="PRIMER.md" branch="0.8-preview"
               page-title="Polymer Primer 0.9"  class="fit">
             </github-html-viewer>
 
-            <!-- <section class="flex">
-              <h2 styles="padding: 20px;">Loaded PolymerElments Github page in seperate tab</h2>
-            </section> -->
-
+            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+              <iframe src="//polymer-project.org/0.5/" frameborder="0" width="100%" height="100%"></iframe>
+            </section>
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
               <h2 styles="padding: 20px;">Loaded Polymer Slack in seperate tab.</h2>
-              <!-- <iframe width="100%" height="100%" src="https://polymer.slack.com/messages/general/" frameborder="0" allowfullscreen></iframe> -->
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
-              <iframe id="forum_embed" src="{{forumEmbedSrc}}" seamless="" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+            <section class="fit">
+              <!-- <iframe id="forum_embed" src="{{forumEmbedSrc}}" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
+              <iframe id="forum_embed" src="https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=http://chuckh.github.io/road-to-polymer/#!forum/polymer-dev" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
-            <!-- <section class="fit">
+            <section class="fit">
               <h2 styles="padding: 20px;">Loaded Polymer Google + Comunity in seperate tab.</h2>
-            </section> -->
+            </section>
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
               <iframe width="100%" height="100%" src="https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN" frameborder="0" allowfullscreen></iframe>
             </section>
 
-            <marked-file-viewer id="readme_marked" owner="yeoman" repo="generator-polymer"
-              file-name="readme.md" branch="master"
-              page-title="Yeoman generator for Polymer Readme" class="flex">
-            </marked-file-viewer>
+            <!-- <section class="vertical layout fit"> -->
+              <!-- <a href="https://github.com/yeoman/generator-polymer">Yeoman generator for Polymer projects</a> -->
+              <marked-file-viewer id="readme_marked" owner="yeoman" repo="generator-polymer"
+                file-name="readme.md" branch="master"
+                page-title="Yeoman generator for Polymer Readme">
+              </marked-file-viewer>
+              <!-- <a href="https://github.com/yeoman/generator-polymer">Yeoman generator for Polymer projects</a> -->
+            <!-- </section> -->
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
               <iframe src="http://www.google.com/design/spec/material-design/introduction.html" frameborder="0" width="100%" height="100%"></iframe>
