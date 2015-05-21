@@ -1,0 +1,308 @@
+<script>
+
+ConvertBehavior = {
+
+  properties: {
+    layoutMessage: ""
+  },
+
+  convertCode2: function(code) {
+    var orgCode = "";
+    if (code != "") {
+      orgCode = code
+    } else  {
+      var orgCode = this.$.your_code.value;
+    }
+    var convertedCode = "";
+    var id = '';
+    var convertedHTMLmes = " <!-- CONVERTED -->\n";
+    var convertedJavaScriptMes = " // CONVERTED\n";
+    var cl = ""; // current line
+    var at = ""; // attributes
+    var la = ""; // layout attributes
+    var oa = ""; // other attributes
+    var va = ""; // value attributes
+    var sp = []; // split attribuets
+    var polymerPos = 4;
+    var scriptSection = false; // script section
+    var scriptClose = '</' + 'script>';
+    var commentSection = false; // comment section
+    this.layoutMessage = "";
+    for (var i = 0; i < orgCode.length; i++) {
+      cl = orgCode[i];
+      if (cl.indexOf("<!--") > -1) {
+        commentSection = true;
+      }
+      if (cl.indexOf("-->") > -1) {
+        commentSection = false;
+      }
+      if (commentSection) {
+        convertedCode += cl + '\n';
+        continue;
+      }
+      if (cl.indexOf("<script>") > -1) {
+        scriptSection = true;
+      }
+      if (cl.indexOf(scriptClose) > -1) {
+        scriptSection = false;
+      }
+      sp = cl.match(/(".*?"|[^",\s]+)(?=\s*|\s*$)/g);
+      la = this.findLayoutAttributes(sp);
+      la = (la && la.length > 0 ? " " + la : "");
+      if (cl.indexOf("<polymer-element") > -1 ) {
+        id = this.findNameAttribute(sp);
+        at = this.findAttributes(sp);
+        // la = this.findLayoutAttributes(sp);
+        // la = (la.length > 0 ? " " + la : "");
+        oa = this.findSingleAttributes(sp);
+        oa = (oa.length > 0 ? " " + oa : "");
+        va = this.findValueAttributes(sp);
+        va = (va.length > 0 ? ", TODO: determine what to do with: " + va : "");
+        // console.log(" sp: ",  sp);
+        convertedCode += '<dom-module id=' + "'" + id + "'" + oa + ">" + " <!-- CONVERTED WIP " + va + "-->\n";
+        convertedCode += "\n  <style>\n  </style>" + " <!-- TODO Move style tags here from <template> if needed CONVERTED WIP -->\n\n";
+      } else if (cl.indexOf("polymer-element>") > -1) {
+        convertedCode += '</dom-module>'  + convertedHTMLmes;
+      } else if (cl.indexOf('rel="stylesheet"') > -1) {
+        convertedCode += cl + " <!-- TODO Move line about <template>  CONVERTED WIP -->\n";
+      } else if (cl.indexOf("Polymer(") > -1) {
+        polymerPos = cl.indexOf("Polymer(");
+        var ind = " ".repeat(polymerPos);
+        // convertedCode += ind + 'Polymer({\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+        convertedCode += cl + '\n' + ind + '  is: ' + "'" + id + "'" + ", // CONVERTED WIP \n";
+        if (cl.indexOf(".mixin") > -1) {
+          convertedCode += '\n' + ind + '  behaviors: [SuperBehavior],'  + " // TODO replace mixin with Behaviors,  CONVERTED WIP \n";
+        }
+        if (la.length > 0) { // layout attributes
+          // console.log("la.length > 0 (1)", la);
+          this.layoutMessage = 'add <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> to top with other imports';
+          // convertedCode +=  `class="` + la.trim() + '"' +  "  // Convert to class=  CONVERTED WIP \n";
+          // convertedCode += '\n' + ind + '  hostAttributes: {\n' + '      class: ' + '"' + la.trim() + '"' +  "  // CONVERTED WIP\n" + ind +"  }\n";
+        }
+        if (at.length > 0) {
+          convertedCode += '\n' + ind + '  properties: {\n' + ind + '    //  TODO: add ' + at + " to properites -- CONVERTED WIP\n" + ind + "  },\n";
+          at = "";
+        } else {
+          //convertedCode += "  }\n";
+        }
+      } else if (la.length > 0) { // layout attributes
+        // console.log("la.length > 0 (2)", la);
+        this.layoutMessage = 'add <link rel="import" href="../iron-flex-layout/iron-flex-layout.html"> to top with other imports';
+        convertedCode +=  cl + `   <!-- class="` + la.trim() + '"' +  "  // TODO Convert to class=  CONVERTED WIP  --> \n";
+      } else if (cl.indexOf("(c) 2014") > -1) {
+        convertedCode += cl.replace("(c) 2014", "(c) 2015") + '\n';
+      } else {
+        if (scriptSection == false && cl.indexOf("?=") > -1) { // convert ?= to $=, TODO convert {{}} to [[]]?
+          convertedCode += cl.replace("?=","$=") + '\n';
+        } else if (scriptSection == false && cl.indexOf("on-click") > -1)  {
+          convertedCode += cl + ' <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->  \n';
+        } else if (scriptSection == false && cl.indexOf("on-tap") > -1)  {
+          convertedCode += cl + ' <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->  \n';
+        } else if (scriptSection == false && cl.indexOf(" on-") > -1)  {
+          convertedCode += cl + ' <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->  \n';
+        } else {
+          convertedCode += cl + '\n';
+        }
+        if (cl.indexOf("repeat") > -1) { // template changes
+          convertedCode = convertedCode.replace("repeat", 'is="dom-repeat" items="{{data}}"  ') + '      <!-- TODO fix repeat, replace data, remove extra ="{{key in keys}}"   CONVERTED WIP --> \n';
+        } else if (cl.indexOf("auto-binding") > -1) {
+          convertedCode = convertedCode.replace("auto-binding", "dom-bind") + '     <!-- dom-bind CONVERTED WIP --> \n';
+        } else if (cl.indexOf("if=") > -1) {
+          convertedCode = convertedCode.replace("if=", 'is="x-if" if=') + '      <!-- TODO fix if=,   CONVERTED WIP --> \n';
+          // convertedCode = convertedCode + '     <!-- TODO add is="x-if", review for other need fixes.   CONVERTED WIP --> \n';
+        }
+      }
+    }
+
+    // Future second pass to adding thins such as <link rel="import" href="../../bower_components/layout/layout.html">
+    // var firstImport = true;
+    // var convertedCode1 = convertedCode.split(/[\r\n]+/g);
+    // var convertedCode2 = "";
+    // for (var j = 0; j < convertedCode1.length; j++) {
+    //   cl = convertedCode1[j];
+    //   console.log("convertedCode2: ",cl,this.layoutMessage.length, cl.indexOf('rel="import"'),firstImport);
+    //   if (this.layoutMessage.length > 1 && cl.indexOf('rel="import"') > -1 && firstImport) {
+    //     convertedCode2 += cl;
+    //     convertedCode2 += '<link rel="import" href="../../bower_components/layout/layout.html">   <!-- TODO fix path,   CONVERTED WIP --> \n';
+    //     firstImport = false;
+    //   } else {
+    //     convertedCode2 += cl;
+    //   }
+    // }
+
+    // Convert core elements to iron and paper elements - ()
+    convertedCode = convertedCode.replace(/core-drawer-panel/g, "paper-drawer-panel");
+    convertedCode = convertedCode.replace(/core-header-panel/g, "paper-header-panel");
+    convertedCode = convertedCode.replace(/core-toolbar/g, "paper-toolbar");
+    convertedCode = convertedCode.replace(/core-menu/g, "paper-menu");
+    convertedCode = convertedCode.replace(/core-item/g, "paper-item");
+    convertedCode = convertedCode.replace(/core-ajax/g, "iron-ajax");
+    convertedCode = convertedCode.replace(/core-icon/g, "iron-icon");
+    convertedCode = convertedCode.replace(/core-image/g, "iron-image");
+    convertedCode = convertedCode.replace(/core-input/g, "iron-input");
+    convertedCode = convertedCode.replace(/core-localstorage/g, "iron-localstorage");
+    convertedCode = convertedCode.replace(/core-media-query/g, "iron-media-query");
+    convertedCode = convertedCode.replace(/core-meta/g, "iron-meta");
+    convertedCode = convertedCode.replace(/core-pages/g, "iron-pages");
+    convertedCode = convertedCode.replace(/core-selector/g, "iron-selector");
+    convertedCode = convertedCode.replace(/core-signals/g, "iron-signals");
+    convertedCode = convertedCode.replace(/core-collapse/g, "iron-collapse");
+
+    convertedCode = "<!-- " + this.layoutMessage  + "  -->\n" + convertedCode
+    convertedCode += "\n<!-- CONVERSION NOTES TODO:\n Review code and look for: \n" +
+    ' - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>\n' +
+    ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}\n' +
+    ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>\n' +
+    ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar\n' +
+    ' - Polymer( fix mixins use Behaviors after is: see  ,\n' +
+    ' - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">, \n' +
+    ' - Convert core- to iron- or paper- replacement elements at PolymerElements\n' +
+    ' - fix indentation as need \n' +
+    ' - Cleanup Comments to reflect changes ,\n' +
+    ' - see https://www.polymer-project.org/0.9/docs/migration.html\n' +
+    "   -->";
+    // ' - ' + this.layoutMessage  + "  -->";
+    // console.log("convertedCode: ",convertedCode.substr(0,10));
+    this.$.code8_prism.inputValue = convertedCode;
+    this.$.code8_prism.innerHTML =  this.highlight(convertedCode);
+    this.errorMessage8 = "CONVERTED TO 1.0!";
+    this.$.right_branch_div.innerHTML = "-- CONVERTED --";
+    this.$.copy_converted_button.hidden = false;
+  },
+
+  findAttributes: function(array) {
+    var ats = "";
+    // console.log("findAttributes: ",array.length);
+    for (var i = 0; i < array.length; i++) {
+      // console.log(" ats: ", i, array[i]);
+      if (array[i].indexOf("attributes") > -1) {
+        // console.log(" ats: ", i, array[i] + array[i+1]);
+        ats = array[i] + array[i+1];
+      }
+    }
+    return ats;
+  },
+
+  // finds layout attributes layout vertical horizontal wrap center relative fit hidden block reverse start end flex
+  //   start-justified center-justified end-justified justified flex
+  findLayoutAttributes: function(array) {
+    if (array) {
+      var ats = "";
+      for (var i = 0; i < array.length; i++) {
+        // console.log(" ats: ", i, array[i]);
+        if ((array[i].indexOf('layout') >= 0 || array[i].indexOf('horizontal') >= 0 || array[i].indexOf('vertical') >= 0
+          || array[i].indexOf('wrap') >= 0 || array[i].indexOf('center') >= 0 || array[i].indexOf('relative') >= 0
+          || array[i].indexOf('fit') >= 0 || array[i].indexOf('hidden') >= 0 || array[i].indexOf('reverse') >= 0
+          || array[i].indexOf('start') >= 0 || array[i].indexOf('end') >= 0 || array[i].indexOf('justified') >= 0
+          || array[i].indexOf('flex') >= 0)
+          && array[i].indexOf('extends') == -1) {
+          // console.log(" layout: ", i, array[i].replace(">", ""));
+          ats += array[i].replace(">", "") + " ";
+        }
+      }
+    }
+    // console.log("ats: ",ats);
+    return ats;
+  },
+
+  findSingleAttributes: function(array) {  // finds single word attributes with no = or layout attributes
+    var ats = "";
+    // console.log("findSingleAttributes: ");
+    for (var i = 0; i < array.length; i++) {
+      // console.log(" ats: ", i, array[i]);
+      if (array[i].indexOf("=") == -1 && array[i].indexOf(" ") == -1 && array[i].indexOf("<") == -1
+        && array[i].indexOf('"') == -1
+        && array[i].indexOf('layout') == -1 && array[i].indexOf('horizontal') == -1 && array[i].indexOf('vertical') == -1
+        && array[i].indexOf('wrap') == -1 && array[i].indexOf('center') == -1 && array[i].indexOf('relative') == -1
+        && array[i].indexOf('fit') == -1 && array[i].indexOf('hidden') == -1 && array[i].indexOf('reverse') == -1
+        && array[i].indexOf('start') == -1 && array[i].indexOf('end') == -1 && array[i].indexOf('justified') == -1) {
+        // console.log(" single: ", i, array[i].replace(">", ""));
+        ats += array[i].replace(">", "") + " ";
+      }
+    }
+    return ats;
+  },
+
+  findValueAttributes: function(array) { // finds attributes with = except for name, attributes
+    var ats = "";
+    // console.log("findValueAttributes: ");
+    for (var i = 0; i < array.length; i++) {
+      // console.log(" ats: ", i, array[i]);
+      if (array[i].indexOf("=") > 0 && array[i].indexOf(" ") == -1 && array[i].indexOf("<") == -1 && array[i].indexOf('name') == -1 && array[i].indexOf('attributes') == -1) {
+        // console.log("  va: ", i, array[i] + array[i+1].replace(">", ""));
+        ats += array[i] + array[i+1].replace(">", "") + " ";
+      }
+    }
+    return ats;
+  },
+
+  findNameAttribute: function(array) {
+    var ats = "";
+    // console.log("findNameAttribute: ",array.length);
+    for (var i = 0; i < array.length; i++) {
+      // console.log(" ats: ", i, array[i]);
+      if (array[i].indexOf("name=") > -1) {
+        ats = (array[i+1].replace(">", "")).replace(/"/g, '');
+        // console.log(" name: ", i, ats);
+      }
+    }
+    return ats;
+  },
+
+  copyConverted: function() {
+    this.$.copy_textarea.innerHTML = this.$.code8_prism.inputValue;
+    this.$.copy_dialog.toggle();
+    this.fire('focus-input',function()
+      {
+        // this.$.copy_textarea.focus();
+        this.$.copy_textarea.select();
+      },300);
+  },
+
+  viewResized: function(e, detail, sender) {
+    var contentWidth = 0;
+    if (this.$.core_header_panel) {
+      contentWidth = this.$.core_header_panel.clientWidth;
+    }
+
+    if (this.mediumScreen) {
+      //// this.$.menu_panel.hidden = false;
+    } else {
+      //// this.$.menu_panel.hidden = true;
+    }
+
+    if (this.smallScreen) {
+      //// this.$.menu_panel.hidden = true;
+      this.pageToolbarClass = "page-toolbar-small";
+    } else {
+      this.pageToolbarClass = "page-toolbar";
+    }
+
+    console.log("viewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
+  },
+
+  repeat: function(length) {
+    return Array(length + 1).join(this);
+  },
+
+  camelToDash: function(str) {
+    return str.replace(/\W+/g, '-')
+      .replace(/([a-z\d])([A-Z])/g, '$1-$2').toLowerCase();
+  },
+
+  dashToCamel: function(str) {
+    return str.replace(/\W+(.)/g, function (x, chr) {
+      return chr.toUpperCase();
+    })
+  },
+
+  download: function(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+    pom.click();
+  },
+
+};
+
+</script>
