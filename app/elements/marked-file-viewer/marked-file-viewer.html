@@ -14,14 +14,13 @@
       handle-as="json"
       last-response="{{markedContent}}"
       on-response="handleFile"
-      on-error="handleFileErrorResponse"
-      verbose>
+      on-error="handleFileErrorResponse">
     <iron-ajax>
 
     <paper-header-panel id="paper_header_panel" mode="waterfall-tall"  class="fit"t>   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
 
-      <paper-toolbar class="waterfall-tall">
-        <div id="error_message" class="error flex"></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
+      <paper-toolbar id="marked_file_viewer_toolbar" class="waterfall-tall">
+        <div id="error_message" class="error flex"></div>
         <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="refreshFile"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
         <div id="page_title" class="bottom ident">
           <span>{{pageTitle}}</span>
