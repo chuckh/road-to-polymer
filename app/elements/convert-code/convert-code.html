@@ -11,15 +11,14 @@
   <template>
     <prism-highlighter></prism-highlighter>
 
-    <iron-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="viewResized"></iron-media-query>
-    <iron-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="viewResized"></iron-media-query>
-
+    <iron-media-query query="(min-width: 1260px)" query-matches="{{mediumScreen}}" on-query-matches-changed="viewResized"></iron-media-query>
+    <iron-media-query query="(max-width: 1060px)" query-matches="{{smallScreen}}" on-query-matches-changed="viewResized"></iron-media-query>
+    
     <paper-dialog id="help_dialog" heading="Help" transition="iron-transition-center">
       <h2>Help</h2>
       <p>To Convert Code choose a file,<br> or paste 0.5 code on the left then click Convert button.<br><br>
         <br>To save converted code click Save button<br>
         or click <iron-icon icon="content-copy"></iron-icon> icon to copy to clipboard.<br>
-
         <br>To start over click Clear button
       </p>
       <div class="buttons">
@@ -41,7 +40,7 @@
       <paper-header-panel main mode="standard" class="flex">
 
         <!-- Main Toolbar -->
-        <paper-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
+        <paper-toolbar class="page-toolbar" id="page_toolbar">
           Convert Code 0.5 to 1.0:
           <paper-icon-button icon="help" on-tap="toggleHelp"></paper-icon-button>
           <div id="file_name"></div>
@@ -55,7 +54,7 @@
             <div id="convert_code_container" class="vertical layout flex">
               <div class="horizontal layout">
                 <div class="left-title horizontal layout center flex">
-                  <div class="vertical layout flex">
+                  <div class="vertical layout flex title-areas">
                     <h3>Polymer 0.5  Code -
                       <span class="error-message"></span>
                     </h3>
@@ -68,11 +67,11 @@
                 </div>
 
                 <div class="right-title horizontal layout center flex">
-                  <div class="vertical layout flex">
+                  <div class="vertical layout flex title-areas">
                     <h3>Polymer 1.0 Converted Code -
                       <span class="error-message">{{errorMessage8}}</span>
                     </h3>
-                    <div id="right_branch_div" class="branch-label"><span>-- CONVERTED CODE --</span>
+                    <div id="right_branch_div" class="branch-label"><span>-- CONVERTED --</span>
                     </div>
                   </div>
                   <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="copyConverted" hidden></paper-icon-button>
@@ -112,7 +111,8 @@
         properties: {
           pageToolbarClass: {
             type: String,
-            value: "page-toolbar"
+            value: "page-toolbar",
+            notify: true
           },
           convertParam: {
             type: String,
@@ -153,6 +153,7 @@
           this.$.file_input.value = "";
           this.$.save_button.hidden = true;
           this.$.copy_converted_button.hidden = true;
+          this.errorMessage8 = "";
         },
 
         highlight: function(code) {

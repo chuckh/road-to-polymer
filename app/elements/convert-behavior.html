@@ -265,6 +265,7 @@ ConvertBehavior = {
   },
 
   viewResized: function(e, detail, sender) {
+    console.log("viewResized: ",sender);
     var contentWidth = 0;
     if (this.$.core_header_panel) {
       contentWidth = this.$.core_header_panel.clientWidth;
