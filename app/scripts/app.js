@@ -1,22 +1,35 @@
-(function () {
-  // 'use strict';
+(function (document) {
+  'use strict';
 
   // Grab a reference to our auto-binding template
   // and give it some initial binding values
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
+  console.log('Road to Polymer');
   app.appName = 'Road to Polymer';
   app.showHideButtonLeft = "8px;";
   app.page = 0;
-  app.forumEmbedSrc = 'https://groups.google.com/forum/embed/?place=forum/polymer-dev'
-  + '&showsearch=true&showpopout=true&showtabs=false';
+  //app.forumEmbedSrc = 'https://groups.google.com/forum/embed/?place=forum/polymer-dev' + '&showsearch=true&showpopout=true&showtabs=false';
+  app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=" + encodeURIComponent(window.location.href);
+
+  // app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev#!forum/polymer-dev" + "&showsearch=true&showpopout=true&parenturl=" + encodeURIComponent(window.location.href);
+  //app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev" + "&showsearch=true&showpopout=true&parenturl=" +  encodeURIComponent(window.location.href);
+  // encodeURIComponent(window.location.href
+  console.log('RTP App url', app.forumEmbedSrc);
+
   // + '&parenturl=' + 'https://github.com/chuckh/road-to-polymer'; //encodeURIComponent(window.location.href)
 
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   //app.addEventListener('template-bound', function() {
-  app.addEventListener('WebComponentsReady', function(e) {
-    console.log('Road to Polymer 1.0 is ready to rock!', app.smallScreen); //app.forumEmbedSrc,
+  app.addEventListener('template-bound', function(e) {
+    console.log('Road to Polymer 1.0 is ready to rock! (template-bound)', app.smallScreen); //app.forumEmbedSrc,
+  });
+
+  // See https://github.com/Polymer/polymer/issues/1381
+  window.addEventListener('WebComponentsReady', function() {
+    console.log('Road to Polymer 1.0 WebComponentsReady!'); //app.forumEmbedSrc,
+    document.querySelector('body').removeAttribute('unresolved');
   });
 
   app.toggleDrawer = function(e) {
@@ -51,4 +64,4 @@
 
 // wrap document so it plays nice with other libraries
 // http://www.polymer-project.org/platform/shadow-dom.html#wrappers (wrap(document))
-});
+})(document);
