@@ -69,12 +69,37 @@ x-array-selector -> array-selector
 x-style -> custom-style  
 ```
 
-####Bindings / other
+#### Bindings / other
 
 1. textContent binding from `<div>First: {{first}}</div>` TO `First: <span>{{first}}</span><br>`  
   - To bind to a child element’s textContent, you can simply include the annotation inside the child element. The binding annotation must currently span the entire content of the tag:
 1. elements `on-click="{{handleClick}}"` to `on-click="handleClick"`
 1. lots of changes to `Data Bindings` see doc at https://www.polymer-project.org/0.9/docs/devguide/data-binding.html
+
+#### Core and paper elements
+1. core to iron or paper
+  - core-drawer-panel -> paper-drawer-panel
+  - core-header-panel -> paper-header-panel
+  - core-toolbar -> paper-toolbar
+  - core-dropdown -> paper-dropdown
+  - core-dropdown-menu -> paper-dropdown-menu
+  - core-menu ->	paper-menu
+  - core-item	-> paper-item
+  - core-item with icon	-> paper-icon-item
+  - core-scroll-header-panel ->
+  - core-ajax -> iron-ajax
+    - response -> last-response
+    - on-core-response -> on-response
+    - on-core-error -> on-error
+  - core-media-query -> iron-media-query
+    - on-core-media-change -> on-query-matches-changed
+    - queryMatches -> query-matches
+    - query="min-width: 860px" -> query="(min-width: 860px)"
+
+
+see https://github.com/PolymerElements/iron-elements for iron elements roadmap
+see https://github.com/PolymerElements/paper-elements for paper elements roadmap
+
 
 ### Javascript Conversion Process
 1. polymer-element name to `Polymer({ is:`
