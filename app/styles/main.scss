@@ -10,6 +10,17 @@ body {
   padding: 0;
 }
 
+#left_sidebar_toolbar {
+  background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)  
+}
+
+#left_sidebar_toolbar .toolbar-tools.paper-toolbar {
+  padding: 0;
+  margin-top: -5px;
+  margin-left: -34px;
+  font-size: 1.1em;
+}
+
 paper-header-panel {
   height: 100%;
   width: 100%;
@@ -22,23 +33,6 @@ iron-pages {
   padding: 0;
 }
 
-// .hero-unit {
-//   margin: 50px auto 0 auto;
-//   width: 300px;
-//   font-size: 18px;
-//   font-weight: 200;
-//   line-height: 30px;
-//   background-color: #eee;
-//   border-radius: 6px;
-//   padding: 60px;
-// }
-//
-// .hero-unit h1 {
-//   font-size: 60px;
-//   line-height: 1;
-//   letter-spacing: -1px;
-// }
-//
 // .browsehappy {
 //   margin: 0.2em 0;
 //   background: #ccc;
@@ -51,9 +45,10 @@ iron-pages {
 }
 
 paper-toolbar {
+  margin: 0;
+  padding: 0;
   color: #FAFAFA;
   font-weight: normal;
-  background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
 }
 
 paper-item {
