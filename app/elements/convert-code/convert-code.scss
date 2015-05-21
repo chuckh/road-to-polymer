@@ -17,13 +17,21 @@
 
 .page {
   background-color: #fafafa;
+  font-size: 16px;
+  text-align: left;
+}
+
+paper-toolbar.page-toolbar {
+  padding-left: 5px;
+  font-size: 24px !important;
+  font-weight: 200 !important;
+  line-height: 30px;
 }
 
 .page-toolbar {
   color: #fff;
-  padding-left: 30px;
   font-size: 1.4em;
-  font-weight: 100;
+  font-weight: 200;
   line-height: 30px;
   background-color: #303F9F;
 }
@@ -35,37 +43,37 @@
   background-color: #303F9F;
 }
 
-#back_button {
-  margin-left: -10px;
-}
+// #back_button {
+//   margin-left: -10px;
+// }
 
-#repo_input {
-  padding-left: 20px;
-  font-size: 1.1em;
-  font-weight: 200;
-  width: 325px;
-  margin-bottom: 10px;
-}
+// #repo_input {
+//   padding-left: 20px;
+//   font-size: 1.1em;
+//   font-weight: 200;
+//   width: 325px;
+//   margin-bottom: 10px;
+// }
 
-#filter_input {
-  padding-left: 20px;
-}
+// #filter_input {
+//   padding-left: 20px;
+// }
 
-.compare-input {
-  font-size: 0.7em;
-}
+// .compare-input {
+//   font-size: 0.7em;
+// }
 
-#owner_input {
-  padding-left: 20px;
-}
+// #owner_input {
+//   padding-left: 20px;
+// }
 
 #to_label {
   font-size: 0.7em;
 }
 
-// .title_area {
-//   height: 56px;
-// }
+#convert_code_container {
+  text-align: left;
+}
 
 .left-title {
   padding: 20px;
@@ -73,6 +81,16 @@
   background-color: #f5f2f0;
   border-bottom: 1px solid slategray;
 }
+
+.title-areas {
+  text-align: left;
+  text-decoration: none;
+}
+
+h3 {
+  border-bottom: none;
+}
+
 .right-title {
   padding: 20px;
   height: 30px;
