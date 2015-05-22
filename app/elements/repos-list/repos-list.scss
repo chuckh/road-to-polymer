@@ -5,7 +5,7 @@
   font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 }
 
-.center {
+.center-text {
   text-align: center;
 }
 
@@ -34,10 +34,10 @@
   padding-left: 10px;
 }
 
-core-header-panel {
+paper-header-panel {
   height: 100%;
 }
-.core-header {
+paper-header-panel .paper-header {
   height: 150px;
   line-height: 60px;
   font-size: 20px;
@@ -58,6 +58,7 @@ core-header-panel {
 }
 
 .filter {
+  // width: 100%;
   margin-top: -10px;
   font-size: 14px;
   text-align: right;

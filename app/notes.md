@@ -102,3 +102,15 @@ lol
 
 diddledan [10:47 AM]10:47
 smokybob: yeah private keys are a pain in completely transparent languages such as html+javascript
+
+------
+
+<link href="https://rawgit.com/polymer/polymer/0.8-preview/polymer.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/iron-selector/master/iron-selector.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/iron-signals/master/iron-signals.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/paper-button/master/paper-button.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/paper-dialog/master/paper-dialog.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/paper-input/master/paper-input.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/paper-material/master/paper-material.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/paper-menu/master/paper-menu.html" rel="import">
+<link href="https://rawgit.com/PolymerElements/paper-styles/master/paper-styles.html" rel="import">
