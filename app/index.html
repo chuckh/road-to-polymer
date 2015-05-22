@@ -32,7 +32,7 @@
 <body class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
        <!-- dom-bind CONVERTED WIP -->
-      <iron-media-query query="max-width: 850px" queryMatches="{{smallScreen}}"></iron-media-query>
+      <iron-media-query query="max-width: 850px" query-matches="{{smallScreen}}"></iron-media-query>
 
       <paper-fab id="show_hide_button" icon="chevron-right" mini on-tap="toggleDrawer"
         style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; "
@@ -47,7 +47,7 @@
           <!-- Drawer Toolbar -->
           <paper-toolbar id="left_sidebar_toolbar">
             <iron-icon icon="polymer" on-tap="drawerToggle"></iron-icon>
-            <span>Road to Polymer</span>
+            <span>{{appName}}</span>
           </paper-toolbar>
 
           <!-- Drawer Content -->

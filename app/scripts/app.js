@@ -5,8 +5,8 @@
   // and give it some initial binding values
   // Learn more about auto-binding templates at http://goo.gl/Dx1u2g
   var app = document.querySelector('#app');
-  console.log('Road to Polymer');
-  app.appName = 'Road to Polymer';
+  console.log('Road to Polymer 1.0');
+  app.appName = 'Road to Polymer 1.0';
   app.showHideButtonLeft = "8px;";
   app.page = 0;
   //app.forumEmbedSrc = 'https://groups.google.com/forum/embed/?place=forum/polymer-dev' + '&showsearch=true&showpopout=true&showtabs=false';
