@@ -41,7 +41,7 @@ Polymer(Polymer.mixin({ to Polymer({
 ### cleanup iron-media-query
 
 
-### convert paper-action-dialog to paper-dialog
+### convert  to paper-dialog
 
 
 ### transition="core-transition-center"
