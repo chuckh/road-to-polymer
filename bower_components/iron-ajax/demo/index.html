@@ -28,9 +28,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <body>
 
   <template is="dom-bind">
-    <iron-ajax auto url="//gdata.youtube.com/feeds/api/videos/"
-        params='{"alt":"json", "q":"polymer"}'
-        handle-as="json" last-response="{{ajaxResponse}}"></iron-ajax>
+
+    <!-- url="//gdata.youtube.com/feeds/api/videos/" apiKey="AIzaSyAcB7qNYPC6bI7e3PHscV -->
+
+    <iron-ajax auto
+        url="https://www.googleapis.com/youtube/v3/search"
+        params='{"part":"snippet", "alt":"json", "q":"polymer", "channelId":"UC_x5XG1OV2P6uZZ5FSM9Ttw", "apiKey":"ySX1rmYuJMskSM6KkjkgCo00"}'
+        handle-as="json" last-response="{{ajaxResponse}}">
+    </iron-ajax>
     <h1>Video Feed</h1>
     <section class="flex layout horizontal wrap">
       <template is="dom-repeat" items="[[ajaxResponse.feed.entry]]">
