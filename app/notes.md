@@ -41,3 +41,64 @@ _attributes_ are a custom database that exist on an Element, a pure DOM concept
 
 sjmiles [12:20 PM]
 _attributes_ are useful primarily for HTML, and a tiny bit for `querySelector*` and css matching
+
+
+sjmiles [10:20 AM]
+`properties` is not intended to imply _public_ ... convention is to use an underscore to denote a private (_protected_, if you like)  property
+
+sjmiles [10:21 AM]
+you are not required to put an entry in `properties` in order to use a property for binding, you only need the entry if you want to modify one of the properties' settings
+
+
+------
+
+smokybob [10:40 AM]
+@sjmiles: just to be sure, am I correct saying there is no way to create a `really private' property on the element (like in only the element can see and use the property)?
+
+smokybob [10:40 AM]
+but it's just a matter of conventions
+
+sjmiles [10:41 AM]
+You can create _really private_ properties with tricks involving closures, or with Weak Maps, and/or private symbols (when those are shipped) but I wouldn't recommend any of that
+
+smokybob [10:42 AM]
+ok, so an alternative to be sure that from the parent I don't get a property changed should be using read only?
+
+mbleigh [10:42 AM]
+@smokybob: JavaScript generally has no way to create truly private properties outside of hiding variables with closures
+
+diddledan [10:43 AM]
+even closures don't guarantee privacy - you can still be leaky
+
+smokybob [10:44 AM]
+@mbleigh: I know :disappointed: ; was hoping for some "magic"
+
+mbleigh [10:44 AM]
+i think readOnly is what you're looking for
+
+mbleigh [10:44 AM]
+it annihilates the setter for the property
+
+mbleigh [10:44 AM]
+so you won't have accidental changes
+
+diddledan [10:44 AM]
+ZAP!]
+
+diddledan [10:44 AM]
+kill all teh setters! :stuck_out_tongue:
+
+smokybob [10:45 AM]
+yep but for things like secret_key I would love that the parent wasn't able to read the property too
+
+aerolith [10:45 AM]
+@diddledan i read that as kill all the settlers
+
+aerolith [10:45 AM]
+and was confused
+
+diddledan [10:45 AM]
+lol
+
+diddledan [10:47 AM]10:47
+smokybob: yeah private keys are a pain in completely transparent languages such as html+javascript
