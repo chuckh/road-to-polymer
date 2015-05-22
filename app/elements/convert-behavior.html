@@ -264,27 +264,23 @@ ConvertBehavior = {
       },300);
   },
 
-  viewResized: function(e, detail, sender) {
-    console.log("viewResized: ",sender);
+  viewResized: function() {
     var contentWidth = 0;
-    if (this.$.core_header_panel) {
-      contentWidth = this.$.core_header_panel.clientWidth;
+    if (this.$.paper_header_panel) {
+      contentWidth = this.$.paper_header_panel.clientWidth;
     }
+    // console.log("viewResized: ", contentWidth, this.smallScreen);
 
-    if (this.mediumScreen) {
-      //// this.$.menu_panel.hidden = false;
-    } else {
-      //// this.$.menu_panel.hidden = true;
-    }
-
-    if (this.smallScreen) {
-      //// this.$.menu_panel.hidden = true;
+    if (contentWidth <= 1060) {
+      // console.log("viewResized: smallScreen: ", this.smallScreen, contentWidth );
       this.pageToolbarClass = "page-toolbar-small";
+      this.$.page_toolbar.toggleClass("page-toolbar-small", true);
+      this.$.page_toolbar.toggleClass("page-toolbar", false);
     } else {
       this.pageToolbarClass = "page-toolbar";
+      this.$.page_toolbar.toggleClass("page-toolbar", true);
+      this.$.page_toolbar.toggleClass("page-toolbar-small", false);
     }
-
-    console.log("viewResized: ", contentWidth, this.mediumScreen,this.smallScreen,this.$.page_toolbar.class);
   },
 
   repeat: function(length) {

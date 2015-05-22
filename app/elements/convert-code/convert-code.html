@@ -11,9 +11,9 @@
   <template>
     <prism-highlighter></prism-highlighter>
 
-    <iron-media-query query="(min-width: 1260px)" query-matches="{{mediumScreen}}" on-query-matches-changed="viewResized"></iron-media-query>
-    <iron-media-query query="(max-width: 1060px)" query-matches="{{smallScreen}}" on-query-matches-changed="viewResized"></iron-media-query>
-    
+    <!-- <iron-media-query query="(min-width: 1260px)" query-matches="{{mediumScreen}}" on-query-matches-changed="viewResized"></iron-media-query> -->
+    <iron-media-query query="min-width: 1060px" query-matches="{{smallScreen}}" on-query-matches-changed="viewResized"></iron-media-query>
+
     <paper-dialog id="help_dialog" heading="Help" transition="iron-transition-center">
       <h2>Help</h2>
       <p>To Convert Code choose a file,<br> or paste 0.5 code on the left then click Convert button.<br><br>
@@ -37,7 +37,7 @@
 
     <div class="horizontal layout fit">
 
-      <paper-header-panel main mode="standard" class="flex">
+      <paper-header-panel id="paper_header_panel" main mode="standard" class="flex">
 
         <!-- Main Toolbar -->
         <paper-toolbar class="page-toolbar" id="page_toolbar">
@@ -54,14 +54,14 @@
             <div id="convert_code_container" class="vertical layout flex">
               <div class="horizontal layout">
                 <div class="left-title horizontal layout center flex">
-                  <div class="vertical layout flex title-areas">
+                  <div class="vertical layout title-areas">
                     <h3>Polymer 0.5  Code -
                       <span class="error-message"></span>
                     </h3>
                     <div class="branch-label"><span>your code</span>
                     </div>
                   </div>
-                  <input type="file" id="file_input" on-change="onFileChange" class="file-input"/>
+                  <input type="file" id="file_input" on-change="onFileChange" class="file-input flex"/>
                   <paper-button id="convert_button" on-tap="onConvertCode" raised>Convert</paper-button>
                   <paper-button id="clear_button" on-tap="onClearCode" raised hidden>Clear Code</paper-button>
                 </div>
@@ -88,7 +88,6 @@
                 </div>
                 <div class="flex right" id="code8">
                   <div id="code8_prism" class="flex"></div>
-                  <!-- <div class="linkRight" hidden$="{{hideLinks}}" hidden></div> -->
                 </div>
               </div>
             </div>
@@ -131,6 +130,7 @@
         ready: function() {
           this.$.file_name.innerHTML = "Choose file or paste code";
           this.$.your_code.value = "";
+          this.fire(this.viewResized(),200);
           console.log("convert-code ready");
         },
 
