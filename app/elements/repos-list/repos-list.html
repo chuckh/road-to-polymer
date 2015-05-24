@@ -72,12 +72,12 @@
     </iron-ajax>
     <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
 
-    <iron-ajax id="get_branches_ajax"
+    <!-- <iron-ajax id="get_branches_ajax"
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
       handle-as="json"
       last-response="{{branches}}"
       on-response="handleBranchesResponse">
-    </iron-ajax>
+    </iron-ajax> -->
     <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
 
     <iron-ajax id="get_releases_ajax"
@@ -96,20 +96,20 @@
           <paper-spinner id="loading_spinner" class="pink" active></paper-spinner>
           <div id="filter_container" class="filter flex">
             <span id="filter_title"></span>
-            <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
-              <paper-radio-button name="all" label="All" on-click="filterRadioButtonRepos" class="yellow">All</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Yes" label="YES" on-click="filterRadioButtonRepos" class="yellow">YES</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="No" label="no" on-click="filterRadioButtonRepos" class="yellow">no</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Iron" label="Iron" on-click="filterRadioButtonRepos" id="iron_radio_button" class="yellow">{{ironCore}}</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Paper" label="Paper" on-click="filterRadioButtonRepos" id="paper_radio_button" class="yellow">Paper</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Other" label="Other" on-click="filterRadioButtonRepos" id="other_radio_button" class="yellow">Other</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+            <paper-radio-group selected="All" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
+              <paper-radio-button name="All" label="All" class="yellow">All</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="Yes" label="Yes" class="yellow">Yes</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="no" label="no" class="yellow">no</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="{{ironCore}}" label="{{ironCore}}" id="iron_radio_button" class="yellow" hidden$="{{hideRadioButton}}">{{ironCore}}</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="Paper" label="Paper" id="paper_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Paper</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="Other" label="Other" id="other_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Other</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
               <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> --> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
               <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> --> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
             </paper-radio-group>
           </div>
           <div id="search" class="search horizontal layout center">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
             <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="toggleSearch"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release" autofocus hidden> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
           </div>
         </div>
 
@@ -131,7 +131,7 @@
           <div class="flex-3"> Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="center-text center flex">Latest Release</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="center-text center flex" hidden$={{hideColumn5}}>0.8-<span>{{branchLookingFor}}</span></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex one" hidden$={{hideColumn6}}>Released</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex one" hidden$={{hideColumn6}}>Date Released</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
         </div>
       </div>
 
@@ -199,8 +199,7 @@
       ironCore: {
         type: String,
         value: "Iron",
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       },
       hideColumn5: {
         type: Boolean,
@@ -215,6 +214,11 @@
         reflectToAttribute: true
       },
       hideList: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      hideRadioButton: {
         type: Boolean,
         value: false,
         notify: true
@@ -315,7 +319,7 @@
       }
       // console.log("reposCombineAndFilter: ",this.reposAll);
       // this.reposAllFiltered = this.reposAll;
-      this.getBranches();
+      // this.getBranches();
       this.getReleases();
 
       if (this.$.radio_group_org.selected == "polymer") { // Polymer
@@ -328,46 +332,45 @@
 
     },
 
-    getBranches: function() {
-      if (this.reposAll[this.currentBranch][0]) {
-        var repo = this.reposAll[this.currentBranch][0];
-        this.currentBranchName = repo;
-        this.$.get_branches_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/branches";
-        this.$.get_branches_ajax.generateRequest();
-        // this.$.get_branches_ajax.abort();
-        // this.$.get_branches_ajax.go();
-      }
-    },
-
-    handleBranchesResponse: function(event) {
-      var dataLen = this.branches.length;
-      var branchFound = "no";
-      var curBranch = "";
-      for (var i = 0; i < dataLen; i++) {
-        curBranch = this.branches[i].name.toLowerCase();
-        if (curBranch.indexOf(this.branchLookingFor) > -1) {
-          branchFound = "YES";
-          this.cntrYes += 1;
-        }
-        this.reposAll[this.currentBranch][3] = branchFound;
-      }
-      this.currentBranch += 1;
-      if (this.currentBranch < this.reposAll.length) {
-        this.getBranches();
-      }
-    },
+    // getBranches: function() {
+    //   if (this.reposAll[this.currentBranch][0]) {
+    //     var repo = this.reposAll[this.currentBranch][0];
+    //     this.currentBranchName = repo;
+    //     this.$.get_branches_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/branches";
+    //     this.$.get_branches_ajax.generateRequest();
+    //   }
+    // },
+    //
+    // handleBranchesResponse: function(event) {
+    //   var dataLen = this.branches.length;
+    //   var branchFound = "no";
+    //   var curBranch = "";
+    //   for (var i = 0; i < dataLen; i++) {
+    //     curBranch = this.branches[i].name.toLowerCase();
+    //     if (curBranch.indexOf(this.branchLookingFor) > -1) {
+    //       branchFound = "YES";
+    //       this.cntrYes += 1;
+    //     }
+    //     this.reposAll[this.currentBranch][3] = branchFound;
+    //   }
+    //   this.currentBranch += 1;
+    //   if (this.currentBranch < this.reposAll.length) {
+    //     this.getBranches();
+    //   }
+    // },
 
     getReleases: function() {
       var repo = this.reposAll[this.currentRelease][0];
       this.currentReleaseName = repo;
-      if (this.organization == "Polymer") {
-        // this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
-        this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
-      } else if (this.organization ==  "PolymerElements") {
-        this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
-      } else {
-        this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
-      }
+      this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+
+      // if (this.organization == "Polymer") {
+      //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
+      // } else if (this.organization ==  "PolymerElements") {
+      //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+      // } else {
+      //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+      // }
       // console.log("getReleases: ",this.$.get_releases_ajax.url, this.organization);
       this.$.get_releases_ajax.generateRequest();
       // this.$.get_releases_ajax.abort();
@@ -407,7 +410,7 @@
     },
     handleReleasesErrorResponse: function(event) {
       //console.log("handleReleasesErrorResponse: ", this.currentRelease);
-      this.reposAll[this.currentRelease][2] = "n/a";
+      this.reposAll[this.currentRelease][2] = "no";
       this.reposAll[this.currentRelease][4] = "";
       this.currentRelease += 1;
       this.progressCounter = this.currentRelease;
@@ -425,67 +428,70 @@
       this.filterRepos('search_input')
     },
 
-    filterRadioButtonRepos: function() {
-      this.filterRepos(this.$.radio_group_filter.selectedLabel)
+    onRadioGroupFilterChange: function(e, detail, sender) {
+      // var selectedLabel = this.$.radio_group_filter.selected;
+      this.filterRepos(this.$.radio_group_filter.selected);
     },
 
     filterRepos: function(sender) {
       // console.log("filterRepos",detail, sender.label, sender.id);
       console.log("filterRepos", this.$.radio_group_filter.selected, sender);
       if (sender === "search_input") {
-        this.$.radio_group_filter.selected = 0;
+        this.$.radio_group_filter.selected = "All";
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          console.log("search_input: ",this.searchValue + "-- ",d[0],d[2]);
-          return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1);
+          // console.log("search_input: ",this.searchValue + " -- ",d[0],d[2],d[4]);
+          return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1 || d[4].indexOf(this.searchValue) > -1);
         }.bind(this));
       } else if (sender === "All") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll;
       } else if (sender === "Iron") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           return d[0].indexOf("iron") > -1;
         });
       } else if (sender === "Core") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           return d[0].indexOf("core") > -1;
         });
       } else if (sender === "Paper") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           return d[0].indexOf("paper") > -1;
         });
       } else if (sender === "Other") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           return d[0].indexOf("paper") == -1 && d[0].indexOf("core") == -1 && d[0].indexOf("iron") == -1
         });
+      } else if (sender === "No") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d[2] == "no";
+        });
       } else if (sender === "Yes Core + Paper") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "YES";
         });
       } else if (sender === "No Core + Paper") {
-        this.$.yes_counter.hidden = true;
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "no";
         });
       } else {
-        this.$.yes_counter.hidden = true;
-        if (this.organization ==  "PolymerElements") {
-          this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-            if (sender == "YES") {
-              return d[2] !== "n/a";
-            } else {
-              return d[2] === "n/a";
-            }
-          });
-        } else {
-          this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-            return d[3] == sender;
-          });
-        }
+        // console.log("organization: ",this.organization.substr(0,7));
+        // if (this.organization.substr(0,7) !== "Polymerx") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          if (sender == "Yes") {
+            return d[2] !== "no";
+          } else {
+            return d[2] === "no";
+          }
+        });
+        // } else {
+        //   this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+        //     // return d[3] == "sender";
+        //     if (sender == "Yes") {
+        //       return d[3] !== "no";
+        //     } else {
+        //       return d[3] === "no";
+        //     }
+        //   });
+        // }
 
 
       }
@@ -510,6 +516,7 @@
         this.searchValue = "";
         this.reposAllFiltered = this.reposAll;
       } else { // Show search
+        this.$.radio_group_filter.selected = "All";
         this.$.radio_group_filter.hidden = true;
         this.$.search_input.hidden = false;
         this.$.filter_title.hidden = true;
@@ -517,16 +524,15 @@
     },
 
     loadReport: function() {
-      this.hideColumn5 = false;
-      this.hideColumn6 = true;
-      this.$.radio_group_filter.selected = 0;
+      this.hideColumn5 = true;
+      this.hideColumn6 = false;
+      //this.$.radio_group_filter.selected = "All";
       if (this.$.radio_group_org.selected == "polymer") { // Polymer
         this.organization = "Polymer";
         this.$.iron_radio_button.label = "Core";
         this.ironCore = "Core";
-        this.ironCore = "Iron";
-        this.hideColumn5 = true;
-        this.hideColumn6 = false;
+        // this.hideColumn5 = true;
+        // this.hideColumn6 = false;
         if (this.reposPolymer) {
           this.reposAllFiltered = this.reposPolymer;
           this.reposAll = this.reposPolymer;
@@ -537,8 +543,8 @@
         this.organization = "PolymerElements";
         this.$.iron_radio_button.label = "Iron";
         this.ironCore = "Iron";
-        this.hideColumn5 = true;
-        this.hideColumn6 = false;
+        // this.hideColumn5 = true;
+        // this.hideColumn6 = false;
         if (this.reposPolymerElements) {
           this.reposAllFiltered = this.reposPolymerElements;
           this.reposAll = this.reposPolymerElements;
@@ -557,7 +563,8 @@
     },
 
     loadReport2: function() {
-      console.log("loadReport2: ", this.$.radio_group_org.selected,this.$.get_repos_ajax.url);
+      console.log("loadReport2: ", this.$.radio_group_org.selected);
+      //this.$.radio_group_filter.selected = "All";
       this.$.error_message.innerHTML = "";
       this.reposAll = [];
       this.reposAllFiltered = [];
@@ -577,22 +584,19 @@
       this.currentError = "";
       this.$.get_repos_ajax.url = "https://api.github.com/users/" + this.organization + "/repos";
       this.$.get_repos_ajax.generateRequest();
-      // this.$.get_repos_ajax.abort();
-      // this.$.get_repos_ajax.go();
       this.$.get_repos_page2_ajax.url = "https://api.github.com/users/" + this.organization + "/repos";
       this.$.get_repos_page2_ajax.generateRequest();
-      // this.$.get_repos_page2_ajax.abort();
-      // this.$.get_repos_page2_ajax.go();
     },
 
     onOrgSelect: function(e, detail, sender) {
-      this.$.radio_group_filter.selected = 0;
+      this.$.radio_group_filter.selected = "All";
       var selectedLabel = this.$.radio_group_org.selected;
-      console.log("onOrgSelect: ", selectedLabel);
-      this.$.iron_radio_button.hidden = false;
-      this.$.paper_radio_button.hidden = false;
-      this.$.other_radio_button.hidden = false;
+      this.hideRadioButton = false;
+      if (selectedLabel == "webcomponents") {
+        this.hideRadioButton = true;
+      }
       if (this.$.radio_group_org.selected) {
+        console.log("onOrgSelect: ", selectedLabel, this.hideRadioButton);
         if (selectedLabel == "polymer" && this.reposPolymer) { // Polymer
           this.reposAllFiltered = this.reposPolymer;
           this.reposAll = this.reposPolymer;
@@ -603,20 +607,18 @@
           this.reposAll = this.reposPolymerElements;
           this.$.iron_radio_button.label = "Iron";
           this.ironCore = "Iron";
-        } else if (selectedLabel == "Google Web Components" && this.reposGoogleWebComponents) { // PolymerElements
+        } else if (selectedLabel == "webcomponents" && this.reposGoogleWebComponents) { // GoogleWebComponents
           this.reposAllFiltered = this.reposGoogleWebComponents;
           this.reposAll = this.reposGoogleWebComponents;
-          this.$.iron_radio_button.hidden = true;
-          this.$.paper_radio_button.hidden = true;
-          this.$.other_radio_button.hidden = true;
         } else {
-          this.loadReport();
+          this.async(this.loadReport);
         }
       }
-
+      // console.log("onOrgSelect: ", selectedLabel, this.hideRadioButton);
     },
 
     refreshData: function() {
+      this.$.radio_group_filter.selected = "All";
       this.loadReport2();
     },
 
