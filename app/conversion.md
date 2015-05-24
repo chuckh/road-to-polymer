@@ -139,6 +139,8 @@ see https://www.polymer-project.org/0.9/docs/migration.html#styling
 1. If you are using layout attributes change from `<div layout horizontal center>` to `<div class="layout horizontal center">`
 2. if using layout attributes add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}` to Polymer({
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
+3. If using flex change `<div flex two>` to `<div class="flex-2"`
+  - see https://github.com/PolymerElements/iron-flex-layout/blob/master/classes/iron-shadow-flex-layout.html
 
 ### Core and Paper Elements Conversion
 The core-x and paper-x are moving to PolymerElements at https://github.com/PolymerElements.
@@ -185,6 +187,10 @@ http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true
 |:-------------------- |:-------------------------------------- |
 | iron-meta            | is a element for creating and accessing self-organizing meta-database |
 | iron-state-behaviors | bahaviors that manage control states like 'focused', 'disabled', and 'active' |
+
+### Remove Comments
+Find HTML comments with Regex: `<!--(.*?)-->`
+Find Javascript comments with Regex: `(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)`
 
 
 ### Difference example of paper-button conversion by Polymer team
