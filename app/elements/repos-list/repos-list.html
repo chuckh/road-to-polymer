@@ -1,6 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/font-roboto/roboto.html" >
-<!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html"> -->
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
@@ -127,11 +126,11 @@
 
         <div  class="titles horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="cntr">Cntr</div>
-          <div class="flex">Name</div>   <!-- class="flexName</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex" on-tap="sortName"><button class="sort-column">Name</button></div>   <!-- class="flexName</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="flex-3"> Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="center-text center flex">Latest Release</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="center-text center flex" on-tap="sortLatestRelease"><button class="sort-column">Latest Release</button></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="center-text center flex" hidden$={{hideColumn5}}>0.8-<span>{{branchLookingFor}}</span></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex" on-tap="sortDateReleased" hidden$={{hideColumn6}}>Date Released</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex" on-tap="sortDateReleased" hidden$={{hideColumn6}}><button class="sort-column">Date Released</button></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
         </div>
       </div>
 
@@ -266,6 +265,8 @@
     currentError: "",
     tk: "16d359ef1b001628536988bc15168e4f7c267771",
     sortByDateAsc: false,
+    sortByReleaseAsc: false,
+    sortByNameAsc: false,
     compareCodePrefix: "../",
 
     ready: function() {
@@ -318,9 +319,9 @@
             this.push('reposAll', { name: this.repos[i].name, description: this.repos[i].description });
           }
         } else {
-          this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+          // this.reposAll.push([this.repos[i].name,this.repos[i].description]);
           //this.reposAll1.push({ name: this.repos[i].name, description: this.repos[i].description });
-          this.push('reposAll1', { name: this.repos[i].name, description: this.repos[i].description });
+          this.push('reposAll', { name: this.repos[i].name, description: this.repos[i].description });
         }
       }
       if (this.repos2) {
@@ -416,7 +417,8 @@
         }
 
       } else {
-        this.reposAll[this.currentRelease][2] = this.releaseLookingFor.toString();
+        // this.reposAll1[this.currentRelease][2] = this.releaseLookingFor.toString();
+        this.reposAll[this.currentRelease].latest_release = this.releaseLookingFor.toString();
         // this.$.loading_spinner.active = false;
         this.$.loading_spinner.toggleAttribute("active",false);
 
@@ -438,8 +440,8 @@
     },
     handleReleasesErrorResponse: function(event) {
       //console.log("handleReleasesErrorResponse: ", this.currentRelease);
-      this.reposAll1[this.currentRelease][2] = "no";
-      this.reposAll1[this.currentRelease][4] = "";
+      // this.reposAll1[this.currentRelease][2] = "no";
+      // this.reposAll1[this.currentRelease][4] = "";
       this.reposAll[this.currentRelease].latest_release = "no";
       this.reposAll[this.currentRelease].released = "";
       this.reposAll[this.currentRelease].released_datetime = "";
@@ -453,7 +455,6 @@
         this.$.loading_spinner.toggleAttribute("active",false);
         console.log("handleReleasesErrorResponse: ","DONE", this.reposAll);
         this.reposAllFiltered = this.reposAll;
-
       }
     },
 
@@ -472,47 +473,48 @@
       if (sender === "search_input") {
         this.$.radio_group_filter.selected = "All";
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          // console.log("search_input: ",this.searchValue + " -- ",d[0],d[2],d[4]);
-          return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1 || d[4].indexOf(this.searchValue) > -1);
+          // console.log("search_input: ",this.searchValue + " -- ",d.name,d.latest_release,d.released);
+          // return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1 || d[4].indexOf(this.searchValue) > -1);
+          return (d.name.indexOf(this.searchValue) > -1 || d.latest_release.indexOf(this.searchValue) > -1 || d.released.indexOf(this.searchValue) > -1);
         }.bind(this));
       } else if (sender === "All") {
         this.reposAllFiltered = this.reposAll;
       } else if (sender === "Iron") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return d[0].indexOf("iron") > -1;
+          return d.name.indexOf("iron") > -1;
         });
       } else if (sender === "Core") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return d[0].indexOf("core") > -1;
+          return d.name.indexOf("core") > -1;
         });
       } else if (sender === "Paper") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return d[0].indexOf("paper") > -1;
+          return d.name.indexOf("paper") > -1;
         });
       } else if (sender === "Other") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return d[0].indexOf("paper") == -1 && d[0].indexOf("core") == -1 && d[0].indexOf("iron") == -1
+          return d.name.indexOf("paper") == -1 && d.name.indexOf("core") == -1 && d.name.indexOf("iron") == -1
         });
       } else if (sender === "No") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return d[2] == "no";
+          return d.latest_release == "no";
         });
       } else if (sender === "Yes Core + Paper") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "YES";
+          return (d.name.indexOf("paper") > -1 || d.name.indexOf("core") > -1) && d[3] == "YES";
         });
       } else if (sender === "No Core + Paper") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-          return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "no";
+          return (d.name.indexOf("paper") > -1 || d.name.indexOf("core") > -1) && d[3] == "no";
         });
       } else {
         // console.log("organization: ",this.organization.substr(0,7));
         // if (this.organization.substr(0,7) !== "Polymerx") {
         this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
           if (sender == "Yes") {
-            return d[2] !== "no";
+            return d.latest_release !== "no";
           } else {
-            return d[2] === "no";
+            return d.latest_release === "no";
           }
         });
         // } else {
@@ -635,14 +637,17 @@
           this.reposAll = this.reposPolymer;
           this.$.iron_radio_button.label = "Core";
           this.ironCore = "Core";
+          this.organization = "Polymer";
         } else if (selectedLabel == "polymerelements" && this.reposPolymerElements) { // PolymerElements
           this.reposAllFiltered = this.reposPolymerElements;
           this.reposAll = this.reposPolymerElements;
           this.$.iron_radio_button.label = "Iron";
           this.ironCore = "Iron";
+          this.organization = "PolymerElements";
         } else if (selectedLabel == "webcomponents" && this.reposGoogleWebComponents) { // GoogleWebComponents
           this.reposAllFiltered = this.reposGoogleWebComponents;
           this.reposAll = this.reposGoogleWebComponents;
+          this.organization = "GoogleWebComponents";
         } else {
           this.async(this.loadReport);
         }
@@ -659,7 +664,7 @@
       return idx + 1;
     },
 
-    sortByDate: function(a,b) {
+    sortByDate: function(a,b) { // for template filter
       var aData = (new Date(a[4].substr(0,10))).getTime() || 0;
       var bData = (new Date(b[4].substr(0,10))).getTime() || 0;
       var returnVal = 0;  // a must be equal to b
@@ -678,13 +683,7 @@
 
     sortDateReleased: function() {
       console.log("sortDateReleased: ",this.organization);
-      if (this.organization == "Polymer") {
-        this.reposAllFiltered = this.reposPolymer;
-      } else if (this.organization == "PolymerElements") {
-        this.reposAllFiltered = this.reposPolymerElements;
-      } else {
-        this.reposAllFiltered = this.reposGoogleWebComponents;
-      }
+      this.setReposAllFiltered('set');
 
       this.reposAllFiltered.sort(function(a,b) {
         var aData = (new Date(a.released_datetime)).getTime() || 0;
@@ -702,45 +701,84 @@
         return returnVal;
       }.bind(this));
       this.sortByDateAsc = !this.sortByDateAsc;
-      if (this.organization == "Polymer") {
+      this.setRepos();
+      this.async(this.setReposAllFiltered);
+    },
+
+    sortLatestRelease: function() {
+      console.log("sortLatestRelease: ",this.organization);
+      this.setReposAllFiltered('set');
+
+      this.reposAllFiltered.sort(function(a,b) {
+        var aData = a.latest_release;
+        var bData = b.latest_release;
+        var returnVal = 0;  // a must be equal to b
+        // console.log("sort: ",aData,' -- ',bData);
+        if (aData > bData) {
+          // console.log("sort: Greater");
+          returnVal = ((this.sortByReleaseAsc) ? 1 : -1);
+        }
+        if (aData < bData) {
+          // console.log("sort: Smaller");
+          returnVal =  ((this.sortByReleaseAsc) ? -1 : 1);
+        }
+        return returnVal;
+      }.bind(this));
+      this.sortByReleaseAsc = !this.sortByReleaseAsc;
+      this.setRepos();
+      this.async(this.setReposAllFiltered);
+    },
+
+    sortName: function() {
+      console.log("sortName: ",this.organization);
+      this.setReposAllFiltered('set');
+
+      this.reposAllFiltered.sort(function(a,b) {
+        var aData = a.name;
+        var bData = b.name;
+        var returnVal = 0;  // a must be equal to b
+        // console.log("sort: ",aData,' -- ',bData);
+        if (aData > bData) {
+          // console.log("sort: Greater");
+          returnVal = ((this.sortByNameAsc) ? 1 : -1);
+        }
+        if (aData < bData) {
+          // console.log("sort: Smaller");
+          returnVal =  ((this.sortByNameAsc) ? -1 : 1);
+        }
+        return returnVal;
+      }.bind(this));
+      this.sortByNameAsc = !this.sortByNameAsc;
+      this.setRepos();
+      this.async(this.setReposAllFiltered);
+    },
+
+    setRepos: function(kind) {
+      console.log("setRepos: ",this.organization, kind);
+      if (this.organization === "Polymer") {
         this.reposPolymer = this.reposAllFiltered;
-      } else if (this.organization == "PolymerElements") {
+      } else if (this.organization === "PolymerElements") {
         this.reposPolymerElements = this.reposAllFiltered;
       } else {
         this.reposGoogleWebComponents = this.reposAllFiltered;
       }
-      this.reposAllFiltered  = [];
-      if (this.organization == "Polymer") {
+    },
+
+    setReposAllFiltered: function(kind) {
+      // console.log("setReposAllFiltered: ",this.organization, kind);
+      if (kind !== "set") {
+        // console.log(" reset");
+        this.reposAllFiltered  = [];
+      }
+      if (this.organization === "Polymer") {
         this.reposAllFiltered = this.reposPolymer;
-      } else if (this.organization == "PolymerElements") {
+      } else if (this.organization === "PolymerElements") {
         this.reposAllFiltered = this.reposPolymerElements;
       } else {
         this.reposAllFiltered = this.reposGoogleWebComponents;
       }
     },
 
-    // sortDateReleased: function() {
-    //   console.log("sortDateReleased: ",this.sortByDateAsc);
-    //   this.reposAllFiltered = this.reposPolymerElements;
-    //   this.reposAllFiltered.sort(function(a,b) {
-    //     //console.log(a[4],b[4]);
-    //     var aData = (new Date(a[4].substr(0,10))).getTime() || 0;
-    //     var bData = (new Date(b[4].substr(0,10))).getTime() || 0;
-    //     var returnVal = 0;  // a must be equal to b
-    //     // console.log("sort: ",aData,' -- ',bData);
-    //     if (aData > bData) {
-    //       console.log("sort: Greater");
-    //       returnVal = ((this.sortByDateAsc) ? 1 : -1);
-    //     }
-    //     if (aData < bData) {
-    //       console.log("sort: Smaller");
-    //       returnVal =  ((this.sortByDateAsc) ? -1 : 1);
-    //     }
-    //     return returnVal;
-    //   }.bind(this));
-    //   this.sortByDateAsc = !this.sortByDateAsc;
-    //
-    // },
 
   });
 })();
