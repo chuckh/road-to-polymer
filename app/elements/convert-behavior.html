@@ -97,7 +97,7 @@ ConvertBehavior = {
         } else {
           //convertedCode += "  }\n";
         }
-      } else if (la.length > 0) { // layout attributes
+      } else if (la.length > 0 && scriptSection == false) { // layout attributes
         // console.log("la.length > 0 (2)", la);
         this.layoutMessage = '<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html"> add  to top with other imports';
         if (scriptSection == false) {
@@ -144,6 +144,7 @@ ConvertBehavior = {
       } else if (coreAjaxSection === false  && cl.indexOf(coreAjaxClose) > -1) {  // </core-ajax>
         convertedCode += cl + '\n' + ' <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->  \n';;
       } else {
+        // console.log("js: ",cl);
         if (scriptSection == false && cl.indexOf("?=") > -1) { // convert ?= to $=, TODO convert {{}} to [[]] if one way binding?
           convertedCode += cl.replace("?=","$=") + '\n';
         } else if (scriptSection == false && cl.indexOf("on-click") > -1)  {
