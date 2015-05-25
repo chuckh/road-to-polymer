@@ -47,12 +47,12 @@
     paper-progress.yellow {
       --paper-progress-active-color: #FFFF00;
     }
-  </style> <!-- TODO Move style tags here from <template> if needed CONVERTED WIP   FFF9C4  5a5a5a CCC79D A0A2B0-->
-  <link rel="stylesheet" href="repos-list.css"> <!-- TODO Move line about <template>  CONVERTED WIP -->
+  </style>
+  <link rel="stylesheet" href="repos-list.css">
 
   <template>
 
-    <iron-media-query query="min-width: 800px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+    <iron-media-query query="min-width: 800px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query>
 
     <iron-ajax id="get_repos_ajax"
       params='{"page": "1", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
@@ -61,7 +61,7 @@
       on-response="handleReposResponse"
       on-error="handleReposErrorResponse">
     </iron-ajax>
-    <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
+
 
     <iron-ajax id="get_repos_page2_ajax"
       params='{"page": "2", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
@@ -69,7 +69,7 @@
       last-response="{{repos2}}"
       on-response="handleRepos2Response">
     </iron-ajax>
-    <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
+
 
     <!-- <iron-ajax id="get_branches_ajax"
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
@@ -77,7 +77,7 @@
       last-response="{{branches}}"
       on-response="handleBranchesResponse">
     </iron-ajax> -->
-    <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
+
 
     <iron-ajax id="get_releases_ajax"
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
@@ -86,7 +86,7 @@
       on-response="handleReleaseResponse"
       on-error="handleReleasesErrorResponse">
     </iron-ajax>
-    <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
+
 
     <paper-header-panel id="paper_header_panel" class="fit">
       <div class="paper-header vertical layout">
@@ -96,59 +96,47 @@
           <div id="filter_container" class="filter flex">
             <span id="filter_title"></span>
             <paper-radio-group selected="All" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
-              <paper-radio-button name="All" label="All" class="yellow">All</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Yes" label="Yes" class="yellow">Yes</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="no" label="no" class="yellow">no</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="{{ironCore}}" label="{{ironCore}}" id="iron_radio_button" class="yellow" hidden$="{{hideRadioButton}}">{{ironCore}}</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Paper" label="Paper" id="paper_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Paper</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Other" label="Other" id="other_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Other</paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> --> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> --> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="All" label="All" class="yellow">All</paper-radio-button>
+              <paper-radio-button name="Yes" label="Yes" class="yellow">Yes</paper-radio-button>
+              <paper-radio-button name="no" label="no" class="yellow">no</paper-radio-button>
+              <paper-radio-button name="{{ironCore}}" label="{{ironCore}}" id="iron_radio_button" class="yellow" hidden$="{{hideRadioButton}}">{{ironCore}}</paper-radio-button>
+              <paper-radio-button name="Paper" label="Paper" id="paper_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Paper</paper-radio-button>
+              <paper-radio-button name="Other" label="Other" id="other_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Other</paper-radio-button>
+              <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> --> 
+              <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> -->
             </paper-radio-group>
           </div>
-          <div id="search" class="search horizontal layout center">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-            <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="toggleSearch"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+          <div id="search" class="search horizontal layout center">
+            <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="toggleSearch"></paper-icon-button>
+            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden>
           </div>
         </div>
 
-        <div id="org_container" class="orgs horizontal layout center">   <!-- class="horizontal layout center"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+        <div id="org_container" class="orgs horizontal layout center">
           <div class="select-label">Select </div>
-          <paper-radio-group class="yellow-white" id="radio_group_org" on-paper-radio-group-changed="onOrgSelect"> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+          <paper-radio-group class="yellow-white" id="radio_group_org" on-paper-radio-group-changed="onOrgSelect">
             <paper-radio-button name="polymer" label="Polymer" class="yellow">Polymer</paper-radio-button>
             <paper-radio-button name="polymereelements" label="PolymerElements" class="yellow">PolymerElements</paper-radio-button>
             <paper-radio-button name="webcomponents" label="Google Web Components" class="yellow">Google Web Components</paper-radio-button>
           </paper-radio-group>
-          <paper-icon-button id="refresh_button" icon="refresh" role="button" aria-label="refresh" on-click="refreshData"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+          <paper-icon-button id="refresh_button" icon="refresh" role="button" aria-label="refresh" on-click="refreshData"></paper-icon-button>
         </div>
 
         <paper-progress class="pink" value="{{progressCounter}}" max="{{progressMax}}" hidden$="{{!hideList}}"></paper-progress>
 
-        <div  class="titles horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+        <div  class="titles horizontal layout">
           <div class="cntr">Cntr</div>
-          <div class="flex" on-tap="sortName"><button class="sort-column">Name</button></div>   <!-- class="flexName</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex-3"> Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="center-text center flex" on-tap="sortLatestRelease"><button class="sort-column">Latest Release</button></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="center-text center flex" hidden$={{hideColumn5}}>0.8-<span>{{branchLookingFor}}</span></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex" on-tap="sortDateReleased" hidden$={{hideColumn6}}><button class="sort-column">Date Released</button></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex" on-tap="sortName"><button class="sort-column">Name</button></div>
+          <div class="flex-3"> Description</div>
+          <div class="center-text center flex" on-tap="sortLatestRelease"><button class="sort-column">Latest Release</button></div>
+          <div class="center-text center flex" hidden$={{hideColumn5}}>0.8-<span>{{branchLookingFor}}</span></div>
+          <div class="flex" on-tap="sortDateReleased" hidden$={{hideColumn6}}><button class="sort-column">Date Released</button></div>
         </div>
       </div>
 
       <div class="content">
         <div class="vertical layout">
           <!-- sort="sortByDate" -->
-          <!-- <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
-            <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link">
-              <div  class="row horizontal layout">
-                <div class="cntr">{{counter(index)}}. </div>
-                <div class="flex repo-name" > <strong>{{item.0}}</strong></div>
-                <div class="flex-3 description">{{item.1}}</div>
-                <div class="center-text center flex">{{item.2}}</div>
-                <div class="center-text center flex" hidden$={{hideColumn5}}>{{item.3}}</div>
-                <div class="released flex" hidden$={{hideColumn6}}>{{item.4}}</div>
-              </div>
-            </a>
-          </template> -->
           <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
             <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link">
               <div  class="row horizontal layout">
@@ -163,12 +151,12 @@
           </template>
         </div>
 
-        <div  class="counters horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+        <div  class="counters horizontal layout">
           <div class="cntr">Counter</div>
-          <div class="flex"></div>   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex" three>{{reposAllFiltered.length}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div flex class="center-text flex center"></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div flex class="center-text flex center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex"></div>
+          <div class="flex" three>{{reposAllFiltered.length}}</div>
+          <div flex class="center-text flex center"></div>
+          <div flex class="center-text flex center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>
         </div>
 
         <h3 id="error_message" class="error"></h3>
@@ -784,23 +772,4 @@
 })();
 </script>
 
-</dom-module> <!-- CONVERTED -->
-
-
-<!-- CONVERSION NOTES TODO:
-Review code and look for:
-- textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
-- polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
-- custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
-- custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
-- Polymer( fix mixins use Behaviors after is: see https://www.polymer-project.org/0.9/docs/devguide/behaviors.html
-- Check layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
-- Cleanup class=
-- Convert core- to iron- or paper- replacement elements at PolymerElements
-- Remove unresolved from <body> tag
-- Cleanup iron-ajax params url if for embedded biddings {{}}=
-- iron-ajax replace this.$.xxx_ajax.abort(); and this.$.xxx_ajax.go(); with this.$.xxx_ajax.generateRequest()
-- fix indentation as need
-- Cleanup Comments to reflect changes ,
-- see https://www.polymer-project.org/0.9/docs/migration.html
--->
+</dom-module>
