@@ -135,7 +135,7 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
 .titles {
   font-size: 16px;
   position: relative;
-  top: 5px;
+  top: 0px;
   left: 0px;
   padding-left: 10px;
   width: 100%;
@@ -161,6 +161,29 @@ footer{
   text-align: center;
   font-size: 12px;
 }
+
+.sort-column {
+  height: 40px;
+  background:none;
+  border:none;
+  padding:0;
+  margin: 0;
+  font: inherit;
+  // box-sizing: none;
+  /*border is optional*/
+  // border-bottom:1px solid #444;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+// button:focus {
+//   border:none;
+//   background-color: yellow;
+// }
+// .selected {
+//   border:none;
+//   background-color: yellow;
+// }
 
 a:link {
   color: rgba(0,0,0,0.6);
