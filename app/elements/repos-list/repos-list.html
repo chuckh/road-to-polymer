@@ -62,14 +62,12 @@
       on-error="handleReposErrorResponse">
     </iron-ajax>
 
-
     <iron-ajax id="get_repos_page2_ajax"
       params='{"page": "2", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
       handle-as="json"
       last-response="{{repos2}}"
       on-response="handleRepos2Response">
     </iron-ajax>
-
 
     <!-- <iron-ajax id="get_branches_ajax"
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
@@ -78,7 +76,6 @@
       on-response="handleBranchesResponse">
     </iron-ajax> -->
 
-
     <iron-ajax id="get_releases_ajax"
       params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
       handle-as="json"
@@ -86,7 +83,6 @@
       on-response="handleReleaseResponse"
       on-error="handleReleasesErrorResponse">
     </iron-ajax>
-
 
     <paper-header-panel id="paper_header_panel" class="fit">
       <div class="paper-header vertical layout">
@@ -102,7 +98,7 @@
               <paper-radio-button name="{{ironCore}}" label="{{ironCore}}" id="iron_radio_button" class="yellow" hidden$="{{hideRadioButton}}">{{ironCore}}</paper-radio-button>
               <paper-radio-button name="Paper" label="Paper" id="paper_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Paper</paper-radio-button>
               <paper-radio-button name="Other" label="Other" id="other_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Other</paper-radio-button>
-              <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> --> 
+              <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> -->
               <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> -->
             </paper-radio-group>
           </div>
@@ -138,7 +134,8 @@
         <div class="vertical layout">
           <!-- sort="sortByDate" -->
           <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
-            <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link">
+            <!-- <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link"> -->
+            <a href="{{getURL(item)}}" target="_blank" class="link">
               <div  class="row horizontal layout">
                 <div class="cntr">{{counter(index)}}. </div>
                 <div class="flex repo-name" > <strong>{{item.name}}</strong></div>
@@ -419,7 +416,7 @@
       if (this.currentRelease < this.reposAll.length) {
         this.getReleases();
       } else {
-        console.log("handleReleaseResponse: ","DONE", this.reposAll);
+        // console.log("handleReleaseResponse: ","DONE", this.reposAll);
         this.reposAllFiltered = this.reposAll;
         // this.$.loading_spinner.active = false;
         this.$.loading_spinner.toggleAttribute("active",false);
@@ -441,7 +438,7 @@
       } else {
         this.hideList = false;
         this.$.loading_spinner.toggleAttribute("active",false);
-        console.log("handleReleasesErrorResponse: ","DONE", this.reposAll);
+        // console.log("handleReleasesErrorResponse: ","DONE", this.reposAll);
         this.reposAllFiltered = this.reposAll;
       }
     },
@@ -670,7 +667,7 @@
     },
 
     sortDateReleased: function() {
-      console.log("sortDateReleased: ",this.organization);
+      // console.log("sortDateReleased: ",this.organization);
       this.setReposAllFiltered('set');
 
       this.reposAllFiltered.sort(function(a,b) {
@@ -694,7 +691,7 @@
     },
 
     sortLatestRelease: function() {
-      console.log("sortLatestRelease: ",this.organization);
+      // console.log("sortLatestRelease: ",this.organization);
       this.setReposAllFiltered('set');
 
       this.reposAllFiltered.sort(function(a,b) {
@@ -718,7 +715,7 @@
     },
 
     sortName: function() {
-      console.log("sortName: ",this.organization);
+      // console.log("sortName: ",this.organization);
       this.setReposAllFiltered('set');
 
       this.reposAllFiltered.sort(function(a,b) {
@@ -741,8 +738,8 @@
       this.async(this.setReposAllFiltered);
     },
 
-    setRepos: function(kind) {
-      console.log("setRepos: ",this.organization, kind);
+    setRepos: function() {
+      // console.log("setRepos: ",this.organization, kind);
       if (this.organization === "Polymer") {
         this.reposPolymer = this.reposAllFiltered;
       } else if (this.organization === "PolymerElements") {
@@ -767,6 +764,12 @@
       }
     },
 
+    getURL: function(e) {
+      // console.log("getURL: ",e.name);
+      var repoName = e.name
+      var returnValue = this.compareCodePrefix + "compare-code.html?el=" + repoName + "&org=" + this.organization;
+      return returnValue;
+    },
 
   });
 })();
