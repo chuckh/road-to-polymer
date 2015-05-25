@@ -15,13 +15,7 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <script>
-      if( !('registerElement' in document &&
-            'import'          in document.createElement('link') &&
-            'content'         in document.createElement('template'))){
-              document.write('<script src="bower_components/webcomponentsjs/webcomponents-lite.js"><\/script>');
-      }
-    </script>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -84,7 +78,7 @@
             <welcome-view></welcome-view>
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
-              <!-- <repos-list></repos-list> -->
+              <repos-list></repos-list>
             </section>
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
@@ -127,8 +121,8 @@
             </section>
 
             <section class="fit">
-              <!-- <iframe id="forum_embed" src="{{forumEmbedSrc}}" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
-              <iframe id="forum_embed" src="https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=http://chuckh.github.io/road-to-polymer/#!forum/polymer-dev" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+              <iframe id="forum_embed" src="{{forumEmbedSrc}}" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+              <!-- <iframe id="forum_embed" src="https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=http://chuckh.github.io/road-to-polymer/#!forum/polymer-dev" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
             </section>
 
             <section class="fit">
