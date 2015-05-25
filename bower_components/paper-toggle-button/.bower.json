@@ -1,6 +1,6 @@
 {
   "name": "paper-toggle-button",
-  "version": "0.9.2",
+  "version": "0.9.5",
   "description": "A material design toggle button control",
   "authors": [
     "The Polymer Authors"
@@ -36,11 +36,11 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#^0.9.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "0.9.2",
+  "_release": "0.9.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.2",
-    "commit": "a484e7ff1bc19950fd8bc1dd53474b9957338c75"
+    "tag": "v0.9.5",
+    "commit": "f29775bcd0b3d4bc68b4b1439bbf5c6d5cf82765"
   },
   "_source": "git://github.com/PolymerElements/paper-toggle-button.git",
   "_target": "^0.9.0",

@@ -36,10 +36,11 @@ Styling toggle-button:
 @element paper-toggle-button
 -->
 <style is="custom-style">
-  * {
+  :root {
     --paper-toggle-button-unchecked-bar-color: #000000;
-    --paper-toggle-button-unchecked-button-color: #f1f1f1;
-    --paper-toggle-button-unchecked-ink-color: #bbb;
+    --paper-toggle-button-unchecked-button-color: #fafafa;
+    --paper-toggle-button-unchecked-ink-color: var(--dark-primary-color);
+
     --paper-toggle-button-checked-bar-color: #0f9d58;
     --paper-toggle-button-checked-button-color: #0f9d58;
     --paper-toggle-button-checked-ink-color: #0f9d58;
@@ -47,7 +48,6 @@ Styling toggle-button:
 </style>
 
 <dom-module id="paper-toggle-button">
-
 
   <link rel="import" type="css" href="paper-toggle-button.css">
 
@@ -123,6 +123,9 @@ Styling toggle-button:
 
       // button-behavior hook
       _buttonStateChanged: function() {
+        if (this.disabled) {
+          return;
+        } 
         this.checked = this.active;
       },
 

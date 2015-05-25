@@ -13,34 +13,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <script>
 
-  Polymer.PaperButtonElevation = {
-
-    properties: {
-
-      _elevation: {
-        type: Number
-      }
-
-    },
-
-    _calculateElevation: function() {
-      var e = 1;
-      if (this.disabled || !this.raised) {
-        e = 0;
-      } else if (this.active || this.pressed) {
-        e = 2;
-      } else if (this.focused) {
-        e = 3;
-      }
-      this._elevation = e;
-    }
-
-  };
-
-  Polymer.PaperButtonBehavior = [
+  /** @polymerBehavior */
+  Polymer.PaperButtonBehavior = Polymer.IronButtonState.concat(
     Polymer.IronControlState,
-    Polymer.IronButtonState,
-    Polymer.PaperButtonElevation
-  ];
+    {
+      properties: {
+
+        _elevation: {
+          type: Number
+        }
+
+      },
+
+      hostAttributes: {
+        role: 'button',
+        tabindex: '0'
+      },
+
+      _calculateElevation: function() {
+        var e = 1;
+        if (this.disabled || !this.raised) {
+          e = 0;
+        } else if (this.active || this.pressed) {
+          e = 2;
+        } else if (this.focused) {
+          e = 3;
+        }
+        this._elevation = e;
+      }
+    }
+  );
 
 </script>

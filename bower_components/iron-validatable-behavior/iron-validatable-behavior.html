@@ -11,11 +11,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-meta/iron-meta.html">
 
-<!--
-Use `Polymer.IronValidatableBehavior` to implement an element that validates user input.
--->
-
 <script>
+
+/*
+Use `Polymer.IronValidatableBehavior` to implement an element that validates user input.
+
+### Accessiblity
+
+Changing the `invalid` property, either manually or by calling `validate()` will update the
+`aria-invalid` attribute.
+
+@polymerBehavior
+*/
 
   Polymer.IronValidatableBehavior = {
 
@@ -51,6 +58,10 @@ Use `Polymer.IronValidatableBehavior` to implement an element that validates use
 
     },
 
+    observers: [
+      '_invalidChanged(invalid)'
+    ],
+
     get _validator() {
       return this._validatorMeta && this._validatorMeta.byKey(this.validator);
     },
@@ -59,15 +70,24 @@ Use `Polymer.IronValidatableBehavior` to implement an element that validates use
       this._validatorMeta = new Polymer.IronMeta({type: this.validatorType});
     },
 
+    _invalidChanged: function() {
+      if (this.invalid) {
+        this.setAttribute('aria-invalid', 'true');
+      } else {
+        this.removeAttribute('aria-invalid');
+      }
+    },
+
     /**
-     * Returns true if there is a validator.
+     * @return {Boolean} True if the validator `validator` exists.
      */
     hasValidator: function() {
       return this._validator != null;
     },
 
     /**
-     * Validates the value.
+     * @param {Object} values Passed to the validator's `validate()` function.
+     * @return {Boolean} True if `values` is valid.
      */
     validate: function(values) {
       var valid = this._validator && this._validator.validate(values);

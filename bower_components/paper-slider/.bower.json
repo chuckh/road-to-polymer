@@ -1,6 +1,6 @@
 {
   "name": "paper-slider",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "private": true,
   "authors": "The Polymer Authors",
   "keywords": [
@@ -33,11 +33,11 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
   "homepage": "https://github.com/PolymerElements/paper-slider",
-  "_release": "0.9.1",
+  "_release": "0.9.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.1",
-    "commit": "61907297e9144326f621c8ae5ed72acb77077377"
+    "tag": "v0.9.2",
+    "commit": "cd193ce0ff71fe09e5e0163c938e27e9e2345ff0"
   },
   "_source": "git://github.com/PolymerElements/paper-slider.git",
   "_target": "^0.9.0",

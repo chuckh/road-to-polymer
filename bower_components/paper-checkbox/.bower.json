@@ -1,6 +1,6 @@
 {
   "name": "paper-checkbox",
-  "version": "0.9.2",
+  "version": "0.9.4",
   "description": "A material design checkbox",
   "authors": [
     "The Polymer Authors"
@@ -36,11 +36,11 @@
     "paper-behaviors": "PolymerElements/paper-behaviors#^0.9.0",
     "polymer": "Polymer/polymer#^0.9.0"
   },
-  "_release": "0.9.2",
+  "_release": "0.9.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.2",
-    "commit": "628d835c388e96cbb5d59cb911178603766515a2"
+    "tag": "v0.9.4",
+    "commit": "aa745ff08a3bce97a7d3a6e670b459810a9951cb"
   },
   "_source": "git://github.com/PolymerElements/paper-checkbox.git",
   "_target": "^0.9.0",

@@ -1,7 +1,7 @@
 {
   "name": "paper-dialog",
   "description": "A Material Design dialog",
-  "version": "0.9.1",
+  "version": "0.9.3",
   "authors": "The Polymer Authors",
   "keywords": [
     "web-components",
@@ -20,23 +20,24 @@
   "homepage": "https://github.com/PolymerElements/paper-dialog",
   "ignore": [],
   "dependencies": {
+    "polymer": "Polymer/polymer#^0.9.0",
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^0.9.0",
     "paper-styles": "PolymerElements/paper-styles#^0.9.0",
-    "polymer": "Polymer/polymer#^0.9.0"
+    "neon-animation": "PolymerElements/neon-animation#^0.9.0"
   },
   "devDependencies": {
-    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.9.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
     "paper-button": "PolymerElements/paper-button#^0.9.0",
     "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^0.9.0",
     "test-fixture": "PolymerElements/test-fixture#^0.9.0",
     "web-component-tester": "*",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "0.9.1",
+  "_release": "0.9.3",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.1",
-    "commit": "dab0f1ff30c5bdb89b2e62f764b07fe0dc2b8e82"
+    "tag": "v0.9.3",
+    "commit": "e2fe3a4ac08c62a064608f1c812f12c66c1d2823"
   },
   "_source": "git://github.com/PolymerElements/paper-dialog.git",
   "_target": "~0.9.1",
