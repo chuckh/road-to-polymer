@@ -1,13 +1,14 @@
 node_modules
 test/temp
 dist
+dist/
 .sass-cache
 .tmp
 test/bower_components/
 bower_components
 bower_components/
 app/bower_components
-app/bower_components/
+app/bower_components/*
 
 bower_components/marked/.bower.json
 
@@ -52,7 +53,5 @@ app/elements/repos-compare-list/repos-compare-list1-0.html
 bower_components/iron-media-query/demo/index.html
 
 bower_components/iron-media-query/demo/index.html
-
-bower.json
 
 bower_components/iron-media-query/demo/index.html

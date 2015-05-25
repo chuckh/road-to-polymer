@@ -67,6 +67,11 @@ paper-header-panel .paper-header {
   padding-right: 20px;
 }
 
+
+#radioLabel.paper-radio-button {
+  color: #E0E0E0!important;
+}
+
 paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
   color: #FFFF00;
 }

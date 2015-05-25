@@ -13,10 +13,7 @@
       --paper-radio-button-checked-color: #FFFF00;
       --paper-radio-button-checked-ink-color: #FFFF00;
     }
-    paper-spinner {
-      padding-left: 30px;
-      padding-top: 15px;
-    }
+
     paper-spinner.blue {
       --paper-spinner-layer-1-color: #4285f4;
       --paper-spinner-layer-2-color: #4285f4;
@@ -97,8 +94,6 @@
               <paper-radio-button name="{{ironCore}}" label="{{ironCore}}" id="iron_radio_button" class="yellow" hidden$="{{hideRadioButton}}">{{ironCore}}</paper-radio-button>
               <paper-radio-button name="Paper" label="Paper" id="paper_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Paper</paper-radio-button>
               <paper-radio-button name="Other" label="Other" id="other_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Other</paper-radio-button>
-              <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> -->
-              <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRadioButtonRepos}}"></paper-radio-button> -->
             </paper-radio-group>
           </div>
           <div id="search" class="search horizontal layout center">

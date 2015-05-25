@@ -23,7 +23,7 @@
   <!-- endreplace-->
 </head>
 
-<body class="fullbleed vertical layout">
+<body unresolved class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
        <!-- dom-bind CONVERTED WIP -->
       <iron-media-query query="max-width: 850px" query-matches="{{smallScreen}}"></iron-media-query>
@@ -45,7 +45,7 @@
           </paper-toolbar>
 
           <!-- Drawer Content -->
-          <paper-menu selected="{{page}}" class="sidebar-menu" on-core-select="selectMenu" style="font-size:9px; padding-top: 3px;">
+          <paper-menu id="sidebar_menu" selected="{{page}}" class="sidebar-menu" on-core-select="selectMenu" style="font-size:9px; padding-top: 3px;">
             <paper-item><iron-icon icon="polymer" item-icon></iron-icon>Welcome</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Repositories Status Report</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Elements Coverted</paper-item>
@@ -58,7 +58,7 @@
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Primer 0.9</paper-item>
             <paper-item><iron-icon icon="av:web" item-icon></iron-icon>Polymer 0.5 Doc</paper-item>
             <a href="https://polymer.slack.com/messages/general/" target="_blank"><paper-item><iron-icon icon="open-in-new" on-click="loadUrl" url="https://polymer.slack.com/messages/general/" item-icon></iron-icon>Polymer Slack</paper-item></a>
-            <paper-item><iron-icon icon="question-answer" item-icon></iron-icon>Polymer Discussion</paper-item>
+            <a href="https://groups.google.com/forum/#!forum/polymer-dev" target="_blank"><paper-item><iron-icon icon="question-answer" item-icon></iron-icon>Polymer Dev Group Discussion</paper-item></a>
             <a href="https://plus.google.com/communities/115626364525706131031" target="_blank"><paper-item><iron-icon icon="open-in-new" on-click="loadUrl" url="https://plus.google.com/communities/115626364525706131031" item-icon></iron-icon>Polymer G+ Community</paper-item></a>
             <paper-item><iron-icon icon="av:video-collection" item-icon></iron-icon>Polycasts Training Videos</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Yeoman generator for Polymer</paper-item>
@@ -117,16 +117,18 @@
             </section>
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
-              <h2 styles="padding: 20px;">Loaded Polymer Slack in seperate tab.</h2>
+              <h2 style="padding: 20px;">Loaded Polymer Slack in seperate tab.</h2>
             </section>
 
             <section class="fit">
-              <iframe id="forum_embed" src="{{forumEmbedSrc}}" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>
+              <h2 style="padding: 20px">Loaded Polymer Dev Google Group in seperate tab.</h2>
+
+              <!-- <iframe id="forum_embed" src="{{forumEmbedSrc}}" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
               <!-- <iframe id="forum_embed" src="https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=http://chuckh.github.io/road-to-polymer/#!forum/polymer-dev" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
             </section>
 
             <section class="fit">
-              <h2 styles="padding: 20px;">Loaded Polymer Google + Comunity in seperate tab.</h2>
+              <h2 style="padding: 20px;">Loaded Polymer Google + Comunity in seperate tab.</h2>
             </section>
 
             <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
