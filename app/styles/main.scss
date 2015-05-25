@@ -4,6 +4,15 @@ body {
   color: #333;
 }
 
+#show_hide_button {
+  position: absolute;
+  top: 44px;
+  left: 8px;
+  color: white;
+  background: #2979FF;
+  z-index:10;
+}
+
 .left-sidebar {
   height: 100%;
   box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -12,13 +21,13 @@ body {
 
 #left_sidebar_toolbar {
   background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
+  font-size: 20px;
 }
 
 #left_sidebar_toolbar .toolbar-tools.paper-toolbar {
   padding: 0;
   margin-top: -5px;
   margin-left: -34px;
-  font-size: 1.1em;
 }
 
 paper-header-panel {

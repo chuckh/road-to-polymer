@@ -10,7 +10,8 @@
   app.showHideButtonLeft = "8px;";
   app.page = 0;
   //app.forumEmbedSrc = 'https://groups.google.com/forum/embed/?place=forum/polymer-dev' + '&showsearch=true&showpopout=true&showtabs=false';
-  app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=" + encodeURIComponent(window.location.href);
+  app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=" + window.location.href;
+  // app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=http://chuckh.github.io/road-to-polymer/#!forum/polymer-dev"
 
   // app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev#!forum/polymer-dev" + "&showsearch=true&showpopout=true&parenturl=" + encodeURIComponent(window.location.href);
   //app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev" + "&showsearch=true&showpopout=true&parenturl=" +  encodeURIComponent(window.location.href);
@@ -19,17 +20,11 @@
 
   // + '&parenturl=' + 'https://github.com/chuckh/road-to-polymer'; //encodeURIComponent(window.location.href)
 
-  // Listen for template bound event to know when bindings
-  // have resolved and content has been stamped to the page
-  //app.addEventListener('template-bound', function() {
-  app.addEventListener('template-bound', function(e) {
-    console.log('Road to Polymer 1.0 is ready to rock! (template-bound)', app.smallScreen); //app.forumEmbedSrc,
-  });
 
   // See https://github.com/Polymer/polymer/issues/1381
   window.addEventListener('WebComponentsReady', function() {
-    console.log('Road to Polymer 1.0 WebComponentsReady!'); //app.forumEmbedSrc,
-    document.querySelector('body').removeAttribute('unresolved');
+    console.log('Road to Polymer 1.0 WebComponentsReady!',app.smallScreen,app.forumEmbedSrc); //app.forumEmbedSrc,
+    // document.querySelector('body').removeAttribute('unresolved');
   });
 
   app.toggleDrawer = function(e) {
