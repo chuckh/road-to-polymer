@@ -1,107 +1,110 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/font-roboto/roboto.html" >
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 
-<polymer-element name="repos-compare-list" attributes="">
+<dom-module id='repos-compare-list'  > <!-- CONVERTED WIP -->
+
+  <style>
+  </style> <!-- TODO Move style tags here from <template> if needed CONVERTED WIP -->
+  <link rel="stylesheet" href="repos-compare-list.css"> <!-- TODO Move line about <template>  CONVERTED WIP -->
+
   <template>
-    <link rel="stylesheet" href="repos-compare-list.css">
 
-    <core-media-query query="min-width: 1020px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+    <iron-media-query query="min-width: 1020px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
 
-		<core-ajax id="get_org1_repos_ajax"
+		<iron-ajax id="get_org1_repos_ajax"
 			url="https://api.github.com/users/{{organization1}}/repos",
-			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loadingOrg1}}"
-			progress="{{progressOrg1}}"
-			response="{{reposOrg1}}"
-			on-core-response="{{handleReposResponseOrg1}}"
-			on-core-error="{{handleReposErrorResponseOrg1}}">
-		</core-ajax>
+      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+			handle-as="json"
+			last-response="{{reposOrg1}}"
+			on-response="handleReposResponseOrg1"
+			on-error="handleReposErrorResponseOrg1">
+		</iron-ajax>
+ <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
 
-    <core-ajax id="get_org1_repos_page2_ajax"
+    <iron-ajax id="get_org1_repos_page2_ajax"
 			url="https://api.github.com/users/{{organization1}}/repos",
-			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loadingOrg1p2}}"
-			progress="{{progressOrg1p2}}"
-			response="{{reposOrg1p2}}"
-			on-core-response="{{handleReposResponseOrg1p2}}"
-			on-core-error="{{handleReposErrorResponseOrg1p2}}">
-		</core-ajax>
+      params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+			handle-as="json"
+			last-response="{{reposOrg1p2}}"
+			on-response="handleReposResponseOrg1p2"
+			on-error="handleReposErrorResponseOrg1p2">
+		</iron-ajax>
+ <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
 
-    <core-ajax id="get_org2_repos_ajax"
+    <iron-ajax id="get_org2_repos_ajax"
 			url="https://api.github.com/users/{{organization2}}/repos",
-			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loadingOrg2}}"
-			progress="{{progressOrg2}}"
-			response="{{reposOrg2}}"
-			on-core-response="{{handleReposResponseOrg2}}"
-			on-core-error="{{handleReposErrorResponseOrg2}}">
-		</core-ajax>
+      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+			handle-as="json"
+			last-response="{{reposOrg2}}"
+			on-response="handleReposResponseOrg2"
+			on-error="handleReposErrorResponseOrg2">
+		</iron-ajax>
+ <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
 
-		<core-header-panel id="core_header_panel" fit>
-		  <div class="core-header" vertical layout>
-			  <div horizontal layout>
+		<paper-header-panel id="core_header_panel" class="fit">   <!-- class="fit"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		  <div class="core-header vertical layout" >   <!-- class="vertical layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+			  <div class="horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
   			  <div class="report-title">Polymer Converted to PolymerElements</div>
-  			  <div id="filter_container" class="filter" flex>
+  			  <div id="filter_container" class="filter flex" >   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
             <span id="filter_title"></span>
   				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
-  				    <paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button>
-  				    <paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button>
-  				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
-              <paper-radio-button name="Renamed" label="Renamed" on-click="{{filterRepos}}"></paper-radio-button>
-  				    <paper-radio-button name="Core" label="Core" on-click="{{filterRepos}}" id="iron_radio_button"></paper-radio-button>
-  				    <paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}" id="paper_radio_button"></paper-radio-button>
-  				    <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button> -->
-  				    <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button> -->
+  				    <paper-radio-button name="all" label="All" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+  				    <paper-radio-button name="Yes" label="YES" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+  				    <paper-radio-button name="No" label="no" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+              <paper-radio-button name="Renamed" label="Renamed" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+  				    <paper-radio-button name="Core" label="Core" on-click="filterRepos" id="iron_radio_button"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+  				    <paper-radio-button name="Paper" label="Paper" on-click="filterRepos" id="paper_radio_button"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
   				  </paper-radio-group>
   			  </div>
-  			  <div id="search" class="search" horizontal layout>
-  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
-  				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names" autofocus hidden>
+  			  <div id="search" class="search horizontal layout" >   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="toggleSearch"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+  				  <!-- <input type="search" id="search_input" value="{{searchValue}}" on-keyup="filterRepos" on-search=="filterRepos" autocomplete="on" placeholder="search names" autofocus hidden> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->   -->
+            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden>
   			  </div>
     		</div>
 
         <!-- <div horizontal layout>
-          <div flex></div> -->
-          <paper-button id="load_button" on-tap="{{loadReport}}" raised affirmative autofocus >
-            <core-icon id="load_icon" icon="refresh"></core-icon>
+          <div flex></div> -->   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <paper-button id="load_button" on-tap="loadReport" raised affirmative autofocus > <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
+            <iron-icon id="load_icon" icon="refresh"></iron-icon>
             <span id="load_label">Load Data</span>
           </paper-button>
         <!-- </div> -->
 
-		    <div horizontal layout class="titles">
+		    <div  class="titles horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		      <div class="cntr">Cntr</div>
-		      <div flex two>{{organization1}} Name</div>
-		      <div flex two class="org2-title"><strong>{{organization2}} Name</strong></div>
-          <div flex one class="center">Renamed</div>
-          <div flex three>Polymer Description</div>
+		      <div class="flex" two>{{organization1}} Name</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div  two class="org2-title flex"><strong>{{organization2}} Name</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div flex one class="center flex center">Renamed</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex" three>Polymer Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		    </div>
 		  </div>
 
 		  <div class="content">
-		    <div vertical layout>
-		      <template repeat="{{repoAll, j in reposAllOrg1Filtered}}">
+		    <div class="vertical layout">   <!-- class="vertical layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <template is="dom-repeat" items="{{data}}"  ="{{repoAll, j in reposAllOrg1Filtered}}">
+      <!-- TODO fix repeat, replace data, remove extra ="{{key in keys}}"   CONVERTED WIP -->
             <!-- <a href="{{compareCodePrefix}}compare-code.html?el={{repoAll[0]}}&org={{organization}}" target="_blank" class="link"> -->
-		        <div horizontal layout class="row">
+		        <div  class="row horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		          <div class="cntr">{{j+1}}. </div>
-		          <div flex two>{{repoAll[0]}}</div>
-		          <div flex two><strong>&nbsp;{{repoAll[2]}}</strong></div>
-              <div flex one class="center">{{repoAll[3]}}</div>
-		          <div flex three>{{repoAll[1]}}</div>
+		          <div class="flex" two>{{repoAll[0]}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		          <div class="flex" two><strong> {{repoAll[2]}}</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+              <div flex one class="center flex center">{{repoAll[3]}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		          <div class="flex" three>{{repoAll[1]}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		        </div>
           </a>
 		      </template>
 		    </div>
 
-		    <div horizontal layout class="counters">
+		    <div  class="counters horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		      <div class="cntr">Counter</div>
-		      <div flex></div>
-		      <div flex three>{{reposAllOrg1Filtered.length}}</div>
-		      <div flex class="center"></div>
-		      <div flex class="center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>
+		      <div flex></div>   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="flex" three>{{reposAllOrg1Filtered.length}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div flex class="center flex center"></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div flex class="center flex center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		    </div>
 
 		    <h3 id="error_message" class="error"></h3>
@@ -113,12 +116,13 @@
     			If you don't see results after filtering then scroll up.
   			</footer>
 		  </div>
-		</core-header-panel>
+		</paper-header-panel>
 
   </template>
   <script>
     (function () {
       Polymer({
+        is: 'repos-compare-list', // CONVERTED WIP
 
         organization1: "Polymer",
         organization2: "PolymerElements",
@@ -367,7 +371,7 @@
               if (rnameOrg2 === "iron-" + rsuffix) {
                 foundName = "iron-" + rsuffix + " (renamed)";
               } else { // otherwise search for paper version
-                if (rnameOrg2 === "paper-" + rsuffix && rname !== 'core-input' && rname !== 'core-item' && rname !== 'core-elements') {
+                if (rnameOrg2 === "paper-" + rsuffix && rname !== 'iron-input' && rname !== 'paper-item' && rname !== 'core-elements') {
                   foundName = rnameOrg2 + " (renamed)";
                 }
               }
@@ -388,4 +392,23 @@
       });
     })();
   </script>
-</polymer-element>
+</dom-module> <!-- CONVERTED -->
+
+
+<!-- CONVERSION NOTES TODO:
+ Review code and look for:
+ - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
+ - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
+ - custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
+ - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
+ - Polymer( fix mixins use Behaviors after is: see https://www.polymer-project.org/0.9/docs/devguide/behaviors.html
+ - Check layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
+ - Cleanup class=
+ - Convert core- to iron- or paper- replacement elements at PolymerElements
+ - Remove unresolved from <body> tag
+ - Cleanup iron-ajax params url for embedded bindings {{}}
+ - iron-ajax replace this.$.xxx_ajax.abort(); and this.$.xxx_ajax.go(); with this.$.xxx_ajax.generateRequest()
+ - fix indentation as need
+ - Cleanup Comments to reflect changes ,
+ - see https://www.polymer-project.org/0.9/docs/migration.html
+   -->
