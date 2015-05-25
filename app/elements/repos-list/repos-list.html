@@ -131,21 +131,21 @@
           <div class="flex-3"> Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="center-text center flex">Latest Release</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
           <div class="center-text center flex" hidden$={{hideColumn5}}>0.8-<span>{{branchLookingFor}}</span></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex one" hidden$={{hideColumn6}}>Date Released</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex" on-tap="sortDateReleased" hidden$={{hideColumn6}}>Date Released</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
         </div>
       </div>
 
       <div class="content">
         <div class="vertical layout">
-          <template is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
-            <a href="{{compareCodePrefix}}compare-code.html?el={{repoAll[0]}}&org={{organization}}" target="_blank" class="link">
+          <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}"> <!-- sort="sortByDate" -->
+            <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link">
               <div  class="row horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
                 <div class="cntr">{{counter(index)}}. </div>
                 <div class="flex repo-name" > <strong>{{item.0}}</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
                 <div class="flex-3 description">{{item.1}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
                 <div class="center-text center flex">{{item.2}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
                 <div class="center-text center flex" hidden$={{hideColumn5}}>{{item.3}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-                <div  class="released flex" hidden$={{hideColumn6}}>{{item.4}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+                <div class="released flex" hidden$={{hideColumn6}}>{{item.4}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
               </div>
             </a>
           </template>
@@ -203,7 +203,7 @@
       },
       hideColumn5: {
         type: Boolean,
-        value: false,
+        value: true,
         notify: true,
         reflectToAttribute: true
       },
@@ -244,6 +244,7 @@
     repos2Loaded: false,
     reposLoaded: false,
     reposAll: [],
+    reposAll1: [],
     cntr: 0,
     cntrYes: 0,
     currentBranch: 0,
@@ -300,9 +301,11 @@
         if (this.repos[i].description) {
           if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
             this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+            this.reposAll1.push({ name: this.repos[i].name, description: this.repos[i].description });
           }
         } else {
           this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+          this.reposAll1.push({ name: this.repos[i].name, description: this.repos[i].description });
         }
       }
       if (this.repos2) {
@@ -311,9 +314,11 @@
           if (this.repos2[i].description) {
             if (this.repos2[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
               this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
+              this.reposAll1.push({ name: this.repos2[i].name, description: this.repos[i].description });
             }
           } else {
             this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
+            this.reposAll1.push({ name: this.repos2[i].name, description: this.repos[i].description });
           }
         }
       }
@@ -380,11 +385,16 @@
     handleReleaseResponse: function(event) {
       if (this.organization == "Polymer" || this.organization == "PolymerElements" || this.organization == "GoogleWebComponents") {
         this.reposAll[this.currentRelease][2] = this.releases.tag_name;
+        this.reposAll1[this.currentRelease].latest_release = this.releases.tag_name;
+
         if (this.releases.published_at) {
           var rdate = new Date(this.releases.published_at);
           this.reposAll[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
+          this.reposAll1[this.currentRelease].released = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
+          this.reposAll1[this.currentRelease].released_datetime = this.releases.published_at;
         } else {
           this.reposAll[this.currentRelease][4] = "";
+          this.reposAll1[this.currentRelease].released = "";
         }
 
       } else {
@@ -401,7 +411,7 @@
       if (this.currentRelease < this.reposAll.length) {
         this.getReleases();
       } else {
-        console.log("handleReleaseResponse: ","DONE");
+        console.log("handleReleaseResponse: ","DONE", this.reposAll1);
         this.reposAllFiltered = this.reposAll;
         // this.$.loading_spinner.active = false;
         this.$.loading_spinner.toggleAttribute("active",false);
@@ -419,8 +429,9 @@
       } else {
         this.hideList = false;
         this.$.loading_spinner.toggleAttribute("active",false);
-        console.log("handleReleasesErrorResponse: ","DONE");
+        console.log("handleReleasesErrorResponse: ","DONE", this.reposAll1);
         this.reposAllFiltered = this.reposAll;
+
       }
     },
 
@@ -596,7 +607,7 @@
         this.hideRadioButton = true;
       }
       if (this.$.radio_group_org.selected) {
-        console.log("onOrgSelect: ", selectedLabel, this.hideRadioButton);
+        // console.log("onOrgSelect: ", selectedLabel, this.hideRadioButton);
         if (selectedLabel == "polymer" && this.reposPolymer) { // Polymer
           this.reposAllFiltered = this.reposPolymer;
           this.reposAll = this.reposPolymer;
@@ -624,6 +635,49 @@
 
     counter: function(idx) {
       return idx + 1;
+    },
+
+    sortByDateAsc: false,
+    sortByDate: function(a,b) {
+      var aData = (new Date(a[4].substr(0,10))).getTime() || 0;
+      var bData = (new Date(b[4].substr(0,10))).getTime() || 0;
+      var returnVal = 0;  // a must be equal to b
+      // console.log("sort: ",aData,' -- ',bData);
+      if (aData > bData) {
+        returnVal = ((this.sortByDateAsc) ? 1 : -1);
+        console.log("sort: Greater", returnVal);
+      }
+      if (aData < bData) {
+        returnVal =  ((this.sortByDateAsc) ? -1 : 1);
+        console.log("sort: Smaller", returnVal);
+      }
+      // this.sortByDateAsc = !this.sortByDateAsc;
+      return returnVal;
+    },
+
+    sortDateReleased: function() {
+      console.log("sortDateReleased: ",this.sortByDateAsc);
+      this.reposAllFiltered = this.reposPolymerElements;
+      this.reposAllFiltered.sort(function(a,b) {
+        //console.log(a[4],b[4]);
+        var aData = (new Date(a[4].substr(0,10))).getTime() || 0;
+        var bData = (new Date(b[4].substr(0,10))).getTime() || 0;
+        var returnVal = 0;  // a must be equal to b
+        // console.log("sort: ",aData,' -- ',bData);
+        if (aData > bData) {
+          console.log("sort: Greater");
+          returnVal = ((this.sortByDateAsc) ? 1 : -1);
+        }
+        if (aData < bData) {
+          console.log("sort: Smaller");
+          returnVal =  ((this.sortByDateAsc) ? -1 : 1);
+        }
+        return returnVal;
+      }.bind(this));
+      this.sortByDateAsc = !this.sortByDateAsc;
+      // this.$.repos_template.refresh();
+      // this.reposAllFiltered.refresh();
+      // this.reposAllFiltered = this.reposPolymerElements;
     },
 
   });
