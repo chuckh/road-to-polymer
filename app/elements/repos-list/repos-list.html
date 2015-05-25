@@ -55,7 +55,7 @@
     <iron-media-query query="min-width: 800px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query>
 
     <iron-ajax id="get_repos_ajax"
-      params='{"page": "1", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
       handle-as="json"
       last-response="{{repos}}"
       on-response="handleReposResponse"
@@ -63,7 +63,7 @@
     </iron-ajax>
 
     <iron-ajax id="get_repos_page2_ajax"
-      params='{"page": "2", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
       handle-as="json"
       last-response="{{repos2}}"
       on-response="handleRepos2Response">
@@ -88,7 +88,6 @@
       <div class="paper-header vertical layout">
         <div class="horizontal layout">
           <div class="report-title">Repositories Status</div>
-          <paper-spinner id="loading_spinner" class="pink" active></paper-spinner>
           <div id="filter_container" class="filter flex">
             <span id="filter_title"></span>
             <paper-radio-group selected="All" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
@@ -130,7 +129,7 @@
         </div>
       </div>
 
-      <div class="content">
+      <div class="repos-list-content">
         <div class="vertical layout">
           <!-- sort="sortByDate" -->
           <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
@@ -148,7 +147,13 @@
           </template>
         </div>
 
-        <div  class="counters horizontal layout">
+        <div class="horizontal layout center">
+          <div class="flex"></div>
+          <paper-spinner id="loading_spinner" class="pink" active></paper-spinner><br>
+          <div  class="flex"></div>
+        </div>
+
+        <div class="counters horizontal layout">
           <div class="cntr">Counter</div>
           <div class="flex"></div>
           <div class="flex" three>{{reposAllFiltered.length}}</div>
@@ -299,7 +304,7 @@
       for (var i = 0; i < dataLen; i++) {
         if (this.repos[i].description) {
           if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
-            this.reposAll1.push([this.repos[i].name,this.repos[i].description]);
+            // this.reposAll1.push([this.repos[i].name,this.repos[i].description]);
             //this.reposAll1.push({ name: this.repos[i].name, description: this.repos[i].description });
             this.push('reposAll', { name: this.repos[i].name, description: this.repos[i].description });
           }
@@ -314,12 +319,12 @@
         for (var i = 0; i < dataLen2; i++) {
           if (this.repos2[i].description) {
             if (this.repos2[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
-              this.reposAll1.push([this.repos2[i].name,this.repos2[i].description]);
+              // this.reposAll1.push([this.repos2[i].name,this.repos2[i].description]);
               // this.reposAll1.push({ name: this.repos2[i].name, description: this.repos[i].description });
               this.push('reposAll', { name: this.repos2[i].name, description: this.repos[i].description });
             }
           } else {
-            this.reposAll1.push([this.repos2[i].name,this.repos2[i].description]);
+            // this.reposAll1.push([this.repos2[i].name,this.repos2[i].description]);
             // this.reposAll1.push({ name: this.repos2[i].name, description: this.repos[i].description });
             this.push('reposAll', { name: this.repos2[i].name, description: this.repos[i].description });
           }
@@ -371,6 +376,7 @@
       var repo = this.reposAll[this.currentRelease].name;
       this.currentReleaseName = repo;
       this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+      this.$.get_releases_ajax.generateRequest();
 
       // if (this.organization == "Polymer") {
       //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
@@ -380,23 +386,22 @@
       //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
       // }
       // console.log("getReleases: ",this.$.get_releases_ajax.url, this.organization);
-      this.$.get_releases_ajax.generateRequest();
       // this.$.get_releases_ajax.abort();
       // this.$.get_releases_ajax.go();
     },
 
     handleReleaseResponse: function(event) {
       if (this.organization == "Polymer" || this.organization == "PolymerElements" || this.organization == "GoogleWebComponents") {
-        this.reposAll1[this.currentRelease][2] = this.releases.tag_name;
+        // this.reposAll1[this.currentRelease][2] = this.releases.tag_name;
         this.reposAll[this.currentRelease].latest_release = this.releases.tag_name;
 
         if (this.releases.published_at) {
           var rdate = new Date(this.releases.published_at);
-          this.reposAll1[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
+          // this.reposAll1[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
           this.reposAll[this.currentRelease].released = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
           this.reposAll[this.currentRelease].released_datetime = this.releases.published_at;
         } else {
-          this.reposAll1[this.currentRelease][4] = "";
+          // this.reposAll1[this.currentRelease][4] = "";
           this.reposAll[this.currentRelease].released = "";
           this.reposAll[this.currentRelease].released_datetime = "";
         }

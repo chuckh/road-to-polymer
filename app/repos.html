@@ -27,9 +27,16 @@
 
 </head>
 
-<body>
+<body unresolved>
 
   <repos-list></repos-list>
+
+  <script>
+    window.addEventListener('WebComponentsReady', function() {
+      console.log('Repositories Status WebComponentsReady!');
+      document.querySelector('body').removeAttribute('unresolved');
+    });
+  </script>
 
 </body>
 </html>

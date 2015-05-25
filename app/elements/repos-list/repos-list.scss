@@ -14,6 +14,7 @@
   padding-bottom: 5px;
   padding-left: 10px;
   border-bottom: 1px solid #E6E6E6;
+  font-size: 16px;
 }
 
 .cntr {
@@ -32,6 +33,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
+  font-size: 16px;
 }
 
 paper-header-panel {
@@ -46,7 +48,7 @@ paper-header-panel .paper-header {
   color: #FFF;
   transition: height 0.2s;
 }
-.content {
+.repos-list-content {
   height: 2000px;
   padding-top: 15px;
   background-color: #fafafa;  //  fafafa fefefe
