@@ -114,3 +114,17 @@ smokybob: yeah private keys are a pain in completely transparent languages such 
 <link href="https://rawgit.com/PolymerElements/paper-material/master/paper-material.html" rel="import">
 <link href="https://rawgit.com/PolymerElements/paper-menu/master/paper-menu.html" rel="import">
 <link href="https://rawgit.com/PolymerElements/paper-styles/master/paper-styles.html" rel="import">
+
+
+-------
+index.html option loading...
+
+<!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <script>
+      if( !('registerElement' in document &&
+            'import'          in document.createElement('link') &&
+            'content'         in document.createElement('template'))){
+              document.write('<script src="bower_components/webcomponentsjs/webcomponents-lite.js"><\/script>');
+      }
+    </script>
+  <!-- endbuild -->
