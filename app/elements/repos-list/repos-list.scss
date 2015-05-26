@@ -39,7 +39,7 @@
 paper-header-panel {
   height: 100%;
 }
-paper-header-panel .paper-header {
+paper-header-panel #paper_header_repos_list {
   height: 150px;
   line-height: 60px;
   font-size: 20px;
@@ -59,7 +59,7 @@ paper-header-panel .paper-header {
   padding-left: 20px;
 }
 
-.filter {
+.filter-repos-list {
   margin-top: -10px;
   font-size: 14px;
   text-align: right;
@@ -110,7 +110,7 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   min-width: 300px;
 }
 
-.orgs {
+.orgs-repos-list {
   position: relative;
   top: 0;
   left: 0;

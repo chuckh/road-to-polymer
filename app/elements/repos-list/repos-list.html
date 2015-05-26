@@ -81,11 +81,11 @@
       on-error="handleReleasesErrorResponse">
     </iron-ajax>
 
-    <paper-header-panel id="paper_header_panel" class="fit">
-      <div class="paper-header vertical layout">
+    <paper-header-panel id="paper_header_panel_repos_list" class="fit">
+      <div id="paper_header_repos_list" class="paper-header list vertical layout">
         <div class="horizontal layout">
           <div class="report-title">Repositories Status</div>
-          <div id="filter_container" class="filter flex">
+          <div id="filter_container_repos_list" class="filter-repos-list flex">
             <span id="filter_title"></span>
             <paper-radio-group selected="All" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
               <paper-radio-button name="All" label="All" class="yellow">All</paper-radio-button>
@@ -102,7 +102,7 @@
           </div>
         </div>
 
-        <div id="org_container" class="orgs horizontal layout center">
+        <div id="org_container_repos_list" class="orgs-repos-list horizontal layout center">
           <div class="select-label">Select </div>
           <paper-radio-group class="yellow-white" id="radio_group_org" on-paper-radio-group-changed="onOrgSelect">
             <paper-radio-button name="polymer" label="Polymer" class="yellow">Polymer</paper-radio-button>
@@ -145,7 +145,7 @@
         <div class="horizontal layout center">
           <div class="flex"></div>
           <paper-spinner id="loading_spinner" class="pink" active></paper-spinner><br>
-          <div  class="flex"></div>
+          <div class="flex"></div>
         </div>
 
         <div class="counters horizontal layout">
@@ -444,7 +444,7 @@
     },
 
     filterSearchRepos: function() {
-      this.filterRepos('search_input')
+      this.filterRepos('search_input');
     },
 
     onRadioGroupFilterChange: function(e, detail, sender) {
@@ -521,10 +521,10 @@
 
     reposViewResized: function(e, detail, sender) {
       var contentWidth = 0;
-      if (this.$.paper_header_panel) {
-        contentWidth = this.$.paper_header_panel.clientWidth;
+      if (this.$.paper_header_panel_repos_list) {
+        contentWidth = this.$.paper_header_panel_repos_list.clientWidth;
       }
-      //// TODO FIX this.$.filter_container.hidden = !this.mediumScreen;
+      //// TODO FIX this.$.filter_container_repos_list.hidden = !this.mediumScreen;
       // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
     },
 
