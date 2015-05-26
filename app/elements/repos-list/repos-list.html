@@ -97,7 +97,7 @@
             </paper-radio-group>
           </div>
           <div id="search" class="search horizontal layout center">
-            <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="toggleSearch"></paper-icon-button>
+            <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed active on-click="toggleSearch"></paper-icon-button>
             <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden>
           </div>
         </div>
