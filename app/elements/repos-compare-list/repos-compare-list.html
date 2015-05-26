@@ -1,110 +1,145 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/font-roboto/roboto.html" >
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 
-<dom-module id='repos-compare-list'  > <!-- CONVERTED WIP -->
+<dom-module id='repos-compare-list'>
 
-  <style>
-  </style> <!-- TODO Move style tags here from <template> if needed CONVERTED WIP -->
-  <link rel="stylesheet" href="repos-compare-list.css"> <!-- TODO Move line about <template>  CONVERTED WIP -->
+  <style is="custom-style">
+    paper-radio-button.yellow {
+      --paper-radio-button-unchecked-color: #5C6BC0;
+      --paper-radio-button-unchecked-ink-color: #5C6BC0;
+      --paper-radio-button-checked-color: #FFFF00;
+      --paper-radio-button-checked-ink-color: #FFFF00;
+    }
+
+    paper-spinner.blue {
+      --paper-spinner-layer-1-color: #4285f4;
+      --paper-spinner-layer-2-color: #4285f4;
+      --paper-spinner-layer-3-color: #4285f4;
+      --paper-spinner-layer-4-color: #4285f4;
+    }
+    paper-spinner.yellow {
+      --paper-spinner-layer-1-color: #FFFF00;
+      --paper-spinner-layer-2-color: #FFFF00;
+      --paper-spinner-layer-3-color: #FFFF00;
+      --paper-spinner-layer-4-color: #FFFF00;
+    }
+    paper-spinner.pink {
+      --paper-spinner-layer-1-color: var(--google-red-100);
+      --paper-spinner-layer-2-color: var(--google-red-300);
+      --paper-spinner-layer-3-color: var(--google-red-500);
+      --paper-spinner-layer-4-color: var(--google-red-700);
+    }
+    paper-progress {
+      width: 100%;
+    }
+    paper-progress.pink {
+      --paper-progress-active-color: var(--google-red-300);
+    }
+    paper-progress.green {
+      --paper-progress-active-color: var(--google-green-300);
+    }
+    paper-progress.yellow {
+      --paper-progress-active-color: #FFFF00;
+    }
+  </style>
+  <link rel="stylesheet" href="repos-compare-list.css">
 
   <template>
 
-    <iron-media-query query="min-width: 1020px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->
+    <iron-media-query query="min-width: 1020px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query>
 
 		<iron-ajax id="get_org1_repos_ajax"
-			url="https://api.github.com/users/{{organization1}}/repos",
-      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "1", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg1}}"
 			on-response="handleReposResponseOrg1"
 			on-error="handleReposErrorResponseOrg1">
 		</iron-ajax>
- <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
+
 
     <iron-ajax id="get_org1_repos_page2_ajax"
-			url="https://api.github.com/users/{{organization1}}/repos",
-      params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "2", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg1p2}}"
 			on-response="handleReposResponseOrg1p2"
 			on-error="handleReposErrorResponseOrg1p2">
 		</iron-ajax>
- <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
+
 
     <iron-ajax id="get_org2_repos_ajax"
-			url="https://api.github.com/users/{{organization2}}/repos",
-      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "1", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg2}}"
 			on-response="handleReposResponseOrg2"
 			on-error="handleReposErrorResponseOrg2">
 		</iron-ajax>
- <!-- TODO iron-ajax check url and params embed binding {{}} and params quotes  CONVERTED WIP -->
 
-		<paper-header-panel id="core_header_panel" class="fit">   <!-- class="fit"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		  <div class="core-header vertical layout" >   <!-- class="vertical layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-			  <div class="horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		<paper-header-panel id="paper_header_panel" class="fit">
+		  <div class="paper-header vertical layout">
+			  <div class="horizontal layout center" >
   			  <div class="report-title">Polymer Converted to PolymerElements</div>
-  			  <div id="filter_container" class="filter flex" >   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-            <span id="filter_title"></span>
-  				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
-  				    <paper-radio-button name="all" label="All" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-  				    <paper-radio-button name="Yes" label="YES" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-  				    <paper-radio-button name="No" label="no" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-              <paper-radio-button name="Renamed" label="Renamed" on-click="filterRepos"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-  				    <paper-radio-button name="Core" label="Core" on-click="filterRepos" id="iron_radio_button"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-  				    <paper-radio-button name="Paper" label="Paper" on-click="filterRepos" id="paper_radio_button"></paper-radio-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
+          <span id="filter_title"></span>
+  			  <div id="filter_container" class="filter flex" >
+  				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
+  				    <paper-radio-button name="all" class="yellow">All</paper-radio-button>
+  				    <paper-radio-button name="Yes" class="yellow">YES</paper-radio-button>
+  				    <paper-radio-button name="No" class="yellow">no</paper-radio-button>
+              <paper-radio-button name="Renamed" class="yellow">Renamed</paper-radio-button>
+  				    <paper-radio-button name="Core" class="yellow" id="iron_radio_button">Core</paper-radio-button>
+  				    <paper-radio-button name="Paper" class="yellow" id="paper_radio_button">Paper</paper-radio-button>
   				  </paper-radio-group>
   			  </div>
-  			  <div id="search" class="search horizontal layout" >   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="toggleSearch"></paper-icon-button> <!-- TODO change on-click="{{handleClick}}" to on-click="handleClick"  CONVERTED WIP -->
-  				  <!-- <input type="search" id="search_input" value="{{searchValue}}" on-keyup="filterRepos" on-search=="filterRepos" autocomplete="on" placeholder="search names" autofocus hidden> <!-- TODO change on-xxx="{{handleClick}}" to on-xxx="handleClick"  CONVERTED WIP -->   -->
-            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden>
+  			  <div id="search" class="search horizontal layout center">
+  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed active on-click="toggleSearch"></paper-icon-button>
+            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names" autofocus hidden>
   			  </div>
     		</div>
 
-        <!-- <div horizontal layout>
-          <div flex></div> -->   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <paper-button id="load_button" on-tap="loadReport" raised affirmative autofocus > <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
+        <!-- <div horizontal layout> -->
+          <!-- <div class="flex"></div> -->
+          <paper-button id="load_button" class="load-button" on-tap="loadReport" raised>
             <iron-icon id="load_icon" icon="refresh"></iron-icon>
-            <span id="load_label">Load Data</span>
+            <div id="load_label">Load Data</div>
           </paper-button>
+          <!-- <paper-button id="convert_button" on-tap="onConvertCode" raised>Convert</paper-button> -->
+
         <!-- </div> -->
 
 		    <div  class="titles horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		      <div class="cntr">Cntr</div>
-		      <div class="flex" two>{{organization1}} Name</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		      <div  two class="org2-title flex"><strong>{{organization2}} Name</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div flex one class="center flex center">Renamed</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-          <div class="flex" three>Polymer Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="flex-2"><span>{{organization1}}</span> Name</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="org2-title flex-1"><strong><span>{{organization2}}</span> Name</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex-2 center-text">Renamed</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+          <div class="flex-3">Polymer Description</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		    </div>
 		  </div>
 
-		  <div class="content">
+		  <div class="repos-compare-content">
 		    <div class="vertical layout">   <!-- class="vertical layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		      <template is="dom-repeat" items="{{data}}"  ="{{repoAll, j in reposAllOrg1Filtered}}">
+		      <template is="dom-repeat" items="{{reposAllOrg1Filtered}}">
       <!-- TODO fix repeat, replace data, remove extra ="{{key in keys}}"   CONVERTED WIP -->
             <!-- <a href="{{compareCodePrefix}}compare-code.html?el={{repoAll[0]}}&org={{organization}}" target="_blank" class="link"> -->
 		        <div  class="row horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		          <div class="cntr">{{j+1}}. </div>
-		          <div class="flex" two>{{repoAll[0]}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		          <div class="flex" two><strong> {{repoAll[2]}}</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-              <div flex one class="center flex center">{{repoAll[3]}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		          <div class="flex" three>{{repoAll[1]}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+              <div class="cntr">{{counter(index)}}. </div>
+		          <div class="flex-2">{{item.name}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		          <div class="flex-1"><strong>{{item.found_name}}</strong></div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+              <div class="flex-2 center-text">{{item.renamed}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		          <div class="flex-3">{{item.description}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		        </div>
-          </a>
+          <!-- </a> -->
 		      </template>
 		    </div>
 
 		    <div  class="counters horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		      <div class="cntr">Counter</div>
-		      <div flex></div>   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		      <div class="flex" three>{{reposAllOrg1Filtered.length}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		      <div flex class="center flex center"></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
-		      <div flex class="center flex center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="flex"></div>   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="flex-3">{{reposAllOrg1Filtered.length}}</div>   <!-- class="flex"  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="center-text flex center"></div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
+		      <div class="center-text flex center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>   <!-- class="flex "center""  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		    </div>
 
 		    <h3 id="error_message" class="error"></h3>
@@ -124,22 +159,50 @@
       Polymer({
         is: 'repos-compare-list', // CONVERTED WIP
 
-        organization1: "Polymer",
-        organization2: "PolymerElements",
+        properties: {
+          reposAllOrg1Filtered: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+          },
+          reposAllOrg1: {
+            type: Object,
+            value: function() { return []; },
+            notify: true
+          },
+          organization1: {
+            type: String,
+            value: "Polymer",
+            notify: true,
+            reflectToAttribute: true
+          },
+          organization2: {
+            type: String,
+            value: "PolymerElements",
+            notify: true,
+            reflectToAttribute: true
+          },
+          searchValue: {
+            type: String,
+            value: "",
+            notify: true
+          },
+        },
+
+        // organization1: "Polymer",
+        // organization2: "PolymerElements",
     	  repos1p1Loaded: false,
     	  repos1p2Loaded: false,
         repos1AllLoaded: false,
         repos2p1Loaded: false,
         repos2p2Loaded: false,
     	  repos2AllLoaded: false,
-    	  reposAllOrg1: [],
-        reposAllOrg2: [],
+    	  // reposAllOrg1: [],
+        // reposAllOrg2: [],
     	  cntr: 0,
     	  cntrYes: 0,
     	  currentError: "",
     	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
-        searchValue: "",
-        hideColumn5: true,
 
     	  ready: function() {
           var loadParam = this.getURLParameter('load');
@@ -155,7 +218,7 @@
         },
         handleReposResponseOrg1: function(event) {
     	    this.repos1p1Loaded = true;
-    	    console.log("handleReposResponseOrg1", this.$.get_org1_repos_ajax.loading);
+    	    console.log("handleReposResponseOrg1");
     	    if (this.repos1p2Loaded) {
     	      this.repos1AllLoaded = true;
     	      this.reposCombineAndFilter();
@@ -183,8 +246,8 @@
         handleReposResponseOrg2: function(event) {
     	    this.repos2p1Loaded = true;
           repos2AllLoaded = true;
-    	    console.log("handleReposResponseOrg2", this.$.get_org2_repos_ajax.loading);
-          this.async(this.orgsCompare,null,1000);
+    	    console.log("handleReposResponseOrg2", repos2AllLoaded);
+          this.async(this.orgsCompare,null,5000);
 
     	  },
         handleReposErrorResponseOrg2: function(event) {
@@ -198,7 +261,7 @@
     	  },
 
     	  reposCombineAndFilter: function (event) {
-    	    console.log("reposCombineSort",this.repos1AllLoaded);
+    	    // console.log("reposCombineSort",this.reposOrg1.length,this.reposOrg2.length);
     	    var dataLen = this.reposOrg1.length;
           var rname = "";
     	    for (var i = 0; i < dataLen; i++) {
@@ -206,10 +269,12 @@
             if (rname.substr(0,4) === "core" ||  rname.substr(0,5) === "paper") {
       	      if (this.reposOrg1[i].description) {
       	        if (this.reposOrg1[i].description.indexOf("DEPRECATED") < 0 && this.reposOrg1[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
-      	          this.reposAllOrg1.push([this.reposOrg1[i].name,this.reposOrg1[i].description]);
+      	          // this.reposAllOrg1.push([this.reposOrg1[i].name,this.reposOrg1[i].description]);
+                  this.push('reposAllOrg1', { name: this.reposOrg1[i].name, description: this.reposOrg1[i].description });
       	        }
       	      } else {
-      	        this.reposAllOrg1.push([this.reposOrg1[i].name,this.reposOrg1[i].description]);
+      	        // this.reposAllOrg1.push([this.reposOrg1[i].name,this.reposOrg1[i].description]);
+                this.push('reposAllOrg1', { name: this.reposOrg1[i].name, description: this.reposOrg1[i].description });
       	      }
             }
     	    }
@@ -220,64 +285,76 @@
               if (rname.substr(0,4) === "core" ||  rname.substr(0,5) === "paper") {
                 if (this.reposOrg1p2[i].description) {
         	        if (this.reposOrg1p2[i].description.indexOf("DEPRECATED") < 0) {
-        	          this.reposAllOrg1.push([this.reposOrg1p2[i].name,this.reposOrg1p2[i].description]);
+        	          // this.reposAllOrg1.push([this.reposOrg1p2[i].name,this.reposOrg1p2[i].description]);
+                    this.push('reposAllOrg1', { name: this.reposOrg1p2[i].name, description: this.reposOrg1p2[i].description });
         	        }
         	      } else {
-        	        this.reposAllOrg1.push([this.reposOrg1p2[i].name,this.reposOrg1p2[i].description]);
+        	        // this.reposAllOrg1.push([this.reposOrg1p2[i].name,this.reposOrg1p2[i].description]);
+                  this.push('reposAllOrg1', { name: this.reposOrg1p2[i].name, description: this.reposOrg1p2[i].description });
         	      }
               }
       	    }
           }
-      		this.reposAllOrg1Filtered = this.reposAllOrg1;
-    	  },
+          // this.reposAllOrg1Filtered = [];
+      		// this.reposAllOrg1Filtered = this.reposAllOrg1;
+          console.log("reposCombineSort",this.reposOrg1.length, this.reposAllOrg1);
+  	  },
 
-    	  filterRepos: function(e, detail, sender) {
-    		  console.log("filterRepos", sender.label, sender.id);
-    		  if (sender.id === "search_input") {
-    			  this.$.radio_group_filter.selected = 0;
+        filterSearchRepos: function() {
+          this.filterRepos('search_input')
+        },
+
+        onRadioGroupFilterChange: function(e, detail, sender) {
+          // var selectedLabel = this.$.radio_group_filter.selected;
+          this.filterRepos(this.$.radio_group_filter.selected);
+        },
+    	  filterRepos: function(sender) {
+    		  console.log("filterRepos", sender,this.searchValue);
+          if (sender === "search_input") {
+    			  this.$.radio_group_filter.selected = "All";
   		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-  		        return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1);
+  		        return (d.name.indexOf(this.searchValue) > -1 || d.found_name.indexOf(this.searchValue) > -1);
   		      }.bind(this));
-    		  } else if (sender.label === "All") {
+    		  } else if (sender === "All") {
       			this.$.yes_counter.hidden = true;
     		  	this.reposAllOrg1Filtered = this.reposAllOrg1;
-          } else if (sender.label === "Iron") {
+          } else if (sender === "Iron") {
     			  this.$.yes_counter.hidden = true;
     		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-    		        return d[0].indexOf("iron") > -1;
+    		        return d.name.indexOf("iron") > -1;
     		      });
-            } else if (sender.label === "Core") {
+            } else if (sender === "Core") {
     			  this.$.yes_counter.hidden = true;
     		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-    		        return d[0].indexOf("core") > -1;
+    		        return d.name.indexOf("core") > -1;
     		      });
-    		  } else if (sender.label === "Paper") {
+    		  } else if (sender === "Paper") {
     			  this.$.yes_counter.hidden = true;
     		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-    		        return d[0].indexOf("paper") > -1;
+    		        return d.name.indexOf("paper") > -1;
     		      });
-    		  } else if (sender.label === "Yes Core + Paper") {
+    		  } else if (sender === "Yes Core + Paper") {
     			  this.$.yes_counter.hidden = true;
     		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-    		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "YES";
+    		        return (d.name.indexOf("paper") > -1 || d.name.indexOf("core") > -1) && d[3] == "YES";
     		      });
-    		  } else if (sender.label === "No Core + Paper") {
+    		  } else if (sender === "No Core + Paper") {
     			  this.$.yes_counter.hidden = true;
     		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-    		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "no";
+    		        return (d.name.indexOf("paper") > -1 || d.name.indexOf("core") > -1) && d[3] == "no";
     		      });
-          } else if (sender.label === "Renamed") {
+          } else if (sender === "Renamed") {
             this.$.yes_counter.hidden = true;
             this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
               return d[3] === "true";
             });
     		  } else {
-    			  if (sender.label === "YES") {
+    			  if (sender === "YES") {
     				  this.$.yes_counter.hidden = true;
               this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
                 return d[2] !== "";
               });
-    			  } else if (sender.label === "no") {
+    			  } else if (sender === "no") {
     				  this.$.yes_counter.hidden = true;
               this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
     		        return d[2] === "";
@@ -289,10 +366,10 @@
 
         reposViewResized: function(e, detail, sender) {
          var contentWidth = 0;
-         if (this.$.core_header_panel) {
-           contentWidth = this.$.core_header_panel.clientWidth;
+         if (this.$.paper_header_panel) {
+           contentWidth = this.$.paper_header_panel.clientWidth;
          }
-         this.$.filter_container.hidden = !this.mediumScreen;
+        //// TODO  this.$.filter_container.hidden = !this.mediumScreen;
         },
 
         toggleSearch: function(e, detail, sender) {
@@ -323,32 +400,40 @@
           this.cntrYes = 0;
           this.currentError = "";
 
-          this.$.get_org1_repos_ajax.abort();
-          this.$.get_org1_repos_ajax.go();
-          this.$.get_org1_repos_page2_ajax.abort();
-          this.$.get_org1_repos_page2_ajax.go();
-          this.$.get_org2_repos_ajax.abort();
-          this.$.get_org2_repos_ajax.go();
+          this.$.get_org1_repos_ajax.url = "https://api.github.com/users/" + this.organization1 + "/repos";
+          this.$.get_org1_repos_ajax.generateRequest();
+
+          this.$.get_org1_repos_page2_ajax.url = "https://api.github.com/users/" + this.organization1 + "/repos";
+          this.$.get_org1_repos_page2_ajax.generateRequest();
+
+          this.$.get_org2_repos_ajax.url = "https://api.github.com/users/" + this.organization2 + "/repos";;
+          this.$.get_org2_repos_ajax.generateRequest();
         },
 
         orgsCompare: function() {
           var dataLen = this.reposAllOrg1.length;
-          // console.log("orgsCompare: ");
+          console.log("orgsCompare: ",dataLen);
           var rname = "";
           var rsuffix = "";
           var foundName = "";
           var renamed = ""
           for (var i = 0; i < dataLen; i++) {
-            rname = this.reposAllOrg1[i][0];
+            // rname = this.reposAllOrg1[i][0];
+            rname = this.reposAllOrg1[i].name;
             foundName = this.findInOrg2(rname);
             renamed = "";
             if (foundName.indexOf('renamed') >= 0) {
               renamed = "true";
               foundName = foundName.replace("(renamed)","");
             }
-            this.reposAllOrg1[i].push(foundName, renamed);
+            // this.reposAllOrg1[i].push(foundName, renamed);
+            console.log(renamed,foundName);
+            this.reposAllOrg1[i].renamed = renamed;
+            this.reposAllOrg1[i].found_name = foundName;
+
           }
           this.reposAllOrg1Filtered = this.reposAllOrg1;
+          console.log("orgsCompare: ",this.reposAllOrg1Filtered);
         },
 
         findInOrg2: function(rname) {
@@ -387,6 +472,10 @@
 
         refreshData: function() {
           this.loadReport();
+        },
+
+        counter: function(idx) {
+          return idx + 1;
         },
 
       });
