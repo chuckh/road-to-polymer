@@ -1,14 +1,13 @@
 {
   "name": "paper-dialog",
   "description": "A Material Design dialog",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "authors": "The Polymer Authors",
   "keywords": [
     "web-components",
-    "web-component",
     "polymer",
-    "paper",
-    "dialog"
+    "dialog",
+    "overlay"
   ],
   "main": "paper-dialog.html",
   "private": true,

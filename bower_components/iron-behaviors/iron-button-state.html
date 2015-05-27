@@ -29,6 +29,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       pressed: {
         type: Boolean,
         readOnly: true,
+        value: false,
         reflectToAttribute: true,
         observer: '_pressedChanged'
       },
@@ -43,6 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        */
       toggles: {
         type: Boolean,
+        value: false,
         reflectToAttribute: true
       },
 
@@ -55,11 +57,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        */
       active: {
         type: Boolean,
+        value: false,
         notify: true,
         reflectToAttribute: true,
         observer: '_activeChanged'
-      }
+      },
 
+      /**
+       * True if the element is currently being pressed by a "pointer," which
+       * is loosely defined as mouse or touch input (but specifically excluding
+       * keyboard input).
+       */
+      pointerDown: {
+        type: Boolean,
+        readOnly: true,
+        value: false
+      },
+
+      /**
+       * True if the input device that caused the element to receive focus
+       * was a keyboard.
+       */
+      receivedFocusFromKeyboard: {
+        type: Boolean,
+        computed: '_computeReceivedFocusFromKeyboard(focused)'
+      }
     },
 
     listeners: {
@@ -70,7 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     keyBindings: {
       'enter:keydown': '_asyncClick',
-      'space:keydown': '_downHandler',
+      'space:keydown': '_spaceKeyDownHandler',
       'space:keyup': '_spaceKeyUpHandler',
     },
 
@@ -83,6 +105,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     },
 
+    _computeReceivedFocusFromKeyboard: function(focused) {
+      return !this.pointerDown && focused;
+    },
+
     // to emulate native checkbox, (de-)activations from a user interaction fire
     // 'change' events
     _userActivate: function(active) {
@@ -91,14 +117,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _downHandler: function() {
+      this._setPointerDown(true);
       this._setPressed(true);
     },
 
     _upHandler: function(e) {
+      this._setPointerDown(false);
       this._setPressed(false);
     },
 
-    _spaceKeyUpHandler: function(e) {
+    _spaceKeyDownHandler: function() {
+      this._setPressed(true);
+    },
+
+    _spaceKeyUpHandler: function() {
       if (this.pressed) {
         this._asyncClick();
       }
@@ -127,7 +159,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     _controlStateChanged: function() {
       if (this.disabled) {
         this._setPressed(false);
-        this.active = false;
       } else {
         this._changedButtonState();
       }

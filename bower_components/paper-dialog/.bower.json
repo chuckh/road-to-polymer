@@ -1,14 +1,13 @@
 {
   "name": "paper-dialog",
   "description": "A Material Design dialog",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "authors": "The Polymer Authors",
   "keywords": [
     "web-components",
-    "web-component",
     "polymer",
-    "paper",
-    "dialog"
+    "dialog",
+    "overlay"
   ],
   "main": "paper-dialog.html",
   "private": true,
@@ -33,11 +32,11 @@
     "web-component-tester": "*",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "0.9.3",
+  "_release": "0.9.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.3",
-    "commit": "e2fe3a4ac08c62a064608f1c812f12c66c1d2823"
+    "tag": "v0.9.4",
+    "commit": "0b3d3e041fc1d53b76e3d7d8f82ace71b1135e60"
   },
   "_source": "git://github.com/PolymerElements/paper-dialog.git",
   "_target": "~0.9.1",

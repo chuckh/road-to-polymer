@@ -1,19 +1,22 @@
 {
   "name": "paper-input",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "Material design text fields",
   "authors": [
     "The Polymer Authors"
   ],
   "keywords": [
     "web-components",
-    "web-component",
     "polymer",
-    "paper",
     "input"
   ],
   "main": [
-    "paper-input.html"
+    "paper-input.html",
+    "paper-textarea.html",
+    "paper-input-behavior.html",
+    "paper-input-container.html",
+    "paper-input-error.html",
+    "paper-input-char-counter.html"
   ],
   "private": true,
   "repository": {
@@ -31,18 +34,18 @@
     "polymer": "Polymer/polymer#^0.9.0"
   },
   "devDependencies": {
-    "iron-doc-viewer": "PolymerElements/iron-doc-viewer#^0.9.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#^0.9.0",
     "iron-validator-behavior": "PolymerElements/iron-validator-behavior#^0.9.0",
     "test-fixture": "PolymerElements/test-fixture#^0.9.0",
     "web-component-tester": "Polymer/web-component-tester#^2.2.3",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "0.9.5",
+  "_release": "0.9.6",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.5",
-    "commit": "cfa10ee0bfcab8102f76e009b0d592bcc1a2765c"
+    "tag": "v0.9.6",
+    "commit": "9b88655d0a7cc5ea5170416c515f40c4f7e83404"
   },
   "_source": "git://github.com/PolymerElements/paper-input.git",
   "_target": "^0.9.0",

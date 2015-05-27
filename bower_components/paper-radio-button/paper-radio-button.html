@@ -24,25 +24,22 @@ Example:
 
     <paper-radio-button></paper-radio-button>
 
-Styling a radio button:
+### Styling
 
-<style is="custom-style">
-  * {
-    /* Unhecked state colors. */
-    --paper-radio-button-unchecked-color: #5a5a5a;
-    --paper-radio-button-unchecked-ink-color: #5a5a5a;
+The following custom properties and mixins are available for styling:
 
-    /* Checked state colors. */
-    --paper-radio-button-checked-color: #009688;
-    --paper-radio-button-checked-ink-color: #0f9d58;
-
-    /* Label color. */
-    --paper-radio-button-label-color: #009987;
-  }
-</style>
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-radio-button-unchecked-color` | Radio button color when the input is not checked | `--primary-text-color`
+`--paper-radio-button-unchecked-ink-color` | Selected/focus ripple color when the input is not checked | `--primary-text-color`
+`--paper-radio-button-checked-color` | Radio button color when the input is checked | `--default-primary-color`
+`--paper-radio-button-checked-ink-color` | Selected/focus ripple color when the input is checked | `--default-primary-color`
+`--paper-radio-button-label-color` | Label color | `--primary-text-color`
 
 @group Paper Elements
 @element paper-radio-button
+@hero hero.svg
+@demo demo/index.html
 -->
 
 <style is="custom-style">
@@ -66,7 +63,7 @@ Styling a radio button:
     <div id="radioContainer">
       <div id="offRadio"></div>
       <div id="onRadio"></div>
-      <paper-ripple id="ink" class="circle" recenters checked$="[[checked]]"></paper-ripple>
+      <paper-ripple id="ink" class="circle" center checked$="[[checked]]"></paper-ripple>
     </div>
 
     <div id="radioLabel" aria-hidden="true"><content></content></div>
@@ -102,10 +99,6 @@ Styling a radio button:
 
         /**
          * Gets or sets the state, `true` is checked and `false` is unchecked.
-         *
-         * @attribute checked
-         * @type boolean
-         * @default false
          */
         checked: {
           type: Boolean,
@@ -118,10 +111,6 @@ Styling a radio button:
         /**
          * If true, the button toggles the active state with each tap or press
          * of the spacebar.
-         *
-         * @attribute toggles
-         * @type boolean
-         * @default true
          */
         toggles: {
           type: Boolean,
@@ -131,18 +120,21 @@ Styling a radio button:
       },
 
       ready: function() {
-        if (this.$.radioLabel.innerText == '') {
+        if (Polymer.dom(this).textContent == '') {
           this.$.radioLabel.hidden = true;
         } else {
-          this.setAttribute('aria-label', this.$.radioLabel.textContent);
+          this.setAttribute('aria-label', Polymer.dom(this).textContent);
         }
+        this._isReady = true;
       },
 
       _buttonStateChanged: function() {
         if (this.disabled) {
           return;
         }
-        this.checked = this.active;
+        if (this._isReady) {
+          this.checked = this.active;
+        }
       },
 
       _checkedChanged: function() {

@@ -1,6 +1,6 @@
 {
   "name": "paper-behaviors",
-  "version": "0.9.3",
+  "version": "0.9.6",
   "description": "Common behaviors across the paper elements",
   "authors": [
     "The Polymer Authors"
@@ -31,16 +31,16 @@
     "iron-component-page": "polymerelements/iron-component-page#^0.9.0",
     "iron-test-helpers": "polymerelements/iron-test-helpers#^0.9.0",
     "paper-material": "PolymerElements/paper-material#^0.9.0",
-    "paper-ripple": "PolymerElements/paper-ripple#^0.9.0",
+    "paper-ripple": "PolymerElements/paper-ripple#^0.9.2",
     "test-fixture": "PolymerElements/test-fixture#^0.9.0",
     "web-component-tester": "*",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
   },
-  "_release": "0.9.3",
+  "_release": "0.9.6",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.3",
-    "commit": "508f1cd9c8b69cdb555a413e0d87799c133327a3"
+    "tag": "v0.9.6",
+    "commit": "28aae508f8a344384f5d9d74e358df12bab70197"
   },
   "_source": "git://github.com/PolymerElements/paper-behaviors.git",
   "_target": "^0.9.0",

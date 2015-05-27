@@ -1,6 +1,6 @@
 {
   "name": "paper-tabs",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Material design tabs",
   "private": true,
   "main": "paper-tabs.html",
@@ -10,8 +10,8 @@
   "keywords": [
     "web-components",
     "polymer",
-    "paper",
-    "tabs"
+    "tabs",
+    "control"
   ],
   "repository": "https://github.com/Polymer/paper-tabs/tree/0.8-preview",
   "dependencies": {
@@ -22,7 +22,9 @@
     "iron-menu-behavior": "polymerelements/iron-menu-behavior#^0.9.0",
     "iron-resizable-behavior": "polymerelements/iron-resizable-behavior#^0.9.0",
     "paper-ripple": "polymerelements/paper-ripple#^0.9.0",
-    "polymer": "Polymer/polymer#^0.9.0"
+    "paper-styles": "polymerelements/paper-styles#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0",
+    "paper-icon-button": "polymerelements/paper-icon-button#^0.9.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
@@ -32,11 +34,11 @@
     "web-component-tester": "*"
   },
   "homepage": "https://github.com/PolymerElements/paper-tabs",
-  "_release": "0.9.4",
+  "_release": "0.9.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.9.4",
-    "commit": "59079a524573ae94470e1119f60c95858ea2302e"
+    "tag": "v0.9.5",
+    "commit": "97e3040e6c822b04d51b4e5f97a9db444b05a2fe"
   },
   "_source": "git://github.com/PolymerElements/paper-tabs.git",
   "_target": "^0.9.0",
