@@ -25,9 +25,9 @@
 
 <body unresolved class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
-       <!-- dom-bind CONVERTED WIP -->
+
       <iron-media-query query="max-width: 850px" query-matches="{{smallScreen}}" on-query-matches-changed="indexResized"></iron-media-query>
-      <!-- <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query> -->
+
 
       <!-- <paper-fab id="show_hide_button" class="show-hide-button" icon="chevron-right" mini on-tap="toggleDrawer"
         hidden$={{!smallScreen}}>
@@ -56,7 +56,7 @@
             <paper-item><iron-icon icon="polymer" item-icon></iron-icon>Welcome</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Repositories Status Report</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Elements Coverted</paper-item>
-            <paper-item><iron-icon icon="view-quilt" item-icon></iron-icon>Polymer Compare Code</paper-item>
+            <!-- <paper-item><iron-icon icon="view-quilt" item-icon></iron-icon>Polymer Compare Code</paper-item> -->
             <paper-item><iron-icon icon="view-quilt" item-icon></iron-icon>Polymer Convert Code</paper-item>
             <hr>
             <paper-item><iron-icon icon="av:web" item-icon></iron-icon>Polymer 0.9 Doc</paper-item>
@@ -80,37 +80,37 @@
         <paper-header-panel main mode="seamed" style="width:100% height: 100%" class="fit">
 
           <!-- Main Content -->
-          <iron-pages selected="{{page}}" >   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
+          <iron-pages selected="{{page}}" >
 
             <welcome-view></welcome-view>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <repos-list></repos-list>
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <repos-compare-list></repos-compare-list>
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
-              <!-- <compare-code></compare-code> -->
-            </section>
+            <!-- <section class="fit">
+              <compare-code></compare-code>
+            </section> -->
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <convert-code></convert-code>
             </section>
 
-            <div id="for_divider_1" flex></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
+            <div id="for_divider_1" flex></div>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <iframe src="//polymer-project.org/0.9/" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
-              <iframe src="https://www.polymer-project.org/0.9/docs/start/quick-tour.html" frameborder="0" width="100%" height="100%"></iframe>   <!-- class=""https://www.polymer-project.org/0.9/docs/start/quick-tour.html""  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
+              <iframe src="https://www.polymer-project.org/0.9/docs/start/quick-tour.html" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <iframe src="//www.polymer-project.org/0.9/docs/migration.html" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
@@ -119,17 +119,16 @@
               page-title="Polymer Primer 0.9"  class="fit">
             </github-html-viewer>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <iframe src="//polymer-project.org/0.5/" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <h2 style="padding: 20px;">Loaded Polymer Slack in seperate tab.</h2>
             </section>
 
             <section class="fit">
               <h2 style="padding: 20px">Loaded Polymer Dev Google Group in seperate tab.</h2>
-
               <!-- <iframe id="forum_embed" src="{{forumEmbedSrc}}" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
               <!-- <iframe id="forum_embed" src="https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=http://chuckh.github.io/road-to-polymer/#!forum/polymer-dev" scrolling="no" frameborder="0" width="100%" height="100%"></iframe> -->
             </section>
@@ -138,24 +137,20 @@
               <h2 style="padding: 20px;">Loaded Polymer Google + Comunity in seperate tab.</h2>
             </section>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <iframe width="100%" height="100%" src="https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN" frameborder="0" allowfullscreen></iframe>
             </section>
 
-            <!-- <section class="vertical layout fit"> -->
-              <!-- <a href="https://github.com/yeoman/generator-polymer">Yeoman generator for Polymer projects</a> -->
-              <marked-file-viewer id="readme_marked" owner="yeoman" repo="generator-polymer"
-                file-name="readme.md" branch="master"
-                page-title="Yeoman generator for Polymer Readme">
-              </marked-file-viewer>
-              <!-- <a href="https://github.com/yeoman/generator-polymer">Yeoman generator for Polymer projects</a> -->
-            <!-- </section> -->
+            <marked-file-viewer id="readme_marked" owner="yeoman" repo="generator-polymer"
+              file-name="readme.md" branch="master"
+              page-title="Yeoman generator for Polymer Readme">
+            </marked-file-viewer>
 
-            <section class="fit">   <!-- class="flex"  // TODO Convert to class=  CONVERTED WIP  -->
+            <section class="fit">
               <iframe src="http://www.google.com/design/spec/material-design/introduction.html" frameborder="0" width="100%" height="100%"></iframe>
             </section>
 
-            <div id="for_divider_1" class="flex"></div>   <!-- class="flex</div>"  // TODO Convert to class=  CONVERTED WIP  -->
+            <div id="for_divider_1" class="flex"></div>
 
             <marked-file-viewer id="dev_notes_marked" owner="chuckh" repo="road-to-polymer"
               file-name="dev-notes.md" branch="master"
