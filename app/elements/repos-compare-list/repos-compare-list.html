@@ -53,13 +53,12 @@
     <iron-media-query query="min-width: 1020px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query>
 
 		<iron-ajax id="get_org1_repos_ajax"
-      params='{"page": "1", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "1", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg1}}"
 			on-response="handleReposResponseOrg1"
 			on-error="handleReposErrorResponseOrg1">
 		</iron-ajax>
-
 
     <iron-ajax id="get_org1_repos_page2_ajax"
       params='{"page": "2", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
@@ -103,8 +102,9 @@
           <!-- <div class="flex"></div> -->
           <paper-button id="load_button" class="load-button" on-tap="loadReport" raised>
             <iron-icon id="load_icon" icon="refresh"></iron-icon>
-            <div id="load_label">Load Data</div>
+            <!-- <div id="load_label">Load Data</div> -->
           </paper-button>
+          <!-- <button>Load Data</button> -->
           <!-- <paper-button id="convert_button" on-tap="onConvertCode" raised>Convert</paper-button> -->
 
         <!-- </div> -->
@@ -134,6 +134,12 @@
 		      </template>
 		    </div>
 
+        <div class="horizontal layout center">
+          <div class="flex"></div>
+          <paper-spinner id="loading_spinner" class="pink" active></paper-spinner><br>
+          <div class="flex"></div>
+        </div>
+
 		    <div  class="counters horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		      <div class="cntr">Counter</div>
 		      <div class="flex"></div>   <!-- class="flex</div>"  // TODO cleanup class= if needed  CONVERTED WIP  -->
@@ -149,6 +155,9 @@
           Report by Chuck Horton -- email chuckh @ hware.com<br>
           Click Load Data button to load report.<br>
     			If you don't see results after filtering then scroll up.
+          <p class="sponsored">Sponsored by<br>
+          <a href="http://actionplanr.com ">Actionplanr.com</a><br>
+          All Your Plans in One Place</p>
   			</footer>
 		  </div>
 		</paper-header-panel>
@@ -197,8 +206,6 @@
         repos2p1Loaded: false,
         repos2p2Loaded: false,
     	  repos2AllLoaded: false,
-    	  // reposAllOrg1: [],
-        // reposAllOrg2: [],
     	  cntr: 0,
     	  cntrYes: 0,
     	  currentError: "",
@@ -210,6 +217,7 @@
           if (loadParam === "true") {
             this.loadReport();
           }
+          this.$.loading_spinner.toggleAttribute("active",false);
     	  },
 
         getURLParameter: function(name) {
@@ -247,8 +255,7 @@
     	    this.repos2p1Loaded = true;
           repos2AllLoaded = true;
     	    console.log("handleReposResponseOrg2", repos2AllLoaded);
-          this.async(this.orgsCompare,null,5000);
-
+          // this.async(this.orgsCompare,1000);
     	  },
         handleReposErrorResponseOrg2: function(event) {
     	    var error = this.$.get_org2_repos_ajax.error;
@@ -269,11 +276,9 @@
             if (rname.substr(0,4) === "core" ||  rname.substr(0,5) === "paper") {
       	      if (this.reposOrg1[i].description) {
       	        if (this.reposOrg1[i].description.indexOf("DEPRECATED") < 0 && this.reposOrg1[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
-      	          // this.reposAllOrg1.push([this.reposOrg1[i].name,this.reposOrg1[i].description]);
                   this.push('reposAllOrg1', { name: this.reposOrg1[i].name, description: this.reposOrg1[i].description });
       	        }
       	      } else {
-      	        // this.reposAllOrg1.push([this.reposOrg1[i].name,this.reposOrg1[i].description]);
                 this.push('reposAllOrg1', { name: this.reposOrg1[i].name, description: this.reposOrg1[i].description });
       	      }
             }
@@ -285,19 +290,16 @@
               if (rname.substr(0,4) === "core" ||  rname.substr(0,5) === "paper") {
                 if (this.reposOrg1p2[i].description) {
         	        if (this.reposOrg1p2[i].description.indexOf("DEPRECATED") < 0) {
-        	          // this.reposAllOrg1.push([this.reposOrg1p2[i].name,this.reposOrg1p2[i].description]);
                     this.push('reposAllOrg1', { name: this.reposOrg1p2[i].name, description: this.reposOrg1p2[i].description });
         	        }
         	      } else {
-        	        // this.reposAllOrg1.push([this.reposOrg1p2[i].name,this.reposOrg1p2[i].description]);
                   this.push('reposAllOrg1', { name: this.reposOrg1p2[i].name, description: this.reposOrg1p2[i].description });
         	      }
               }
       	    }
           }
-          // this.reposAllOrg1Filtered = [];
-      		// this.reposAllOrg1Filtered = this.reposAllOrg1;
-          console.log("reposCombineSort",this.reposOrg1.length, this.reposAllOrg1);
+          this.async(this.orgsCompare,500);
+          console.log("reposCombineSort",this.reposOrg1.length);
   	  },
 
         filterSearchRepos: function() {
@@ -305,17 +307,15 @@
         },
 
         onRadioGroupFilterChange: function(e, detail, sender) {
-          // var selectedLabel = this.$.radio_group_filter.selected;
           this.filterRepos(this.$.radio_group_filter.selected);
         },
     	  filterRepos: function(sender) {
-    		  console.log("filterRepos", sender,this.searchValue);
+    		  // console.log("filterRepos", sender,this.searchValue);
           if (sender === "search_input") {
-    			  this.$.radio_group_filter.selected = "All";
   		      this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
   		        return (d.name.indexOf(this.searchValue) > -1 || d.found_name.indexOf(this.searchValue) > -1);
   		      }.bind(this));
-    		  } else if (sender === "All") {
+    		  } else if (sender === "all") {
       			this.$.yes_counter.hidden = true;
     		  	this.reposAllOrg1Filtered = this.reposAllOrg1;
           } else if (sender === "Iron") {
@@ -346,18 +346,18 @@
           } else if (sender === "Renamed") {
             this.$.yes_counter.hidden = true;
             this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-              return d[3] === "true";
+              return d.renamed === "true";
             });
     		  } else {
-    			  if (sender === "YES") {
+    			  if (sender === "Yes") {
     				  this.$.yes_counter.hidden = true;
               this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-                return d[2] !== "";
+                return d.found_name !== "";
               });
-    			  } else if (sender === "no") {
+    			  } else if (sender === "No") {
     				  this.$.yes_counter.hidden = true;
               this.reposAllOrg1Filtered = this.reposAllOrg1.filter(function(d, idx, array) {
-    		        return d[2] === "";
+    		        return d.found_name == "";
     		      });
     			  }
 
@@ -380,6 +380,7 @@
            this.searchValue = "";
     		   this.reposAllOrg1Filtered = this.reposAllOrg1;
          } else { // Show search
+           this.$.radio_group_filter.selected = "all";
            this.$.radio_group_filter.hidden = true;
            this.$.search_input.hidden = false;
            this.$.filter_title.hidden = true;
@@ -388,7 +389,8 @@
 
         loadReport: function() {
           console.log("loadReport: ",this.$.get_org1_repos_ajax.url);
-          this.$.radio_group_filter.selected = 0;
+          this.$.loading_spinner.toggleAttribute("active",true);
+          this.$.radio_group_filter.selected = "all";
           this.$.error_message.innerHTML = "";
           this.reposAllOrg1 = [];
           this.reposAllOrg1Filtered = [];
@@ -427,13 +429,14 @@
               foundName = foundName.replace("(renamed)","");
             }
             // this.reposAllOrg1[i].push(foundName, renamed);
-            console.log(renamed,foundName);
+            // console.log(renamed,foundName);
             this.reposAllOrg1[i].renamed = renamed;
             this.reposAllOrg1[i].found_name = foundName;
 
           }
           this.reposAllOrg1Filtered = this.reposAllOrg1;
-          console.log("orgsCompare: ",this.reposAllOrg1Filtered);
+          this.$.loading_spinner.toggleAttribute("active",false);
+          // console.log("orgsCompare: ",this.reposAllOrg1Filtered);
         },
 
         findInOrg2: function(rname) {
