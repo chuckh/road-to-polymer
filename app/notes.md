@@ -103,6 +103,15 @@ lol
 diddledan [10:47 AM]10:47
 smokybob: yeah private keys are a pain in completely transparent languages such as html+javascript
 
+
+-----
+
+kevashcraft [11:58 AM]
+How would you set on-tap with javascript?
+
+cdata [1:00 PM]
+@kevashcraft: `el.addEventListener('tap', ...);` should be the ticket
+
 ------
 
 <link href="https://rawgit.com/polymer/polymer/0.8-preview/polymer.html" rel="import">
