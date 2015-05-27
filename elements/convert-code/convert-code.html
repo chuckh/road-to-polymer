@@ -1,92 +1,93 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../convert-mixin.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../convert-behavior.html">
 
-<polymer-element name="convert-code" attributes="">
+<dom-module id='convert-code'>
+
+  <link rel="stylesheet" href="convert-code.css">
+
   <template>
-    <link rel="stylesheet" href="convert-code.css">
+    <prism-highlighter></prism-highlighter>
 
-    <core-media-query query="min-width: 1260px" queryMatches="{{mediumScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
-    <core-media-query query="max-width: 1060px" queryMatches="{{smallScreen}}" on-core-media-change="{{viewResized}}"></core-media-query>
+    <!-- <iron-media-query query="(min-width: 1260px)" query-matches="{{mediumScreen}}" on-query-matches-changed="viewResized"></iron-media-query> -->
+    <iron-media-query query="min-width: 1060px" query-matches="{{smallScreen}}" on-query-matches-changed="viewResized"></iron-media-query>
 
-        <paper-action-dialog id="help_dialog" heading="Help" transition="core-transition-center">
-          <p>To Convert Code choose a file,<br> or paste 0.5 code on the left then click Convert button.<br><br>
-            <br>To save converted code click Save button<br>
-            or click <core-icon icon="content-copy"></core-icon> icon to copy to clipboard.<br>
+    <paper-dialog id="help_dialog" heading="Help" transition="iron-transition-center">
+      <h2>Help</h2>
+      <p>To Convert Code choose a file,<br> or paste 0.5 code on the left then click Convert button.<br><br>
+        <br>To save converted code click Save button<br>
+        or click <iron-icon icon="content-copy"></iron-icon> icon to copy to clipboard.<br>
+        <br>To start over click Clear button
+      </p>
+      <div class="buttons">
+        <paper-button dialog-confirm>OK</paper-button>
+      </div>
+    </paper-dialog>
 
-            <br>To start over click Clear button
-          </p>
-      <paper-button affirmative autofocus>OK</paper-button>
-    </paper-action-dialog>
-
-    <paper-action-dialog id="copy_dialog" heading="Copy Converted Code" transition="core-transition-center">
-      <p>Copy covnerted code by tapping control-c (Windows) or command-c (Mac)</p>
+    <paper-dialog id="copy_dialog" heading="Copy Converted Code" transition="iron-transition-center">
+      <h2>Copy covnerted code</h2>
+      <p>by clicking on code below, then press control-c (Windows) or command-c (Mac)</p>
       <textarea id="copy_textarea" rows="20" cols="90" onclick="this.focus();this.select()"></textarea>
-      <paper-button affirmative autofocus>OK</paper-button>
-    </paper-action-dialog>
+      <div class="buttons">
+        <paper-button dialog-confirm>OK</paper-button>
+      </div>
+    </paper-dialog>
 
-    <div horizontal layout fit>
+    <div class="horizontal layout fit">
 
-      <core-header-panel main mode="standard" flex>
+      <paper-header-panel id="paper_header_panel" main mode="standard" class="flex">
 
         <!-- Main Toolbar -->
-        <core-toolbar class="{{pageToolbarClass}}" id="page_toolbar">
-          Convert Code 0.5 to 0.9:
-          <paper-icon-button icon="help" on-tap="{{toggleHelp}}"></paper-icon-button>
+        <paper-toolbar class="page-toolbar" id="page_toolbar">
+          Convert Code 0.5 to 1.0:
+          <paper-icon-button icon="help" on-tap="toggleHelp"></paper-icon-button>
           <div id="file_name"></div>
-          <div flex></div>
-        </core-toolbar>
+          <div class="flex"></div>
+        </paper-toolbar>
 
         <!-- Main Content -->
-        <div class="page" fit>
-          <div horizontal layout flex>
+        <div class="page fit">
+          <div class="horizontal layout flex">
 
-            <div id="convert_code_container" vertical layout flex>
-              <div horizontal layout>
-                <div class="left-title" horizontal layout center flex>
-                  <div vertical layout flex>
+            <div id="convert_code_container" class="vertical layout flex">
+              <div class="horizontal layout">
+                <div class="left-title horizontal layout center flex">
+                  <div class="vertical layout title-areas">
                     <h3>Polymer 0.5  Code -
                       <span class="error-message"></span>
                     </h3>
                     <div class="branch-label"><span>your code</span>
                     </div>
                   </div>
-                  <input type="file" id="file_input" on-change={{onFileChange}} class="file-input"/>
-                  <paper-button id="convert_button" on-tap="{{onConvertCode}}" raised affirmative autofocus >
-                     Convert
-                  </paper-button>
-                  <paper-button id="clear_button" on-tap="{{onClearCode}}" raised affirmative hidden>
-                     Clear Code
-                  </paper-button>
+                  <input type="file" id="file_input" on-change="onFileChange" class="file-input flex"/>
+                  <paper-button id="convert_button" on-tap="onConvertCode" raised>Convert</paper-button>
+                  <paper-button id="clear_button" on-tap="onClearCode" raised hidden>Clear Code</paper-button>
                 </div>
 
-                <div class="right-title" horizontal layout center flex>
-                  <div vertical layout flex>
-                    <h3>Polymer 0.9 Converted Code -
+                <div class="right-title horizontal layout center flex">
+                  <div class="vertical layout flex title-areas">
+                    <h3>Polymer 1.0 Converted Code -
                       <span class="error-message">{{errorMessage8}}</span>
                     </h3>
-                    <div id="right_branch_div" class="branch-label"><span>-- CONVERTED CODE --</span>
+                    <div id="right_branch_div" class="branch-label"><span>-- CONVERTED --</span>
                     </div>
                   </div>
-                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="{{copyConverted}}" hidden></paper-icon-button>
-                  <paper-button id="save_button" on-tap="{{onSaveCode}}" raised affirmative autofocus hidden>
-                     Save
-                  </paper-button>
+                  <paper-icon-button id="copy_converted_button" icon="content-copy" on-tap="copyConverted" hidden></paper-icon-button>
+                  <paper-button id="save_button" on-tap="onSaveCode" raised hidden>Save</paper-button>
                 </div>
               </div>
-              <div horizontal layout class="code">
-                <div flex class="left" id="code5">
-                  <prism-js id="code5_prism" language="markup" escape="true"  linenumbers="true" hidden></prism-js>
-                  <textArea id="your_code" placeholder="Paste your 0.5 code here"> </textarea>
-                  <hr>
-                  <div class="linkLeft" hidden?="{{hideLinks}}">
+
+              <div class="horizontal layout code">
+                <div class="flex left" id="code5">
+                  <div id="code5_prism" class="flex" hidden></div>
+                  <textArea id="your_code" placeholder="Paste your 0.5 code here"></textarea>
+                  <div class="linkLeft" hidden>
                   </div>
                 </div>
-                <div flex class="right" id="code8">
-                  <prism-js id="code8_prism" language="markup" escape="true" linenumbers="true" theme="okaidia"></prism-js>
-                  <div class="linkRight" hidden?="{{hideLinks}}">
-                    TO DO:
-                  </div>
+                <div class="flex right" id="code8">
+                  <div id="code8_prism" class="flex"></div>
                 </div>
               </div>
             </div>
@@ -94,7 +95,7 @@
           </div>
         </div>
 
-      </core-header-panel>
+      </paper-header-panel>
 
     </div>
 
@@ -102,33 +103,35 @@
 
   <script>
     (function () {
-      Polymer(Polymer.mixin({
+      Polymer({
+        is: 'convert-code',
+        behaviors: [ConvertBehavior],
 
-        pageToolbarClass: "page-toolbar",
-        convertParam: false,
-        owner: "polymer",
-        leftBranch: "master",
-        rightBranch: "0.8-preview",
-        yourCode: "",
-        fileName: "converted09.html",
-        hideLinks: true,
-
-        ready: function() {
-          var elParam = this.getURLParameter('el');
-          this.convertParam = this.getURLParameter('convert');
-          this.$.file_name.innerHTML = "Choose file or paste code";
-          this.$.your_code.value = "";
-          console.log("convert-code ready", elParam, this.convertParam);
-          if (elParam) {
-            this.repoName = elParam;
-          } else {
-            // this.$.menu_panel.hidden = false;
+        properties: {
+          pageToolbarClass: {
+            type: String,
+            value: "page-toolbar",
+            notify: true
+          },
+          convertParam: {
+            type: String,
+            value: ""
+          },
+          yourCode: {
+            type: String,
+            value: ""
+          },
+          fileName: {
+            type: String,
+            value: "converted-1_0.html"
           }
         },
 
-        getURLParameter: function(name) {
-          if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
-            return decodeURIComponent(name[1]);
+        ready: function() {
+          this.$.file_name.innerHTML = "Choose file or paste code";
+          this.$.your_code.value = "";
+          this.fire(this.viewResized(),200);
+          console.log("convert-code ready");
         },
 
         toggleHelp: function() {
@@ -136,8 +139,11 @@
         },
 
         onClearCode: function() {
+          this.$.code5_prism.innerHTML = " ";
           this.$.code5_prism.inputValue = " ";
+          this.$.code8_prism.innerHTML = " ";
           this.$.code8_prism.inputValue = " ";
+
           this.$.your_code.value = "";
           this.$.file_name.innerHTML = "Choose file or paste code";
           this.$.convert_button.hidden = false;
@@ -146,11 +152,18 @@
           this.$.code5_prism.hidden = true;
           this.$.file_input.value = "";
           this.$.save_button.hidden = true;
+          this.$.copy_converted_button.hidden = true;
+          this.errorMessage8 = "";
+        },
+
+        highlight: function(code) {
+          return this.fire('syntax-highlight', {code: code, lang: 'html'}).detail.code;
         },
 
         onConvertCode: function() {
           this.convertCode1(this.$.your_code.value.split('\n'));
           this.$.code5_prism.inputValue = this.$.your_code.value;
+          this.$.code5_prism.innerHTML = this.highlight(this.$.your_code.value);
           this.$.file_name.innerHTML = "paste code";
         },
 
@@ -175,7 +188,7 @@
           reader.onload = function(e) {
             this.$.your_code.value = e.target.result;
             this.$.code5_prism.inputValue = this.$.your_code.value;
-            // var contents = e.target.result.split(/[\r\n]+/g); // tolerate both Windows and Unix linebreaks;
+            this.$.code5_prism.innerHTML = this.highlight(e.target.result);
             var contents = e.target.result.split('\n');
             this.convertCode1(contents);
           }.bind(this);
@@ -184,6 +197,7 @@
 
         displayContents: function(contents) {
           this.$.code5_prism.inputValue = contents;
+          this.$.code5_prism.innerHTML = contents;
         },
 
         onSaveCode: function() {
@@ -191,7 +205,7 @@
           this.download(this.fileName, this.$.code8_prism.inputValue);
         },
 
-      }, window.convertMixin));
+      });
     })();
   </script>
-</polymer-element>
+</dom-module>

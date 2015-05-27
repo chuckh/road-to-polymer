@@ -1,0 +1,70 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link href="../../iron-ajax/iron-ajax.html" rel="import" >
+<link href="../prism-highlighter.html" rel="import">
+
+<dom-module id='prism-demo'>
+
+  <style>
+    prism-highlighter {
+      background-color: #fafafa;
+      padding: 10px;
+      white-space: pre;
+    }
+  </style>
+
+  <template>
+    <prism-highlighter id="code_highlighter"></prism-highlighter>
+    <!-- <marked-element id="code_marked" class="fit"></marked-element> -->
+
+    <iron-ajax id="get_file" auto
+      handle-as="json"
+      last-response="{{codeData}}"
+      on-response="handleFile"
+      on-error="handleFileErrorResponse">
+    <iron-ajax>
+
+  </template>
+
+  <script>
+
+    Polymer({
+      is: 'prism-demo',
+
+      ready: function() {
+        // var code = "if (test === true) { console.log('test is true')}";
+        // var lang = "js";
+        // var event1 = this.fire('syntax-highlight', {code: code, lang: lang});
+        // this.$.code_highlighter.innerHTML = event1.detail.code;
+        // this.$.get_file.url = "https://api.github.com/repos/polymerelements/prism-element/contents/prism-highlighter.html?ref=master&access_token=ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc";
+        this.$.get_file.url = "https://api.github.com/repos/polymerelements/iron-ajax/contents/demo/index.html?ref=master&access_token=ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc";
+        console.log("prism-demo ready");
+      },
+
+
+      handleFile: function(event, detail, sender) {
+        // var code = atob(this.codeData.content).replace(/\n/g,'<br>');
+        var code = atob(this.codeData.content);
+        // white-space: pre;
+        // code = code.split('\n');
+        // console.log("prism-demo code", code);
+        // this.$.your_code.value.split('\n');
+
+        var lang = "html";
+        var event = this.fire('syntax-highlight', {code: code, lang: lang});
+        // var event = this.fire('marked-js-highlight', {code: code, lang: lang});
+
+        console.log("prism-demo code", event);
+        this.$.code_highlighter.innerHTML = event.detail.code;
+        // this.$.code_marked.text = event.detail.code;
+      },
+      handleFileErrorResponse: function(event) {
+        var error = this.$.get_file.error;
+        this.errorMessage = "prism-demo Can't find file";
+        this.$.code_highlighter.innerHTML = " ";
+        console.log("Error: ",this.errorMessage,event);
+      },
+
+
+    });
+  </script>
+</dom-module>

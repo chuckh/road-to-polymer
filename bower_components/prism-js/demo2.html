@@ -4,9 +4,10 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <title>prism-js Demo</title>
 
-  <script src="../platform/platform.js"></script>
+  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="prism-js.html">
-  <link rel="import" href="../core-input/core-input.html">
+  <link rel="import" href="../iron-input/iron-input.html">
+  <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 
   <style>
     aside {
@@ -18,43 +19,57 @@
       border-radius: 3px;
     }
 
-    core-input {
+    iron-input {
       margin: 1em;
     }
 
-    core-input[multiline] {
+    iron-input[multiline] {
       border: 1px dotted #ccc;
     }
 
-    core-input.sized {
+    iron-input.sized {
       width: 500px;
       height: 200px;
     }
   </style>
 
 </head>
-<body unresolved>
+<body>
 
-<h1>Data-binding with &lt;prism-js&gt; &amp; &lt;core-input&gt;</h1>
-<p>This demo uses the <code>inputValue</code> attribute on the &lt;prism-js&gt;
-  element to bind between it and the input to &lt;core-input&gt;</p>
+<h1>Data-binding with < prism-js > and < iron-input ></h1>
+<p>This demo uses the <code>inputValue</code> attribute on the <prism-js>
+  element to bind between it and the input to <iron-input></p>
 
-<template id="tmpl" is="auto-binding">
+<template id="tmpl" is="dom-bind">
+
+  Outputs1:
+  <prism-js language="markup" escape="true">
+      <p>Some paragraph text</p>
+      <p data-foo="bar"></p>
+      <style>
+       p { color: red; }
+      </style>
+  </prism-js>
+
 
   <h2>Input</h2>
 
- <section horizontal start layout>
-    <core-input class="sized" multiline rows="fit" inputValue="{{source}}"></core-input>
+  <section class="horizontal start layout">
+    <!-- <iron-input class="sized" multiline rows="fit" input-value="{{source}}" style="height: 50px; width: 100%;"></iron-input> -->
+    <input is="iron-input" bind-value="{{bindValue}}" value="{{source}}" input-value="{{source}}" style="height: 50px; width: 100%;">
+
   </section>
 
-  <h2>Output</h2>
-  <prism-js language="css" inputValue="{{source}}">
+  <h2>Output2</h2>
+  <prism-js language="css" input-value="{{source}}">
   </prism-js>
 
 </template>
 
 <script>
-  document.addEventListener('polymer-ready', function(){
+  // document.addEventListener('polymer-ready', function(){
+  document.addEventListener('WebComponentsReady', function(e) {
+    console.log("prism-js Demo ready ");
     var tmpl = document.querySelector('#tmpl');
     tmpl.source = '#shirt { color: hotpink; } \n.fear { display: none; }';
   });
@@ -62,3 +77,18 @@
 
 </body>
 </html>
+
+
+<!-- CONVERSION NOTES TODO:
+ Review code and look for:
+ - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
+ - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
+ - custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
+ - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
+ - Polymer( fix mixins use Behaviors after is: see  ,
+ - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
+ - Convert core- to iron- or paper- replacement elements at PolymerElements
+ - fix indentation as need
+ - Cleanup Comments to reflect changes ,
+ - see https://www.polymer-project.org/0.9/docs/migration.html
+   -->

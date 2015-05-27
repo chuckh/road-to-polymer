@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<link href="../../polymer/polymer.html" rel="import" >
+<link href="../../iron-ajax/iron-ajax.html" rel="import">
+<link href="../../paper-styles/paper-styles.html" rel="import" >
+<link href="../../iron-flex-layout/iron-flex-layout.html" rel="import" >
+<link href="../prism-highlighter.html" rel="import">
+
+</head>
+<body class="fullbleed">
+
+<prism-demo></prism-demo>
+
+<dom-module id='prism-demo'>
+
+  <style>
+
+    #codeLeft, #codeRight {
+      font-family: monospace;
+      background-color: #fafafa;
+      padding: 10px;
+      white-space: pre-wrap;
+      border-top: 1px solid #9E9E9E;
+      border-bottom: 1px solid #9E9E9E;
+    }
+
+    .right {
+      background-color: #E8EAF6;  /*lightyellow;*/
+    }
+
+    #codeRight {
+      background-color: #E8EAF6;  /*lightyellow;*/
+      border-left: 1px solid #9E9E9E;
+    }
+
+    .title {
+      padding-left: 10px;
+    }
+
+  </style>
+
+  <template>
+
+    <prism-highlighter></prism-highlighter>
+
+    <div class="horizontal layout flex">
+      <div class="vertical layout flex">
+        <h2 class="title">Left Title</h2>
+        <div id="codeLeft" class="flex"></div>
+      </div>
+      <div class="vertical layout flex right">
+        <h2 class="title">Right Title</h2>
+        <div id="codeRight" clase="flex"></div>
+      </div>
+    </div>
+
+    <iron-ajax auto
+      url="{{url}}"
+      handle-as="text"
+      last-response="{{codeData}}"
+      on-response="handleFile"
+      on-error="handleFileErrorResponse">
+    <iron-ajax>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'prism-demo',
+
+      properties: {
+        codeData: {
+          observer: 'codeDataChanged'
+        },
+        url: {
+          value: 'https://rawgit.com/polymerelements/iron-input/master/iron-input.html'
+        }
+      },
+
+      codeDataChanged: function(codeData) {
+        console.log("codeDataChanged:");
+        this.$.codeLeft.innerHTML = this.highlight(codeData);
+        this.$.codeRight.innerHTML = this.highlight(codeData);
+      },
+
+      highlight: function(code) {
+        return this.fire('syntax-highlight', {code: code, lang: 'html'}).detail.code;
+      },
+
+      handleFile: function(event, detail, sender) {
+        console.log("handleFile: ");
+      },
+
+
+      handleFileErrorResponse: function(event) {
+        this.code = '';
+        var error = this.$.get_file.error;
+        this.errorMessage = "prism-demo Can't find file";
+        console.log("Error: ",this.errorMessage,event);
+      }
+
+    });
+
+  </script>
+
+</dom-module>
+
+</body>
+</html>

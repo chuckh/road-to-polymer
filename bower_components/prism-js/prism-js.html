@@ -9,7 +9,7 @@
 
 <!-- line number support -->
 <script src="assets/line-numbers.js"></script>
-<!--<link rel="stylesheet" href="assets/line-numbers.css"/>-->
+<!--<link rel="stylesheet" href="assets/line-numbers.css"/>--> <!-- TODO Move line about <template>  CONVERTED WIP -->
 
 <!-- line highlight support -->
 <script src="assets/line-highlight.js"></script>
@@ -123,85 +123,122 @@ Specify a language and theme:
 @homepage http://github.com/addyosmani/prism-js
 
 -->
-<polymer-element name="prism-js" attributes="language linenumbers escape linehighlight theme inputValue">
+<dom-module id="prism-js"> <!-- CONVERTED WIP -->
+
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/line-numbers.css">
+
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
-    <pre class="{{ linenumbers? 'line-numbers': '' }}" data-line="{{ linehighlight }}"><code id="codeviewer" class="language-{{language}}"></code></pre>
+    <pre class="line-numbers" data-line$="{{linehighlight}}">
+      <code id="codeviewer" class="language-markup"></code>
+    </pre>
   </template>
   <script>
     (function() {
-      Polymer('prism-js', {
-        /**
-        * The `language` attribute specifies the language class for the
-        * code snippet. To specify CSS as the language to use, simply
-        * set `language` to `css`. This automatically prepends the 'language'
-        * portion of the 'language-xxxx' class Prism uses.
-        *
-        * @attribute language
-        * @type string
-        * @default *
-        */
-        language: '*',
-        /**
-        * The `linenumbers` attribute toggles displaying line numbers at
-        * the beginning of code lines. Consult the [Line Numbers](http://prismjs.com/plugins/line-numbers/)
-        * plugin for further information.
-        *
-        * @attribute linenumbers
-        * @type boolean
-        * @default false
-        */
-        linenumbers: false,
-        /**
-        * The `escape` attribute will escape the code snippet prior to passing
-        * it to Prism for highlighting.
-        *
-        * @attribute escape
-        * @type boolean
-        * @default false
-        */
-        escape: false,
-        /**
-        * The `linehighlight` attribute highlights specific lines and/or line ranges.
-        * (e.g "1-5"). Consult the [Line Highlight](http://prismjs.com/plugins/line-highlight/)
-        * plugin documentation for further information.
-        *
-        * @attribute linehighlight
-        * @type string
-        * @default ''
-        */
-        linehighlight: '',
-        /**
-        * The `theme` attribute specifies the name of a valid Prism theme
-        * to use from the selection of themes available in the official Prism
-        * [package](https://github.com/LeaVerou/prism/tree/gh-pages/themes). The
-        * 'prism-' portion of the theme filename is automatically prepended for
-        * you. To set the theme to use the `prism-tomorrow.css` theme file, just
-        * set `theme` to 'tomorrow'.
-        *
-        * @attribute theme
-        * @type string
-        * @default ''
-        */
-        theme: '',
-        /**
-        * The `inputValue` attribute allows you to manually pass a string
-        * to be used as the code source for the element. Changes to the
-        * `inputValue` cause the element to be re-highlighted. This is useful
-        * for editors wishing to use the element.
-        *
-        * @attribute inputValue
-        * @type string
-        * @default ''
-        */
-        inputValue: '',
+      Polymer({
+        is: 'prism-js', // CONVERTED WIP
+
+        properties: {
+          //  TODO: add attributes="language linenumbers escape linehighlight theme inputValue" to properites -- CONVERTED WIP
+
+          /**
+          * The `language` attribute specifies the language class for the
+          * code snippet. To specify CSS as the language to use, simply
+          * set `language` to `css`. This automatically prepends the 'language'   <!-- class="prepends"  // TODO Convert to class=  CONVERTED WIP  -->
+          * portion of the 'language-xxxx' class Prism uses.
+          *
+          * @attribute language
+          * @type string
+          * @default *
+          */
+          language: {
+            type: String,
+            value: '*'
+          },
+          /**
+          * The `linenumbers` attribute toggles displaying line numbers at
+          * the beginning of code lines. Consult the [Line Numbers](http://prismjs.com/plugins/line-numbers/)
+          * plugin for further information.
+          *
+          * @attribute linenumbers
+          * @type boolean
+          * @default false
+          */
+          linenumbers: {
+            type: Boolean,
+            value: false
+          },
+          /**
+          * The `escape` attribute will escape the code snippet prior to passing
+          * it to Prism for highlighting.
+          *
+          * @attribute escape
+          * @type boolean
+          * @default false
+          */
+          escape: {
+            type: Boolean,
+            value: false
+          },
+          /**
+          * The `linehighlight` attribute highlights specific lines and/or line ranges.
+          * (e.g "1-5"). Consult the [Line Highlight](http://prismjs.com/plugins/line-highlight/)
+          * plugin documentation for further information.
+          *
+          * @attribute linehighlight
+          * @type string
+          * @default ''
+          */
+          linehighlight: {
+            type: String,
+            value: ''
+          },
+          /**
+          * The `theme` attribute specifies the name of a valid Prism theme
+          * to use from the selection of themes available in the official Prism
+          * [package](https://github.com/LeaVerou/prism/tree/gh-pages/themes). The
+          * 'prism-' portion of the theme filename is automatically prepended for   <!-- class="prepended"  // TODO Convert to class=  CONVERTED WIP  -->
+          * you. To set the theme to use the `prism-tomorrow.css` theme file, just
+          * set `theme` to 'tomorrow'.
+          *
+          * @attribute theme
+          * @type string
+          * @default ''
+          */
+          theme: {
+            type: String,
+            value: ''
+          },
+          /**
+          * The `inputValue` attribute allows you to manually pass a string
+          * to be used as the code source for the element. Changes to the
+          * `inputValue` cause the element to be re-highlighted. This is useful
+          * for editors wishing to use the element.
+          *
+          * @attribute inputValue
+          * @type string
+          * @default ''
+          */
+          inputValue: {
+            type: String,
+            notify: true,
+            value: ''
+          },
+        },
+
+        ready: function () {
+          // this.toggleClass("code_pre", true);
+          console.log("prism-js ready: ",this.language, this.escape, this.inputValue);
+        },
+
         attached: function () {
           this.highlight();
         },
+
 
         /**
          * The `highlight` method will re-apply Prism highlighting
@@ -222,6 +259,7 @@ Specify a language and theme:
 
           this.$.codeviewer.innerHTML = this.innerHTML;
           Prism.highlightElement(this.$.codeviewer);
+          console.log("highlight: ",this.$.codeviewer.innerHTML);
 
           this.injectTheme();
           this.injectPluginStylesheets();
@@ -260,12 +298,15 @@ Specify a language and theme:
          */
         injectStylesheet: function (src) {
           if (src.length > 0) {
+            console.log("injectStylesheet: ",this);
             var link = document.createElement('link');
             link.type = 'text/css';
             link.rel = 'stylesheet';
             link.href = src;
-            this.shadowRoot.appendChild(link);
-            this.element.convertSheetsToStyles(this.shadowRoot);
+            Polymer.dom(this.root).appendChild(link);  // was this.shadowRoot.appendChild(link);
+            this.fire.convertSheetsToStyles(this.root);  
+            // this.shadowRoot.appendChild(link);
+            // this.element.convertSheetsToStyles(this.root);
           }
         },
 
@@ -275,4 +316,19 @@ Specify a language and theme:
       });
     })();
   </script>
-</polymer-element>
+</dom-module>
+
+
+<!-- CONVERSION NOTES TODO:
+ Review code and look for:
+ - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
+ - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
+ - custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
+ - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
+ - Polymer( fix mixins use Behaviors after is: see  ,
+ - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
+ - Convert core- to iron- or paper- replacement elements at PolymerElements
+ - fix indentation as need
+ - Cleanup Comments to reflect changes ,
+ - see https://www.polymer-project.org/0.9/docs/migration.html
+   -->

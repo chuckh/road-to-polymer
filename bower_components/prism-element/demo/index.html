@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<title>prism-element demo</title>
+<link rel="import" href="../../polymer/polymer.html">
+<link href="../../iron-ajax/iron-ajax.html" rel="import" >
+<link href="../prism-highlighter.html" rel="import">
+
+</head>
+<body>
+
+<prism-demo></prism-demo>
+
+<dom-module id='prism-demo'>
+
+  <style>
+
+    #code {
+      font-family: monospace;
+      background-color: #fafafa;
+      padding: 10px;
+      white-space: pre;
+    }
+
+  </style>
+
+  <template>
+
+    <prism-highlighter></prism-highlighter>
+
+    <div id="code"></div>
+
+    <iron-ajax auto
+      url="{{url}}"
+      handle-as="text"
+      last-response="{{codeData}}"
+      on-response="handleFile"
+      on-error="handleFileErrorResponse">
+    <iron-ajax>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'prism-demo',
+
+      properties: {
+        codeData: {
+          observer: 'codeDataChanged'
+        },
+        url: {
+          value: 'https://rawgit.com/polymerelements/iron-input/master/iron-input.html'
+        }
+      },
+
+      codeDataChanged: function(codeData) {
+        console.log("codeDataChanged:");
+        this.$.code.innerHTML = this.highlight(codeData);
+      },
+
+      highlight: function(code) {
+        return this.fire('syntax-highlight', {code: code, lang: 'html'}).detail.code;
+      },
+
+      handleFile: function(event, detail, sender) {
+        console.log("handleFile: ");
+      },
+
+
+      handleFileErrorResponse: function(event) {
+        this.code = '';
+        var error = this.$.get_file.error;
+        this.errorMessage = "prism-demo Can't find file";
+        console.log("Error: ",this.errorMessage,event);
+      }
+
+    });
+
+  </script>
+
+</dom-module>
+
+</body>
+</html>

@@ -1,27 +1,48 @@
 {
   "name": "paper-checkbox",
-  "private": true,
-  "dependencies": {
-    "paper-radio-button": "Polymer/paper-radio-button#^0.5",
-    "polymer": "Polymer/polymer#^0.5"
-  },
-  "ignore": [
-    "externs/**",
-    ".gitignore"
+  "version": "0.9.7",
+  "description": "A material design checkbox",
+  "authors": [
+    "The Polymer Authors"
   ],
-  "devDependencies": {
-    "font-roboto": "Polymer/font-roboto#~0.5.4",
-    "core-label": "Polymer/core-label#~0.5.4"
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "paper",
+    "checkbox",
+    "control"
+  ],
+  "main": "index.html",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-checkbox"
   },
-  "version": "0.5.5",
-  "homepage": "https://github.com/Polymer/paper-checkbox",
-  "_release": "0.5.5",
+  "license": "MIT",
+  "homepage": "https://github.com/PolymerElements/paper-checkbox",
+  "ignore": [],
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
+    "test-fixture": "PolymerElements/test-fixture#^0.9.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^0.9.0",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^0.9.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "dependencies": {
+    "paper-ripple": "PolymerElements/paper-ripple#^0.9.2",
+    "paper-styles": "PolymerElements/paper-styles#^0.9.0",
+    "paper-behaviors": "PolymerElements/paper-behaviors#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0"
+  },
+  "_release": "0.9.7",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.5",
-    "commit": "9d68f68f50c2d211f9e2ded803648abbce9b27ba"
+    "tag": "v0.9.7",
+    "commit": "89ac5d5ac42d63a6725d232c1f13978eab7d793a"
   },
-  "_source": "git://github.com/Polymer/paper-checkbox.git",
-  "_target": "^0.5",
-  "_originalSource": "Polymer/paper-checkbox"
+  "_source": "git://github.com/PolymerElements/paper-checkbox.git",
+  "_target": "^0.9.0",
+  "_originalSource": "PolymerElements/paper-checkbox"
 }

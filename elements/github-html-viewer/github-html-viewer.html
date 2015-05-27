@@ -1,56 +1,68 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 
-<polymer-element name="github-html-viewer" attributes="owner repo fileName branch pageTitle">
+<dom-module id='github-html-viewer'>
+
+  <link rel="stylesheet" href="github-html-viewer.css">
   <template>
-    <link rel="stylesheet" href="github-html-viewer.css">
 
-    <core-ajax id="get_file"
-      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-      handleAs="text"
-      loading="{{loading}}"
-      progress="{{progress}}"
-      response="{{file}}"
+    <iron-ajax id="get_file"
+      handle-as="text"
+      last-response="{{fileContent}}"
       headers='{"accept": "application/vnd.github.VERSION.html"}'
-      on-core-response="{{handleFile}}"
-      on-core-error="{{handleFileErrorResponse}}">
-    </core-ajax>
+      on-response="handleFile"
+      on-error="handleFileErrorResponse">
+    </iron-ajax>
 
-    <core-header-panel id="core_header_panel" mode="waterfall-tall" fit>
-
-      <core-toolbar class="waterfall-tall">
-        <div id="error_message" class="error" flex></div>
-        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="{{refreshFile}}"></paper-icon-button>
-        <div class="bottom ident">
-          {{pageTitle}}
+    <paper-header-panel id="paper_header_panel" mode="waterfall-tall" class="fit">
+      <paper-toolbar id="github_htm_viewer_toolbar" class="waterfall-tall">
+        <div id="error_message" class="error flex"></div>
+        <paper-icon-button icon="refresh" role="button" aria-label="search" on-click="refreshFile"></paper-icon-button>
+        <div id="page_title" class="bottom ident">
+          <span>{{pageTitle}}</span>
           <div id="sub_title" class="sub-title">
-            (source: <a href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
+            (source: <a id="doc_link" href="https://github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}">github.com/{{owner}}/{{repo}}/blob/{{branch}}/{{fileName}}</a>)
           </div>
         </div>
 
-        <!-- <paper-icon-button icon="menu" on-tap="{{toggleMenu}}"></paper-icon-button> -->
-      </core-toolbar>
+        <!-- <paper-icon-button icon="menu" on-tap="toggleMenu"></paper-icon-button> --> <!-- TODO change on-tap="{{handleClick}}" to on-tap="handleClick"  CONVERTED WIP -->
+      </paper-toolbar>
 
-      <div class="content" fit>
+      <div class="content">
 
-        <div id="file_div" fit></>
+        <div id="file_div" class="flex"></div>
 
       </div>
-    </core-header-panel>
+    </paper-header-panel>
 
   </template>
   <script>
     (function () {
       Polymer({
+        is: 'github-html-viewer',
 
-        tk: "ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"
+        properties: {
+          owner: {
+            type: String,
+            value: "Test",
+            notify: true
+          },
+          repo: String,
+          fileName: String,
+          branch: String,
+          pageTitle: String
+        },
+
+        tk: "d71d11c7725375ee53e649ef5cb4cf7ff805eb51", //"d71d11c7725375ee53e649ef5cb4cf7ff805eb51"  ce0c6974ac9bc6c65b2e87184615a2e98bb3eacc
 
         ready: function() {
           this.$.error_message.innerHTML = "Loading file..."
           // var elParam = this.getURLParameter('el');
-          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch;
-          console.log("github-html-viewer ready", this.$.get_file.url);
-          this.$.get_file.abort();
-          this.$.get_file.go();
+          this.$.get_file.url = "https://api.github.com/repos/" + this.owner + "/" + this.repo + "/contents/" + this.fileName + "?ref=" + this.branch + "&access_token=" + this.tk;
+          this.$.doc_link.href = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
+          this.$.doc_link.textContent = "https://github.com/" + this.owner + "/" + this.repo + "/blob/" + this.branch + "/" + this.fileName;
+          // console.log("github-html-viewer ready", this.$.get_file.url, this.$.get_file.params);
+          this.$.get_file.generateRequest();
         },
 
         handleFile: function(event, detail, sender) {
@@ -64,16 +76,30 @@
           this.errorMessage = "github-html-viewer Can't find file";
           this.$.error_message.innerHTML = "Can't find " + this.file;
           this.$.file_div.innerHTML = " ";
-          console.log("Error: " + error.statusCode + " - " + error.message);
+          console.log("Error: ",event,error);
         },
 
         refreshFile: function() {
           console.log("github-html-viewer refreshFile", this.$.get_file.url);
-          this.$.get_file.abort();
-          this.$.get_file.go();
+          this.$.get_file.generateRequest();
         },
 
       });
     })();
   </script>
-</polymer-element>
+</dom-module> <!-- CONVERTED -->
+
+
+<!-- CONVERSION NOTES TODO:
+ Review code and look for:
+ - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
+ - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
+ - custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
+ - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
+ - Polymer( fix mixins use Behaviors after is: see  ,
+ - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
+ - Convert paper- to iron- or paper- replacement elements at PolymerElements
+ - fix indentation as need
+ - Cleanup Comments to reflect changes ,
+ - see https://www.polymer-project.org/0.9/docs/migration.html
+   -->
