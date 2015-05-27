@@ -13,6 +13,9 @@
       --paper-radio-button-checked-color: #FFFF00;
       --paper-radio-button-checked-ink-color: #FFFF00;
     }
+    paper-radio-group.radio-small {
+      font-size: 0.7em;
+    }
 
     paper-spinner.blue {
       --paper-spinner-layer-1-color: #4285f4;
@@ -49,7 +52,7 @@
 
   <template>
 
-    <iron-media-query query="min-width: 800px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query>
+    <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query>
 
     <iron-ajax id="get_repos_ajax"
       params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
@@ -114,7 +117,7 @@
 
         <paper-progress class="pink" value="{{progressCounter}}" max="{{progressMax}}" hidden$="{{!hideList}}"></paper-progress>
 
-        <div  class="titles horizontal layout">
+        <div  class="titles-repos-list horizontal layout">
           <div class="cntr">Cntr</div>
           <div class="flex" on-tap="sortName"><button class="sort-column">Name</button></div>
           <div class="flex-3"> Description</div>
@@ -238,6 +241,16 @@
         value: 20,
         notify: true,
         reflectToAttribute: true
+      },
+      mediumWidth: {
+        type: Number,
+        value: "800",
+        notify: true
+      },
+      mediumWidthQuery: {
+        type: String,
+        value: "min-width: 800px",
+        notify: true
       }
     },
 
@@ -267,10 +280,14 @@
       if (hostName == "chuckh.github.io") {
         this.compareCodePrefix = "/road-to-polymer/";
       }
-      // this.$.loading_spinner.active = false;
       this.$.loading_spinner.toggleAttribute("active",false);
-      this.reposViewResized();
-      console.log("repos-list ready", hostName, this.compareCodePrefix);
+      if (window.document.title.substr(0,15) === "Road to Polymer") {
+        console.log(" parent: ","Road to Polymer");
+        this.mediumWidthQuery = "min-width: 1080px";
+        this.mediumWidth = 1080;
+      }
+      this.reposListViewResized();
+      console.log("repos-list ready", hostName, window.document.title.substr(0,15));
     },
 
     handleReposResponse: function(event) {
@@ -288,7 +305,6 @@
       if (error.statusCode != 0) {
         this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
       }
-      // "Over Github API Limit Try Againg in a hour."
     },
 
     handleRepos2Response: function() {
@@ -396,28 +412,20 @@
 
     handleReleaseResponse: function(event) {
       if (this.organization == "Polymer" || this.organization == "PolymerElements" || this.organization == "GoogleWebComponents") {
-        // this.reposAll1[this.currentRelease][2] = this.releases.tag_name;
         this.reposAll[this.currentRelease].latest_release = this.releases.tag_name;
 
         if (this.releases.published_at) {
           var rdate = new Date(this.releases.published_at);
-          // this.reposAll1[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
           this.reposAll[this.currentRelease].released = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
           this.reposAll[this.currentRelease].released_datetime = this.releases.published_at;
         } else {
-          // this.reposAll1[this.currentRelease][4] = "";
           this.reposAll[this.currentRelease].released = "";
           this.reposAll[this.currentRelease].released_datetime = "";
         }
 
       } else {
-        // this.reposAll1[this.currentRelease][2] = this.releaseLookingFor.toString();
         this.reposAll[this.currentRelease].latest_release = this.releaseLookingFor.toString();
-        // this.$.loading_spinner.active = false;
         this.$.loading_spinner.toggleAttribute("active",false);
-
-        // this.hideList = false;
-        // this.reposAll[this.currentRelease][3] = "";
       }
       this.currentRelease += 1;
       this.progressCounter = this.currentRelease;
@@ -427,15 +435,11 @@
       } else {
         // console.log("handleReleaseResponse: ","DONE", this.reposAll);
         this.reposAllFiltered = this.reposAll;
-        // this.$.loading_spinner.active = false;
         this.$.loading_spinner.toggleAttribute("active",false);
         this.hideList = false;
       }
     },
     handleReleasesErrorResponse: function(event) {
-      //console.log("handleReleasesErrorResponse: ", this.currentRelease);
-      // this.reposAll1[this.currentRelease][2] = "no";
-      // this.reposAll1[this.currentRelease][4] = "";
       this.reposAll[this.currentRelease].latest_release = "no";
       this.reposAll[this.currentRelease].released = "";
       this.reposAll[this.currentRelease].released_datetime = "";
@@ -511,32 +515,25 @@
             return d.latest_release === "no";
           }
         });
-        // } else {
-        //   this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-        //     // return d[3] == "sender";
-        //     if (sender == "Yes") {
-        //       return d[3] !== "no";
-        //     } else {
-        //       return d[3] === "no";
-        //     }
-        //   });
-        // }
-
-
       }
       // document.querySelector('#mainContainer').scroller.scrollTop = 0;
       // document.querySelector('#mainContainer').scroller.scrollIntoView();
     },
 
-    reposViewResized: function(e, detail, sender) {
+    reposListViewResized: function(e, detail, sender) {
       var contentWidth = 0;
-      if (this.$.paper_header_panel_repos_list) {
+      var windowWidth = 0;
+      if (window.innerWidth) {
+        // if (this.$.paper_header_panel_repos_list) {
         contentWidth = this.$.paper_header_panel_repos_list.clientWidth;
+        windowWidth = window.innerWidth;
       }
-      if (contentWidth >= 800) {
+      if (windowWidth >= this.mediumWidth) { // medium or larger screen
         this.hideFilter = false;
-      } else {
+        this.$.radio_group_org.toggleClass("radio-small",false);
+      } else { // small screen
         this.hideFilter = true;
+        this.$.radio_group_org.toggleClass("radio-small",true);
       }
 
       // if (this.mediumScreen && this.$.filter_container_repos_list) {
@@ -546,7 +543,7 @@
       // } else {
       //   this.$.filter_container_repos_list.toggleAttribute("hidden",false);
       // }
-      console.log("reposViewResized: ", contentWidth, this.mediumScreen,this.hideFilter);
+      console.log("reposListViewResized: ",this.mediumWidth, contentWidth, this.mediumScreen,this.hideFilter, window.innerWidth, window.document.title);
     },
 
     toggleSearch: function(e, detail, sender) {
