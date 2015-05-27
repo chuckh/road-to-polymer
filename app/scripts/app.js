@@ -57,7 +57,11 @@
     var win = window.open(url, '_blank');
     win.focus();
     console.log("loadUrl: ", url);
-  }
+  };
+
+  app.indexResized = function() {
+    //console.log("app.indexResized: ",window.innerWidth);
+  };
 
 // wrap document so it plays nice with other libraries
 // http://www.polymer-project.org/platform/shadow-dom.html#wrappers (wrap(document))

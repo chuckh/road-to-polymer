@@ -26,14 +26,15 @@
 <body unresolved class="fullbleed vertical layout">
   <template is="dom-bind" id="app">
        <!-- dom-bind CONVERTED WIP -->
-      <iron-media-query query="max-width: 850px" query-matches="{{smallScreen}}"></iron-media-query>
+      <iron-media-query query="max-width: 850px" query-matches="{{smallScreen}}" on-query-matches-changed="indexResized"></iron-media-query>
+      <!-- <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query> -->
 
       <paper-fab id="show_hide_button" icon="chevron-right" mini on-tap="toggleDrawer"
         hidden$={{!smallScreen}} hidden>
       </paper-fab>
       <!-- style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; " -->
 
-      <paper-drawer-panel id="drawer_panel" drawerWidth="256px;" responsiveWidth="850px" >
+      <paper-drawer-panel id="drawer_panel" drawer-width="256px;" responsive-width="850px" >
 
         <!-- Drawer -->
         <paper-header-panel drawer mode="standard" class="left-sidebar">
