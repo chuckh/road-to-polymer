@@ -26,7 +26,7 @@
     app.showHideButtonLeft = '8px;';
     app.forumEmbedSrc = 'https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=' + window.location.href;
     app.async(app.indexResized,1000);
-    // document.querySelector('body').removeAttribute('unresolved');
+    document.querySelector('body').removeAttribute('unresolved');
   });
 
   app.toggleDrawer = function() {
