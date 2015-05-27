@@ -246,7 +246,7 @@
           this.repoCompareViewResized();
           console.log("repos-compare-list ready", loadParam, this.mediumWidth);
           if (loadParam === "true") {
-            this.loadReport();
+            this.async(this.loadReport,100);
           }
     	  },
 
