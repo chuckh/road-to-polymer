@@ -56,7 +56,7 @@
     <!-- <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query> -->
 
 		<iron-ajax id="get_org1_repos_ajax"
-      params='{"page": "1", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg1}}"
 			on-response="handleReposResponseOrg1"
@@ -64,7 +64,7 @@
 		</iron-ajax>
 
     <iron-ajax id="get_org1_repos_page2_ajax"
-      params='{"page": "2", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg1p2}}"
 			on-response="handleReposResponseOrg1p2"
@@ -73,7 +73,7 @@
 
 
     <iron-ajax id="get_org2_repos_ajax"
-      params='{"page": "1", "per_page": "20", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
 			handle-as="json"
 			last-response="{{reposOrg2}}"
 			on-response="handleReposResponseOrg2"
