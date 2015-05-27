@@ -1,6 +1,6 @@
 {
   "name": "road-to-polymer",
-  "version": "0.9.2",
+  "version": "0.9.4",
   "homepage": "https://github.com/chuckh/road-to-polymer",
   "authors": [
     "Chuck Horton <chuckh@hware.com>"
@@ -12,8 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "polymer": "Polymer/polymer#^0.9.1",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.1",
-    "iron-elements": "PolymerElements/iron-elements#~0.9.1",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.2",
+    "iron-elements": "PolymerElements/iron-elements#~0.9.4",
     "paper-elements": "PolymerElements/paper-elements#~0.9.1",
     "marked-element": "PolymerElements/marked-element#~0.9.1",
     "prism-js": "https://github.com/mskrajnowski/prism-js.git#~0.1.1",
@@ -35,8 +35,8 @@
     "web-component-tester": "Polymer/web-component-tester#^2.2.3"
   },
   "resolutions": {
-    "polymer": "^0.9.1",
-    "webcomponentsjs": "^0.7.1",
+    "polymer": "^0.9.4",
+    "webcomponentsjs": "^0.7.2",
     "prism": "6dbe885142"
   }
 }
