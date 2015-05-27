@@ -53,6 +53,10 @@ paper-header-panel .paper-header {
   background-color: #fafafa;  //  fafafa fefefe
 }
 
+.title-row {
+  height: 36px!important;
+}
+
 .report-title {
   font-size: 22px;
   padding-left: 20px;
@@ -114,7 +118,7 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   font-size: 20px;
 }
 
-paper-button.load-button {
+paper-button.load-button-repos-compare {
   background: #4285f4;
   color: #fff;
   margin-top: 15px;
@@ -124,20 +128,16 @@ paper-button.load-button {
   opacity: 0.8;
 }
 
-#load_label {
-  // margin-top: -23px;
-  display: inline;
+#load_label_repos_compare {
+  // margin-top: -53px!important;
+  // display: inline;
   font-size: 18px;
 }
 
-#load_icon {
+#load_icon_repos_compare {
   margin-top: -43px;
   margin-left: -13px;
   padding-right: 15px;
-}
-
-#refresh_button {
-  padding-left: 20px;
 }
 
 .titles {
@@ -167,19 +167,34 @@ footer {
   line-height: 20px;
 }
 
-a:link {
+a.load-report-link {
+  text-decoration: underline;
+  margin-left: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  // height: 30px;
+}
+
+
+#refresh_button {
+  padding-right: 10px;
+}
+
+a:link.load-report-link {
   color: rgba(0,0,0,0.6);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
-a:visited {
-  text-decoration: none;
+a:visited.load-report-link {
+  // text-decoration: none;
 }
 
-a:hover {
-  background-color: #E8EAF6
+a:hover.load-report-link {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: red;
 }
 
-a:active {
-  background-color: #C5CAE9
+a:active.load-report-link {
+  background-color: #C5CAE9;
 }

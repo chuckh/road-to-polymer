@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/font-roboto/roboto.html" >
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
@@ -79,7 +80,7 @@
 
 		<paper-header-panel id="paper_header_panel" class="fit">
 		  <div class="paper-header vertical layout">
-			  <div class="horizontal layout center" >
+			  <div class="horizontal layout center">
   			  <div class="report-title">Polymer Converted to PolymerElements</div>
           <span id="filter_title"></span>
   			  <div id="filter_container" class="filter flex" >
@@ -99,15 +100,21 @@
     		</div>
 
         <!-- <div horizontal layout> -->
-          <!-- <div class="flex"></div> -->
-          <paper-button id="load_button" class="load-button" on-tap="loadReport" raised>
-            <iron-icon id="load_icon" icon="refresh"></iron-icon>
-            <!-- <div id="load_label">Load Data</div> -->
-          </paper-button>
+        <div class="horizontal layout center">
+          <a on-tap="loadReport" class="load-report-link horizontal layout center">
+            <iron-icon id="refresh_button" icon="refresh" role="button" aria-label="refresh" on-tap="loadReport"></iron-icon>Load Data
+          </a>
+            <!-- <paper-icon-button id="refresh_button" icon="refresh" role="button" aria-label="refresh" on-tap="loadReport"></paper-icon-button>Load Data</a> -->
+          <!-- <div id="load_label_repos_comparex"  >Load Data</div> -->
+        </div>
+
+          <!-- <paper-button id="load_button_repos_compare" class="load-button-repos-compare" on-tap="loadReport" raised> -->
+            <!-- <iron-icon id="load_icon_repos_compare" icon="refresh"></iron-icon> -->
+            <!-- <span id="load_label_repos_compare">Load Data</span> -->
+          <!-- </paper-button> -->
           <!-- <button>Load Data</button> -->
           <!-- <paper-button id="convert_button" on-tap="onConvertCode" raised>Convert</paper-button> -->
 
-        <!-- </div> -->
 
 		    <div  class="titles horizontal layout">   <!-- class="horizontal layout"  // TODO cleanup class= if needed  CONVERTED WIP  -->
 		      <div class="cntr">Cntr</div>
