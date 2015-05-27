@@ -132,7 +132,7 @@
           <!-- sort="sortByDate" -->
           <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
             <!-- <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link"> -->
-            <a href="{{getURL(item)}}" target="_blank" class="link">
+            <!-- <a href="{{getURL(item)}}" target="_blank" class="link"> -->
               <div  class="row horizontal layout">
                 <div class="cntr">{{counter(index)}}. </div>
                 <div class="flex repo-name" > <strong>{{item.name}}</strong></div>
@@ -141,7 +141,7 @@
                 <div class="center-text center flex" hidden$={{hideColumn5}}>{{item.3}}</div>
                 <div class="released flex" hidden$={{hideColumn6}}>{{item.released}}</div>
               </div>
-            </a>
+            <!-- </a> -->
           </template>
         </div>
 
