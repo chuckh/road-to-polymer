@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/font-roboto/roboto.html" >
 <link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
 <link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
@@ -51,7 +52,8 @@
 
   <template>
 
-    <iron-media-query query="min-width: 1020px" query-matches="{{mediumScreen}}" on-query-matches-changed="reposViewResized"></iron-media-query>
+    <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="repoCompareViewResized"></iron-media-query>
+    <!-- <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query> -->
 
 		<iron-ajax id="get_org1_repos_ajax"
       params='{"page": "1", "per_page": "10", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
@@ -83,7 +85,7 @@
 			  <div class="horizontal layout center">
   			  <div class="report-title">Polymer Converted to PolymerElements</div>
           <span id="filter_title"></span>
-  			  <div id="filter_container" class="filter flex" >
+  			  <div id="filter_container" class="filter flex" hidden$="{{hideFilter}}">
   				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
   				    <paper-radio-button name="all" class="yellow">All</paper-radio-button>
   				    <paper-radio-button name="Yes" class="yellow">YES</paper-radio-button>
@@ -203,6 +205,21 @@
             value: "",
             notify: true
           },
+          mediumWidth: {
+            type: Number,
+            value: "1020",
+            notify: true
+          },
+          mediumWidthQuery: {
+            type: String,
+            value: "min-width: 1020px",
+            notify: true
+          },
+          hideFilter: {
+            type: Boolean,
+            value: false,
+            notify: true
+          }
         },
 
         // organization1: "Polymer",
@@ -219,12 +236,18 @@
     	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
 
     	  ready: function() {
+          this.$.loading_spinner.toggleAttribute("active",false);
           var loadParam = this.getURLParameter('load');
-          console.log("repos-compare-list ready", loadParam);
+          if (window.document.title.substr(0,15) === "Road to Polymer") {
+            console.log(" parent: ","Road to Polymer");
+            this.mediumWidthQuery = "min-width: 1260px";
+            this.mediumWidth = 1260;
+          }
+          this.repoCompareViewResized();
+          console.log("repos-compare-list ready", loadParam, this.mediumWidth);
           if (loadParam === "true") {
             this.loadReport();
           }
-          this.$.loading_spinner.toggleAttribute("active",false);
     	  },
 
         getURLParameter: function(name) {
@@ -371,11 +394,22 @@
     		  }
     	   },
 
-        reposViewResized: function(e, detail, sender) {
+        repoCompareViewResized: function(e, detail, sender) {
          var contentWidth = 0;
-         if (this.$.paper_header_panel) {
+         var windowWidth = 0;
+         if (window.innerWidth) {
            contentWidth = this.$.paper_header_panel.clientWidth;
+           windowWidth = window.innerWidth;
          }
+         if (windowWidth >= this.mediumWidth) { // medium or larger screen
+           this.hideFilter = false;
+          //  this.$.radio_group_org.toggleClass("radio-small",false);
+         } else { // small screen
+           this.hideFilter = true;
+          //  this.$.radio_group_org.toggleClass("radio-small",true);
+         }
+         console.log("repoCompareViewResized: ",this.mediumWidth, windowWidth, this.mediumScreen,this.hideFilter, window.innerWidth, window.document.title);
+
         //// TODO  this.$.filter_container.hidden = !this.mediumScreen;
         },
 
