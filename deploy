@@ -3,7 +3,7 @@ echo Build and Deploy Road to Polymer to chuck.github.io/road-to-polymer PRODUCT
 echo  Comment: $1
 echo
 echo Starting Build Process
-grunt build -- force
+grunt build --force
 echo Finished Build Process, will start Github Deploy to PRODUCTION Server next
 echo
 echo Press any key to continue, or control-c to abort
