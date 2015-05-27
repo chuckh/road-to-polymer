@@ -25,18 +25,20 @@
     app.page = 0;
     app.showHideButtonLeft = "8px;";
     app.forumEmbedSrc = "https://groups.google.com/forum/embed/?place=forum/polymer-dev&showsearch=true&showpopout=true&showtabs=false&parenturl=" + window.location.href;
-
+    app.async(app.indexResized,1000);
     // document.querySelector('body').removeAttribute('unresolved');
   });
 
   app.toggleDrawer = function(e) {
-    // console.log("toggleDrawer: ", app.$.drawer_panel.forceNarrow);
+    console.log("toggleDrawer: ", app.$.drawer_panel.forceNarrow);
     //app.$.drawer_panel.forceNarrow = true;
     if (app.$.show_hide_button.icon == "chevron-left") {
       app.$.show_hide_button.icon = "chevron-right";
-      app.showHideButtonLeft = "5px;"
+      app.showHideButtonLeft = "8px;"
+      app.$.show_hide_button.toggleClass("sidebar-menu",false);
     } else {
       app.$.show_hide_button.icon = "chevron-left";
+      app.$.show_hide_button.toggleClass("sidebar-menu",true);
       app.showHideButtonLeft = "205px;"
     }
     app.$.drawer_panel.togglePanel();
@@ -48,6 +50,7 @@
       app.$.drawer_panel.closeDrawer();
       app.$.show_hide_button.icon = "chevron-right"
       app.showHideButtonLeft = "8px;"
+      app.$.show_hide_button.toggleClass("sidebar-menu",false);
     }
   };
 
@@ -60,7 +63,20 @@
   };
 
   app.indexResized = function() {
-    //console.log("app.indexResized: ",window.innerWidth);
+    var windowWidth = 0;
+    if (window.innerWidth) {
+      windowWidth = window.innerWidth;
+    }
+    if (windowWidth >= 850) { // medium or larger screen
+      app.$.show_hide_button.icon = "chevron-left";
+      app.$.show_hide_button.toggleClass("sidebar-menu",true);
+    } else {
+      app.$.show_hide_button.icon = "chevron-right";
+      app.$.show_hide_button.toggleClass("sidebar-menu",false);
+      app.showHideButtonLeft = "8px;"
+    // app.showHideButtonLeft = "205px;"
+    }
+    console.log("app.indexResized: ",window.innerWidth);
   };
 
 // wrap document so it plays nice with other libraries

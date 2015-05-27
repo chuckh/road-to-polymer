@@ -29,9 +29,15 @@
       <iron-media-query query="max-width: 850px" query-matches="{{smallScreen}}" on-query-matches-changed="indexResized"></iron-media-query>
       <!-- <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query> -->
 
-      <paper-fab id="show_hide_button" icon="chevron-right" mini on-tap="toggleDrawer"
-        hidden$={{!smallScreen}} hidden>
-      </paper-fab>
+      <!-- <paper-fab id="show_hide_button" class="show-hide-button" icon="chevron-right" mini on-tap="toggleDrawer"
+        hidden$={{!smallScreen}}>
+      </paper-fab> -->
+      <paper-icon-button
+        id="show_hide_button"
+        class="show-hide-button" icon="chevron-right"
+        on-tap="toggleDrawer"
+        hidden$={{!smallScreen}}>
+      </paper-icon-button>
       <!-- style="position: absolute; top:44px; left:{{showHideButtonLeft}};  color: white; background: #2979FF; z-index:10; " -->
 
       <paper-drawer-panel id="drawer_panel" drawer-width="256px;" responsive-width="850px" >
@@ -46,7 +52,7 @@
           </paper-toolbar>
 
           <!-- Drawer Content -->
-          <paper-menu id="sidebar_menu" selected="{{page}}" class="sidebar-menu" on-core-select="selectMenu" style="font-size:9px; padding-top: 3px;">
+          <paper-menu id="sidebar_menu" selected="{{page}}" class="sidebar-menu" on-iron-select="selectMenu" style="font-size:9px; padding-top: 3px;">
             <paper-item><iron-icon icon="polymer" item-icon></iron-icon>Welcome</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Repositories Status Report</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Elements Coverted</paper-item>

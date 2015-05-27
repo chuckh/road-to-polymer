@@ -4,7 +4,30 @@ body {
   color: #333;
 }
 
-#show_hide_button {
+paper-fab {
+  display: block;
+  margin-bottom:24px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+paper-icon-button.show-hide-button {
+  position: absolute;
+  top: 44px;
+  left: 8px;
+  color: white;
+  background: #2979FF;
+  z-index:10;
+  border-radius: 25px;
+  width: 25px;
+  height: 25px;
+}
+
+.sidebar-menu {
+  left: 205px!important;
+}
+
+paper-fab.show-hide-button {
   position: absolute;
   top: 44px;
   left: 8px;
