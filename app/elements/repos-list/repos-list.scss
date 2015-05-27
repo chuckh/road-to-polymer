@@ -115,7 +115,7 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   top: 0;
   left: 0;
   height: 60px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
   padding-left: 20px;
   padding-right: 20px;
@@ -166,6 +166,11 @@ footer{
   padding-bottom: 10px;
   text-align: center;
   font-size: 12px;
+}
+
+.sponsored {
+  font-size: 16px;
+  line-height: 20px;
 }
 
 .sort-column {

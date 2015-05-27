@@ -85,7 +85,7 @@
       <div id="paper_header_repos_list" class="paper-header list vertical layout">
         <div class="horizontal layout">
           <div class="report-title">Repositories Status</div>
-          <div id="filter_container_repos_list" class="filter-repos-list flex">
+          <div id="filter_container_repos_list" class="filter-repos-list flex"  hidden$="{{hideFilter}}">
             <span id="filter_title"></span>
             <paper-radio-group selected="All" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
               <paper-radio-button name="All" label="All" class="yellow">All</paper-radio-button>
@@ -164,6 +164,9 @@
           Select Github Orginaztion (Polymer, PolymerElments, ...) to load report.<br>
           Click on element to see compare code of Polymer 0.5 vs 1.0.<br>
           If you don't see results after filtering then scroll up.
+          <p class="sponsored">Sponsored by<br>
+          <a href="http://actionplanr.com ">Actionplanr.com</a><br>
+          All Your Plans in One Place</p>
         </footer>
       </div>
     </paper-header-panel>
@@ -219,6 +222,11 @@
         value: false,
         notify: true
       },
+      hideFilter: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
       progressCounter: {
         type: Number,
         value: 0,
@@ -261,6 +269,7 @@
       }
       // this.$.loading_spinner.active = false;
       this.$.loading_spinner.toggleAttribute("active",false);
+      this.reposViewResized();
       console.log("repos-list ready", hostName, this.compareCodePrefix);
     },
 
@@ -524,8 +533,20 @@
       if (this.$.paper_header_panel_repos_list) {
         contentWidth = this.$.paper_header_panel_repos_list.clientWidth;
       }
-      //// TODO FIX this.$.filter_container_repos_list.hidden = !this.mediumScreen;
-      // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
+      if (contentWidth >= 800) {
+        this.hideFilter = false;
+      } else {
+        this.hideFilter = true;
+      }
+
+      // if (this.mediumScreen && this.$.filter_container_repos_list) {
+      //   // this.$.loading_spinner.toggleAttribute("active",false);
+      //   this.$.filter_container_repos_list.toggleAttribute("hidden",true);
+      //   this.hideFilter = true;
+      // } else {
+      //   this.$.filter_container_repos_list.toggleAttribute("hidden",false);
+      // }
+      console.log("reposViewResized: ", contentWidth, this.mediumScreen,this.hideFilter);
     },
 
     toggleSearch: function(e, detail, sender) {
