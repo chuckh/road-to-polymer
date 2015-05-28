@@ -7,32 +7,43 @@
   text-align: center;
 }
 
-core-header-panel {
+paper-header-panel {
   font-size: 24px;
-  padding: 0 10px;
+  padding: 0;
   background-color: white;  // 7986cb
 }
-.core-header {
+.paper-header {
   height: 180px;
   background-color: rgb(63,81,181);
   color: #FFF;
   transition: height 0.2s;
 }
 
-core-toolbar {
-  // min-height: 64px;
+paper-toolbar {
   color: #FAFAFA;
   padding-left: 50px;
   font-weight: normal;
-  background-color: #303F9F;  // 7986cb   rgb(63,81,181)
+  background-color: #303F9F;  // 7986cb   rgb(63,81,181) #303F9F
 }
 
-core-toolbar .ident {
+#welcome_toolbar {
+  background-color: #303F9F;
+}
+
+
+paper-toolbar .ident {
   padding-left: 33px;
 }
 
-core-toolbar .tall {
+paper-toolbar .tall {
   padding-left: 40px;
+}
+
+#page_title {
+  font-size: 28px;
+  font-weight: 500;
+  text-align: left;
+  // margin-top: 15px;
 }
 
 .content {
@@ -54,6 +65,11 @@ footer{
 h3 {
   border-bottom: 1px solid lightgray;
 
+}
+
+.sponsored {
+  font-size: 16px;
+  line-height: 20px;
 }
 
 // a:hover {

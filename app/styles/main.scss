@@ -4,57 +4,104 @@ body {
   color: #333;
 }
 
+paper-fab {
+  display: block;
+  margin-bottom:24px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+paper-icon-button.show-hide-button {
+  position: absolute;
+  top: 44px;
+  left: 8px;
+  color: white;
+  background: #2979FF;
+  z-index:10;
+  border-radius: 25px;
+  width: 25px;
+  height: 25px;
+}
+
+.sidebar-menu {
+  left: 205px!important;
+}
+
+paper-fab.show-hide-button {
+  position: absolute;
+  top: 44px;
+  left: 8px;
+  color: white;
+  background: #2979FF;
+  z-index:10;
+}
+
 .left-sidebar {
+  height: 100%;
   box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.26);
+  padding: 0;
 }
 
-// .header-panel-page {
-//
+#left_sidebar_toolbar {
+  background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
+  font-size: 20px;
+}
+
+#left_sidebar_toolbar .toolbar-tools.paper-toolbar {
+  padding: 0;
+  margin-top: -5px;
+  margin-left: -34px;
+}
+
+paper-header-panel {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+iron-pages {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+}
+
+// .browsehappy {
+//   margin: 0.2em 0;
+//   background: #ccc;
+//   color: #000;
+//   padding: 0.2em 0;
 // }
-
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
-}
-
-.hero-unit h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
 
 [drawer] {
   background-color: #fff;
 }
 
-core-toolbar {
+paper-toolbar {
+  margin: 0;
+  padding: 0;
   color: #FAFAFA;
   font-weight: normal;
-  background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
 }
 
-core-item {
-  font-size: 13px;
+paper-item {
+  font-size: 13px !important;
   color: rgba(0,0,0,0.6);
+
 }
-core-item.core-selected {
+paper-item.iron-selected {
   color: #4F7DC9;
+  border: none;
+}
+
+#sidebar_menu .content {
+  padding:0;
 }
 
 .sidebar-menu {
   font-size: 12px;
   color: rgba(0,0,0,0.6);
+}
+
+iron-icon {
+  padding-right: 10px;
 }

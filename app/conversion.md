@@ -10,7 +10,7 @@ These high level conversion steps are a work in progress and don't cover every s
 
 ### HTML Conversion Process
 
-####polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
+#### polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
 1. polymer-element to dom-module
   - `<polymer-element id=` name to `<dom-module id=`
 2. polymer-element attribute/property camelCase to dash-case
@@ -35,7 +35,7 @@ These high level conversion steps are a work in progress and don't cover every s
   - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">`
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
   - **note:** this could change in Polymer 1.0
-  - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles."
+  - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles. `Polymerelements/iron-flex-layout` is the spiritual successor to `polymer/layout`, so it's probably better to use that going forward anyway."
 6. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
   - If you need to set classes on the host, you can do so imperatively (for example, by calling `classList.add` from the ready callback).
@@ -51,7 +51,7 @@ These high level conversion steps are a work in progress and don't cover every s
 1. Correct JSON quotes required, change `<my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }">` to `</my-element> to <my-element foo='{ "title": "Persuasion", "author": "Austen" }'></my-element>`
   - see https://www.polymer-project.org/0.9/docs/migration.html#attr
 
-####template
+#### template
 see https://www.polymer-project.org/0.9/docs/migration.html#template-repeat
 
 1. template `repeat` to `is="dom-repeat"` and `repeat=` to `items=`
@@ -69,12 +69,40 @@ x-array-selector -> array-selector
 x-style -> custom-style  
 ```
 
-####Bindings / other
+#### Bindings / other
 
 1. textContent binding from `<div>First: {{first}}</div>` TO `First: <span>{{first}}</span><br>`  
   - To bind to a child element’s textContent, you can simply include the annotation inside the child element. The binding annotation must currently span the entire content of the tag:
 1. elements `on-click="{{handleClick}}"` to `on-click="handleClick"`
 1. lots of changes to `Data Bindings` see doc at https://www.polymer-project.org/0.9/docs/devguide/data-binding.html
+
+#### Core and paper elements
+- `core-drawer-panel` -> `paper-drawer-panel`
+- `core-header-panel` -> `paper-header-panel`
+- `core-toolbar` -> `paper-toolbar`
+- `core-dropdown` -> `paper-dropdown`
+- `core-dropdown-menu` -> `paper-dropdown-menu`
+- `core-menu` -> `paper-menu`
+- `core-item`	-> `paper-item`
+- `core-item with icon`	-> `paper-icon-item`
+- `core-scroll-header-panel` -> `paper-scroll-header-panel`
+- `core-tooltip`-> `paper-tooltip`, planned in future
+- `core-ajax` -> `iron-ajax`
+  - `response` -> `last-response`
+  - `on-core-response` -> `on-response`, remove {{}}
+  - `on-core-error` -> `on-error`, remove {{}}
+  - `handleAs` -> handle-as
+  - `remove loading=` and `progress=` if needed
+- `core-list`	-> `iron-list`, working on
+- `core-media-query` -> `iron-media-query`
+  - `on-core-media-change` -> `on-query-matches-changed`
+  - `queryMatches` -> `query-matches`
+  - `query="min-width: 860px"` -> `query="(min-width: 860px)"`
+- `core-drag-drop` - Not currently working on.
+
+see https://github.com/PolymerElements/iron-elements for iron elements roadmap  
+see https://github.com/PolymerElements/paper-elements for paper elements roadmap
+
 
 ### Javascript Conversion Process
 1. polymer-element name to `Polymer({ is:`
@@ -111,6 +139,8 @@ see https://www.polymer-project.org/0.9/docs/migration.html#styling
 1. If you are using layout attributes change from `<div layout horizontal center>` to `<div class="layout horizontal center">`
 2. if using layout attributes add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}` to Polymer({
   - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
+3. If using flex change `<div flex two>` to `<div class="flex-2"`
+  - see https://github.com/PolymerElements/iron-flex-layout/blob/master/classes/iron-shadow-flex-layout.html
 
 ### Core and Paper Elements Conversion
 The core-x and paper-x are moving to PolymerElements at https://github.com/PolymerElements.
@@ -157,6 +187,10 @@ http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true
 |:-------------------- |:-------------------------------------- |
 | iron-meta            | is a element for creating and accessing self-organizing meta-database |
 | iron-state-behaviors | bahaviors that manage control states like 'focused', 'disabled', and 'active' |
+
+### Remove Comments
+Find HTML comments with Regex: `<!--(.*?)-->`
+Find Javascript comments with Regex: `(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)`
 
 
 ### Difference example of paper-button conversion by Polymer team

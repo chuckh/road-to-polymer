@@ -1,27 +1,34 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/core-header-panel/core-header-panel.html">
-<link rel="import" href="../../bower_components/core-media-query/core-media-query.html">
-<link rel="import" href="../../bower_components/core-icons/core-icons.html">
+<!-- <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html"> -->
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../bower_components/iron-media-query/iron-media-query.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/prettify-element/prettify-element.html">
+<!-- <link rel="import" href="../../bower_components/prettify-element/prettify-element.html"> -->
 
-<polymer-element name="welcome-view" attributes="">
+<dom-module id='welcome-view'>
+
+  <style>
+  </style> <!-- TODO Move style tags here from <template> if needed CONVERTED WIP -->
+  <link rel="stylesheet" href="welcome-view.css"> <!-- TODO Move line about <template>  CONVERTED WIP -->
+
   <template>
-    <link rel="stylesheet" href="welcome-view.css">
 
-    <core-header-panel id="core_header_panel" mode="waterfall-tall" fit>
+    <paper-header-panel id="paper_header_panel" mode="waterfall-tall" class="fit">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
 
-      <core-toolbar class="waterfall-tall">
-        <div class="bottom ident">Welcome</div>
-      </core-toolbar>
+      <paper-toolbar id="welcome_toolbar" class="waterfall-tall">
+        <div id="page_title" class="bottom ident">Welcome</div>
+      </paper-toolbar>
 
-		  <div class="content" fit>
+		  <div class="content fit">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
 
-        <p>This is where we keep notes, links, reports related to migrating from Polymer 0.5 to 0.9 to 1.0. Polymer 0.9.0 Beta was released 5/14/2015. The goal for 1.0.0 is by end of May 2015.</p>
+        <p>This is where we keep notes, links, reports related to migrating from Polymer 0.5 to 0.9 to 1.0. Polymer 0.9.0 Beta was released 5/14/2015. The goal for 1.0.0 is by end of May 2015.</p>   <!-- class="end"  // TODO Convert to class=  CONVERTED WIP  -->
 
         <h3>Polymer Links</h3>
-        <div horizontal layout flex>
-          <div vertiical layout flex>
+        <div class="horizontal layout flex">   <!-- class="horizontal layout flex"  // TODO Convert to class=  CONVERTED WIP  -->
+          <div class="flex">   <!-- class="layout flex"  // TODO Convert to class=  CONVERTED WIP  -->
             <a href="https://www.polymer-project.org" target="_blank">Polymer-project.org</a><br>
             <a href="https://blog.polymer-project.org" target="_blank">Polymer Blog</a><br>
             <a href="https://www.polymer-project.org/0.5/" target="_blank">Polymer-project.org 0.5</a><br>
@@ -34,7 +41,7 @@
             <a href="https://groups.google.com/forum/#!forum/polymer-dev" target="_blank">Polymer Google Group</a><br>
           </div>
 
-          <div vertiical layout flex>
+          <div class="flex">   <!-- class="layout flex"  // TODO Convert to class=  CONVERTED WIP  -->
             <a href="https://www.youtube.com/playlist?list=PLOU2XLYxmsII5c3Mgw6fNYCzaWrsM3sMN" target="_blank">Polycasts Training Videos</a><br>
             <a href="http://stackoverflow.com/search?q=polymer" target="_blank">Polymer on stackoverflow</a><br>
             <a href="http://stackoverflow.com/search?q=polymer+0.9" target="_blank">Polymer 0.9 on stackoverflow</a><br>
@@ -49,7 +56,7 @@
         </div>
 
         <h3>Web Components Links</h3>
-        <div vertiical layout flex>
+        <div class="flex">   <!-- class="layout flex"  // TODO Convert to class=  CONVERTED WIP  -->
           <a href="http://webcomponents.org" target="_blank">Webcomponents.org</a><br>
           <a href="http://webcomponents.org/articles/" target="_blank">Webcomponents Articles</a><br>
           <a href="https://github.com/webcomponents/webcomponentsjs" target="_blank">Webcomponentsjs on Github</a><br>
@@ -59,27 +66,27 @@
         </div>
 
         <h3>Polymer 0.9 Examples</h3>
-        <div vertiical layout flex>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html" target="_blank">Polymer Quick Tour</a><br>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#register" target="_blank">Register an element</a><br>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#add-local-dom" target="_blank">Add local DOM</a><br>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#composition-with-local-dom" target="_blank">Composition with local DOM</a><br>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#data-binding" target="_blank">Data binding</a><br>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#declared-properties" target="_blank">Binding to properties</a><br>
-          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#binding-to-properties" target="_blank">Declared properties</a><br>
+        <div class="flex">   <!-- class="layout flex"  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html" target="_blank">Polymer Quick Tour</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html""  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#register" target="_blank">Register an element</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html#register""  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#add-local-dom" target="_blank">Add local DOM</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html#add-local-dom""  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#composition-with-local-dom" target="_blank">Composition with local DOM</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html#composition-with-local-dom""  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#data-binding" target="_blank">Data binding</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html#data-binding""  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#declared-properties" target="_blank">Binding to properties</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html#declared-properties""  // TODO Convert to class=  CONVERTED WIP  -->
+          <a href="//www.polymer-project.org/0.9/docs/start/quick-tour.html#binding-to-properties" target="_blank">Declared properties</a><br>   <!-- class=""//www.polymer-project.org/0.9/docs/start/quick-tour.html#binding-to-properties""  // TODO Convert to class=  CONVERTED WIP  -->
           <a href="//github.com/ragingwind/polymer-samples/tree/master/samples" target="_blank">Polymer 0.9 Examples by Jimmy Moon</a><br>
           <a href="//github.com/johnthad/Polymer-N-10" target="_blank">Polymer in 10 Minutes by Thad Humphries</a><br>
         </div>
 
         <!-- <h3>Polymer 0.5 Elements Demos</h3>
-        <div vertiical layout flex>
-          <a href="//chuckh.github.io/road-to-polymer/bower_components/core-icons/demo.html" target="_blank">Core-icons Demo</a><br>
+        <div class="vertical layout flex">
+          <a href="//chuckh.github.io/road-to-polymer/bower_components/iron-icons/demo.html" target="_blank">Core-icons Demo</a><br>
           <a href="//chuckh.github.io/road-to-polymer/bower_components/core-list/demo.html" target="_blank">Core-list Basic Demo</a><br>
           <a href="//chuckh.github.io/road-to-polymer/bower_components/core-list/demos/demo-flickr-grid-grouped.html" target="_blank">Core-list Demo Grouped Grid</a><br>
         </div> -->
 
         <h3>Material Design Resources</h3>
-        <div vertiical layout flex>
+        <div class="flex">   <!-- class="layout flex"  // TODO Convert to class=  CONVERTED WIP  -->
           <a href="http://www.google.com/design/spec/material-design/introduction.html" target="_blank">Material Design Spec</a><br>
           <a href="http://www.materialpalette.com/" target="_blank">Material Palette</a><br>
           <a href="http://www.materialup.com/" target="_blank">MaterialUp Market</a><br>
@@ -117,16 +124,39 @@
   			<footer>
           Site by Chuck Horton -- email chuckh @ hware.com<br>
           <p>Chuck Horton (<a href="https://github.com/chuckh" class="user-mention">@chuckh</a>)</p>
+          <p class="sponsored">Sponsored by<br>
+          <a href="http://actionplanr.com ">Actionplanr.com</a><br>
+          All Your Plans in One Place</p>
   			</footer>
 		  </div>
-		</core-header-panel>
+		</paper-header-panel>
 
   </template>
   <script>
     (function () {
       Polymer({
+        is: 'welcome-view', // CONVERTED WIP
+
+        properties: {
+          //  TODO: add attributes="" to properites -- CONVERTED WIP
+        }
         // define element prototype here
       });
     })();
   </script>
-</polymer-element>
+</dom-module> <!-- CONVERTED -->
+
+
+<!-- CONVERSION NOTES TODO:
+ Review code and look for:
+ - textContent binding from <div>First: {{first}}</div> TO First <span>{{first}}</span><br>
+ - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}
+ - custom elements correct JSON quotes required, change from <my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }"> to </my-element> to <my-element foo="{ "title": "Persuasion", "author": "Austen" }"></my-element>
+ - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar
+ - Polymer( fix mixins use Behaviors after is: see  ,
+ - Layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">,
+ - Convert core- to iron- or paper- replacement elements at PolymerElements
+ - fix indentation as need
+ - Cleanup Comments to reflect changes ,
+ - see https://www.polymer-project.org/0.9/docs/migration.html
+   -->

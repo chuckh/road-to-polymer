@@ -5,7 +5,7 @@
   font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 }
 
-.center {
+.center-text {
   text-align: center;
 }
 
@@ -14,6 +14,7 @@
   padding-bottom: 5px;
   padding-left: 10px;
   border-bottom: 1px solid #E6E6E6;
+  font-size: 16px;
 }
 
 .cntr {
@@ -32,12 +33,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
+  font-size: 16px;
 }
 
-core-header-panel {
+paper-header-panel {
   height: 100%;
 }
-.core-header {
+paper-header-panel #paper_header_repos_list {
   height: 150px;
   line-height: 60px;
   font-size: 20px;
@@ -46,7 +48,7 @@ core-header-panel {
   color: #FFF;
   transition: height 0.2s;
 }
-.content {
+.repos-list-content {
   height: 2000px;
   padding-top: 15px;
   background-color: #fafafa;  //  fafafa fefefe
@@ -57,11 +59,16 @@ core-header-panel {
   padding-left: 20px;
 }
 
-.filter {
+.filter-repos-list {
   margin-top: -10px;
   font-size: 14px;
   text-align: right;
   padding-right: 20px;
+}
+
+
+#radioLabel.paper-radio-button {
+  color: #E0E0E0!important;
 }
 
 paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
@@ -103,12 +110,12 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   min-width: 300px;
 }
 
-.orgs {
+.orgs-repos-list {
   position: relative;
   top: 0;
   left: 0;
   height: 60px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
   padding-left: 20px;
   padding-right: 20px;
@@ -131,11 +138,11 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
 }
 
 
-.titles {
+.titles-repos-list {
   font-size: 16px;
   position: relative;
-  top: 5px;
-  left: 0px;
+  top: 0;
+  left: 0;
   padding-left: 10px;
   width: 100%;
   color: black;
@@ -147,12 +154,36 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   text-align: left;
 }
 
+.repo-name{
+  word-wrap: break-word;
+}
+.description {
+  padding-left: 5px;
+}
+
 footer{
   width: 100%;
   padding-bottom: 10px;
   text-align: center;
   font-size: 12px;
 }
+
+.sponsored {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.sort-column {
+  background:none;
+  border:none;
+  padding:0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  line-height: 16px;
+}
+
 
 a:link {
   color: rgba(0,0,0,0.6);
@@ -164,7 +195,7 @@ a:visited {
 }
 
 a:hover {
-  background-color: #E8EAF6
+  background-color: #E8EAF6;
 }
 
 a:active {

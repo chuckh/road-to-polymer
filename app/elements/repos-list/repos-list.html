@@ -1,485 +1,796 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/font-roboto/roboto.html" >
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
 
-<polymer-element name="repos-list" attributes="">
+<dom-module id='repos-list'>
+
+  <style is="custom-style">
+    paper-radio-button.yellow {
+      --paper-radio-button-unchecked-color: #5C6BC0;
+      --paper-radio-button-unchecked-ink-color: #5C6BC0;
+      --paper-radio-button-checked-color: #FFFF00;
+      --paper-radio-button-checked-ink-color: #FFFF00;
+    }
+    paper-radio-group.radio-small {
+      font-size: 0.7em;
+    }
+
+    paper-spinner.blue {
+      --paper-spinner-layer-1-color: #4285f4;
+      --paper-spinner-layer-2-color: #4285f4;
+      --paper-spinner-layer-3-color: #4285f4;
+      --paper-spinner-layer-4-color: #4285f4;
+    }
+    paper-spinner.yellow {
+      --paper-spinner-layer-1-color: #FFFF00;
+      --paper-spinner-layer-2-color: #FFFF00;
+      --paper-spinner-layer-3-color: #FFFF00;
+      --paper-spinner-layer-4-color: #FFFF00;
+    }
+    paper-spinner.pink {
+      --paper-spinner-layer-1-color: var(--google-red-100);
+      --paper-spinner-layer-2-color: var(--google-red-300);
+      --paper-spinner-layer-3-color: var(--google-red-500);
+      --paper-spinner-layer-4-color: var(--google-red-700);
+    }
+    paper-progress {
+      width: 100%;
+    }
+    paper-progress.pink {
+      --paper-progress-active-color: var(--google-red-300);
+    }
+    paper-progress.green {
+      --paper-progress-active-color: var(--google-green-300);
+    }
+    paper-progress.yellow {
+      --paper-progress-active-color: #FFFF00;
+    }
+  </style>
+  <link rel="stylesheet" href="repos-list.css">
+
   <template>
-    <link rel="stylesheet" href="repos-list.css">
 
-    <core-media-query query="min-width: 800px" queryMatches="{{mediumScreen}}" on-core-media-change="{{reposViewResized}}"></core-media-query>
+    <iron-media-query query="{{mediumWidthQuery}}" query-matches="{{mediumScreen}}" on-query-matches-changed="reposListViewResized"></iron-media-query>
 
-		<core-ajax id="get_repos_ajax"
-			url="https://api.github.com/users/{{organization}}/repos",
-			params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loading1}}"
-			progress="{{progress}}"
-			response="{{repos}}"
-			on-core-response="{{handleReposResponse}}"
-			on-core-error="{{handleReposErrorResponse}}">
-		</core-ajax>
+    <iron-ajax id="get_repos_ajax"
+      params='{"page": "1", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      handle-as="json"
+      last-response="{{repos}}"
+      on-response="handleReposResponse"
+      on-error="handleReposErrorResponse">
+    </iron-ajax>
 
-		<core-ajax id="get_repos_page2_ajax"
-			url="https://api.github.com/users/{{organization}}/repos",
-			params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "{{tk}}" }'
-			handleAs="json"
-			loading="{{loading2}}"
-			progress="{{progress2}}"
-			response="{{repos2}}"
-			on-core-response="{{handleRepos2Response}}">
-		</core-ajax>
+    <iron-ajax id="get_repos_page2_ajax"
+      params='{"page": "2", "per_page": "100", "sort": "full_name","access_token": "16d359ef1b001628536988bc15168e4f7c267771" }'
+      handle-as="json"
+      last-response="{{repos2}}"
+      on-response="handleRepos2Response">
+    </iron-ajax>
 
-		<core-ajax id="get_branches_ajax"
-			url="",
-			params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-			handleAs="json"
-			loading="{{branchesLoading}}"
-			progress="{{branchesProgress}}"
-			response="{{branches}}"
-			on-core-response="{{handleBranchesResponse}}">
-		</core-ajax>
+    <!-- <iron-ajax id="get_branches_ajax"
+      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+      handle-as="json"
+      last-response="{{branches}}"
+      on-response="handleBranchesResponse">
+    </iron-ajax> -->
 
-		<core-ajax id="get_releases_ajax"
-			url="",
-			params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
-			handleAs="json"
-			loading="{{releasesLoading}}"
-			progress="{{releasesProgress}}"
-			response="{{releases}}"
-			on-core-response="{{handleReleaseResponse}}"
-			on-core-error="{{handleReleasesErrorResponse}}">
-		</core-ajax>
+    <iron-ajax id="get_releases_ajax"
+      params='{"access_token": "d71d11c7725375ee53e649ef5cb4cf7ff805eb51"}'
+      handle-as="json"
+      last-response="{{releases}}"
+      on-response="handleReleaseResponse"
+      on-error="handleReleasesErrorResponse">
+    </iron-ajax>
 
-		<core-header-panel id="core_header_panel" fit>
-		  <div class="core-header" vertical layout>
-			  <div horizontal layout>
-  			  <div class="report-title">Repositories Status</div>
-  			  <div id="filter_container" class="filter" flex>
+    <paper-header-panel id="paper_header_panel_repos_list" class="fit">
+      <div id="paper_header_repos_list" class="paper-header list vertical layout">
+        <div class="horizontal layout">
+          <div class="report-title">Repositories Status</div>
+          <div id="filter_container_repos_list" class="filter-repos-list flex"  hidden$="{{hideFilter}}">
             <span id="filter_title"></span>
-  				  <paper-radio-group selected="all" class="yellow" id="radio_group_filter">
-  				    <paper-radio-button name="all" label="All" on-click="{{filterRepos}}"></paper-radio-button>
-  				    <paper-radio-button name="Yes" label="YES" on-click="{{filterRepos}}"></paper-radio-button>
-  				    <paper-radio-button name="No" label="no" on-click="{{filterRepos}}"></paper-radio-button>
-  				    <paper-radio-button name="Iron" label="Iron" on-click="{{filterRepos}}" id="iron_radio_button"></paper-radio-button>
-  				    <paper-radio-button name="Paper" label="Paper" on-click="{{filterRepos}}" id="paper_radio_button"></paper-radio-button>
-              <paper-radio-button name="Other" label="Other" on-click="{{filterRepos}}" id="other_radio_button"></paper-radio-button>
-  				    <!-- <paper-radio-button name="YesCorePaper" label="Yes Core + Paper" on-click="{{filterRepos}}"></paper-radio-button> -->
-  				    <!-- <paper-radio-button name="NoCorePaper" label="No Core + Paper" on-click="{{filterRepos}}"></paper-radio-button> -->
-  				  </paper-radio-group>
-  			  </div>
-  			  <div id="search" class="search" horizontal layout>
-  				  <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed="" active="" on-click="{{toggleSearch}}"></paper-icon-button>
-  				  <input type="search" id="search_input" value="{{searchValue}}" on-keyup="{{filterRepos}}" on-search=="{{filterRepos}}" autocomplete="on" placeholder="search names, cur release" autofocus hidden>
-  			  </div>
-    		</div>
-
-        <div id="org_container" class="orgs" horizontal layout center>
-          <div class="select-label">Select </div>
-          <paper-radio-group class="yellow-white" id="radio_group_org" on-core-select={{onOrgSelect}}>
-            <paper-radio-button name="polymer" label="Polymer" ></paper-radio-button>
-            <paper-radio-button name="polymereelements" label="PolymerElements" ></paper-radio-button>
-            <paper-radio-button name="webcomponents" label="Google Web Components" ></paper-radio-button>
-          </paper-radio-group>
-          <paper-icon-button id="refresh_button" icon="refresh" role="button" aria-label="refresh" on-click="{{refreshData}}"></paper-icon-button>
+            <paper-radio-group selected="All" class="yellow" id="radio_group_filter" on-paper-radio-group-changed="onRadioGroupFilterChange">
+              <paper-radio-button name="All" label="All" class="yellow">All</paper-radio-button>
+              <paper-radio-button name="Yes" label="Yes" class="yellow">Yes</paper-radio-button>
+              <paper-radio-button name="no" label="no" class="yellow">no</paper-radio-button>
+              <paper-radio-button name="{{ironCore}}" label="{{ironCore}}" id="iron_radio_button" class="yellow" hidden$="{{hideRadioButton}}">{{ironCore}}</paper-radio-button>
+              <paper-radio-button name="Paper" label="Paper" id="paper_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Paper</paper-radio-button>
+              <paper-radio-button name="Other" label="Other" id="other_radio_button" class="yellow" hidden$="{{hideRadioButton}}">Other</paper-radio-button>
+            </paper-radio-group>
+          </div>
+          <div id="search" class="search horizontal layout center">
+            <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search" pressed active on-click="toggleSearch"></paper-icon-button>
+            <input is="iron-input" type="search" id="search_input" bind-value="{{bindValue}}" value="{{searchValue::input}}" on-keyup="filterSearchRepos" on-search=="filterSearchRepos" autocomplete="on" placeholder="search names, latest release, date" autofocus hidden>
+          </div>
         </div>
 
-		    <div horizontal layout class="titles">
-		      <div class="cntr">Cntr</div>
-		      <div flex>Name</div>
-		      <div flex three> Description</div>
-		      <div flex class="center">Cur Release</div>
-		      <div flex class="center" hidden?={{hideColumn5}}>0.8-{{branchLookingFor}}</div>
-          <div flex hidden?={{hideColumn6}}>Released</div>
-		    </div>
-		  </div>
+        <div id="org_container_repos_list" class="orgs-repos-list horizontal layout center">
+          <div class="select-label">Select </div>
+          <paper-radio-group class="yellow-white" id="radio_group_org" on-paper-radio-group-changed="onOrgSelect">
+            <paper-radio-button name="polymer" label="Polymer" class="yellow">Polymer</paper-radio-button>
+            <paper-radio-button name="polymereelements" label="PolymerElements" class="yellow">PolymerElements</paper-radio-button>
+            <paper-radio-button name="webcomponents" label="Google Web Components" class="yellow">Google Web Components</paper-radio-button>
+          </paper-radio-group>
+          <paper-icon-button id="refresh_button" icon="refresh" role="button" aria-label="refresh" on-click="refreshData"></paper-icon-button>
+        </div>
 
-		  <div class="content">
-		    <div vertical layout>
-		      <template repeat="{{repoAll, j in reposAllFiltered}}">
-            <a href="{{compareCodePrefix}}compare-code.html?el={{repoAll[0]}}&org={{organization}}" target="_blank" class="link">
-		        <div horizontal layout class="row">
-		          <div  class="cntr">{{j+1}}. </div>
-		          <div flex> <strong>{{repoAll[0]}}</strong></div>
-		          <div flex three>{{repoAll[1]}}</div>
-		          <div flex class="center">{{repoAll[2]}}</div>
-		          <div flex class="center" hidden?={{hideColumn5}}>{{repoAll[3]}}</div>
-              <div flex class="released" hidden?={{hideColumn6}}>{{repoAll[4]}}</div>
-		        </div>
-          </a>
-		      </template>
-		    </div>
+        <paper-progress class="pink" value="{{progressCounter}}" max="{{progressMax}}" hidden$="{{!hideList}}"></paper-progress>
 
-		    <div horizontal layout class="counters">
-		      <div class="cntr">Counter</div>
-		      <div flex></div>
-		      <div flex three>{{reposAllFiltered.length}}</div>
-		      <div flex class="center"></div>
-		      <div flex class="center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>
-		    </div>
+        <div  class="titles-repos-list horizontal layout">
+          <div class="cntr">Cntr</div>
+          <div class="flex" on-tap="sortName"><button class="sort-column">Name</button></div>
+          <div class="flex-3"> Description</div>
+          <div class="center-text center flex" on-tap="sortLatestRelease"><button class="sort-column">Latest Release</button></div>
+          <div class="center-text center flex" hidden$={{hideColumn5}}>0.8-<span>{{branchLookingFor}}</span></div>
+          <div class="flex" on-tap="sortDateReleased" hidden$={{hideColumn6}}><button class="sort-column">Date Released</button></div>
+        </div>
+      </div>
 
-		    <h3 id="error_message" class="error"></h3>
+      <div class="repos-list-content">
+        <div class="vertical layout">
+          <!-- sort="sortByDate" -->
+          <template id="repos_template" is="dom-repeat" items="{{reposAllFiltered}}" hidden$="{{hideList}}">
+            <!-- <a href="{{compareCodePrefix}}compare-code.html?el={{reposAllFiltered[0]}}&org={{organization}}" target="_blank" class="link"> -->
+            <!-- <a href="{{getURL(item)}}" target="_blank" class="link"> -->
+              <div  class="row horizontal layout">
+                <div class="cntr">{{counter(index)}}. </div>
+                <div class="flex repo-name" > <strong>{{item.name}}</strong></div>
+                <div class="flex-3 description">{{item.description}}</div>
+                <div class="center-text center flex">{{item.latest_release}}</div>
+                <div class="center-text center flex" hidden$={{hideColumn5}}>{{item.3}}</div>
+                <div class="released flex" hidden$={{hideColumn6}}>{{item.released}}</div>
+              </div>
+            <!-- </a> -->
+          </template>
+        </div>
 
-  			<hr>
-  			<footer>
+        <div class="horizontal layout center">
+          <div class="flex"></div>
+          <paper-spinner id="loading_spinner" class="pink" active></paper-spinner><br>
+          <div class="flex"></div>
+        </div>
+
+        <div class="counters horizontal layout">
+          <div class="cntr">Counter</div>
+          <div class="flex"></div>
+          <div class="flex" three>{{reposAllFiltered.length}}</div>
+          <div flex class="center-text flex center"></div>
+          <div flex class="center-text flex center" id="yes_counter" hidden>Yes: {{cntrYes}}</div>
+        </div>
+
+        <h3 id="error_message" class="error"></h3>
+
+        <hr>
+        <footer>
           Report by Chuck Horton -- email chuckh @ hware.com<br>
           Select Github Orginaztion (Polymer, PolymerElments, ...) to load report.<br>
-          Click on element to see compare code of Polymer 0.5 vs 0.8.<br>
-    			If you don't see results after filtering then scroll up.
-  			</footer>
-		  </div>
-		</core-header-panel>
+          Click on element to see compare code of Polymer 0.5 vs 1.0.<br>
+          If you don't see results after filtering then scroll up.
+          <p class="sponsored">Sponsored by<br>
+          <a href="http://actionplanr.com ">Actionplanr.com</a><br>
+          All Your Plans in One Place</p>
+        </footer>
+      </div>
+    </paper-header-panel>
 
   </template>
-  <script>
-    (function () {
-      Polymer({
 
-        organization: "polymer",
-        branchLookingFor: "preview", // will not find if you put 0.8 preview
-    	  releaseLookingFor: "0.5.5",
-    	  repos1Loaded: false,
-    	  repos2Loaded: false,
-    	  reposLoaded: false,
-    	  reposAll: [],
-    	  cntr: 0,
-    	  cntrYes: 0,
-    	  currentBranch: 0,
-    	  currentBranchName: "",
-    	  currentRelease: 0,
-    	  currentReleaseName: "",
-    	  currentError: "",
-    	  tk: "16d359ef1b001628536988bc15168e4f7c267771",
-        searchValue: "",
-        compareCodePrefix: "../",
-        hideColumn5: false,
-        hideColumn6: true,
+<script>
+(function () {
+  Polymer({
+    is: 'repos-list', // CONVERTED WIP
 
-    	  ready: function() {
-          var hostName = window.location.hostname;
-          if (hostName == "chuckh.github.io") {
-            this.compareCodePrefix = "/road-to-polymer/";
+    properties: {
+      reposAllFiltered: {
+        type: Object,
+        value: function() { return []; },
+        notify: true
+      },
+      branchLookingFor: {
+        type: String,
+        value: "preview", // will not find if you put 0.8 preview
+        notify: true,
+        reflectToAttribute: true
+      },
+      searchValue: {
+        type: String,
+        value: "",
+        notify: true
+      },
+      ironCore: {
+        type: String,
+        value: "Iron",
+        notify: true
+      },
+      hideColumn5: {
+        type: Boolean,
+        value: true,
+        notify: true,
+        reflectToAttribute: true
+      },
+      hideColumn6: {
+        type: Boolean,
+        value: false,
+        notify: true,
+        reflectToAttribute: true
+      },
+      hideList: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      hideRadioButton: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      hideFilter: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      progressCounter: {
+        type: Number,
+        value: 0,
+        notify: true,
+        reflectToAttribute: true
+      },
+      progressMax: {
+        type: Number,
+        value: 20,
+        notify: true,
+        reflectToAttribute: true
+      },
+      mediumWidth: {
+        type: Number,
+        value: "800",
+        notify: true
+      },
+      mediumWidthQuery: {
+        type: String,
+        value: "min-width: 800px",
+        notify: true
+      }
+    },
+
+    organization: "Polymer",
+    // branchLookingFor: "preview", // will not find if you put 0.8 preview
+    releaseLookingFor: "0.5.6",
+    repos1Loaded: false,
+    repos2Loaded: false,
+    reposLoaded: false,
+    reposAll: [],
+    reposAll1: [],
+    cntr: 0,
+    cntrYes: 0,
+    currentBranch: 0,
+    currentBranchName: "",
+    currentRelease: 0,
+    currentReleaseName: "",
+    currentError: "",
+    tk: "16d359ef1b001628536988bc15168e4f7c267771",
+    sortByDateAsc: false,
+    sortByReleaseAsc: false,
+    sortByNameAsc: false,
+    compareCodePrefix: "../",
+
+    ready: function() {
+      var hostName = window.location.hostname;
+      if (hostName == "chuckh.github.io") {
+        this.compareCodePrefix = "/road-to-polymer/";
+      }
+      this.$.loading_spinner.toggleAttribute("active",false);
+      if (window.document.title.substr(0,15) === "Road to Polymer") {
+        console.log(" parent: ","Road to Polymer");
+        this.mediumWidthQuery = "min-width: 1080px";
+        this.mediumWidth = 1080;
+      }
+      this.reposListViewResized();
+      console.log("repos-list ready", hostName, window.document.title.substr(0,15));
+    },
+
+    handleReposResponse: function(event) {
+      this.repos1Loaded = true;
+      console.log("handleReposResponse", this.$.get_repos_ajax.loading);
+      if (this.repos2Loaded) {
+        this.reposLoaded = true;
+        this.reposCombineAndFilter();
+      }
+    },
+    handleReposErrorResponse: function(event) {
+      var error = this.$.get_repos_ajax.error;
+      console.log("Error: " + error.statusCode + " - " + error.message);
+      this.currentError = error.statusCode;
+      if (error.statusCode != 0) {
+        this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
+      }
+    },
+
+    handleRepos2Response: function() {
+      this.repos2Loaded = true;
+      if (this.repos1Loaded && !this.reposLoaded) {
+        this.reposLoaded = true;
+        this.reposCombineAndFilter();
+      }
+      console.log("handleRepos2Response",this.repos2Loaded);
+    },
+
+    reposCombineAndFilter: function (event) {
+      // console.log("reposCombineSort",this.reposLoaded);
+      this.progressMax = this.repos.length + this.repos2.length;
+      this.reposAll1 = [];
+      var dataLen = this.repos.length;
+      for (var i = 0; i < dataLen; i++) {
+        if (this.repos[i].description) {
+          if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
+            // this.reposAll1.push([this.repos[i].name,this.repos[i].description]);
+            //this.reposAll1.push({ name: this.repos[i].name, description: this.repos[i].description });
+            this.push('reposAll', { name: this.repos[i].name, description: this.repos[i].description });
           }
-          console.log("repos-list ready", hostName, this.compareCodePrefix);
-    	  },
-
-    	  handleReposResponse: function(event) {
-    	    this.repos1Loaded = true;
-    	    console.log("handleReposResponse", this.$.get_repos_ajax.loading);
-    	    if (this.repos2Loaded) {
-    	      this.reposLoaded = true;
-    	      this.reposCombineAndFilter();
-    	    }
-    	  },
-    	  handleReposErrorResponse: function(event) {
-    	    var error = this.$.get_repos_ajax.error;
-    	    console.log("Error: " + error.statusCode + " - " + error.message);
-    	    this.currentError = error.statusCode;
-          if (error.statusCode != 0) {
-            this.$.error_message.innerHTML = "Over Github API Limit Try Againg in a hour.";
-          }
-    	    // "Over Github API Limit Try Againg in a hour."
-    	  },
-
-    	  handleRepos2Response: function() {
-    	    this.repos2Loaded = true;
-    	    if (this.repos1Loaded && !this.reposLoaded) {
-    	      this.reposLoaded = true;
-    	      this.reposCombineAndFilter();
-    	    }
-    	    console.log("handleRepos2Response",this.repos2Loaded);
-    	  },
-
-    	  reposCombineAndFilter: function (event) {
-    	    // console.log("reposCombineSort",this.reposLoaded);
-    	    var dataLen = this.repos.length;
-    	    for (var i = 0; i < dataLen; i++) {
-    	      if (this.repos[i].description) {
-    	        if (this.repos[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
-    	          this.reposAll.push([this.repos[i].name,this.repos[i].description]);
-    	        }
-    	      } else {
-    	        this.reposAll.push([this.repos[i].name,this.repos[i].description]);
-    	      }
-    	    }
-          if (this.repos2) {
-      	    var dataLen2 = this.repos2.length;
-      	    for (var i = 0; i < dataLen2; i++) {
-      	      if (this.repos2[i].description) {
-      	        if (this.repos2[i].description.indexOf("DEPRECATED") < 0) {
-      	          this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
-      	        }
-      	      } else {
-      	        this.reposAll.push([this.repos2[i].name,this.repos2[i].description]);
-      	      }
-      	    }
-          }
-          // console.log("reposCombineAndFilter: ",this.reposAll);
-      		this.reposAllFiltered = this.reposAll;
-    	    this.getBranches();
-    	    this.getReleases();
-
-          if (this.$.radio_group_org.selected == "polymer") { // Polymer
-            this.reposPolymer = this.reposAll;
-          } else if (this.$.radio_group_org.selected == "polymereelements") { // PolymerElements
-            this.reposPolymerElements = this.reposAll;
-          } else { // Google Web Components
-            this.reposGoogleWebComponents = this.reposAll;
-          }
-
-    	  },
-
-    	  getBranches: function() {
-    	    if (this.reposAll[this.currentBranch][0]) {
-            var repo = this.reposAll[this.currentBranch][0];
-      	    this.currentBranchName = repo;
-      	    this.$.get_branches_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/branches";
-      	    this.$.get_branches_ajax.abort();
-      	    this.$.get_branches_ajax.go();
-          }
-    	  },
-
-    	  handleBranchesResponse: function(event) {
-    	    var dataLen = this.branches.length;
-    	    var branchFound = "no";
-      		var curBranch = "";
-    	    for (var i = 0; i < dataLen; i++) {
-    		  curBranch = this.branches[i].name.toLowerCase();
-    	      if (curBranch.indexOf(this.branchLookingFor) > -1) {
-    	        branchFound = "YES";
-    	        this.cntrYes += 1;
-    	      }
-    	      this.reposAll[this.currentBranch][3] = branchFound;
-    	    }
-    	    this.currentBranch += 1;
-    	    if (this.currentBranch < this.reposAll.length) {
-    	      this.getBranches();
-    	    }
-    	  },
-
-    	  getReleases: function() {
-    	    var repo = this.reposAll[this.currentRelease][0];
-    	    this.currentReleaseName = repo;
-          if (this.organization == "Polymer") {
-            this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
-          } else if (this.organization ==  "PolymerElements") {
-              this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+        } else {
+          // this.reposAll.push([this.repos[i].name,this.repos[i].description]);
+          //this.reposAll1.push({ name: this.repos[i].name, description: this.repos[i].description });
+          this.push('reposAll', { name: this.repos[i].name, description: this.repos[i].description });
+        }
+      }
+      if (this.repos2) {
+        var dataLen2 = this.repos2.length;
+        for (var i = 0; i < dataLen2; i++) {
+          if (this.repos2[i].description) {
+            if (this.repos2[i].description.indexOf("DEPRECATED") < 0 && this.repos[i].description.indexOf("NOT FOR PRODUCTION USE") < 0) {
+              // this.reposAll1.push([this.repos2[i].name,this.repos2[i].description]);
+              // this.reposAll1.push({ name: this.repos2[i].name, description: this.repos[i].description });
+              this.push('reposAll', { name: this.repos2[i].name, description: this.repos[i].description });
+            }
           } else {
-            this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+            // this.reposAll1.push([this.repos2[i].name,this.repos2[i].description]);
+            // this.reposAll1.push({ name: this.repos2[i].name, description: this.repos[i].description });
+            this.push('reposAll', { name: this.repos2[i].name, description: this.repos[i].description });
           }
-          // console.log("getReleases: ",this.$.get_releases_ajax.url);
-    	    this.$.get_releases_ajax.abort();
-    	    this.$.get_releases_ajax.go();
-    	  },
+        }
+      }
+      // console.log("reposCombineAndFilter: ",this.reposAll);
+      // this.reposAllFiltered = this.reposAll;
+      // this.getBranches();
+      this.getReleases();
 
-    	  handleReleaseResponse: function(event) {
-          if (this.organization ==  "PolymerElements" || this.organization ==  "GoogleWebComponents") {
-            this.reposAll[this.currentRelease][2] = this.releases.tag_name;
-            if (this.releases.published_at) {
-              var rdate = new Date(this.releases.published_at);
-              this.reposAll[this.currentRelease][4] = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
-            } else {
-              this.reposAll[this.currentRelease][4] = "";
-            }
+      if (this.$.radio_group_org.selected == "polymer") { // Polymer
+        this.reposPolymer = this.reposAll;
+      } else if (this.$.radio_group_org.selected == "polymereelements") { // PolymerElements
+        this.reposPolymerElements = this.reposAll;
+      } else { // Google Web Components
+        this.reposGoogleWebComponents = this.reposAll;
+      }
 
+    },
+
+    // getBranches: function() {
+    //   if (this.reposAll[this.currentBranch][0]) {
+    //     var repo = this.reposAll[this.currentBranch][0];
+    //     this.currentBranchName = repo;
+    //     this.$.get_branches_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/branches";
+    //     this.$.get_branches_ajax.generateRequest();
+    //   }
+    // },
+    //
+    // handleBranchesResponse: function(event) {
+    //   var dataLen = this.branches.length;
+    //   var branchFound = "no";
+    //   var curBranch = "";
+    //   for (var i = 0; i < dataLen; i++) {
+    //     curBranch = this.branches[i].name.toLowerCase();
+    //     if (curBranch.indexOf(this.branchLookingFor) > -1) {
+    //       branchFound = "YES";
+    //       this.cntrYes += 1;
+    //     }
+    //     this.reposAll[this.currentBranch][3] = branchFound;
+    //   }
+    //   this.currentBranch += 1;
+    //   if (this.currentBranch < this.reposAll.length) {
+    //     this.getBranches();
+    //   }
+    // },
+
+    getReleases: function() {
+      var repo = this.reposAll[this.currentRelease].name;
+      this.currentReleaseName = repo;
+      this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+      this.$.get_releases_ajax.generateRequest();
+
+      // if (this.organization == "Polymer") {
+      //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/tags/" + this.releaseLookingFor;
+      // } else if (this.organization ==  "PolymerElements") {
+      //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+      // } else {
+      //   this.$.get_releases_ajax.url = "https://api.github.com/repos/" + this.organization + "/" + repo + "/releases/latest";
+      // }
+      // console.log("getReleases: ",this.$.get_releases_ajax.url, this.organization);
+      // this.$.get_releases_ajax.abort();
+      // this.$.get_releases_ajax.go();
+    },
+
+    handleReleaseResponse: function(event) {
+      if (this.organization == "Polymer" || this.organization == "PolymerElements" || this.organization == "GoogleWebComponents") {
+        this.reposAll[this.currentRelease].latest_release = this.releases.tag_name;
+
+        if (this.releases.published_at) {
+          var rdate = new Date(this.releases.published_at);
+          this.reposAll[this.currentRelease].released = rdate.toLocaleDateString() + " - " + rdate.toLocaleTimeString();
+          this.reposAll[this.currentRelease].released_datetime = this.releases.published_at;
+        } else {
+          this.reposAll[this.currentRelease].released = "";
+          this.reposAll[this.currentRelease].released_datetime = "";
+        }
+
+      } else {
+        this.reposAll[this.currentRelease].latest_release = this.releaseLookingFor.toString();
+        this.$.loading_spinner.toggleAttribute("active",false);
+      }
+      this.currentRelease += 1;
+      this.progressCounter = this.currentRelease;
+
+      if (this.currentRelease < this.reposAll.length) {
+        this.getReleases();
+      } else {
+        // console.log("handleReleaseResponse: ","DONE", this.reposAll);
+        this.reposAllFiltered = this.reposAll;
+        this.$.loading_spinner.toggleAttribute("active",false);
+        this.hideList = false;
+      }
+    },
+    handleReleasesErrorResponse: function(event) {
+      this.reposAll[this.currentRelease].latest_release = "no";
+      this.reposAll[this.currentRelease].released = "";
+      this.reposAll[this.currentRelease].released_datetime = "";
+
+      this.currentRelease += 1;
+      this.progressCounter = this.currentRelease;
+      if (this.currentRelease < this.reposAll.length) {
+        this.getReleases();
+      } else {
+        this.hideList = false;
+        this.$.loading_spinner.toggleAttribute("active",false);
+        // console.log("handleReleasesErrorResponse: ","DONE", this.reposAll);
+        this.reposAllFiltered = this.reposAll;
+      }
+    },
+
+    filterSearchRepos: function() {
+      this.filterRepos('search_input');
+    },
+
+    onRadioGroupFilterChange: function(e, detail, sender) {
+      // var selectedLabel = this.$.radio_group_filter.selected;
+      this.filterRepos(this.$.radio_group_filter.selected);
+    },
+
+    filterRepos: function(sender) {
+      // console.log("filterRepos",detail, sender.label, sender.id);
+      console.log("filterRepos", this.$.radio_group_filter.selected, sender);
+      if (sender === "search_input") {
+        this.$.radio_group_filter.selected = "All";
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          // console.log("search_input: ",this.searchValue + " -- ",d.name,d.latest_release,d.released);
+          // return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1 || d[4].indexOf(this.searchValue) > -1);
+          return (d.name.indexOf(this.searchValue) > -1 || d.latest_release.indexOf(this.searchValue) > -1 || d.released.indexOf(this.searchValue) > -1);
+        }.bind(this));
+      } else if (sender === "All") {
+        this.reposAllFiltered = this.reposAll;
+      } else if (sender === "Iron") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d.name.indexOf("iron") > -1;
+        });
+      } else if (sender === "Core") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d.name.indexOf("core") > -1;
+        });
+      } else if (sender === "Paper") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d.name.indexOf("paper") > -1;
+        });
+      } else if (sender === "Other") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d.name.indexOf("paper") == -1 && d.name.indexOf("core") == -1 && d.name.indexOf("iron") == -1
+        });
+      } else if (sender === "No") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return d.latest_release == "no";
+        });
+      } else if (sender === "Yes Core + Paper") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return (d.name.indexOf("paper") > -1 || d.name.indexOf("core") > -1) && d[3] == "YES";
+        });
+      } else if (sender === "No Core + Paper") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          return (d.name.indexOf("paper") > -1 || d.name.indexOf("core") > -1) && d[3] == "no";
+        });
+      } else {
+        // console.log("organization: ",this.organization.substr(0,7));
+        // if (this.organization.substr(0,7) !== "Polymerx") {
+        this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
+          if (sender == "Yes") {
+            return d.latest_release !== "no";
           } else {
-            this.reposAll[this.currentRelease][2] = this.releaseLookingFor.toString();
-            // this.reposAll[this.currentRelease][3] = "";
+            return d.latest_release === "no";
           }
-    	    this.currentRelease += 1;
-    	    if (this.currentRelease < this.reposAll.length) {
-    	      this.getReleases();
-    	    }
-    	  },
-    	  handleReleasesErrorResponse: function(event) {
-      	    //console.log("handleReleasesErrorResponse: ", this.currentRelease);
-    	    this.reposAll[this.currentRelease][2] = "n/a";
-          this.reposAll[this.currentRelease][4] = "";
-    	    this.currentRelease += 1;
-    	    if (this.currentRelease < this.reposAll.length) {
-    	      this.getReleases();
-    	    }
-    	  },
+        });
+      }
+      // document.querySelector('#mainContainer').scroller.scrollTop = 0;
+      // document.querySelector('#mainContainer').scroller.scrollIntoView();
+    },
 
-    	  filterRepos: function(e, detail, sender) {
-    		  console.log("filterRepos", sender.label, sender.id);
-    		  if (sender.id === "search_input") {
-      			  this.$.radio_group_filter.selected = 0;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return (d[0].indexOf(this.searchValue) > -1 || d[2].indexOf(this.searchValue) > -1);
-    		      }.bind(this));
-    		  } else if (sender.label === "All") {
-    			this.$.yes_counter.hidden = true;
-    		  	this.reposAllFiltered = this.reposAll;
-          } else if (sender.label === "Iron") {
-    			  this.$.yes_counter.hidden = true;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return d[0].indexOf("iron") > -1;
-    		      });
-            } else if (sender.label === "Core") {
-    			  this.$.yes_counter.hidden = true;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return d[0].indexOf("core") > -1;
-    		      });
-    		  } else if (sender.label === "Paper") {
-    			  this.$.yes_counter.hidden = true;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return d[0].indexOf("paper") > -1;
-    		      });
-          } else if (sender.label === "Other") {
-    			  this.$.yes_counter.hidden = true;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return d[0].indexOf("paper") == -1 && d[0].indexOf("core") == -1 && d[0].indexOf("iron") == -1
-    		      });
-    		  } else if (sender.label === "Yes Core + Paper") {
-    			  this.$.yes_counter.hidden = true;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "YES";
-    		      });
-    		  } else if (sender.label === "No Core + Paper") {
-    			  this.$.yes_counter.hidden = true;
-    		      this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return (d[0].indexOf("paper") > -1 || d[0].indexOf("core") > -1) && d[3] == "no";
-    		      });
-    		  } else {
-            this.$.yes_counter.hidden = true;
-            if (this.organization ==  "PolymerElements") {
-              this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-                if (sender.label == "YES") {
-                  return d[2] !== "n/a";
-                } else {
-                  return d[2] === "n/a";
-                }
-    		      });
-            } else {
-              this.reposAllFiltered = this.reposAll.filter(function(d, idx, array) {
-    		        return d[3] == sender.label;
-    		      });
-            }
+    reposListViewResized: function(e, detail, sender) {
+      var contentWidth = 0;
+      var windowWidth = 0;
+      if (window.innerWidth) {
+        // if (this.$.paper_header_panel_repos_list) {
+        contentWidth = this.$.paper_header_panel_repos_list.clientWidth;
+        windowWidth = window.innerWidth;
+      }
+      if (windowWidth >= this.mediumWidth) { // medium or larger screen
+        this.hideFilter = false;
+        this.$.radio_group_org.toggleClass("radio-small",false);
+      } else { // small screen
+        this.hideFilter = true;
+        this.$.radio_group_org.toggleClass("radio-small",true);
+      }
 
+      // if (this.mediumScreen && this.$.filter_container_repos_list) {
+      //   // this.$.loading_spinner.toggleAttribute("active",false);
+      //   this.$.filter_container_repos_list.toggleAttribute("hidden",true);
+      //   this.hideFilter = true;
+      // } else {
+      //   this.$.filter_container_repos_list.toggleAttribute("hidden",false);
+      // }
+      console.log("reposListViewResized: ",this.mediumWidth, contentWidth, this.mediumScreen,this.hideFilter, window.innerWidth, window.document.title);
+    },
 
-    		  }
-    	    // document.querySelector('#mainContainer').scroller.scrollTop = 0;
-    		  // document.querySelector('#mainContainer').scroller.scrollIntoView();
-    	   },
+    toggleSearch: function(e, detail, sender) {
+      if (this.$.radio_group_filter.hidden) { // Hide search
+        this.$.radio_group_filter.hidden = false;
+        this.$.search_input.hidden = true;
+        this.$.filter_title.hidden = false;
+        this.searchValue = "";
+        this.reposAllFiltered = this.reposAll;
+      } else { // Show search
+        this.$.radio_group_filter.selected = "All";
+        this.$.radio_group_filter.hidden = true;
+        this.$.search_input.hidden = false;
+        this.$.filter_title.hidden = true;
+      }
+    },
 
-        reposViewResized: function(e, detail, sender) {
-         var contentWidth = 0;
-         if (this.$.core_header_panel) {
-           contentWidth = this.$.core_header_panel.clientWidth;
-         }
-         this.$.filter_container.hidden = !this.mediumScreen;
-         // console.log("reposViewResized: ", contentWidth, this.mediumScreen);
-        },
-
-        toggleSearch: function(e, detail, sender) {
-         if (this.$.radio_group_filter.hidden) { // Hide search
-           this.$.radio_group_filter.hidden = false;
-           this.$.search_input.hidden = true;
-           this.$.filter_title.hidden = false;
-           this.searchValue = "";
-    		   this.reposAllFiltered = this.reposAll;
-         } else { // Show search
-           this.$.radio_group_filter.hidden = true;
-           this.$.search_input.hidden = false;
-           this.$.filter_title.hidden = true;
-         }
-        },
-
-        loadReport: function() {
-          this.$.iron_radio_button.hidden = false;
-          this.$.paper_radio_button.hidden = false;
-          this.$.other_radio_button.hidden = false;
-          this.hideColumn5 = false;
-          this.hideColumn6 = true;
-          this.$.radio_group_filter.selected = 0;
-          if (this.$.radio_group_org.selected == "polymer") { // Polymer
-            this.organization = "Polymer";
-            this.$.iron_radio_button.label = "Core";
-            if (this.reposPolymer) {
-              this.reposAllFiltered = this.reposPolymer;
-              this.reposAll = this.reposPolymer;
-            } else {
-              this.loadReport2();
-            }
-          } else if (this.$.radio_group_org.selected == "polymereelements") { // PolymerElements
-            this.organization = "PolymerElements";
-            this.$.iron_radio_button.label = "Iron";
-            this.hideColumn5 = true;
-            this.hideColumn6 = false;
-          if (this.reposPolymerElements) {
-              this.reposAllFiltered = this.reposPolymerElements;
-              this.reposAll = this.reposPolymerElements;
-            } else {
-              this.loadReport2();
-            }
-          } else { // Google Web Components
-            this.organization = "GoogleWebComponents";
-            this.$.iron_radio_button.hidden = true;
-            this.$.paper_radio_button.hidden = true;
-            this.$.other_radio_button.hidden = true;
-            if (this.reposGoogleWebComponents) {
-              this.reposAllFiltered = this.reposGoogleWebComponents;
-              this.reposAll = this.reposGoogleWebComponents;
-          } else {
-              this.loadReport2();
-            }
-          }
-        },
-
-        loadReport2: function() {
-          console.log("loadReport2: ", this.$.radio_group_org.selected,this.$.get_repos_ajax.url);
-          this.$.error_message.innerHTML = "";
-          this.reposAll = [];
-          this.reposAllFiltered = [];
-          this.reposLoaded = false;
-          this.repos1Loaded = false;
-          this.repos2Loaded = false;
-
-          this.cntr = 0;
-          this.cntrYes = 0;
-          this.currentBranch = 0;
-          this.currentBranchName = "";
-          this.currentRelease = 0;
-          this.currentReleaseName = "";
-          this.currentError = "";
-
-          this.$.get_repos_ajax.abort();
-          this.$.get_repos_ajax.go();
-          this.$.get_repos_page2_ajax.abort();
-          this.$.get_repos_page2_ajax.go();
-        },
-
-        onOrgSelect: function(e, detail, sender) {
-          this.$.radio_group_filter.selected = 0;
-          console.log("selectOrg: ", sender);
-          this.$.iron_radio_button.hidden = false;
-          this.$.paper_radio_button.hidden = false;
-          this.$.other_radio_button.hidden = false;
-          if (sender.label == "Polymer" && this.reposPolymer) { // Polymer
-            this.reposAllFiltered = this.reposPolymer;
-            this.reposAll = this.reposPolymer;
-            this.$.iron_radio_button.label = "Core";
-          } else if (sender.label == "PolymerElements" && this.reposPolymerElements) { // PolymerElements
-            this.reposAllFiltered = this.reposPolymerElements;
-            this.reposAll = this.reposPolymerElements;
-            this.$.iron_radio_button.label = "Iron";
-          } else if (sender.label == "Google Web Components" && this.reposGoogleWebComponents) { // PolymerElements
-            this.reposAllFiltered = this.reposGoogleWebComponents;
-            this.reposAll = this.reposGoogleWebComponents;
-            this.$.iron_radio_button.hidden = true;
-            this.$.paper_radio_button.hidden = true;
-            this.$.other_radio_button.hidden = true;
-          } else {
-            this.loadReport();
-          }
-
-        },
-
-        refreshData: function() {
+    loadReport: function() {
+      this.hideColumn5 = true;
+      this.hideColumn6 = false;
+      //this.$.radio_group_filter.selected = "All";
+      if (this.$.radio_group_org.selected == "polymer") { // Polymer
+        this.organization = "Polymer";
+        this.$.iron_radio_button.label = "Core";
+        this.ironCore = "Core";
+        // this.hideColumn5 = true;
+        // this.hideColumn6 = false;
+        if (this.reposPolymer) {
+          this.reposAllFiltered = this.reposPolymer;
+          this.reposAll = this.reposPolymer;
+        } else {
           this.loadReport2();
-        },
+        }
+      } else if (this.$.radio_group_org.selected == "polymereelements") { // PolymerElements
+        this.organization = "PolymerElements";
+        this.$.iron_radio_button.label = "Iron";
+        this.ironCore = "Iron";
+        // this.hideColumn5 = true;
+        // this.hideColumn6 = false;
+        if (this.reposPolymerElements) {
+          this.reposAllFiltered = this.reposPolymerElements;
+          this.reposAll = this.reposPolymerElements;
+        } else {
+          this.loadReport2();
+        }
+      } else { // Google Web Components
+        this.organization = "GoogleWebComponents";
+        if (this.reposGoogleWebComponents) {
+          this.reposAllFiltered = this.reposGoogleWebComponents;
+          this.reposAll = this.reposGoogleWebComponents;
+        } else {
+          this.loadReport2();
+        }
+      }
+    },
 
+    loadReport2: function() {
+      console.log("loadReport2: ", this.$.radio_group_org.selected);
+      //this.$.radio_group_filter.selected = "All";
+      this.$.error_message.innerHTML = "";
+      this.reposAll = [];
+      this.reposAllFiltered = [];
+      this.reposLoaded = false;
+      this.repos1Loaded = false;
+      this.repos2Loaded = false;
+      this.hideList = true;
+      this.$.loading_spinner.toggleAttribute("active",true);
+      this.progressCounter = 0;
 
-      });
-    })();
-  </script>
-</polymer-element>
+      this.cntr = 0;
+      this.cntrYes = 0;
+      this.currentBranch = 0;
+      this.currentBranchName = "";
+      this.currentRelease = 0;
+      this.currentReleaseName = "";
+      this.currentError = "";
+      this.$.get_repos_ajax.url = "https://api.github.com/users/" + this.organization + "/repos";
+      this.$.get_repos_ajax.generateRequest();
+      this.$.get_repos_page2_ajax.url = "https://api.github.com/users/" + this.organization + "/repos";
+      this.$.get_repos_page2_ajax.generateRequest();
+    },
+
+    onOrgSelect: function(e, detail, sender) {
+      this.$.radio_group_filter.selected = "All";
+      var selectedLabel = this.$.radio_group_org.selected;
+      this.hideRadioButton = false;
+      if (selectedLabel == "webcomponents") {
+        this.hideRadioButton = true;
+      }
+      if (this.$.radio_group_org.selected) {
+        // console.log("onOrgSelect: ", selectedLabel, this.hideRadioButton);
+        if (selectedLabel == "polymer" && this.reposPolymer) { // Polymer
+          this.reposAllFiltered = this.reposPolymer;
+          this.reposAll = this.reposPolymer;
+          this.$.iron_radio_button.label = "Core";
+          this.ironCore = "Core";
+          this.organization = "Polymer";
+        } else if (selectedLabel == "polymerelements" && this.reposPolymerElements) { // PolymerElements
+          this.reposAllFiltered = this.reposPolymerElements;
+          this.reposAll = this.reposPolymerElements;
+          this.$.iron_radio_button.label = "Iron";
+          this.ironCore = "Iron";
+          this.organization = "PolymerElements";
+        } else if (selectedLabel == "webcomponents" && this.reposGoogleWebComponents) { // GoogleWebComponents
+          this.reposAllFiltered = this.reposGoogleWebComponents;
+          this.reposAll = this.reposGoogleWebComponents;
+          this.organization = "GoogleWebComponents";
+        } else {
+          this.async(this.loadReport);
+        }
+      }
+      // console.log("onOrgSelect: ", selectedLabel, this.hideRadioButton);
+    },
+
+    refreshData: function() {
+      this.$.radio_group_filter.selected = "All";
+      this.loadReport2();
+    },
+
+    counter: function(idx) {
+      return idx + 1;
+    },
+
+    sortByDate: function(a,b) { // for template filter
+      var aData = (new Date(a[4].substr(0,10))).getTime() || 0;
+      var bData = (new Date(b[4].substr(0,10))).getTime() || 0;
+      var returnVal = 0;  // a must be equal to b
+      // console.log("sort: ",aData,' -- ',bData);
+      if (aData > bData) {
+        returnVal = ((this.sortByDateAsc) ? 1 : -1);
+        console.log("sort: Greater", returnVal);
+      }
+      if (aData < bData) {
+        returnVal =  ((this.sortByDateAsc) ? -1 : 1);
+        console.log("sort: Smaller", returnVal);
+      }
+      // this.sortByDateAsc = !this.sortByDateAsc;
+      return returnVal;
+    },
+
+    sortDateReleased: function() {
+      // console.log("sortDateReleased: ",this.organization);
+      this.setReposAllFiltered('set');
+
+      this.reposAllFiltered.sort(function(a,b) {
+        var aData = (new Date(a.released_datetime)).getTime() || 0;
+        var bData = (new Date(b.released_datetime)).getTime() || 0;
+        var returnVal = 0;  // a must be equal to b
+        //console.log("sort: ",aData,' -- ',bData);
+        if (aData > bData) {
+          // console.log("sort: Greater");
+          returnVal = ((this.sortByDateAsc) ? 1 : -1);
+        }
+        if (aData < bData) {
+          // console.log("sort: Smaller");
+          returnVal =  ((this.sortByDateAsc) ? -1 : 1);
+        }
+        return returnVal;
+      }.bind(this));
+      this.sortByDateAsc = !this.sortByDateAsc;
+      this.setRepos();
+      this.async(this.setReposAllFiltered);
+    },
+
+    sortLatestRelease: function() {
+      // console.log("sortLatestRelease: ",this.organization);
+      this.setReposAllFiltered('set');
+
+      this.reposAllFiltered.sort(function(a,b) {
+        var aData = a.latest_release;
+        var bData = b.latest_release;
+        var returnVal = 0;  // a must be equal to b
+        // console.log("sort: ",aData,' -- ',bData);
+        if (aData > bData) {
+          // console.log("sort: Greater");
+          returnVal = ((this.sortByReleaseAsc) ? 1 : -1);
+        }
+        if (aData < bData) {
+          // console.log("sort: Smaller");
+          returnVal =  ((this.sortByReleaseAsc) ? -1 : 1);
+        }
+        return returnVal;
+      }.bind(this));
+      this.sortByReleaseAsc = !this.sortByReleaseAsc;
+      this.setRepos();
+      this.async(this.setReposAllFiltered);
+    },
+
+    sortName: function() {
+      // console.log("sortName: ",this.organization);
+      this.setReposAllFiltered('set');
+
+      this.reposAllFiltered.sort(function(a,b) {
+        var aData = a.name;
+        var bData = b.name;
+        var returnVal = 0;  // a must be equal to b
+        // console.log("sort: ",aData,' -- ',bData);
+        if (aData > bData) {
+          // console.log("sort: Greater");
+          returnVal = ((this.sortByNameAsc) ? 1 : -1);
+        }
+        if (aData < bData) {
+          // console.log("sort: Smaller");
+          returnVal =  ((this.sortByNameAsc) ? -1 : 1);
+        }
+        return returnVal;
+      }.bind(this));
+      this.sortByNameAsc = !this.sortByNameAsc;
+      this.setRepos();
+      this.async(this.setReposAllFiltered);
+    },
+
+    setRepos: function() {
+      // console.log("setRepos: ",this.organization, kind);
+      if (this.organization === "Polymer") {
+        this.reposPolymer = this.reposAllFiltered;
+      } else if (this.organization === "PolymerElements") {
+        this.reposPolymerElements = this.reposAllFiltered;
+      } else {
+        this.reposGoogleWebComponents = this.reposAllFiltered;
+      }
+    },
+
+    setReposAllFiltered: function(kind) {
+      // console.log("setReposAllFiltered: ",this.organization, kind);
+      if (kind !== "set") {
+        // console.log(" reset");
+        this.reposAllFiltered  = [];
+      }
+      if (this.organization === "Polymer") {
+        this.reposAllFiltered = this.reposPolymer;
+      } else if (this.organization === "PolymerElements") {
+        this.reposAllFiltered = this.reposPolymerElements;
+      } else {
+        this.reposAllFiltered = this.reposGoogleWebComponents;
+      }
+    },
+
+    getURL: function(e) {
+      // console.log("getURL: ",e.name);
+      var repoName = e.name
+      var returnValue = this.compareCodePrefix + "compare-code.html?el=" + repoName + "&org=" + this.organization;
+      return returnValue;
+    },
+
+  });
+})();
+</script>
+
+</dom-module>

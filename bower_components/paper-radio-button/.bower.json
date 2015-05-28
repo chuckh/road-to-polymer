@@ -1,22 +1,45 @@
 {
   "name": "paper-radio-button",
-  "private": true,
-  "dependencies": {
-    "core-a11y-keys": "Polymer/core-a11y-keys#^0.5",
-    "paper-ripple": "Polymer/paper-ripple#^0.5"
-  },
-  "ignore": [
-    "externs/**"
+  "version": "0.9.6",
+  "description": "A material design radio button",
+  "authors": [
+    "The Polymer Authors"
   ],
-  "version": "0.5.5",
-  "homepage": "https://github.com/Polymer/paper-radio-button",
-  "_release": "0.5.5",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "radio",
+    "control"
+  ],
+  "main": "index.html",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-radio-button"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/PolymerElements/paper-radio-button",
+  "ignore": [],
+  "dependencies": {
+    "paper-ripple": "PolymerElements/paper-ripple#^0.9.2",
+    "paper-styles": "PolymerLabs/paper-styles#^0.9.0",
+    "paper-behaviors": "PolymerElements/paper-behaviors#^0.9.0",
+    "polymer": "Polymer/polymer#^0.9.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "*",
+    "iron-component-page": "PolymerElements/iron-component-page#^0.9.0",
+    "test-fixture": "PolymerElements/test-fixture#^0.9.0",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#^0.9.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "_release": "0.9.6",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.5",
-    "commit": "80ad364d87986a16b1baef4cef5dfa2373a6ad70"
+    "tag": "v0.9.6",
+    "commit": "228c4f5e7fead42b45ab1c1a28c8dc6389152bc6"
   },
-  "_source": "git://github.com/Polymer/paper-radio-button.git",
-  "_target": "^0.5",
-  "_originalSource": "Polymer/paper-radio-button"
+  "_source": "git://github.com/PolymerElements/paper-radio-button.git",
+  "_target": "^0.9.0",
+  "_originalSource": "PolymerElements/paper-radio-button"
 }

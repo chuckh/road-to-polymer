@@ -177,12 +177,14 @@ module.exports = function (grunt) {
       default: {
         options: {
           strip: true,
-          inline: true
+          inline: true,
         },
         files: {
           '<%= yeoman.dist %>/elements/elements.vulcanized.html': [
             '<%= yeoman.dist %>/elements/elements.html'
           ]
+          // vulcanize -p "dist/elements/" elements.html --strip-comment --inline-css --inline-scripts
+          // vulcanize elements.html > build.html
         }
       }
     },

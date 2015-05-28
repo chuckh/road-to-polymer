@@ -1,6 +1,6 @@
 {
   "name": "road-to-polymer",
-  "version": "0.0.0",
+  "version": "0.9.1",
   "dependencies": {},
   "devDependencies": {
     "connect-livereload": "^0.5.2",

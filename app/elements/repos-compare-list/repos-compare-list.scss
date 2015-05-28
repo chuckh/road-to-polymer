@@ -5,7 +5,7 @@
   font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
 }
 
-.center {
+.center-text {
   text-align: center;
 }
 
@@ -34,10 +34,10 @@
   padding-left: 10px;
 }
 
-core-header-panel {
+paper-header-panel {
   height: 100%;
 }
-.core-header {
+paper-header-panel .paper-header {
   height: 150px;
   line-height: 60px;
   font-size: 20px;
@@ -46,11 +46,13 @@ core-header-panel {
   color: #FFF;
   transition: height 0.2s;
 }
-.content {
+
+.repos-compare-content {
   height: 2000px;
   padding-top: 15px;
   background-color: #fafafa;  //  fafafa fefefe
 }
+
 
 .report-title {
   font-size: 22px;
@@ -58,10 +60,15 @@ core-header-panel {
 }
 
 .filter {
-  margin-top: -10px;
+  margin-top: 5px;
   font-size: 14px;
   text-align: right;
   padding-right: 20px;
+  color: white;
+}
+
+#radioLabel.paper-radio-button {
+  color: #E0E0E0!important;
 }
 
 paper-radio-group.yellow paper-radio-button::shadow #ink[checked] {
@@ -108,34 +115,32 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   font-size: 20px;
 }
 
-#load_button {
+paper-button.load-button-repos-compare {
   background: #4285f4;
   color: #fff;
+  margin-top: 15px;
   margin-left: 20px;
-  height: 50px;
+  // height: 120px;
   width: 170px;
   opacity: 0.8;
 }
 
-#load_label {
-  margin-top: -23px;
-  font-size: 16px;
+#load_label_repos_compare {
+  // margin-top: -53px!important;
+  // display: inline;
+  font-size: 18px;
 }
 
-#load_icon {
-  margin-top: -23px;
-  margin-left: -15px;
+#load_icon_repos_compare {
+  margin-top: -43px;
+  margin-left: -13px;
   padding-right: 15px;
-}
-
-#refresh_button {
-  padding-left: 20px;
 }
 
 .titles {
   font-size: 16px;
   position: relative;
-  top: 5px;
+  top: 10px;
   left: 0px;
   padding-left: 10px;
   width: 100%;
@@ -147,26 +152,46 @@ paper-radio-group.yellow-white paper-radio-button[checked]::shadow #offRadio {
   margin-left: -14px;
 }
 
-footer{
+footer {
   width: 100%;
   padding-bottom: 10px;
   text-align: center;
   font-size: 12px;
 }
 
-a:link {
+.sponsored {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+a.load-report-link {
+  text-decoration: underline;
+  margin-left: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  // height: 30px;
+}
+
+
+#refresh_button {
+  padding-right: 10px;
+}
+
+a:link.load-report-link {
   color: rgba(0,0,0,0.6);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
-a:visited {
-  text-decoration: none;
+a:visited.load-report-link {
+  // text-decoration: none;
 }
 
-a:hover {
-  background-color: #E8EAF6
+a:hover.load-report-link {
+  cursor: pointer;
+  text-decoration: underline;
+  background-color: red;
 }
 
-a:active {
-  background-color: #C5CAE9
+a:active.load-report-link {
+  background-color: #C5CAE9;
 }

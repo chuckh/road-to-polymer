@@ -1,4 +1,3 @@
-paper-elements
-==============
+#paper-elements
 
-Aggregation component for various paper-elements. See http://www.polymer-project.org/docs/elements/paper-elements.html
+The paper elements are a set of UI components designed to implement Google's [material design](http://www.google.com/design/spec/material-design/introduction.html) guidelines.
