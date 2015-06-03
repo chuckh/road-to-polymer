@@ -38,10 +38,12 @@ These high level conversion steps are a work in progress and don't cover every s
 6. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
   - If you need to set classes on the host you can do so:
-    - `:host {
+    ```c
+    :host {
       /* layout properties for the host element */
       @apply(--layout-vertical);
-    }`
+    }
+    ```
     - OR imperatively (for example, by calling `classList.add` or `this.toggleClass('classname',true)`from the ready callback).
   - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">` to top with other imports
   - see https://www.polymer-project.org/1.0/docs/release-notes.html#host-attributes
@@ -97,6 +99,13 @@ x-style -> custom-style
       });
     ```
   - see https://github.com/webcomponents/webcomponentsjs#webcomponentsready
+5. Use dom-change instead of template-bound
+    ```c
+    app.addEventListener('dom-change', function() {
+      console.log('Our app is ready to rock!');
+    });
+      ```
+    - see https://github.com/PolymerElements/polymer-starter-kit/blob/master/app/scripts/app.js
 6. Breaking Change: Mixins replaced by behaviors -- Convert `Polymer(Polymer.mixin({` to
     ```c
       Polymer({
@@ -160,10 +169,6 @@ http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true
 |:-------------------- |:-------------------------------------- |
 | iron-meta            | is a element for creating and accessing self-organizing meta-database |
 | iron-state-behaviors | bahaviors that manage control states like 'focused', 'disabled', and 'active' |
-
-
-### Difference example of paper-button conversion by Polymer team
-http://chuckh.github.io/road-to-polymer/compare-code.html?el=paper-button
 
 ### Difference example of core-item auto conversion by compare-code
 http://www.mergely.com/Be505kqQ/
