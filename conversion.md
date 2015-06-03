@@ -1,8 +1,8 @@
-# Polymer 0.5 to 0.9 conversion process
-See Polymer 0.9 Migration Guide and Release Notes  
-**https://www.polymer-project.org/0.9/docs/migration.html**  
-or for latest https://github.com/Polymer/docs/blob/master/0.9/docs/migration.md  
-and **https://www.polymer-project.org/0.9/docs/release-notes.html**  
+# Polymer 0.5 to 1.0 conversion process
+See Polymer 1.0 Migration Guide and Release Notes
+**https://www.polymer-project.org/1.0/docs/migration.html**
+or for latest https://github.com/Polymer/docs/blob/master/1.0/docs/migration.md
+and **https://www.polymer-project.org/1.0/docs/release-notes.html**
 
 ---
 
@@ -10,7 +10,7 @@ These high level conversion steps are a work in progress and don't cover every s
 
 ### HTML Conversion Process
 
-####polymer-element to dom-module -- see https://www.polymer-project.org/0.9/docs/migration.html#registration
+####polymer-element to dom-module -- see https://www.polymer-project.org/1.0/docs/migration.html#registration
 1. polymer-element to dom-module
   - `<polymer-element id=` name to `<dom-module id=`
 2. polymer-element attribute/property camelCase to dash-case
@@ -18,7 +18,7 @@ These high level conversion steps are a work in progress and don't cover every s
 3. polymer-element attributes="xxx xxxx" add to javascript properties
 4. polymer-element covert the notation attribute?="{{value}}" to attribute$="{{value}}"
   -  `<div hidden?="{{isHidden}}">Boo!</div>` to `<div hidden$="{{isHidden}}">Boo!</div>`
-  - see https://www.polymer-project.org/0.9/docs/migration.html#attribute-bindings
+  - see https://www.polymer-project.org/1.0/docs/migration.html#attribute-bindings
   - From Scott Miles of Google, for the record, most Boolean bindings (formerly known as ?=) will work today simply with '='. One only needs $ if one really wants to bind directly to an attribute. It's a bit of a gray area and generally using '$=' won't be harmful, just wanted to clarify.
     ```c
     <!-- Attribute binding -->
@@ -33,26 +33,29 @@ These high level conversion steps are a work in progress and don't cover every s
 5. Layout attributes replaced by layout classes
   - from `<div layout horizontal center>` to `<div class="layout horizontal center">`
   - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">`
-  - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
-  - **note:** this could change in Polymer 1.0
+  - see https://www.polymer-project.org/1.0/docs/migration.html#layout-attributes
   - From Chris Joel of Google " `PolymerElements/iron-flex-layout.html` contains mixins for styling things like `:host` in your element. `PolymerElements/classes/iron-flex-layout.html` contains the classes as used in the older `polymerelements/layout` styles. My recommendation is that, for now, you try to stick to `classes` if possible, because some new styling syntax coming down the pipe in the core library is going to change the use cases for the mixin versions of the layout styles. `Polymerelements/iron-flex-layout` is the spiritual successor to `polymer/layout`, so it's probably better to use that going forward anyway."
 6. polymer-element layout `<polymer-element name="x-foo" layout horizontal wrap>`
   - Breaking Change: hostAttributes changes - the **`class` attribute can no longer be set from `hostAttributes`**.
-  - If you need to set classes on the host, you can do so imperatively (for example, by calling `classList.add` from the ready callback).
+  - If you need to set classes on the host you can do so:
+    - `:host {
+      /* layout properties for the host element */
+      @apply(--layout-vertical);
+    }`
+    - OR imperatively (for example, by calling `classList.add` or `this.toggleClass('classname',true)`from the ready callback).
   - add `<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.htm">` to top with other imports
-  - see https://www.polymer-project.org/0.9/docs/release-notes.html#host-attributes
-  - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes notes box.
-  - **note:** this could change in Polymer 1.0
+  - see https://www.polymer-project.org/1.0/docs/release-notes.html#host-attributes
+  - see https://www.polymer-project.org/1.0/docs/migration.html#layout-attributes notes box.
 7. polymer-element move up `<link rel="stylesheet" href="my-element.css">` from `<template>` to `<dom-module>`
 1. polymer-element move up `<style></style>` from `<template>` to `<dom-module>`
-  - see https://www.polymer-project.org/0.9/docs/devguide/local-dom.html
+  - see https://www.polymer-project.org/1.0/docs/devguide/local-dom.html
 1. polymer-element default attributes such as `tabindex="0"` move to `hostAttributes: {  tabindex: 0}`
-  - https://www.polymer-project.org/0.9/docs/migration.html#default-attributes
+  - https://www.polymer-project.org/1.0/docs/migration.html#default-attributes
 1. Correct JSON quotes required, change `<my-element foo="{ 'title': 'Persuasion', 'author': 'Austen' }">` to `</my-element> to <my-element foo='{ "title": "Persuasion", "author": "Austen" }'></my-element>`
-  - see https://www.polymer-project.org/0.9/docs/migration.html#attr
+  - see https://www.polymer-project.org/1.0/docs/migration.html#attr
 
 ####template
-see https://www.polymer-project.org/0.9/docs/migration.html#template-repeat
+see https://www.polymer-project.org/1.0/docs/migration.html#template-repeat
 
 1. template `repeat` to `is="dom-repeat"` and `repeat=` to `items=`
   - (example: http://jsbin.com/totibudowo/2/watch?html,output)
@@ -61,26 +64,26 @@ see https://www.polymer-project.org/0.9/docs/migration.html#template-repeat
 
 Custom elements renamed:
 ```
-x-if -> dom-if  
-x-repeat -> dom-repeat  
-x-template -> dom-template  
-x-autobind -> dom-bind  
-x-array-selector -> array-selector  
-x-style -> custom-style  
+x-if -> dom-if
+x-repeat -> dom-repeat
+x-template -> dom-template
+x-autobind -> dom-bind
+x-array-selector -> array-selector
+x-style -> custom-style
 ```
 
 ####Bindings / other
 
-1. textContent binding from `<div>First: {{first}}</div>` TO `First: <span>{{first}}</span><br>`  
+1. textContent binding from `<div>First: {{first}}</div>` TO `First: <span>{{first}}</span><br>`
   - To bind to a child element’s textContent, you can simply include the annotation inside the child element. The binding annotation must currently span the entire content of the tag:
 1. elements `on-click="{{handleClick}}"` to `on-click="handleClick"`
-1. lots of changes to `Data Bindings` see doc at https://www.polymer-project.org/0.9/docs/devguide/data-binding.html
+1. lots of changes to `Data Bindings` see doc at https://www.polymer-project.org/1.0/docs/devguide/data-binding.html
 
 ### Javascript Conversion Process
 1. polymer-element name to `Polymer({ is:`
 1. polymer-element `attributes=""` to javascript `properties: { }`
 1. Use use underscore prefix for private functions `_functionname`
-1. Array mutation methods: 0.9 replaces the array observers with a set of array mutation methods. For array changes to be observed by data bindings, computed properties, or observers, you must use the provided helper methods: `push, pop, splice, shift, and unshift`. Like set, the first argument is a string path to the array.
+1. Array mutation methods: 1.0 replaces the array observers with a set of array mutation methods. For array changes to be observed by data bindings, computed properties, or observers, you must use the provided helper methods: `push, pop, splice, shift, and unshift`. Like set, the first argument is a string path to the array.
 
     ```c
       this.push('users', { first: "Stephen", last: "Maturin" });
@@ -93,7 +96,7 @@ x-style -> custom-style
         console.log('Components are ready');
       });
     ```
-  - see https://github.com/webcomponents/webcomponentsjs#webcomponentsready  
+  - see https://github.com/webcomponents/webcomponentsjs#webcomponentsready
 6. Breaking Change: Mixins replaced by behaviors -- Convert `Polymer(Polymer.mixin({` to
     ```c
       Polymer({
@@ -101,16 +104,16 @@ x-style -> custom-style
         behaviors: [SuperBehavior]
       });
     ```
-  - see https://www.polymer-project.org/0.9/docs/devguide/behaviors.html  
+  - see https://www.polymer-project.org/1.0/docs/devguide/behaviors.html
 
 ### CSS Conversion Process
-see https://www.polymer-project.org/0.9/docs/migration.html#styling
+see https://www.polymer-project.org/1.0/docs/migration.html#styling
 
 1. polymer-element move up `<style></style>` from `<template>` to `<dom-module>` (as noted above)
-  - see https://www.polymer-project.org/0.9/docs/migration.html#styling
+  - see https://www.polymer-project.org/1.0/docs/migration.html#styling
 1. If you are using layout attributes change from `<div layout horizontal center>` to `<div class="layout horizontal center">`
 2. if using layout attributes add hostAttributes ''`hostAttributes: {class: "layout horizontal wrap"}` to Polymer({
-  - see https://www.polymer-project.org/0.9/docs/migration.html#layout-attributes
+  - see https://www.polymer-project.org/1.0/docs/migration.html#layout-attributes
 
 ### Core and Paper Elements Conversion
 The core-x and paper-x are moving to PolymerElements at https://github.com/PolymerElements.
@@ -138,7 +141,7 @@ The core-x and paper-x are moving to PolymerElements at https://github.com/Polym
 |:-------------------- |:-------------------------------------- |
 | paper-material       | is a container that renders two shadows on top of each other to create the effect of a lifted piece of paper. |
 | paper-styles         | imports color.html, default-theme.html, layout.html, typography.html, shadow.html |
-| paper-behaviors  | common behaviors used across paper-* elements |  
+| paper-behaviors  | common behaviors used across paper-* elements |
 http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true
 
 ### Changed core-x to iron-x (partial list)
