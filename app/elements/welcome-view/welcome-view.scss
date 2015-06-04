@@ -12,6 +12,19 @@ paper-header-panel {
   padding: 0;
   background-color: white;  // 7986cb
 }
+
+#welcome_paper_header_panel {
+  // background: url(../../images/road-dirt-camp-far-west-lake.jpg) no-repeat center center fixed;
+  background: url(../../images/rural-road-graphic.jpg) no-repeat center center fixed;
+  background-color: white;  // 7986cb
+  // background-color: #eee;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-background-origin: border;
+}
+
 .paper-header {
   height: 180px;
   background-color: rgb(63,81,181);
@@ -27,7 +40,7 @@ paper-toolbar {
 }
 
 #welcome_toolbar {
-  background-color: #303F9F;
+  background-color: #303F9F // #303F9F;
 }
 
 
@@ -46,20 +59,27 @@ paper-toolbar .tall {
   // margin-top: 15px;
 }
 
-.content {
+.welcome-content {
   height: 100%;
   max-width: 960px;
   padding: 50px;
   font-size: 18px;
 }
 
-footer{
+#welcome_paper-material {
+  padding: 16px 32px;
+  margin: 16px auto;
+  background: #F1F8E9;  //   E8EAF6
+  font-size: 20px;
+  opacity: 0.98;
+}
+
+#welcome_footer {
     width: 100%;
     padding-bottom: 10px;
     text-align: center;
     font-size: 12px;
-    background-color: white;  // 7986cb
-
+    background-color: #F1F8E9; // E8EAF6 white  7986cb
 }
 
 h3 {
