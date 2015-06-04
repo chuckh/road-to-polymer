@@ -86,7 +86,9 @@ paper-toolbar {
 paper-item {
   font-size: 13px !important;
   color: rgba(0,0,0,0.6);
-
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 paper-item.iron-selected {
   color: #4F7DC9;
