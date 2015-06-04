@@ -21,6 +21,7 @@ paper-icon-button.show-hide-button {
   border-radius: 25px;
   width: 25px;
   height: 25px;
+  box-shadow: 3px 3px 3px #E8EAF6;
 }
 
 .sidebar-menu {
@@ -45,6 +46,7 @@ paper-fab.show-hide-button {
 #left_sidebar_toolbar {
   background-color: #3F51B5;  // 7986cb 3F51B5 rgb(63,81,181)
   font-size: 20px;
+  height: 66px;
 }
 
 #left_sidebar_toolbar .toolbar-tools.paper-toolbar {
@@ -109,7 +111,7 @@ iron-icon {
 }
 
 #toolbar_icon {
-  // margin-top: 5px;
+  margin-left: -10px;
 }
 
 .rotate-90 {

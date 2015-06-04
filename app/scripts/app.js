@@ -30,7 +30,7 @@
   });
 
   app.toggleDrawer = function() {
-    console.log('toggleDrawer: ', app.$.drawer_panel.forceNarrow);
+    console.log('toggleDrawer: ', app.$.drawer_panel.forceNarrow, app.$.drawer_panel.narrow);
     //app.$.drawer_panel.forceNarrow = true;
     if (app.$.show_hide_button.icon === 'chevron-left') {
       app.$.show_hide_button.icon = 'chevron-right';
@@ -42,6 +42,16 @@
       app.showHideButtonLeft = '205px;';
     }
     app.$.drawer_panel.togglePanel();
+  };
+
+  app.closeDrawer = function() {
+    if (!app.$.drawer_panel.forceNarrow) {
+      app.$.drawer_panel.forceNarrow = true;
+    }
+    app.$.show_hide_button.icon = 'chevron-right';
+    app.showHideButtonLeft = '8px;';
+    app.$.show_hide_button.toggleClass('sidebar-menu',false);
+    app.$.drawer_panel.closeDrawer();
   };
 
   app.selectMenu = function() {
