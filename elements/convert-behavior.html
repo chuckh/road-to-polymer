@@ -187,6 +187,7 @@ ConvertBehavior = {
     // Convert core elements to iron and paper elements - ()
     convertedCode = convertedCode.replace(/core-drawer-panel/g, "paper-drawer-panel");
     convertedCode = convertedCode.replace(/core-header-panel/g, "paper-header-panel");
+    convertedCode = convertedCode.replace(/core-scroll-header-panel/g, "paper-scroll-header-panel");
     convertedCode = convertedCode.replace(/core-toolbar/g, "paper-toolbar");
     convertedCode = convertedCode.replace(/core-menu/g, "paper-menu");
     convertedCode = convertedCode.replace(/core-item/g, "paper-item");
@@ -200,6 +201,8 @@ ConvertBehavior = {
     convertedCode = convertedCode.replace(/core-input/g, "iron-input");
     convertedCode = convertedCode.replace(/core-localstorage/g, "iron-localstorage");
 
+    convertedCode = convertedCode.replace(/core-list/g, "iron-list");
+
     // for core-media-query
     convertedCode = convertedCode.replace(/core-media-query/g, "iron-media-query");
     convertedCode = convertedCode.replace(/queryMatches=/g, "query-matches=");
@@ -211,6 +214,8 @@ ConvertBehavior = {
     convertedCode = convertedCode.replace(/core-signals/g, "iron-signals");
     convertedCode = convertedCode.replace(/core-collapse/g, "iron-collapse");
 
+    convertedCode = convertedCode.replace(/template-bound/g, "dom-change");
+
 
 
     convertedCode = "<!-- " + this.layoutMessage  + "  -->\n" + convertedCode
@@ -219,16 +224,17 @@ ConvertBehavior = {
     ' - polymer-element default attributes such as tabindex="0" move to hostAttributes: {  tabindex: 0}\n' +
     ' - custom elements correct JSON quotes required, change from <my-element foo="' + "{ 'title': 'Persuasion', 'author': 'Austen' }" + '"> to </my-element> to <my-element foo="' + '{ "title": "Persuasion", "author": "Austen" }' + '"></my-element>\n' +
     ' - custom elements attribute use dash-case not camelCase, change from  <my-element fooBar= to <my-element foo-bar\n' +
-    ' - Polymer( fix mixins use Behaviors after is: see https://www.polymer-project.org/0.9/docs/devguide/behaviors.html\n' +
+    ' - Polymer( fix mixins use Behaviors after is: see https://www.polymer-project.org/1.0/docs/devguide/behaviors.html\n' +
     ' - Check layout attributes replaced by layout classes <div layout horizontal center>` to `<div class="layout horizontal center">, \n' +
     ' - Cleanup class= \n' +
     ' - Convert core- to iron- or paper- replacement elements at PolymerElements\n' +
     ' - Remove unresolved from <body> tag\n' +
     ' - Cleanup iron-ajax params url for embedded bindings {{}}\n' +
     ' - iron-ajax replace this.$.xxx_ajax.abort(); and this.$.xxx_ajax.go(); with this.$.xxx_ajax.generateRequest() \n' +
-    ' - fix indentation as need \n' +
+    ' - Fix iron-list if needed \n' +
+    ' - Fix indentation as need \n' +
     ' - Cleanup Comments to reflect changes ,\n' +
-    ' - see https://www.polymer-project.org/0.9/docs/migration.html\n' +
+    ' - see https://www.polymer-project.org/1.0/docs/migration.html\n' +
     "   -->";
     // ' - ' + this.layoutMessage  + "  -->";
     // console.log("convertedCode: ",convertedCode.substr(0,10));

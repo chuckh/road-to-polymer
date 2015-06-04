@@ -1,6 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
 <link rel="import" href="../../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../../bower_components/paper-material/paper-materia.html">
 
 <dom-module id='marked-file-viewer'  > <!-- CONVERTED WIP -->
 
@@ -33,8 +34,9 @@
       </paper-toolbar>
 
       <div class="content">   <!-- class="fit"  // TODO Convert to class=  CONVERTED WIP  -->
-
-        <marked-element id="file_marked" class="flex"></marked-element>   <!-- class="fit</marked-element>"  // TODO Convert to class=  CONVERTED WIP  -->
+        <paper-material id="marked_paper-material" elevation="3">
+          <marked-element id="file_marked" class="flex"></marked-element>   <!-- class="fit</marked-element>"  // TODO Convert to class=  CONVERTED WIP  -->
+        </paper-material>
 
       </div>
     </paper-header-panel>
