@@ -15,7 +15,7 @@ click Choose File and select local file to convert.
 3. Remove {{}} from on-click, on-tap, on-xxx, others. In Atom editor use {{(.*?)}} to find and $1 using Regex option
 1. Fix Flex css classes
 1. Fix other css classes as need
-1. Add span wrappers for bindings `<span>{{}}</span>` 
+1. Add span wrappers for bindings `<span>{{}}</span>`
 1. Update
 
 
