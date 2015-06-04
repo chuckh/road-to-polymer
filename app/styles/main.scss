@@ -105,3 +105,24 @@ paper-item.iron-selected {
 iron-icon {
   padding-right: 10px;
 }
+
+#toolbar_icon {
+  // margin-top: 5px;
+}
+
+.rotate-90 {
+  margin-top: 5px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.rotate-135 {
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+}

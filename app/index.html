@@ -46,13 +46,16 @@
 
           <!-- Drawer Toolbar -->
           <paper-toolbar id="left_sidebar_toolbar">
-            <iron-icon icon="polymer" on-tap="drawerToggle"></iron-icon>
+            <!-- <iron-icon id="toolbar_icon" class="rotate-90" icon="polymer" on-tap="drawerToggle"></iron-icon> -->
+            <iron-icon id="toolbar_icon" src="images/Road_perspective_of_curves_32.png" on-tap="drawerToggle"></iron-icon>
+
+
             <span>{{appName}}</span>
           </paper-toolbar>
 
           <!-- Drawer Content -->
           <paper-menu id="sidebar_menu" selected="{{page}}" class="sidebar-menu" on-iron-select="selectMenu" style="font-size:9px; padding-top: 3px;">
-            <paper-item><iron-icon icon="polymer" item-icon></iron-icon>Welcome</paper-item>
+            <paper-item><iron-icon icon="info" item-icon></iron-icon>Welcome</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Repositories Status Report</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Polymer Elements Coverted</paper-item>
             <paper-item><iron-icon icon="label-outline" item-icon></iron-icon>Conversion Process Notes</paper-item>
