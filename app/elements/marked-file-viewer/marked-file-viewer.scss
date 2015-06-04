@@ -58,12 +58,18 @@ paper-toolbar .tall {
   font-size: 18px;
 }
 
+#marked_paper-material {
+  padding: 16px 32px;
+  margin: 16px auto;
+  background: #E8EAF6;
+}
+
 footer{
   width: 100%;
   padding-bottom: 10px;
   text-align: center;
   font-size: 12px;
-  background-color: white;  // 7986cb
+  background-color: #E8EAF6; //white  7986cb
 }
 
 h3 {
