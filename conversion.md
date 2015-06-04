@@ -170,6 +170,10 @@ http://chuckh.github.io/road-to-polymer/repos-compare.html?load=true
 | iron-meta            | is a element for creating and accessing self-organizing meta-database |
 | iron-state-behaviors | bahaviors that manage control states like 'focused', 'disabled', and 'active' |
 
+### Remove Comments
+Find HTML comments with Regex: `<!--(.*?)-->`
+Find Javascript comments with Regex: `(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)`
+
 ### Difference example of core-item auto conversion by compare-code
 http://www.mergely.com/Be505kqQ/
 
