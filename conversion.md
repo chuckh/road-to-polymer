@@ -6,7 +6,7 @@ and **https://www.polymer-project.org/1.0/docs/release-notes.html**
 
 ---
 
-These high level conversion steps are a work in progress and don't cover every step yet.
+These high level conversion steps are a work in progress and don't cover every step yet. You can use Road to Polymer's Convert Code tool to help do many of the steps below at http://chuckh.github.io/road-to-polymer/convert-code.html.
 
 ### HTML Conversion Process
 
