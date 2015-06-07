@@ -52,6 +52,7 @@
     app.showHideButtonLeft = '8px;';
     app.$.show_hide_button.toggleClass('sidebar-menu',false);
     app.$.drawer_panel.closeDrawer();
+    app.smallScreen = true;
   };
 
   app.selectMenu = function() {
